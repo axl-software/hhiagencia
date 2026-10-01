@@ -4,9 +4,9 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Menu, X } from 'lucide-react'
-import { CONFIG } from '@/lib/config'
 import { NAV } from '@/lib/nav'
 import TemaToggle from './TemaToggle'
+import Redes from './Redes'
 import s from './Header.module.css'
 
 function Logo({ onClick }: { onClick?: () => void }) {
@@ -59,9 +59,6 @@ export default function Header() {
 
         <div className={s.right}>
           <TemaToggle className={s.tema} />
-          <a className={`${s.link} ${s.mute}`} href={`https://instagram.com/${CONFIG.instagram}`} target="_blank" rel="noopener noreferrer">
-            Instagram
-          </a>
           <span className={`btn-giro-wrap ${s.ctaDesk}`}>
             <Link className="btn-giro" href="/contacto"><span>Agenda una reunión</span></Link>
           </span>
@@ -90,9 +87,7 @@ export default function Header() {
             ))}
           </ul>
           <div className={s.menuFoot}>
-            <a className={s.link} href={`https://instagram.com/${CONFIG.instagram}`} target="_blank" rel="noopener noreferrer">
-              @{CONFIG.instagram}
-            </a>
+            <Redes />
             <span className="btn-giro-wrap">
               <Link className="btn-giro btn-giro-lg" href="/contacto" onClick={close}><span>Agenda una reunión</span></Link>
             </span>

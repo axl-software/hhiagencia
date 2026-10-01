@@ -70,4 +70,7 @@ No vector (SVG) version exists yet. Do not trace or redraw one without approval.
 - Instagram: **@hhiagencia.cl** (HHA's own account). `@hh.condireccion` belongs to Herberth's personal brand and must not be used as HHA's channel.
 - Phone / WhatsApp: **+56 9 3925 3239** (`56939253239`). On the website it is shown as text with a call link (`tel:`). No floating WhatsApp button and no direct `wa.me` links in contact or footer, to reduce spam and bots (founders' decision). The contact form may still open WhatsApp with the visitor's message after they fill it in.
 - Facebook and TikTok: accounts to be linked; the site shows each icon only once its URL is set.
+- The header shows no social links (only theme toggle and “Agenda una reunión”); social icons live in the footer and mobile menu.
+- Herberth's personal-brand Instagram is linked only from his team card (handle pending confirmation: `soyherberthgaray`). `@hh.condireccion` is HH Studio Creativo's account, not HHA's.
+- Location wording in the footer: “Base en Valparaíso · Trabajamos en todo Chile”.
 - Email: **hhadigitalsolutions@gmail.com**.

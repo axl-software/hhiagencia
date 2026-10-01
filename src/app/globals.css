@@ -50,7 +50,7 @@
   --field:rgba(148,163,184,.55);
   --tx:#F8FAFC;--tx2:#94A3B8;--mut:#94A3B8;
   --red:#D7263D;--dot:#D7263D;--redtx:var(--tx2);--on-red:#F8FAFC;
-  --header-bg:rgba(5,7,10,.82);--shadow:none;
+  --header-bg:rgba(5,7,10,.82);--shadow:none;--cta-bg:var(--red);
   --f-impact:"Archivo Black",sans-serif;--f-head:"Space Grotesk",sans-serif;--f-body:Inter,sans-serif;--f-mono:"JetBrains Mono",monospace;
 }
 
@@ -60,18 +60,12 @@
    Líneas y bordes: azul noche con transparencia. */
 :root[data-theme="light"]{
   color-scheme:light;
-  --bg:#F1ECE2;--bg2:#E9E2D5;--deep:#0B1020;
+  --bg:#F1ECE2;--bg2:#E9E2D5;--deep:#E9E2D5;
   --line:rgba(11,16,32,.10);--line2:rgba(11,16,32,.16);--line3:rgba(11,16,32,.28);
   --field:rgba(11,16,32,.5);
   --tx:#05070A;--tx2:#5C5D64;--mut:#5C5D64;--redtx:var(--tx2);
-  --header-bg:rgba(241,236,226,.9);
+  --header-bg:rgba(241,236,226,.9);--cta-bg:#0B1020;
   --shadow:0 1px 2px rgba(11,16,32,.06),0 8px 24px rgba(11,16,32,.06);
-}
-/* El footer es Midnight Navy en ambos temas: dentro de él rigen los colores del modo oscuro */
-:root[data-theme="light"] footer{
-  color-scheme:dark;
-  --bg2:#0B1020;--tx:#F8FAFC;--tx2:#94A3B8;--mut:#94A3B8;--redtx:#94A3B8;
-  --line:rgba(148,163,184,.14);--line2:rgba(148,163,184,.22);--line3:rgba(148,163,184,.36);
 }
 /* Logo: versión blanca sobre oscuro y azul sobre claro */
 .solo-claro{display:none !important}
@@ -96,7 +90,11 @@ footer .pie-marca{display:flex;flex-direction:column;gap:14px}
 footer .pie-col{display:flex;flex-direction:column;align-items:flex-start;gap:4px;font-size:14px;font-weight:600}
 footer .pie-col a{text-decoration:none;padding:8px 0}
 footer .pie-titulo{font-family:var(--f-mono);font-size:12px;font-weight:400;letter-spacing:1.5px;text-transform:uppercase;color:var(--mut);margin-bottom:6px}
-footer .pie-base{border-top:1px solid var(--line);padding-top:20px;padding-bottom:28px;font-size:13px;color:var(--mut)}
+footer .pie-base{border-top:1px solid var(--line);padding-top:20px;padding-bottom:28px;font-size:13px;color:var(--mut);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px 24px}
+footer .pie-legal{display:flex;flex-wrap:wrap;gap:4px 20px}
+footer .pie-legal a{color:var(--mut);text-decoration:none;padding:8px 0}footer .pie-legal a:hover{color:var(--tx);text-decoration:underline;text-decoration-color:var(--red);text-underline-offset:4px}
+footer .pie-lema{display:flex;flex-direction:column;gap:4px;font-size:14px;color:var(--tx2);max-width:380px}
+footer .pie-lema span{font-family:var(--f-mono);font-size:12px;letter-spacing:.5px;color:var(--mut)}
 @media (max-width:760px){footer .pie{grid-template-columns:1fr 1fr}footer .pie-marca{grid-column:1/-1}}
 }
 
@@ -178,7 +176,8 @@ footer .pie-base{border-top:1px solid var(--line);padding-top:20px;padding-botto
 .rv-nav button{min-height:48px;min-width:48px;border-radius:50%;border:1.5px solid var(--line3);background:transparent;color:var(--tx);cursor:pointer;font-size:18px}
 
 /* CTA */
-.cta{background:var(--red)}
+/* banda de cierre: roja en oscuro, azul noche en claro (--cta-bg) */
+.cta{background:var(--cta-bg)}
 .cta .wrap{display:flex;flex-wrap:wrap;gap:32px;align-items:center;justify-content:space-between;padding-top:clamp(64px,9vw,110px);padding-bottom:clamp(64px,9vw,110px)}
 .cta-txt{flex:1 1 520px;display:flex;flex-direction:column;gap:14px}
 .cta h2{color:var(--on-red);font-size:clamp(32px,4.5vw,60px)}
@@ -217,9 +216,19 @@ input[aria-invalid="true"]{border-color:var(--red);box-shadow:0 0 0 1px var(--re
 .team-body{display:flex;flex-direction:column;gap:10px;min-width:0}
 .team-card .card-t{margin:0}
 .team-credit{font-family:var(--f-mono);font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--redtx)}
+.team-ig{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;min-height:32px;font-size:14px;font-weight:600;text-decoration:none;color:var(--tx)}
+.team-ig svg{color:var(--red)}.team-ig:hover{text-decoration:underline;text-decoration-color:var(--red);text-underline-offset:4px}
 .team-tags{display:flex;flex-wrap:wrap;gap:6px 14px;font-family:var(--f-mono);font-size:12px;color:var(--mut)}
 .team-tags span::before{content:"● ";color:var(--red);font-size:9px;vertical-align:2px}
 @media (max-width:480px){.team-card{flex-direction:column}.team-ph{width:100%;max-width:280px}}
+/* páginas legales */
+.legal{max-width:800px}
+.legal h1{margin-bottom:8px}
+.legal h2{font-family:var(--f-head);font-weight:600;font-size:22px;letter-spacing:-.01em;margin:36px 0 10px}
+.legal p,.legal li{color:var(--tx2);font-size:16px;line-height:1.7;margin:0 0 10px}
+.legal ul{margin:0 0 10px;padding-left:20px}
+.legal a{color:var(--tx);text-decoration:underline;text-decoration-color:var(--red);text-underline-offset:4px}
+
 /* redes sociales */
 .redes{list-style:none;margin:6px 0 0;padding:0;display:flex;gap:10px}
 .redes a{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;border:1.5px solid var(--line3);color:var(--tx);transition:background-color .25s ease,border-color .25s ease,color .25s ease}

@@ -10,5 +10,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/servicios`, lastModified: hoy, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${BASE}/contacto`, lastModified: hoy, changeFrequency: 'yearly', priority: 0.8 },
     { url: `${BASE}/casos-y-resenas`, lastModified: hoy, changeFrequency: 'monthly', priority: 0.6 },
+    ...['privacidad', 'terminos', 'seguridad'].map((p) => ({
+      url: `${BASE}/${p}`, lastModified: hoy, changeFrequency: 'yearly' as const, priority: 0.2,
+    })),
   ]
 }

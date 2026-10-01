@@ -1,4 +1,5 @@
 import type { CSSProperties } from 'react'
+import { siInstagram } from 'simple-icons'
 import { CONFIG } from '@/lib/config'
 import { Kicker, Title, type Level } from './Heading'
 
@@ -26,6 +27,12 @@ export default function Equipo({ as = 'h2' }: { as?: Level }) {
               <div className="team-credit">{p.rol}</div>
               <h3 className="card-t">{p.nombre}</h3>
               <p className="muted" style={{ margin: 0 }}>{p.bio}</p>
+              {p.instagram && (
+                <a className="team-ig" href={`https://instagram.com/${p.instagram}`} target="_blank" rel="noopener noreferrer">
+                  <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="currentColor"><path d={siInstagram.path} /></svg>
+                  @{p.instagram}
+                </a>
+              )}
               <div className="team-tags">
                 {p.tags.map((t) => <span key={t}>{t}</span>)}
               </div>

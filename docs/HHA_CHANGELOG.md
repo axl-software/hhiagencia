@@ -2,6 +2,13 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-10-01 — Light-mode band and footer, legal pages, guide name
+- **Supersedes** “footer navy in both themes”: in light mode the closing band is Midnight Navy and the footer is Sand; dark mode unchanged.
+- Hero guide renamed from “¿Qué plan necesito?” to “Descubre qué necesita tu negocio” (help understand the need, not sell a plan).
+- Header: Instagram link removed. Herberth's card links to his personal-brand Instagram (handle to confirm).
+- Alexander's photo added.
+- Footer: “Base en Valparaíso · Trabajamos en todo Chile” and legal links. Draft pages: Privacidad, Términos, Seguridad (factual drafts; legal review required before publishing).
+
 ## 2026-10-01 — Contact without direct WhatsApp, plan guide
 - **Supersedes** the floating “Hablemos” WhatsApp button: removed for spam/bot protection. Phone shown as text with a call link in contact and footer.
 - Footer: contact column with phone, email and social icons (Instagram; Facebook and TikTok once their URLs are provided).

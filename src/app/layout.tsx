@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { CONFIG } from '@/lib/config'
-import { TEMA_SCRIPT } from '@/lib/tema'
+import TemaScript from '@/components/TemaScript'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -59,10 +59,11 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
-    // suppressHydrationWarning: el script de tema agrega data-theme antes de que React cargue
-    <html lang="es-CL" suppressHydrationWarning>
+    // suppressHydrationWarning: el script de tema agrega data-theme antes de que React cargue.
+    // data-scroll-behavior: Next 16 lo pide para desactivar el desplazamiento suave al cambiar de página.
+    <html lang="es-CL" suppressHydrationWarning data-scroll-behavior="smooth">
       <head>
-        <script dangerouslySetInnerHTML={{ __html: TEMA_SCRIPT }} />
+        <TemaScript />
       </head>
       <body>
         <script

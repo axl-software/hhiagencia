@@ -8,6 +8,11 @@
 - MailerLite
 - LinkDM
 
+## Domain and hosting
+- Domain: **hhiagencia.cl**, registered at **NIC Chile**. Herberth holds the main account access; access is shared with Alexander.
+- Code: GitHub repository `axl-software/hhiagencia` (Alexander's account; Herberth is a collaborator).
+- Hosting: Vercel (pending connection). Changes are prepared on a working branch and reach `main` only through a pull request approved by the founders.
+
 ## Roles
 ### Herberth Garay
 Marketing, content, lead magnets, client-facing strategy, sales and business direction.

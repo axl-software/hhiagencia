@@ -4,6 +4,7 @@ import Footer from '@/components/Footer'
 import { CONFIG } from '@/lib/config'
 import TemaScript from '@/components/TemaScript'
 import Revelar from '@/components/Revelar'
+import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -75,6 +76,8 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
         <main>{children}</main>
         <Footer />
         <Revelar />
+        {/* Vercel Web Analytics: sin cookies y anónimo; eventos en src/lib/medir.ts */}
+        <Analytics />
       </body>
     </html>
   )

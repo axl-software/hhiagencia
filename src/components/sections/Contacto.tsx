@@ -2,16 +2,16 @@
 
 import { useState, type FormEvent } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { CONFIG, igDmUrl, telHref, telVisible, waUrl } from '@/lib/config'
-import Redes from '../Redes'
+import { CONFIG, telHref, telVisible } from '@/lib/config'
+import { armarMensaje, enviar, validar } from '@/lib/contacto'
+import { respuestasLegibles } from '@/lib/diagnostico'
 import { Kicker, Title, type Level } from './Heading'
-
-const EMAIL_OK = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+import Redes from '../Redes'
 
 /* Formulario corto para cotizar: nombre (persona o proyecto), de qué se trata el negocio,
-   servicios (llegan marcados desde /servicios con ?servicios=a,b) y correo y/o teléfono.
-   Envía por WhatsApp; si también hay email, ofrece enviarlo por correo. Sin ninguno de los
-   dos, copia el mensaje y ofrece el chat de Instagram.
+   servicios y correo y/o teléfono. Lee ?servicios=a,b (de /servicios o del diagnóstico) y, si viene
+   del diagnóstico, ?prioridad=&web=&etapa= para incluir esas respuestas en el mensaje.
+   En móvil el formulario va antes que los datos de contacto (globals.css → .contacto).
    Usa useSearchParams: la página debe envolverlo en <Suspense>. */
 export default function Contacto({ as = 'h2' }: { as?: Level }) {
   const params = useSearchParams()
@@ -26,78 +26,57 @@ export default function Contacto({ as = 'h2' }: { as?: Level }) {
       return next
     })
   const sel = CONFIG.servicios.filter((s) => picked.has(s.id))
+  const diagnostico = respuestasLegibles({
+    prioridad: params.get('prioridad') ?? '',
+    web: params.get('web') ?? '',
+    etapa: params.get('etapa') ?? '',
+  })
 
-  const wa = waUrl()
   const [msg, setMsg] = useState('')
   const [error, setError] = useState<{ campo: string; texto: string } | null>(null)
-  const [igListo, setIgListo] = useState(false)
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const form = e.currentTarget
     const f = new FormData(form)
     const val = (k: string) => String(f.get(k) ?? '').trim()
+    const datos = { nombre: val('nombre'), email: val('email'), telefono: val('telefono') }
+
     /* Los dos botones necesitan los mismos datos para armar el mensaje: si falta algo,
        se avisa arriba del botón y se marca el campo. */
-    const falta = (campo: string, texto: string) => {
+    const falta = validar(datos)
+    if (falta) {
       setMsg('')
-      setError({ campo, texto })
-      form.querySelector<HTMLInputElement>(`[name="${campo}"]`)?.focus()
+      setError(falta)
+      form.querySelector<HTMLInputElement>(`[name="${falta.campo}"]`)?.focus()
+      return
     }
-    if (!val('nombre')) return falta('nombre', 'Escribe tu nombre o el de tu proyecto para continuar.')
-    if (!val('email') && !val('telefono')) return falta('email', 'Déjanos tu correo o tu teléfono para poder responderte.')
-    if (val('email') && !EMAIL_OK.test(val('email'))) return falta('email', 'Revisa tu correo: parece que le falta algo.')
     setError(null)
 
-    const text = `Hola HHiAgencia, soy ${val('nombre')}.
-Mi negocio o proyecto: ${val('negocio') || '-'}
-Me interesa: ${sel.map((s) => s.nombre).join(', ') || 'Por definir'}
-Correo: ${val('email') || '-'}
-Teléfono: ${val('telefono') || '-'}`
-
-    const via = ((e.nativeEvent as SubmitEvent).submitter as HTMLButtonElement | null)?.value
-    const waText = waUrl(text)
-    if (waText && via !== 'email') {
-      window.open(waText, '_blank', 'noopener')
-      setMsg('Abrimos WhatsApp con tu mensaje listo: solo falta enviarlo.')
-    } else if (CONFIG.email) {
-      /* El enlace de correo depende de que el visitante tenga una app de correo configurada:
-         por si no se abre, el mensaje queda copiado y se muestra la dirección. */
-      try {
-        await navigator.clipboard.writeText(text)
-      } catch {
-        /* sin portapapeles: igual se intenta abrir el correo */
-      }
-      window.location.href = `mailto:${CONFIG.email}?subject=${encodeURIComponent('Solicitud de cotización · HHiAgencia')}&body=${encodeURIComponent(text)}`
-      setMsg(`Abrimos tu correo con el mensaje listo. Si no se abrió, escríbenos a ${CONFIG.email}: tu mensaje ya está copiado, solo pégalo.`)
-    } else {
-      try {
-        await navigator.clipboard.writeText(text)
-        setMsg('Listo: copiamos tu mensaje. Abre el chat y pégalo.')
-      } catch {
-        setMsg('Abre el chat y cuéntanos lo que escribiste aquí.')
-      }
-      setIgListo(true)
-    }
+    const via = ((e.nativeEvent as SubmitEvent).submitter as HTMLButtonElement | null)?.value === 'email' ? 'email' : 'whatsapp'
+    const texto = armarMensaje({ ...datos, negocio: val('negocio'), servicios: sel.map((s) => s.nombre), diagnostico })
+    setMsg(await enviar(texto, via, 'formulario'))
   }
 
   return (
-    <section className="wrap sec split" style={{ alignItems: 'flex-start' }}>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 22 }}>
+    <section className="wrap sec contacto">
+      <div className="contacto-intro">
         <Kicker style={{ margin: 0 }}>CONTACTO</Kicker>
         <Title as={as}>Agenda una reunión</Title>
         <p className="lead">Cuéntanos qué necesitas y llegamos a la reunión con una propuesta, no con preguntas.</p>
-        <div className="channels">
-          {CONFIG.whatsapp && <a href={telHref()}><span className="mono">TELÉFONO</span><strong>{telVisible()}</strong></a>}
-          {CONFIG.email && <a href={`mailto:${CONFIG.email}`}><span className="mono">CORREO</span><strong>{CONFIG.email}</strong></a>}
-          <a href={`https://instagram.com/${CONFIG.instagram}`} target="_blank" rel="noopener noreferrer"><span className="mono">INSTAGRAM</span><strong>@{CONFIG.instagram}</strong></a>
-          <div><span className="mono">REDES</span><Redes /></div>
-          <div><span className="mono">BASE</span><strong>Región de Valparaíso</strong></div>
-          <div><span className="mono">ATENDEMOS</span><strong>Todo Chile</strong></div>
-        </div>
+        {diagnostico.length > 0 && (
+          <p className="note">Ya tenemos tus respuestas del diagnóstico: van incluidas en tu mensaje.</p>
+        )}
       </div>
 
-      <form onSubmit={onSubmit} noValidate>
+      <div className="channels contacto-canales">
+        {CONFIG.whatsapp && <a href={telHref()}><span className="mono">TELÉFONO</span><strong>{telVisible()}</strong></a>}
+        {CONFIG.email && <a href={`mailto:${CONFIG.email}`}><span className="mono">CORREO</span><strong>{CONFIG.email}</strong></a>}
+        <div><span className="mono">REDES</span><Redes /></div>
+        <div><span className="mono">BASE</span><strong>Valparaíso · Trabajamos en todo Chile</strong></div>
+      </div>
+
+      <form className="contacto-form" onSubmit={onSubmit} noValidate>
         <label>Nombre (tuyo o de tu proyecto)<input id="nombre" name="nombre" autoComplete="name" required aria-invalid={error?.campo === 'nombre' || undefined} /></label>
         <label>¿De qué se trata tu negocio o proyecto?<input id="negocio" name="negocio" placeholder="Ej: cafetería, consultora, marca de ropa" /></label>
         <fieldset>
@@ -114,14 +93,11 @@ Teléfono: ${val('telefono') || '-'}`
         </div>
         <p className="note" style={{ marginTop: -10 }}>Con uno de los dos basta.</p>
         {error && <p className="form-error" role="alert">{error.texto}</p>}
-        <button className="btn btn-red" type="submit" name="via" value="principal" style={{ minHeight: 56, fontSize: 16 }}>Solicita cotización →</button>
-        {wa && CONFIG.email && (
+        <button className="btn btn-red" type="submit" name="via" value="whatsapp" style={{ minHeight: 56, fontSize: 16 }}>Solicita cotización →</button>
+        {CONFIG.email && (
           <button className="link-btn" type="submit" name="via" value="email">o envíala por correo</button>
         )}
         <p className="note" role="status">{msg}</p>
-        {igListo && (
-          <a className="btn btn-out" href={igDmUrl()} target="_blank" rel="noopener noreferrer">Abrir chat de Instagram →</a>
-        )}
       </form>
     </section>
   )

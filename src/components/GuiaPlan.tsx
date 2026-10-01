@@ -1,61 +1,27 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type FormEvent } from 'react'
 import Link from 'next/link'
 import { ArrowLeft, ArrowRight, RotateCcw, X } from 'lucide-react'
 import { CONFIG } from '@/lib/config'
+import { armarMensaje, enviar, validar } from '@/lib/contacto'
+import { PREGUNTAS, recomendar, respuestasLegibles } from '@/lib/diagnostico'
+import { medir } from '@/lib/medir'
 
-/* Guía "Descubre qué necesita tu negocio": tres preguntas que recomiendan un plan web (Start, Business o Pro)
-   o cualquiera de las otras líneas de servicio, y dejan la recomendación marcada para cotizar
-   (/contacto?servicios=a,b). Prioriza la web cuando el negocio no tiene una que le sirva. */
-
-type Prioridad = 'web' | 'automatizacion' | 'marketing' | 'contenido' | 'ia' | 'acompanamiento'
-type EstadoWeb = 'no' | 'mala' | 'ok'
-type Etapa = 'empezando' | 'creciendo' | 'online'
-
-const PREGUNTAS = [
-  {
-    titulo: '¿Qué es lo más importante para tu negocio hoy?',
-    opciones: [
-      ['web', 'Tener una web o mejorar la que tengo'],
-      ['automatizacion', 'Ahorrar tiempo automatizando tareas'],
-      ['marketing', 'Conseguir más clientes'],
-      ['contenido', 'Tener contenido para mis redes'],
-      ['ia', 'Aprender a usar IA en mi negocio'],
-      ['acompanamiento', 'Ayuda para implementar herramientas digitales'],
-    ],
-  },
-  {
-    titulo: '¿Tu negocio tiene sitio web?',
-    opciones: [
-      ['no', 'No, todavía no'],
-      ['mala', 'Sí, pero no me trae clientes'],
-      ['ok', 'Sí, y funciona bien'],
-    ],
-  },
-  {
-    titulo: '¿En qué etapa está tu negocio?',
-    opciones: [
-      ['empezando', 'Estoy empezando'],
-      ['creciendo', 'Ya vendo y quiero crecer'],
-      ['online', 'Quiero vender online o necesito algo a medida'],
-    ],
-  },
-] as const
-
-const PLAN_POR_ETAPA: Record<Etapa, string> = { empezando: 'web-start', creciendo: 'web-business', online: 'web-pro' }
-
-/** Devuelve los ids recomendados: el principal primero. */
-function recomendar(p: Prioridad, w: EstadoWeb, e: Etapa): string[] {
-  const plan = PLAN_POR_ETAPA[e]
-  if (p === 'web') return [plan]
-  return w === 'ok' ? [p] : [p, plan]
-}
-
-export default function GuiaPlan({ className = 'btn-giro btn-giro-lg' }: { className?: string }) {
+/* Diagnóstico "Descubre qué necesita tu negocio": tres preguntas, una recomendación y, en la misma
+   ventana, nombre y contacto para enviar todo (respuestas incluidas) sin cambiar de página.
+   Se usa en la portada (botón principal) y en Servicios ("Hacer diagnóstico"). */
+export default function GuiaPlan({
+  etiqueta = 'Descubre qué necesita tu negocio',
+  className = 'btn-giro btn-giro-lg',
+  giro = true,
+  origen = 'portada',
+}: { etiqueta?: string; className?: string; giro?: boolean; origen?: string }) {
   const dialogo = useRef<HTMLDialogElement>(null)
   const [abierta, setAbierta] = useState(false)
   const [respuestas, setRespuestas] = useState<string[]>([])
+  const [error, setError] = useState<{ campo: string; texto: string } | null>(null)
+  const [msg, setMsg] = useState('')
 
   useEffect(() => {
     if (abierta && !dialogo.current?.open) dialogo.current?.showModal()
@@ -63,23 +29,54 @@ export default function GuiaPlan({ className = 'btn-giro btn-giro-lg' }: { class
 
   const paso = respuestas.length
   const listo = paso === PREGUNTAS.length
-  const ids = listo ? recomendar(respuestas[0] as Prioridad, respuestas[1] as EstadoWeb, respuestas[2] as Etapa) : []
+  const ids = listo ? recomendar(respuestas) : []
   const recomendados = ids.map((id) => CONFIG.servicios.find((s) => s.id === id)).filter((s) => s !== undefined)
+  const valores = { prioridad: respuestas[0] ?? '', web: respuestas[1] ?? '', etapa: respuestas[2] ?? '' }
+  const hrefFormulario = `/contacto?${new URLSearchParams({ servicios: ids.join(','), ...valores }).toString()}`
 
   const abrir = () => {
     setRespuestas([])
+    setError(null)
+    setMsg('')
     setAbierta(true)
+    medir('guia_inicio', { origen })
   }
   const cerrar = () => dialogo.current?.close()
+  const responder = (valor: string) => {
+    const nuevas = [...respuestas, valor]
+    setRespuestas(nuevas)
+    if (nuevas.length === PREGUNTAS.length) medir('guia_fin', { origen, recomendacion: recomendar(nuevas).join(',') })
+  }
+
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const form = e.currentTarget
+    const f = new FormData(form)
+    const val = (k: string) => String(f.get(k) ?? '').trim()
+    const datos = { nombre: val('nombre'), email: val('email'), telefono: val('telefono') }
+    const falta = validar(datos)
+    if (falta) {
+      setMsg('')
+      setError(falta)
+      form.querySelector<HTMLInputElement>(`[name="${falta.campo}"]`)?.focus()
+      return
+    }
+    setError(null)
+    const via = ((e.nativeEvent as SubmitEvent).submitter as HTMLButtonElement | null)?.value === 'email' ? 'email' : 'whatsapp'
+    const texto = armarMensaje({ ...datos, servicios: recomendados.map((s) => s.nombre), diagnostico: respuestasLegibles(valores) })
+    setMsg(await enviar(texto, via, 'diagnostico'))
+  }
+
+  const boton = (
+    <button type="button" className={className} onClick={abrir}>
+      <span>{etiqueta}</span>
+      <ArrowRight size={18} strokeWidth={2.25} aria-hidden="true" />
+    </button>
+  )
 
   return (
     <>
-      <span className="btn-giro-wrap">
-        <button type="button" className={className} onClick={abrir}>
-          <span>Descubre qué necesita tu negocio</span>
-          <ArrowRight size={18} strokeWidth={2.25} aria-hidden="true" />
-        </button>
-      </span>
+      {giro ? <span className="btn-giro-wrap">{boton}</span> : boton}
 
       <dialog
         ref={dialogo}
@@ -103,7 +100,7 @@ export default function GuiaPlan({ className = 'btn-giro btn-giro-lg' }: { class
                 <h3 id="guia-titulo" className="card-t" style={{ margin: 0, paddingRight: 44 }}>{PREGUNTAS[paso].titulo}</h3>
                 <div className="guia-opciones">
                   {PREGUNTAS[paso].opciones.map(([valor, texto]) => (
-                    <button key={valor} type="button" className="opcion" onClick={() => setRespuestas([...respuestas, valor])}>
+                    <button key={valor} type="button" className="opcion" onClick={() => responder(valor)}>
                       {texto}
                       <ArrowRight size={16} strokeWidth={2} aria-hidden="true" />
                     </button>
@@ -129,15 +126,28 @@ export default function GuiaPlan({ className = 'btn-giro btn-giro-lg' }: { class
                     </div>
                   ))}
                 </div>
-                <p className="note">Es una guía rápida: en el diagnóstico afinamos la propuesta contigo.</p>
-                <div className="modal-acciones">
-                  <Link className="btn btn-red" href={`/contacto?servicios=${ids.join(',')}`} onClick={cerrar}>Solicita cotización →</Link>
-                  <Link className="btn btn-out" href="/servicios" onClick={cerrar}>Ver todos los servicios</Link>
+
+                {/* Contacto en la misma ventana: las respuestas van incluidas en el mensaje */}
+                <form className="guia-form" onSubmit={onSubmit} noValidate>
+                  <p className="muted" style={{ margin: 0 }}>Déjanos tus datos y te escribimos con una propuesta para tu caso.</p>
+                  <label>Nombre (tuyo o de tu proyecto)<input id="guia-nombre" name="nombre" autoComplete="name" aria-invalid={error?.campo === 'nombre' || undefined} /></label>
+                  <div className="two">
+                    <label>Teléfono o WhatsApp<input id="guia-telefono" name="telefono" type="tel" autoComplete="tel" inputMode="tel" placeholder="+56 9 1234 5678" /></label>
+                    <label>Correo<input id="guia-email" name="email" type="email" autoComplete="email" inputMode="email" aria-invalid={error?.campo === 'email' || undefined} /></label>
+                  </div>
+                  {error && <p className="form-error" role="alert">{error.texto}</p>}
+                  <button className="btn btn-red" type="submit" name="via" value="whatsapp">Enviar por WhatsApp →</button>
+                  {CONFIG.email && <button className="link-btn" type="submit" name="via" value="email">o envíalo por correo</button>}
+                  <p className="note" role="status">{msg}</p>
+                </form>
+
+                <div className="guia-pie">
+                  <Link href={hrefFormulario} onClick={cerrar} className="link-btn">Prefiero el formulario completo</Link>
+                  <button type="button" className="link-btn" onClick={() => setRespuestas([])}>
+                    <RotateCcw size={14} strokeWidth={2} aria-hidden="true" style={{ display: 'inline', verticalAlign: -2, marginRight: 6 }} />
+                    Volver a empezar
+                  </button>
                 </div>
-                <button type="button" className="link-btn" style={{ alignSelf: 'flex-start' }} onClick={() => setRespuestas([])}>
-                  <RotateCcw size={14} strokeWidth={2} aria-hidden="true" style={{ display: 'inline', verticalAlign: -2, marginRight: 6 }} />
-                  Volver a empezar
-                </button>
               </>
             )}
           </div>

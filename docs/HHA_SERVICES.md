@@ -57,6 +57,18 @@ Not to be presented as mature offers unless approved:
 - advanced dashboards,
 - client portals.
 
+## Website presentation: problem → solution
+Approved after an external advisor review: clients know their problem, not the technical name of the solution. The Servicios page shows web plans, then problems with their solution packs, then “Ver todos los servicios”.
+- ¿Necesitas conseguir más clientes? → Marketing digital + Web Business + Captación de clientes.
+- ¿Pierdes tiempo en tareas manuales? → Automatización + Consultoría y capacitación en IA.
+- ¿Tu negocio no transmite profesionalismo online? → Web Business + Creación de contenido.
+- ¿Tienes herramientas, pero ninguna trabaja junta? → Automatización + Acompañamiento digital.
+
+Visitors can pick one service, two, or the full pack; the full pack is labeled “Recomendado”. No discount is shown until prices are approved.
+“Integraciones” is not offered as a separate service yet (see Tech Stack → API status).
+“Captación de clientes” is shown as its own line; it is the lead-capture part of Automation.
+Delivery times are not public: they are defined in the meeting, per project.
+
 ## Contract logic
 Websites:
 - implementation fee,

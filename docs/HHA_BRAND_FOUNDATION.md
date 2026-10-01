@@ -20,6 +20,8 @@ Website hero variant (approved): “Ayudamos a marcas, creadores y empresas con 
 ## Primary hook
 **Digitaliza. Automatiza. Escala.**
 
+Website hero (approved, SEO-driven): small pre-title “Creamos sistemas digitales que ayudan a tu negocio a vender y operar mejor.”, then the hook in small caps “DIGITALIZA · AUTOMATIZA · ESCALA”, and the big headline “Desarrollo web. / Automatizaciones. / Llega a más clientes.” (searchable terms in the H1).
+
 ## Brand essence
 HHA connects strategy, technology, marketing, automation and digital execution.
 

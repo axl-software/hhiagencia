@@ -13,6 +13,9 @@
 - Code: GitHub repository `axl-software/hhiagencia` (Alexander's account; Herberth is a collaborator).
 - Hosting: **Vercel Pro** (active plan, suitable for commercial use). The hhiagencia project is pending connection. Changes are prepared on a working branch and reach `main` only through a pull request approved by the founders.
 
+## Analytics
+Vercel Web Analytics (included in Vercel Pro; anonymous, no cookies). Custom events: `guia_inicio`, `guia_fin`, `servicio_agregado`, `formulario_enviado` (channel and origin). Chosen over Plausible/Umami to avoid another account and cost. The privacy page must stay consistent with it.
+
 ## Roles
 ### Herberth Garay
 Marketing, content, lead magnets, client-facing strategy, sales and business direction.

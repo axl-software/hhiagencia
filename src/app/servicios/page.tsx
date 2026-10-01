@@ -5,6 +5,7 @@ import CtaBanda from '@/components/sections/CtaBanda'
 
 export const metadata: Metadata = {
   title: 'Servicios',
+  alternates: { canonical: '/servicios' },
   description:
     'Desarrollo web (Web Start, Web Business y Web Pro), automatización, marketing digital y consultoría en IA. Elige lo que necesitas y solicita tu cotización.',
 }

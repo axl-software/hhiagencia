@@ -5,6 +5,7 @@ import CtaBanda from '@/components/sections/CtaBanda'
 
 export const metadata: Metadata = {
   title: 'Casos',
+  alternates: { canonical: '/casos-y-resenas' },
   description: 'Trabajo real con clientes reales: contenido, marketing y producción para streaming y gastronomía.',
 }
 

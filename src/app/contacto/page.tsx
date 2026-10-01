@@ -4,6 +4,7 @@ import Contacto from '@/components/sections/Contacto'
 
 export const metadata: Metadata = {
   title: 'Contacto',
+  alternates: { canonical: '/contacto' },
   description: 'Agenda una reunión con HHiAgencia: cuéntanos qué necesitas, tu objetivo, fecha y presupuesto, y te enviamos una propuesta.',
 }
 

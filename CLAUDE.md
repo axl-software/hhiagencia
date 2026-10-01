@@ -36,6 +36,8 @@ When a founder says “Guarda esto en memoria”, “Actualiza la memoria”, �
 3. preserve unrelated valid information,
 4. log material changes in `HHA_CHANGELOG.md`.
 
+Never delete or shorten an approved rule unless the founders explicitly supersede it, and record every removal in `HHA_CHANGELOG.md`. Never rewrite past changelog entries; add a new dated entry.
+
 If a new instruction conflicts with an approved rule and replacement intent is unclear, ask one short clarification.
 
 ## Brand protection

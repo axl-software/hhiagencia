@@ -6,23 +6,23 @@ import './globals.css'
 export const metadata: Metadata = {
   metadataBase: new URL('https://hhiagencia.cl'),
   title: {
-    default: 'HH Studio Creativo — Agencia de IA y marketing',
-    template: '%s · HH Studio Creativo',
+    default: 'HHA Digital Solutions | Web, Automatización y Marketing',
+    template: '%s | HHA Digital Solutions',
   },
   description:
-    'Agencia de IA y marketing en Casablanca, Valparaíso y Viña del Mar. Dirección creativa, contenido, producción audiovisual y automatizaciones con IA.',
+    'Ayudamos a marcas, creadores y empresas con contenido, estrategias, automatizaciones y soluciones digitales. Casablanca, Valparaíso y Viña del Mar.',
   openGraph: {
-    title: 'HH Studio Creativo — Agencia de IA y marketing',
-    description: 'Marketing, contenido y automatizaciones con IA. Con dirección.',
+    title: 'HHA Digital Solutions | Web, Automatización y Marketing',
+    description: 'Digitaliza. Automatiza. Escala. Web, automatización y marketing para marcas, creadores y empresas.',
     url: 'https://hhiagencia.cl',
-    siteName: 'HH Studio Creativo',
+    siteName: 'HHiAgencia',
     locale: 'es_CL',
     type: 'website',
   },
 }
 
 export const viewport: Viewport = {
-  themeColor: '#061323',
+  themeColor: '#05070A',
 }
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {

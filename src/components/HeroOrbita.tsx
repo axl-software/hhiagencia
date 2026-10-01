@@ -45,9 +45,9 @@ type NodeDef = {
   red?: boolean
   delay: number
 }
-const GLOW_RED = 'rgba(254, 0, 0, 0.35)'
-const GLOW_SOFT = 'rgba(169, 180, 200, 0.16)'
-const GLOW_BLUE = 'rgba(46, 84, 128, 0.55)'
+const GLOW_RED = 'rgba(215, 38, 61, 0.35)'
+const GLOW_SOFT = 'rgba(148, 163, 184, 0.16)'
+const GLOW_BLUE = 'rgba(148, 163, 184, 0.28)'
 
 const ORBITS: { cls: string; counter: string; r: number; red?: boolean; nodes: NodeDef[] }[] = [
   { cls: s.o1, counter: s.cR30, r: 177, nodes: [
@@ -186,7 +186,7 @@ export default function HeroOrbita() {
           </span>
 
           <div className={s.cursor} aria-hidden="true">
-            <MousePointer2 size={26} fill="#FE0000" color="#FE0000" strokeWidth={1.5} />
+            <MousePointer2 size={26} fill="#D7263D" color="#D7263D" strokeWidth={1.5} />
             <span className={s.cursorTag}>{CURSOR_NAME}</span>
           </div>
         </div>

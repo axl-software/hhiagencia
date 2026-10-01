@@ -1,4 +1,4 @@
-/* Header compartido: logo HH con punto REC, navegación, Instagram y CTA.
+/* Header compartido: logo HH, navegación, Instagram y CTA.
    Fijo arriba al hacer scroll; en móvil, menú a pantalla completa. */
 
 .header {
@@ -6,10 +6,10 @@
   top: env(safe-area-inset-top, 0px);
   z-index: 40;
   height: 80px;
-  background: rgba(6, 19, 35, 0.82);
+  background: rgba(5, 7, 10, 0.82);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(21, 48, 79, 0.6);
+  border-bottom: 1px solid var(--line);
 }
 .bar {
   height: 100%;
@@ -26,14 +26,8 @@
 
 .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--tx); }
 .logo:hover { color: var(--tx); }
-.ring {
-  width: 32px; height: 32px; border-radius: 50%;
-  border: 2px solid var(--red);
-  display: flex; align-items: center; justify-content: center;
-}
-.ring span { width: 10px; height: 10px; border-radius: 50%; background: var(--red); animation: blink 1.6s steps(1) infinite; }
-@keyframes blink { 50% { opacity: 0.15; } }
-.logoTxt { font-family: 'League Gothic', sans-serif; font-size: 32px; line-height: 1; letter-spacing: 1px; }
+.logoImg { height: 34px; width: auto; }
+.logoTxt { font-family: var(--f-head); font-weight: 700; font-size: 18px; letter-spacing: -0.01em; }
 
 .nav { display: flex; gap: 32px; list-style: none; margin: 0; padding: 0; }
 .link {
@@ -66,7 +60,7 @@
   border-radius: 50%;
   border: 0;
   background: var(--red);
-  color: #fff;
+  color: var(--tx);
   cursor: pointer;
   align-items: center;
   justify-content: center;
@@ -87,10 +81,11 @@
 .menuTop { display: flex; align-items: center; justify-content: space-between; }
 .menuList { list-style: none; margin: 56px 0 0; padding: 0; display: flex; flex-direction: column; gap: 22px; }
 .menuLink {
-  font-family: 'League Gothic', sans-serif;
-  font-size: 60px;
-  line-height: 1;
-  text-transform: uppercase;
+  font-family: var(--f-head);
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
   text-decoration: none;
   color: var(--tx);
 }
@@ -112,6 +107,6 @@
   .bar { padding: 0 20px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .ring span, .menu { animation: none; }
+  .menu { animation: none; }
   .link::after { transition: none; }
 }

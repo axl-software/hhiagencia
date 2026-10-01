@@ -1,17 +1,11 @@
 /* =========================================================
-   PORTADA "ÓRBITA" — plantilla Marketeam llevada a la marca HH.
-   Azul noche + rojo REC, League Gothic / Montserrat / Anonymous Pro.
+   PORTADA "ÓRBITA" — plantilla Marketeam llevada a la marca HHA.
+   Paleta y tipografías de docs/HHA_DESIGN_SYSTEM.md (variables de globals.css).
    Visor de cámara (esquinas + REC con timecode) como sello de rodaje.
    ========================================================= */
 
 .hero {
-  --noche: #061323;
-  --noche2: #0A1B30;
-  --rojo: #FE0000;
-  --tx: #F4F6FA;
-  --tx2: #C9D2E3;
-  --mut: #A9B4C8;
-  --line: #15304F;
+  --rojo: var(--red);
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 
   position: relative;
@@ -21,11 +15,11 @@
   flex-direction: column;
   overflow: hidden;
   color: var(--tx);
-  font-family: Montserrat, sans-serif;
+  font-family: var(--f-body);
   background:
-    radial-gradient(60% 70% at 78% 50%, rgba(254, 0, 0, 0.13) 0%, rgba(254, 0, 0, 0) 60%),
-    radial-gradient(50% 60% at 10% 0%, #0E2440 0%, rgba(14, 36, 64, 0) 70%),
-    linear-gradient(180deg, #061323 0%, #050F1D 100%);
+    radial-gradient(60% 70% at 78% 50%, rgba(215, 38, 61, 0.10) 0%, rgba(215, 38, 61, 0) 60%),
+    radial-gradient(50% 60% at 10% 0%, #0B1020 0%, rgba(11, 16, 32, 0) 70%),
+    #05070A;
 }
 
 /* rejilla tenue tipo monitor de cámara */
@@ -34,8 +28,8 @@
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+    linear-gradient(rgba(248, 250, 252, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(248, 250, 252, 0.025) 1px, transparent 1px);
   background-size: 64px 64px;
   mask-image: radial-gradient(70% 70% at 60% 50%, #000 0%, transparent 100%);
   -webkit-mask-image: radial-gradient(70% 70% at 60% 50%, #000 0%, transparent 100%);
@@ -47,7 +41,7 @@
   position: absolute;
   width: 28px;
   height: 28px;
-  border-color: rgba(244, 246, 250, 0.35);
+  border-color: rgba(248, 250, 252, 0.35);
   border-style: solid;
   border-width: 0;
   pointer-events: none;
@@ -62,9 +56,9 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-family: 'Anonymous Pro', monospace;
-  font-size: 13px;
-  letter-spacing: 2px;
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: 1.5px;
   color: var(--mut);
   font-variant-numeric: tabular-nums;
 }
@@ -103,22 +97,21 @@
 }
 
 .kicker {
-  font-family: 'Anonymous Pro', monospace;
-  font-size: 14px;
-  letter-spacing: 2px;
-  color: var(--rojo);
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  color: var(--mut);
   margin-bottom: 20px;
 }
 
 .h1 {
-  font-family: 'League Gothic', sans-serif;
+  font-family: var(--f-impact);
   font-weight: 400;
-  text-transform: uppercase;
-  font-size: clamp(56px, 5.9vw, 92px);
-  line-height: 0.92;
-  letter-spacing: 0.3px;
+  font-size: clamp(34px, 3.4vw, 52px);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
   margin: 0;
-  min-height: 3.7em; /* reserva el alto final: el texto no empuja el layout al escribirse */
+  min-height: 4.4em; /* reserva el alto final: el texto no empuja el layout al escribirse */
   text-wrap: balance;
 }
 .h1White { color: var(--tx); }
@@ -157,7 +150,7 @@
 }
 .cursorTag {
   background: var(--rojo);
-  color: #fff;
+  color: var(--tx);
   font-size: 15px;
   font-weight: 600;
   padding: 7px 15px;
@@ -192,13 +185,13 @@
   inset: 0;
   border-radius: 50%;
   padding: 1px;
-  background: linear-gradient(180deg, rgba(169, 180, 200, 0) 0%, rgba(169, 180, 200, 0.75) 43%, rgba(169, 180, 200, 0) 100%);
+  background: linear-gradient(180deg, rgba(148, 163, 184, 0) 0%, rgba(148, 163, 184, 0.75) 43%, rgba(148, 163, 184, 0) 100%);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
 }
 .orbitRed::before {
-  background: linear-gradient(180deg, rgba(254, 0, 0, 0) 0%, rgba(254, 0, 0, 0.9) 43%, rgba(254, 0, 0, 0) 100%);
+  background: linear-gradient(180deg, rgba(215, 38, 61, 0) 0%, rgba(215, 38, 61, 0.9) 43%, rgba(215, 38, 61, 0) 100%);
 }
 .o1 { width: 353px; height: 353px; animation: spinL 30s linear infinite; }
 .o2 { width: 501px; height: 501px; animation: spinR 40s linear infinite; }
@@ -219,9 +212,9 @@
   animation: spinR 30s linear infinite;
 }
 .count {
-  font-family: 'League Gothic', sans-serif;
-  font-size: 104px;
-  line-height: 0.9;
+  font-family: var(--f-impact);
+  font-size: 72px;
+  line-height: 0.95;
   display: flex;
   align-items: flex-start;
   gap: 6px;
@@ -229,9 +222,9 @@
 }
 .countDot { width: 16px; height: 16px; border-radius: 50%; background: var(--rojo); margin-top: 10px; }
 .countLabel {
-  font-family: 'Anonymous Pro', monospace;
-  font-size: 13px;
-  letter-spacing: 2px;
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: 1.5px;
   color: var(--mut);
   text-transform: uppercase;
   text-align: center;
@@ -253,8 +246,8 @@
   width: var(--s);
   height: var(--s);
   border-radius: var(--br);
-  background: linear-gradient(160deg, #0F2846 0%, #081830 100%);
-  border: 1px solid #2E5480;
+  background: var(--bg2);
+  border: 1px solid var(--line3);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -264,9 +257,9 @@
   box-shadow: 0 0 28px 4px var(--glow);
   animation: flyIn 1s var(--ease) var(--d) both;
 }
-.tileRed { background: var(--rojo); border-color: var(--rojo); color: #fff; }
+.tileRed { background: var(--rojo); border-color: var(--rojo); color: var(--tx); }
 .tileLabel {
-  font-family: 'Anonymous Pro', monospace;
+  font-family: var(--f-mono);
   font-size: 10px;
   letter-spacing: 1px;
   text-transform: uppercase;
@@ -297,9 +290,9 @@
   display: inline-flex;
   align-items: center;
   gap: 64px;
-  font-family: 'League Gothic', sans-serif;
-  font-size: 34px;
-  text-transform: uppercase;
+  font-family: var(--f-head);
+  font-weight: 600;
+  font-size: 24px;
   white-space: nowrap;
   color: var(--tx2);
 }
@@ -329,24 +322,24 @@
   .main { flex-direction: column; padding: 24px 32px 0; gap: 0; }
   .heroLeft { flex: none; width: 100%; align-items: center; text-align: center; }
   .lead { max-width: 560px; }
-  .h1 { font-size: 72px; }
+  .h1 { font-size: 44px; }
   .stage { zoom: 0.7; }
   .cursor { margin-left: 160px; }
 }
 @media (max-width: 768px) {
   .main { padding: 24px 20px 0; }
-  .h1 { font-size: 56px; }
+  .h1 { font-size: 38px; }
   .stage { zoom: 0.5; }
   .cursor { margin-left: 120px; margin-top: 24px; }
-  .tickItem { font-size: 28px; gap: 40px; }
+  .tickItem { font-size: 20px; gap: 40px; }
   .track { gap: 40px; }
 }
 @media (max-width: 480px) {
-  .h1 { font-size: 46px; }
+  .h1 { font-size: 32px; }
   .lead { font-size: 15px; }
   .stage { zoom: 0.42; }
   .cursor { margin-left: 80px; }
-  .tickItem { font-size: 24px; }
+  .tickItem { font-size: 18px; }
   .corner { width: 18px; height: 18px; }
 }
 

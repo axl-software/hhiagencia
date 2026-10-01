@@ -18,7 +18,7 @@ export default function Metodo({ as = 'h2', alt = false }: { as?: Level; alt?: b
         {TOMAS.map(([t, d], i) => (
           <div className="step" key={t}>
             <span className="mono" style={{ color: 'var(--redtx)', fontSize: 14 }}>TOMA {pad(i + 1)}</span>
-            <span className="card-t" style={{ fontSize: 38 }}>{t}</span>
+            <span className="card-t" style={{ fontSize: 28 }}>{t}</span>
             <span className="muted">{d}</span>
           </div>
         ))}

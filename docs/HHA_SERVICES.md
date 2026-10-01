@@ -1,7 +1,15 @@
-# HHA Services V1.1
+# HHA Services V1.2
 
 ## 1. Web Development
 Current priority.
+
+Includes:
+- landing pages,
+- corporate websites,
+- basic e-commerce,
+- maintenance,
+- domain/hosting configuration,
+- reusable templates where appropriate.
 
 Packages:
 - **Web Start**
@@ -39,6 +47,14 @@ Approved CTA while pricing is being defined:
 - content creation,
 - digital implementation support,
 - templates.
+
+## Future
+Not to be presented as mature offers unless approved:
+- proprietary SaaS,
+- custom AI agents,
+- vertical systems,
+- advanced dashboards,
+- client portals.
 
 ## Contract logic
 Websites:

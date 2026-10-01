@@ -1,4 +1,4 @@
-# HHA Brand Foundation V1.1
+# HHA Brand Foundation V1.2
 
 ## Naming
 - Tentative legal name: **HHA Digital Solutions SpA**
@@ -18,6 +18,9 @@
 ## Primary hook
 **Digitaliza. Automatiza. Escala.**
 
+## Brand essence
+HHA connects strategy, technology, marketing, automation and digital execution.
+
 ## Personality
 Modern, premium, minimalist, technological, corporate, close, human, clear and practical.
 
@@ -26,6 +29,24 @@ Neutral Spanish, direct, clear, educational, approachable and professional.
 
 Use “tú” by default; “usted” when context requires it.
 
+Humor is allowed when natural. Explain technical terms without superiority.
+
+## Voice principles
+Prefer:
+- “Automatizamos procesos que hoy te quitan tiempo.”
+- “Te mostramos qué se puede automatizar y qué impacto puede tener.”
+- “Aplicamos tecnología a problemas reales del negocio.”
+
+Avoid:
+- “Revolucionamos tu negocio con el poder de la IA.”
+- guru language
+- empty futuristic promises
+- fake authority
+- excessive jargon
+
+## Differentiation
+Personalization, integrated service, business + marketing + technology perspective, implementation plus guidance, training when required, accessible entry offers and progressive automation.
+
 ## Visual direction
 Modern, premium, minimal, tech-oriented, dark + light, clean and structured.
 
@@ -33,3 +54,17 @@ Avoid generic AI gradients, random neon overload, robots/brains/circuit clichés
 
 ## Logo
 Current logo is preserved. Do not redesign or replace it without explicit approval.
+
+The official logo is the **“HH” symbol with a red dot between the two H’s and sound-wave arcs on both sides**. Its red dot is part of the logo artwork and is not a palette color; do not recolor it.
+
+Source files (founder's computer): `Desktop/HH StudioC/InternoHH/Foto HHSTUDIO/`
+- `DE PERFIL RRSS/LOGO PRINCIPAL.png`: profile picture version (white logo on blue gradient). Social media avatars only.
+- `todo sin fondo/`: transparent PNGs for web use. `hhblanco.png` (white, for dark backgrounds), `hhazul.png` (navy, for light backgrounds), `hhnegro.png` (black). The `hhrecta*` files are the framed (rectangle) variants.
+- `Normal/` and `Con rectangulo/`: very large print-resolution masters. Do not use them directly on the web.
+
+No vector (SVG) version exists yet. Do not trace or redraw one without approval.
+
+## Official channels
+- Instagram: **@hhiagencia.cl** (HHA's own account). `@hh.condireccion` belongs to Herberth's personal brand and must not be used as HHA's channel.
+- WhatsApp: **pending definition**. Do not invent or reuse another number.
+- Email: **pending definition**. The current mailbox belongs to HH Studio Creativo; do not present it as HHA's email unless the founders approve it.

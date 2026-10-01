@@ -21,7 +21,7 @@ const H_WHITE = 'Marketing, contenido y automatizaciones con IA. '
 const H_RED = 'Con dirección.'
 const LEAD =
   'Para negocios, artistas y creadores de Casablanca, Valparaíso y Viña del Mar. Partimos con un diagnóstico de 12 preguntas y producimos en 4 tomas.'
-const CTA = 'Agenda tu reunión'
+const CTA = 'Agenda una reunión'
 const CURSOR_NAME = 'Herberth'
 
 const TICKER = [

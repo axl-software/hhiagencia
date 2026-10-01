@@ -1,16 +1,15 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
-import { CONFIG } from '@/lib/config'
+import { CONFIG, type Servicio } from '@/lib/config'
 import { Kicker, Title, type Level } from './Heading'
 
-const fmt = (n: number) => '$' + n.toLocaleString('es-CL')
 const pad = (n: number) => String(n).padStart(2, '0')
 
-/* Cotizador: marca servicios, elige modalidad y envía la selección a /contacto. */
+/* Planes web y líneas de servicio, sin precios públicos (docs/HHA_BUSINESS_MODEL.md).
+   Marca lo que te interesa y la selección viaja a /contacto?servicios=a,b para cotizar. */
 export default function Servicios({ as = 'h2' }: { as?: Level }) {
-  const [mode, setMode] = useState<'puntual' | 'mensual'>('puntual')
   const [picked, setPicked] = useState<Set<string>>(() => new Set())
   const toggle = (id: string) =>
     setPicked((prev) => {
@@ -21,67 +20,67 @@ export default function Servicios({ as = 'h2' }: { as?: Level }) {
     })
 
   const sel = CONFIG.servicios.filter((s) => picked.has(s.id))
-  const total = useMemo(() => {
-    if (!sel.length) return '—'
-    if (sel.some((s) => s[mode] == null)) return 'A cotizar'
-    return fmt(sel.reduce((a, s) => a + (s[mode] ?? 0), 0)) + (mode === 'mensual' ? '/mes' : '')
-  }, [sel, mode])
-
+  const planes = CONFIG.servicios.filter((s) => s.grupo === 'web')
+  const lineas = CONFIG.servicios.filter((s) => s.grupo === 'linea')
   const href = sel.length ? `/contacto?servicios=${sel.map((s) => s.id).join(',')}` : '/contacto'
+
+  const addBtn = (s: Servicio) => {
+    const on = picked.has(s.id)
+    return (
+      <button type="button" className="add" aria-pressed={on} aria-label={`${on ? 'Quitar' : 'Agregar'} ${s.nombre}`} onClick={() => toggle(s.id)}>
+        {on ? '✓ Agregado' : '+ Agregar'}
+      </button>
+    )
+  }
 
   return (
     <section className="alt">
       <div className="wrap sec">
         <div className="head-row">
           <div>
-            <Kicker>SERVICIOS Y PRECIOS</Kicker>
-            <Title as={as}>Arma tu proyecto</Title>
+            <Kicker>SERVICIOS</Kicker>
+            <Title as={as}>Elige por dónde empezar</Title>
           </div>
           <p className="muted" style={{ maxWidth: 420, margin: 0 }}>
-            Marca los servicios que te interesan y envía tu selección. Los precios finales se ajustan después del diagnóstico.
+            Marca lo que te interesa y solicita tu cotización. El valor depende del alcance de tu proyecto: lo definimos contigo después del diagnóstico.
           </p>
         </div>
 
-        <div className="toggle" role="group" aria-label="Modalidad">
-          {([['puntual', 'Proyecto puntual'], ['mensual', 'Plan mensual']] as const).map(([m, l]) => (
-            <button key={m} type="button" aria-pressed={mode === m} onClick={() => setMode(m)}>{l}</button>
+        <h3 className="sub">Desarrollo web</h3>
+        <p className="muted" style={{ margin: 0 }}>Cada plan incluye la implementación y un servicio mensual de mantenimiento.</p>
+        <div className="plans">
+          {planes.map((s) => (
+            <article className={`plan${s.destacado ? ' plan-top' : ''}`} key={s.id}>
+              {s.destacado && <span className="plan-badge">RECOMENDADO</span>}
+              <h4 className="card-t" style={{ margin: 0 }}>{s.nombre}</h4>
+              <p className="muted">{s.desc}</p>
+              {addBtn(s)}
+            </article>
           ))}
         </div>
 
-        <div className="price-list">
-          {CONFIG.servicios.map((s, i) => {
-            const v = s[mode]
-            const on = picked.has(s.id)
-            return (
-              <div className="price-row" key={s.id}>
-                <span className="n">{pad(i + 1)}</span>
-                <div>
-                  <div className="t">{s.nombre}</div>
-                  <div className="d">{s.desc}</div>
-                </div>
-                <span className="p">{v == null ? '[TU PRECIO]' : `Desde ${fmt(v)}${mode === 'mensual' ? ' /mes' : ''}`}</span>
-                <button type="button" className="add" aria-pressed={on} aria-label={`${on ? 'Quitar' : 'Agregar'} ${s.nombre}`} onClick={() => toggle(s.id)}>
-                  {on ? '✓ Agregado' : '+ Agregar'}
-                </button>
+        <h3 className="sub">Además</h3>
+        <div className="svc-list">
+          {lineas.map((s, i) => (
+            <div className="svc-row" key={s.id}>
+              <span className="n">{pad(i + 1)}</span>
+              <div>
+                <div className="t">{s.nombre}</div>
+                <div className="d">{s.desc}</div>
               </div>
-            )
-          })}
+              {addBtn(s)}
+            </div>
+          ))}
         </div>
 
         <div className="quote" aria-live="polite">
           <div>
-            <div className="mono" style={{ fontSize: 13, letterSpacing: 2, color: 'var(--mut)' }}>TU SELECCIÓN</div>
-            <div style={{ fontSize: 15, marginTop: 6, color: 'var(--tx2)' }}>
+            <div className="mono" style={{ fontSize: 12, letterSpacing: 1.5, color: 'var(--mut)' }}>TU SELECCIÓN</div>
+            <div style={{ fontSize: 15, marginTop: 6, color: 'var(--tx)' }}>
               {sel.length ? sel.map((s) => s.nombre).join(' · ') : 'Aún no eliges servicios.'}
             </div>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 24, flexWrap: 'wrap' }}>
-            <div>
-              <div className="mono" style={{ fontSize: 13, color: 'var(--mut)' }}>ESTIMADO DESDE</div>
-              <div className="total">{total}</div>
-            </div>
-            <Link className="btn btn-red" href={href}>Cotizar esta selección →</Link>
-          </div>
+          <Link className="btn btn-red" href={href}>Solicita cotización →</Link>
         </div>
       </div>
     </section>

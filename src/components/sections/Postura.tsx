@@ -4,15 +4,15 @@ export default function Postura({ as = 'h2' }: { as?: Level }) {
   return (
     <section className="wrap sec split">
       <div>
-        <Kicker>POSTURA</Kicker>
-        <Title as={as}>No somos solo quien graba.</Title>
+        <Kicker>POR QUÉ HHA</Kicker>
+        <Title as={as}>Tecnología aplicada a problemas reales del negocio.</Title>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 18, paddingTop: 8 }}>
         <p className="lead" style={{ fontSize: 17 }}>
-          Un video sin dirección es un archivo más en el celular. En HH partimos por el negocio: qué quieres lograr, a quién le hablas y qué tiene que pasar después de que alguien te ve.
+          Unimos estrategia, marketing y tecnología en un mismo equipo. Primero entendemos qué tiene que vender tu negocio; después construimos la web, el contenido o la automatización que lo hace posible.
         </p>
         <p className="lead" style={{ fontSize: 17 }}>
-          Recién ahí encendemos la cámara. Idea, guion, producción, diseño y publicación salen de la misma cabeza, así que todo empuja hacia el mismo objetivo.
+          No te vendemos la herramienta de moda. Partimos por lo necesario para vender y automatizamos solo lo que ya funciona. Y si algo es técnico, te lo explicamos en simple.
         </p>
       </div>
     </section>

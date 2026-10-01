@@ -2,6 +2,9 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-10-01 — Herberth bio approved
+- Website bio for Herberth Garay: “Primero pregunta qué tiene que vender tu negocio. Recién después diseña, escribe o automatiza.”
+
 ## 2026-10-01 — Logo, channels and client references
 
 ### Brand

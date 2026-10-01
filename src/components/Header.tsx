@@ -59,7 +59,7 @@ export default function Header() {
             Instagram
           </a>
           <span className={`btn-giro-wrap ${s.ctaDesk}`}>
-            <Link className="btn-giro" href="/contacto"><span>Agenda tu reunión</span></Link>
+            <Link className="btn-giro" href="/contacto"><span>Agenda una reunión</span></Link>
           </span>
           <button type="button" className={s.burger} onClick={() => setOpen(true)} aria-label="Abrir menú" aria-expanded={open}>
             <Menu size={20} strokeWidth={2.5} aria-hidden="true" />
@@ -90,7 +90,7 @@ export default function Header() {
               @{CONFIG.instagram}
             </a>
             <span className="btn-giro-wrap">
-              <Link className="btn-giro btn-giro-lg" href="/contacto" onClick={close}><span>Agenda tu reunión</span></Link>
+              <Link className="btn-giro btn-giro-lg" href="/contacto" onClick={close}><span>Agenda una reunión</span></Link>
             </span>
           </div>
         </div>

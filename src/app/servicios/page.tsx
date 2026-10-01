@@ -16,7 +16,7 @@ export default function ServiciosPage() {
     <>
       <Servicios as="h1" />
       <Metodo />
-      <CtaBanda titulo={CONFIG.hooks.servicios} />
+      <CtaBanda cierre={CONFIG.hooks.servicios} />
     </>
   )
 }

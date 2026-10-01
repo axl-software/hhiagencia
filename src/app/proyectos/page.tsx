@@ -5,17 +5,17 @@ import CtaBanda from '@/components/sections/CtaBanda'
 import { CONFIG } from '@/lib/config'
 
 export const metadata: Metadata = {
-  title: 'Casos',
-  alternates: { canonical: '/casos-y-resenas' },
+  title: 'Proyectos',
+  alternates: { canonical: '/proyectos' },
   description: 'Trabajo real con clientes reales: contenido, marketing y producción para streaming y gastronomía.',
 }
 
-export default function CasosYResenasPage() {
+export default function ProyectosPage() {
   return (
     <>
       <Casos as="h1" />
       <Resenas />
-      <CtaBanda titulo={CONFIG.hooks.casos} />
+      <CtaBanda cierre={CONFIG.hooks.proyectos} />
     </>
   )
 }

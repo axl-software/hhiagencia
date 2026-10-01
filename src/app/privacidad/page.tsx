@@ -24,6 +24,7 @@ export default function PrivacidadPage() {
         <li>De qué se trata tu negocio o proyecto.</li>
         <li>Los servicios que te interesan.</li>
         <li>Tu correo y/o tu teléfono.</li>
+        <li>Si haces el diagnóstico, tus tres respuestas (por ejemplo, si tu negocio tiene sitio web).</li>
       </ul>
       <p>No pedimos datos sensibles ni datos de pago.</p>
 
@@ -47,8 +48,8 @@ export default function PrivacidadPage() {
 
       <h2>Lo que queda en tu navegador</h2>
       <p>
-        Solo guardamos tu preferencia de tema (claro u oscuro) en tu propio navegador. No usamos cookies de seguimiento ni herramientas de analítica. Si esto
-        cambia, actualizaremos esta página.
+        Solo guardamos tu preferencia de tema (claro u oscuro) en tu propio navegador. No usamos cookies de seguimiento. Para saber qué partes de la web
+        funcionan mejor usamos Vercel Web Analytics, que mide visitas y acciones (como completar el diagnóstico) de forma anónima y sin cookies.
       </p>
 
       <h2>Servicios de terceros</h2>

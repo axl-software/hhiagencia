@@ -41,8 +41,12 @@ export type Integrante = {
   instagram?: string
 }
 
-/** Frase de la banda roja de cierre en cada página. */
-export type Hooks = { inicio: string; servicios: string; casos: string }
+/** Problema del cliente → servicios que lo resuelven (Servicios → "¿Qué problema quieres resolver?"). */
+export type Pack = { id: string; problema: string; detalle: string; servicios: string[] }
+
+/** Banda de cierre de cada página: frase, texto del botón y destino. */
+export type Cierre = { titulo: string; boton: string; href: string }
+export type Hooks = { inicio: Cierre; servicios: Cierre; proyectos: Cierre }
 
 export type Config = {
   whatsapp: string
@@ -51,6 +55,7 @@ export type Config = {
   tiktok: string
   email: string
   servicios: Servicio[]
+  packs: Pack[]
   casos: Caso[]
   resenas: Resena[]
   equipo: Integrante[]
@@ -102,9 +107,36 @@ export const CONFIG: Config = {
     },
     { id: 'automatizacion', grupo: 'linea', nombre: 'Automatización', desc: 'Captación de clientes, formularios, CRM, email marketing y tareas internas que hoy te quitan tiempo.' },
     { id: 'marketing', grupo: 'linea', nombre: 'Marketing digital', desc: 'Estrategia, contenido, email marketing y embudos para generar clientes.' },
+    { id: 'captacion', grupo: 'linea', nombre: 'Captación de clientes', desc: 'Formularios, páginas de captura y seguimiento automático para que ningún interesado se pierda.' },
     { id: 'contenido', grupo: 'linea', nombre: 'Creación de contenido', desc: 'Publicaciones, carruseles, reels y piezas para tus redes, alineadas a tu estrategia.' },
     { id: 'ia', grupo: 'linea', nombre: 'Consultoría y capacitación en IA', desc: 'Te mostramos qué se puede automatizar y qué impacto puede tener, y capacitamos a tu equipo.' },
     { id: 'acompanamiento', grupo: 'linea', nombre: 'Acompañamiento digital', desc: 'Te ayudamos a implementar herramientas, plantillas y procesos digitales en tu negocio.' },
+  ],
+
+  // Los packs se arman con ids de "servicios". El pack completo es el recomendado.
+  // Sin precios públicos: cuando estén definidos, aquí se puede agregar el ahorro del pack.
+  packs: [
+    {
+      id: 'clientes', problema: '¿Necesitas conseguir más clientes?',
+      detalle: 'Hacemos que más personas te encuentren, confíen en ti y te escriban.',
+      servicios: ['marketing', 'web-business', 'captacion'],
+    },
+    {
+      id: 'tiempo', problema: '¿Pierdes tiempo en tareas manuales?',
+      detalle: 'Automatizamos lo repetitivo y te enseñamos a usar IA en tu día a día.',
+      servicios: ['automatizacion', 'ia'],
+    },
+    {
+      id: 'imagen', problema: '¿Tu negocio no transmite profesionalismo online?',
+      detalle: 'Una web y contenido que muestren lo que vales.',
+      servicios: ['web-business', 'contenido'],
+    },
+    {
+      // "Integraciones" no va como servicio aparte: docs/HHA_TECH_STACK.md → API status
+      id: 'herramientas', problema: '¿Tienes herramientas, pero ninguna trabaja junta?',
+      detalle: 'Ordenamos tus herramientas, las conectamos con automatización y te acompañamos en la implementación.',
+      servicios: ['automatizacion', 'acompanamiento'],
+    },
   ],
 
   casos: [
@@ -140,11 +172,11 @@ export const CONFIG: Config = {
     },
   ],
 
-  // Frases de la banda roja de cierre. Alternativas en docs/ o en la conversación con Claude.
+  // Banda de cierre de cada página: tres llamados distintos.
   hooks: {
-    inicio: 'Cuéntanos qué necesitas y te enviamos una propuesta.',
-    servicios: '¿Ya elegiste? Te enviamos una propuesta.',
-    casos: '¿El próximo caso es el tuyo?',
+    inicio: { titulo: 'Cuéntanos qué necesitas y te enviamos una propuesta.', boton: 'Solicita un diagnóstico', href: '/contacto' },
+    servicios: { titulo: '¿Ya elegiste? Te enviamos una propuesta.', boton: 'Solicita cotización', href: '/contacto' },
+    proyectos: { titulo: '¿El próximo caso es el tuyo?', boton: 'Explora soluciones', href: '/servicios#soluciones' },
   },
 }
 
@@ -153,9 +185,6 @@ export const waUrl = (texto?: string) =>
   CONFIG.whatsapp
     ? `https://wa.me/${CONFIG.whatsapp}${texto ? `?text=${encodeURIComponent(texto)}` : ''}`
     : null
-
-/** Mensaje directo de Instagram: canal de respaldo si faltan WhatsApp y email. */
-export const igDmUrl = () => `https://ig.me/m/${CONFIG.instagram}`
 
 /** Enlace para llamar o guardar el número (no abre WhatsApp: evita spam y bots). */
 export const telHref = () => `tel:+${CONFIG.whatsapp}`

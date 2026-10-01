@@ -18,8 +18,8 @@ export default function Casos({ as = 'h2' }: { as?: Level }) {
       <div className="wrap sec">
         <div className="head-row" data-reveal>
           <div>
-            <Kicker>CASOS</Kicker>
-            <Title as={as}>Trabajo real, clientes reales</Title>
+            <Kicker>TRABAJO REAL</Kicker>
+            <Title as={as}>Proyectos</Title>
           </div>
           {CONFIG.casos.length > 3 && (
             <div className="chips" role="group" aria-label="Filtrar casos">

@@ -48,9 +48,19 @@
 .heroLeft {
   flex: 0 1 620px;
   min-width: 0;
+  container-type: inline-size; /* el titular se mide contra esta columna (cqi) */
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+
+.pretitulo {
+  margin: 0 0 18px;
+  max-width: 460px;
+  font-size: 15px;
+  line-height: 1.5;
+  font-weight: 500;
+  color: var(--tx);
 }
 
 .kicker {
@@ -73,8 +83,10 @@
 .h1 {
   font-family: var(--f-impact);
   font-weight: 400;
-  font-size: clamp(48px, 5.6vw, 92px);
-  line-height: 1;
+  /* "Automatizaciones." (la palabra más larga) mide ~9,8 veces el tamaño de letra:
+     con 9,6 % del ancho de la columna siempre cabe sin cortarse */
+  font-size: clamp(28px, 9.6cqi, 72px);
+  line-height: 1.02;
   letter-spacing: -0.02em;
   margin: 0;
   display: flex;
@@ -243,7 +255,6 @@
   .strip li { font-size: 14px; }
 }
 @media (max-width: 480px) {
-  .h1 { font-size: 44px; }
   .lead { font-size: 16px; }
   .stage { zoom: 0.42; }
 }

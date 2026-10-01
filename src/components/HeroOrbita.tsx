@@ -15,13 +15,11 @@ import GuiaPlan from './GuiaPlan'
 import s from './HeroOrbita.module.css'
 
 /* ---------- textos ---------- */
-const KICKER = 'DESARROLLO WEB · AUTOMATIZACIÓN · MARKETING DIGITAL'
-/* Alternativas listas si se quiere sacar "Desarrollo web" del primer lugar:
-   'MARKETING DIGITAL · AUTOMATIZACIÓN · DESARROLLO WEB'
-   'CONTENIDO · ESTRATEGIA · AUTOMATIZACIÓN'
-   'ESTRATEGIA · MARKETING · TECNOLOGÍA'
-   'SOLUCIONES DIGITALES PARA PYMES, MARCAS Y CREADORES' */
-const HOOK = ['Digitaliza.', 'Automatiza.', 'Escala.']
+/* El titular grande usa lo que la gente busca en Google; el hook de marca va arriba, en chico
+   (docs/HHA_BRAND_FOUNDATION.md). */
+const PRETITULO = 'Creamos sistemas digitales que ayudan a tu negocio a vender y operar mejor.'
+const KICKER = 'DIGITALIZA · AUTOMATIZA · ESCALA'
+const HOOK = ['Desarrollo web.', 'Automatizaciones.', 'Llega a más clientes.']
 const LEAD =
   'Ayudamos a marcas, creadores y empresas con contenido, estrategias, automatizaciones y soluciones digitales en todo Chile.'
 
@@ -64,6 +62,7 @@ export default function HeroOrbita() {
     <section className={s.hero} aria-label="Portada">
       <div className={s.main}>
         <div className={s.heroLeft}>
+          <p className={s.pretitulo}>{PRETITULO}</p>
           <div className={s.kicker}>{KICKER}</div>
 
           <h1 className={s.h1}>

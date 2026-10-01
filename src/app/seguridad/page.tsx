@@ -15,7 +15,7 @@ export default function SeguridadPage() {
       <ul>
         <li>La conexión con el sitio va cifrada (HTTPS).</li>
         <li>El formulario no guarda tus datos en servidores: el mensaje lo envías tú por WhatsApp o por correo.</li>
-        <li>No usamos cookies de seguimiento ni herramientas de analítica.</li>
+        <li>No usamos cookies de seguimiento; la analítica es anónima y sin cookies.</li>
         <li>Los enlaces externos se abren en una pestaña nueva y sin acceso a esta página.</li>
       </ul>
 

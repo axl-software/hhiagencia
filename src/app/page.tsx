@@ -20,7 +20,7 @@ export default function Inicio() {
       <Metodo alt />
       <Nosotros />
       <Equipo />
-      <CtaBanda titulo={CONFIG.hooks.inicio} />
+      <CtaBanda cierre={CONFIG.hooks.inicio} />
     </>
   )
 }

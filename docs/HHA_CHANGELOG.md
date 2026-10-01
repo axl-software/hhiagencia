@@ -2,6 +2,17 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-10-01 — Advisor review applied
+- Analytics: Vercel Web Analytics with custom events (instead of Plausible/Umami).
+- Diagnostic: answers now travel to the contact message; the result window asks for name and phone/email and sends without leaving the page.
+- **Supersedes** the hero headline: big “Desarrollo web. / Automatizaciones. / Llega a más clientes.”; the brand hook moves to small caps above; new pre-title “Creamos sistemas digitales…”.
+- Delivery times: defined in the meeting (shown in each plan's detail).
+- New page “Cómo trabajamos” (/como-trabajamos, menu “Proceso”): detailed 8-step process and metrics. DRAFT, to be corrected with practice.
+- “Casos” becomes “Proyectos” (/proyectos) until each case has a real metric.
+- Contact: 4 data rows instead of 6 (no duplicated Instagram); form first on mobile.
+- Closing buttons: home “Solicita un diagnóstico”, services “Solicita cotización”, projects “Explora soluciones” (goes to the solutions section).
+- Servicios: problem → solution packs (1, 2 or full pack, full pack recommended) and “Ver todos los servicios”; empty selection offers “Hacer diagnóstico”. New line “Captación de clientes”. “Integraciones” not offered as a separate service (API capability not proven).
+
 ## 2026-10-01 — Light-mode band and footer, legal pages, guide name
 - **Supersedes** “footer navy in both themes”: in light mode the closing band is Midnight Navy and the footer is Sand; dark mode unchanged.
 - Hero guide renamed from “¿Qué plan necesito?” to “Descubre qué necesita tu negocio” (help understand the need, not sell a plan).

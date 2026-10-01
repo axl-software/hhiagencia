@@ -42,6 +42,7 @@ Approved by the founders: pure white was too bright, so light mode uses a warm c
 - Lines and borders: Midnight Navy with transparency
 - Brand emphasis: `#0B1020`
 - Accent: `#D7263D` (large text, buttons, lines and icons only; small red text fails on cream, ~4.2:1)
+- Small red highlight text (e.g. AUTOMATIZA in the hero hook): deeper Signal Red `#B3192F` (5.8:1 on cream)
 
 `#64748B` is no longer used for text in light mode: on cream it drops to ~4.0:1.
 
@@ -51,6 +52,7 @@ Approved by the founders: pure white was too bright, so light mode uses a warm c
 - Primary text: `#F8FAFC`
 - Secondary text: `#94A3B8`
 - Accent: `#D7263D`
+- Small red highlight text: lighter Signal Red `#EB4B5F` (5.5:1 on `#05070A`)
 
 ## Theme behavior (website)
 - The site follows the visitor's device setting (light or dark) by default.
@@ -63,6 +65,7 @@ Approved by the founders: pure white was too bright, so light mode uses a warm c
 
 ## Accessibility
 Do not use Signal Red for small body text on dark backgrounds when contrast is insufficient.
+When a founder asks for a small word in red, use the contrast-safe shades of Signal Red (`#EB4B5F` dark, `#B3192F` light, token `--rojo-txt`); they are tones of the same brand red, not new colors.
 Prefer white text on Signal Red buttons when contrast passes.
 Validate contrast for all interactive and text states.
 

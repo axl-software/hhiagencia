@@ -33,7 +33,7 @@ export default function Footer() {
           <span className="pie-titulo">Contacto</span>
           {CONFIG.whatsapp && <a href={telHref()}>{telVisible()}</a>}
           {CONFIG.email && <a href={`mailto:${CONFIG.email}`}>{CONFIG.email}</a>}
-          <Redes />
+          <Redes usuario="lado" />
         </div>
       </div>
       <div className="wrap pie-base">

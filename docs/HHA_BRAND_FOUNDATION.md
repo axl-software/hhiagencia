@@ -15,12 +15,12 @@
 ## Positioning
 **Ayudamos a marcas, creadores y empresas con contenido, estrategias, automatizaciones y soluciones digitales.**
 
-Website hero variant (approved): “Ayudamos a marcas, creadores y empresas con contenido, estrategias, automatizaciones y soluciones digitales en todo Chile.”
+Website hero text (approved, replaces the earlier hero variant and the pre-title): one text under the headline, merging both without repeating words: “Creamos sistemas digitales que ayudan a marcas, creadores y empresas de todo Chile a vender y operar mejor, con estrategia, contenido y tecnología.”
 
 ## Primary hook
 **Digitaliza. Automatiza. Escala.**
 
-Website hero (approved, SEO-driven): small pre-title “Creamos sistemas digitales que ayudan a tu negocio a vender y operar mejor.”, then the hook in small caps “DIGITALIZA · AUTOMATIZA · ESCALA”, and the big headline “Desarrollo web. / Automatizaciones. / Llega a más clientes.” (searchable terms in the H1).
+Website hero (approved, SEO-driven): the hook in small caps “DIGITALIZA · AUTOMATIZA · ESCALA” with **AUTOMATIZA in red**, the big headline “Desarrollo web. / Automatizaciones. / Llega a más clientes.” (searchable terms in the H1), then the hero text above. No pre-title above the hook.
 
 ## Brand essence
 HHA connects strategy, technology, marketing, automation and digital execution.
@@ -72,7 +72,8 @@ No vector (SVG) version exists yet. Do not trace or redraw one without approval.
 - Instagram: **@hhiagencia.cl** (HHA's own account). `@hh.condireccion` belongs to Herberth's personal brand and must not be used as HHA's channel.
 - Phone / WhatsApp: **+56 9 3925 3239** (`56939253239`). On the website it is shown as text with a call link (`tel:`). No floating WhatsApp button and no direct `wa.me` links in contact or footer, to reduce spam and bots (founders' decision). The contact form may still open WhatsApp with the visitor's message after they fill it in.
 - Facebook and TikTok: accounts to be linked; the site shows each icon only once its URL is set.
-- The header shows no social links (only theme toggle and “Agenda una reunión”); social icons live in the footer and mobile menu.
+- The header shows no social links (only theme toggle and the button “Haz tu diagnóstico”, which opens the 3-question diagnostic; it replaces “Agenda una reunión”); social icons live in the footer and mobile menu.
+- The handle **@hhiagencia.cl** is written next to the Instagram icon in the footer and under it in the contact page.
 - Herberth's personal-brand Instagram is linked only from his team card (handle pending confirmation: `soyherberthgaray`). `@hh.condireccion` is HH Studio Creativo's account, not HHA's.
 - Location wording in the footer: “Base en Valparaíso · Trabajamos en todo Chile”.
 - Email: **hhadigitalsolutions@gmail.com**.

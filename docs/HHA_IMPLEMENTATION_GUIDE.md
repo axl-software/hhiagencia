@@ -52,7 +52,7 @@ Do not invent colors, fonts, pricing, testimonials or services.
 Use HHiAgencia as the visible website name.
 Use “HHA Digital Solutions | Web, Automatización y Marketing” as the SEO title.
 Use HHA Digital Solutions in the footer.
-Use “Solicita cotización” and/or “Agenda una reunión” while public prices remain undefined.
+Use “Solicita cotización” and/or “Haz tu diagnóstico” while public prices remain undefined (“Agenda una reunión” was replaced on 2026-10-01).
 Implement progressively and verify after each major step.
 ```
 

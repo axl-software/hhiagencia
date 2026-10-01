@@ -11,8 +11,9 @@ import s from './Header.module.css'
 function Logo({ onClick }: { onClick?: () => void }) {
   return (
     <Link href="/" className={s.logo} aria-label="HH Studio Creativo, inicio" onClick={onClick}>
-      <span className={s.ring}><span /></span>
-      <span className={s.logoTxt}>HH</span>
+      {/* eslint-disable-next-line @next/next/no-img-element -- logo chico; next/image rompe la vista previa en HTML */}
+      <img className={s.logoImg} src="/brand/hh-logo-blanco.png" alt="" width={480} height={299} />
+
     </Link>
   )
 }

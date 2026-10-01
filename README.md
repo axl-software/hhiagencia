@@ -47,7 +47,7 @@ preview/                      vista previa en un solo HTML (router por hash)
 - Agregar una página: crea `src/app/<ruta>/page.tsx` y súmala a `src/lib/nav.ts`.
 
 ## Marca
-Azul noche `#061323` · rojo REC `#FE0000` · League Gothic (títulos) · Montserrat (texto) · Anonymous Pro (etiquetas).
+Ver `docs/HHA_DESIGN_SYSTEM.md`: paleta `#0B1020` · `#05070A` · `#F8FAFC` · `#D7263D` · grises `#64748B` / `#94A3B8` · Archivo Black (impacto) · Space Grotesk (títulos) · Inter (texto) · JetBrains Mono (etiquetas).
 
 ## Local
 ```

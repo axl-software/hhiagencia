@@ -54,23 +54,102 @@
   align-items: flex-start;
 }
 
-.kicker {
+/* Hook "DIGITALIZA · AUTOMATIZA · ESCALA" como carrusel ovalado: las tres palabras giran en una
+   órbita (la de adelante se lee y se queda 1.6 s; las otras pasan por detrás, más chicas y tenues).
+   Dentro de una cápsula ovalada, centrada en celular. Con "reducir movimiento" queda la línea fija. */
+.kicker { margin-bottom: 24px; max-width: 100%; }
+.giro {
+  position: relative;
+  width: 300px;
+  max-width: 100%;
+  height: 40px;
+  border: 1px solid var(--line3);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--bg2) 70%, transparent);
   font-family: var(--f-mono);
-  font-size: 12px;
+  font-size: 12.5px;
   letter-spacing: 1.5px;
-  color: var(--mut);
-  margin-bottom: 24px;
+  color: var(--tx);
 }
+.giroPista {
+  --rx: 104px;
+  --ry: 4px;
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: inherit;
+  -webkit-mask-image: linear-gradient(90deg, transparent 2%, #000 24%, #000 76%, transparent 98%);
+  mask-image: linear-gradient(90deg, transparent 2%, #000 24%, #000 76%, transparent 98%);
+}
+.giroPalabra {
+  grid-area: 1 / 1;
+  white-space: nowrap;
+  animation: giroOval 7.5s linear infinite;
+}
+/* punto rojo que recorre el borde de la cápsula (mismo lenguaje de las órbitas) */
+.giro::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--red);
+  box-shadow: 0 0 0 4px rgba(215, 38, 61, .15);
+  offset-path: inset(0 round 999px);
+  animation: giroPunto 9s linear infinite;
+}
+@keyframes giroPunto { from { offset-distance: 0%; } to { offset-distance: 100%; } }
+@supports not (offset-path: inset(0 round 999px)) { .giro::after { display: none; } }
+@keyframes giroOval {
+  0.00% { translate: calc(var(--rx) * -0.0000) calc(var(--ry) * 1.0000); scale: 1.0000; opacity: 1.000; z-index: 10; }
+  21.33% { translate: calc(var(--rx) * -0.0000) calc(var(--ry) * 1.0000); scale: 1.0000; opacity: 1.000; z-index: 10; }
+  22.53% { translate: calc(var(--rx) * -0.0084) calc(var(--ry) * 1.0000); scale: 1.0000; opacity: 1.000; z-index: 10; }
+  23.73% { translate: calc(var(--rx) * -0.0670) calc(var(--ry) * 0.9978); scale: 0.9997; opacity: 0.999; z-index: 10; }
+  24.93% { translate: calc(var(--rx) * -0.2243) calc(var(--ry) * 0.9745); scale: 0.9964; opacity: 0.988; z-index: 10; }
+  26.13% { translate: calc(var(--rx) * -0.5108) calc(var(--ry) * 0.8597); scale: 0.9804; opacity: 0.935; z-index: 9; }
+  27.33% { translate: calc(var(--rx) * -0.8660) calc(var(--ry) * 0.5000); scale: 0.9300; opacity: 0.769; z-index: 8; }
+  28.53% { translate: calc(var(--rx) * -0.9999) calc(var(--ry) * 0.0126); scale: 0.8618; opacity: 0.552; z-index: 5; }
+  29.73% { translate: calc(var(--rx) * -0.9561) calc(var(--ry) * -0.2930); scale: 0.8190; opacity: 0.421; z-index: 4; }
+  30.93% { translate: calc(var(--rx) * -0.8976) calc(var(--ry) * -0.4409); scale: 0.7983; opacity: 0.359; z-index: 3; }
+  32.13% { translate: calc(var(--rx) * -0.8702) calc(var(--ry) * -0.4927); scale: 0.7910; opacity: 0.338; z-index: 3; }
+  33.33% { translate: calc(var(--rx) * -0.8660) calc(var(--ry) * -0.5000); scale: 0.7900; opacity: 0.335; z-index: 3; }
+  54.67% { translate: calc(var(--rx) * -0.8660) calc(var(--ry) * -0.5000); scale: 0.7900; opacity: 0.335; z-index: 3; }
+  55.87% { translate: calc(var(--rx) * -0.8618) calc(var(--ry) * -0.5072); scale: 0.7890; opacity: 0.332; z-index: 2; }
+  57.07% { translate: calc(var(--rx) * -0.8306) calc(var(--ry) * -0.5569); scale: 0.7820; opacity: 0.312; z-index: 2; }
+  58.27% { translate: calc(var(--rx) * -0.7318) calc(var(--ry) * -0.6815); scale: 0.7646; opacity: 0.263; z-index: 2; }
+  59.47% { translate: calc(var(--rx) * -0.4891) calc(var(--ry) * -0.8722); scale: 0.7379; opacity: 0.191; z-index: 1; }
+  60.67% { translate: calc(var(--rx) * -0.0000) calc(var(--ry) * -1.0000); scale: 0.7200; opacity: 0.150; z-index: 0; }
+  61.87% { translate: calc(var(--rx) * 0.4891) calc(var(--ry) * -0.8722); scale: 0.7379; opacity: 0.191; z-index: 1; }
+  63.07% { translate: calc(var(--rx) * 0.7318) calc(var(--ry) * -0.6815); scale: 0.7646; opacity: 0.263; z-index: 2; }
+  64.27% { translate: calc(var(--rx) * 0.8306) calc(var(--ry) * -0.5569); scale: 0.7820; opacity: 0.312; z-index: 2; }
+  65.47% { translate: calc(var(--rx) * 0.8618) calc(var(--ry) * -0.5072); scale: 0.7890; opacity: 0.332; z-index: 2; }
+  66.67% { translate: calc(var(--rx) * 0.8660) calc(var(--ry) * -0.5000); scale: 0.7900; opacity: 0.335; z-index: 2; }
+  88.00% { translate: calc(var(--rx) * 0.8660) calc(var(--ry) * -0.5000); scale: 0.7900; opacity: 0.335; z-index: 2; }
+  89.20% { translate: calc(var(--rx) * 0.8702) calc(var(--ry) * -0.4927); scale: 0.7910; opacity: 0.338; z-index: 3; }
+  90.40% { translate: calc(var(--rx) * 0.8976) calc(var(--ry) * -0.4409); scale: 0.7983; opacity: 0.359; z-index: 3; }
+  91.60% { translate: calc(var(--rx) * 0.9561) calc(var(--ry) * -0.2930); scale: 0.8190; opacity: 0.421; z-index: 4; }
+  92.80% { translate: calc(var(--rx) * 0.9999) calc(var(--ry) * 0.0126); scale: 0.8618; opacity: 0.552; z-index: 5; }
+  94.00% { translate: calc(var(--rx) * 0.8660) calc(var(--ry) * 0.5000); scale: 0.9300; opacity: 0.769; z-index: 8; }
+  95.20% { translate: calc(var(--rx) * 0.5108) calc(var(--ry) * 0.8597); scale: 0.9804; opacity: 0.935; z-index: 9; }
+  96.40% { translate: calc(var(--rx) * 0.2243) calc(var(--ry) * 0.9745); scale: 0.9964; opacity: 0.988; z-index: 10; }
+  97.60% { translate: calc(var(--rx) * 0.0670) calc(var(--ry) * 0.9978); scale: 0.9997; opacity: 0.999; z-index: 10; }
+  98.80% { translate: calc(var(--rx) * 0.0084) calc(var(--ry) * 1.0000); scale: 1.0000; opacity: 1.000; z-index: 10; }
+  100.00% { translate: calc(var(--rx) * 0.0000) calc(var(--ry) * 1.0000); scale: 1.0000; opacity: 1.000; z-index: 10; }
+}
+
 /* Palabra destacada del hook: rojo de texto chico (--rojo-txt pasa 4,5:1 en ambos modos) */
 .kickerRojo { color: var(--rojo-txt); font-weight: 500; }
-.kicker::before {
-  content: '';
-  display: inline-block;
-  width: 20px;
-  height: 2px;
-  background: var(--red);
-  vertical-align: middle;
-  margin-right: 10px;
+
+@media (prefers-reduced-motion: reduce) {
+  .giro { width: auto; height: auto; padding: 10px 18px; border-radius: 999px; }
+  .giro::after { display: none; }
+  .giroPista { position: static; display: flex; gap: 0 10px; -webkit-mask-image: none; mask-image: none; }
+  .giroPalabra { animation: none; grid-area: auto; }
+  .giroPalabra + .giroPalabra::before { content: '·'; margin-right: 10px; color: var(--mut); }
 }
 
 .h1 {

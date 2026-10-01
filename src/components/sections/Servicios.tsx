@@ -3,8 +3,8 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import Link from 'next/link'
 import {
-  ArrowRight, Building2, Check, GraduationCap, LifeBuoy, ListChecks, Magnet, Megaphone, PenTool,
-  Plug, Rocket, ShoppingCart, Workflow, X, type LucideIcon,
+  ArrowRight, Building2, Check, Clock, GraduationCap, LifeBuoy, ListChecks, Magnet, Megaphone, PenTool,
+  Plug, Puzzle, Rocket, ShoppingCart, Sparkles, Users, Workflow, X, type LucideIcon,
 } from 'lucide-react'
 import { CONFIG, type Categoria, type Pack, type Servicio } from '@/lib/config'
 import { medir } from '@/lib/medir'
@@ -31,6 +31,9 @@ const ICONOS: Record<string, LucideIcon> = {
   acompanamiento: LifeBuoy,
 }
 
+/* Ícono de cada problema de los packs */
+const ICONOS_PACK: Record<string, LucideIcon> = { clientes: Users, tiempo: Clock, imagen: Sparkles, herramientas: Puzzle }
+
 function Icono({ id, size = 22 }: { id: string; size?: number }) {
   const I = ICONOS[id]
   return I ? <I size={size} strokeWidth={1.75} aria-hidden="true" /> : null
@@ -47,8 +50,10 @@ function PackCard({ pack, i, picked, href, elegirPack, elegirUno }: {
   elegirUno: (pack: Pack) => void
 }) {
   const completo = pack.servicios.every((id) => picked.has(id))
+  const IconoPack = ICONOS_PACK[pack.id]
   return (
-    <article className={`pack${completo ? ' pack-completo' : ''}`} data-reveal style={{ '--d': `${(i % 2) * 0.08}s` } as CSSProperties}>
+    <article className={`pack brillo${completo ? ' pack-completo' : ''}`} data-reveal style={{ '--d': `${(i % 2) * 0.08}s` } as CSSProperties}>
+      {IconoPack && <span className="pack-ico"><IconoPack size={22} strokeWidth={1.75} aria-hidden="true" /></span>}
       <h4 className="pack-problema">{pack.problema}</h4>
       <p className="muted" style={{ margin: 0 }}>{pack.detalle}</p>
       <ul className="pack-solucion" aria-label="Incluye">

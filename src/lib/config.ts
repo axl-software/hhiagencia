@@ -61,9 +61,9 @@ export type Integrante = {
 /** Problema del cliente → servicios que lo resuelven (Servicios → "¿Qué problema quieres resolver?"). */
 export type Pack = { id: string; problema: string; detalle: string; servicios: string[] }
 
-/** Banda de cierre de cada página: frase, texto del botón y destino. */
-export type Cierre = { titulo: string; boton: string; href: string }
-export type Hooks = { inicio: Cierre; servicios: Cierre; proyectos: Cierre }
+/** Banda de cierre de cada página: frase chica de arriba, frase grande, texto del botón y destino. */
+export type Cierre = { kicker: string; titulo: string; boton: string; href: string }
+export type Hooks = { inicio: Cierre; servicios: Cierre; proyectos: Cierre; proceso: Cierre }
 
 export type Config = {
   whatsapp: string
@@ -217,9 +217,10 @@ export const CONFIG: Config = {
 
   // Banda de cierre de cada página, según lo que el visitante quiere en ese punto (docs/HHA_SERVICES.md → botones por intención)
   hooks: {
-    inicio: { titulo: 'Conversemos de tu negocio y te decimos por dónde partir.', boton: 'Agenda una reunión', href: '/contacto' },
-    servicios: { titulo: '¿Prefieres verlo en una conversación?', boton: 'Agenda una reunión', href: '/contacto' },
-    proyectos: { titulo: '¿El próximo caso es el tuyo?', boton: 'Explora soluciones', href: '/servicios#soluciones' },
+    inicio: { kicker: '¿EMPEZAMOS?', titulo: 'Conversemos de tu negocio y te decimos por dónde partir.', boton: 'Agenda una reunión', href: '/contacto' },
+    servicios: { kicker: '¿TODAVÍA CON DUDAS?', titulo: 'Lo vemos juntos y elegimos lo que de verdad necesitas.', boton: 'Agenda una reunión', href: '/contacto' },
+    proyectos: { kicker: '¿Y TU NEGOCIO?', titulo: 'Descubre qué soluciones le pueden servir a tu negocio.', boton: 'Explora soluciones', href: '/servicios#soluciones' },
+    proceso: { kicker: '¿TE HACE SENTIDO?', titulo: 'El primer paso es una conversación sobre tu negocio.', boton: 'Agenda una reunión', href: '/contacto' },
   },
 }
 

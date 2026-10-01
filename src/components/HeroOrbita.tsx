@@ -15,11 +15,12 @@ import GuiaPlan from './GuiaPlan'
 import s from './HeroOrbita.module.css'
 
 /* ---------- textos ---------- */
-/* El titular grande usa lo que la gente busca en Google; el hook de marca va arriba, en chico, con
-   AUTOMATIZA destacada en rojo. Debajo, un solo texto que une el posicionamiento y el alcance
+/* El titular grande usa lo que la gente busca en Google; el hook de marca va arriba, en chico, como
+   carrusel ovalado y con AUTOMATIZA destacada en rojo. Debajo, un solo texto que une el posicionamiento y el alcance
    (docs/HHA_BRAND_FOUNDATION.md). */
 const KICKER = ['DIGITALIZA', 'AUTOMATIZA', 'ESCALA']
 const KICKER_ROJO = 'AUTOMATIZA'
+const GIRO_SEG = 7.5 // una vuelta completa del carrusel (HeroOrbita.module.css → .giroPalabra)
 const HOOK = ['Desarrollo web.', 'Automatizaciones.', 'Llega a más clientes.']
 const LEAD =
   'Creamos sistemas digitales que ayudan a marcas, creadores y empresas de todo Chile a vender y operar mejor, con estrategia, contenido y tecnología.'
@@ -63,13 +64,22 @@ export default function HeroOrbita() {
     <section className={s.hero} aria-label="Portada">
       <div className={s.main}>
         <div className={s.heroLeft}>
+          {/* Carrusel ovalado: cada palabra arranca en otro punto de la órbita (un tercio de vuelta) */}
           <div className={s.kicker}>
-            {KICKER.map((w, i) => (
-              <span key={w}>
-                {i > 0 && ' · '}
-                <span className={w === KICKER_ROJO ? s.kickerRojo : undefined}>{w}</span>
-              </span>
-            ))}
+            <span className="sr-only">Digitaliza, automatiza, escala</span>
+            <div className={s.giro} aria-hidden="true">
+              <div className={s.giroPista}>
+                {KICKER.map((w, i) => (
+                  <span
+                    key={w}
+                    className={`${s.giroPalabra}${w === KICKER_ROJO ? ` ${s.kickerRojo}` : ''}`}
+                    style={{ animationDelay: `${-(((KICKER.length - i) % KICKER.length) * GIRO_SEG) / KICKER.length}s` }}
+                  >
+                    {w}
+                  </span>
+                ))}
+              </div>
+            </div>
           </div>
 
           <h1 className={s.h1}>

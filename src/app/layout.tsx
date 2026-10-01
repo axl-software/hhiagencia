@@ -76,8 +76,10 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
         <main>{children}</main>
         <Footer />
         <Revelar />
-        {/* Vercel Web Analytics: sin cookies y anónimo; eventos en src/lib/medir.ts */}
-        <Analytics />
+        {/* Vercel Web Analytics: sin cookies y anónimo; eventos en src/lib/medir.ts.
+            Solo cuando el sitio se arma en Vercel (VERCEL=1): fuera de Vercel su archivo no existe
+            y el navegador mostraría un error 404 en cada página. */}
+        {process.env.VERCEL && <Analytics />}
       </body>
     </html>
   )

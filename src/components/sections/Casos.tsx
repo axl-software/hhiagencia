@@ -2,7 +2,7 @@
 
 import { useEffect, useId, useRef, useState, type CSSProperties, type KeyboardEvent, type TouchEvent } from 'react'
 import Link from 'next/link'
-import { ArrowLeft, ArrowRight, Image as ImagenIcono, X } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Image as ImagenIcono, Images, MonitorPlay, Wine, X, type LucideIcon } from 'lucide-react'
 import { CONFIG, categoriaDe, type Caso } from '@/lib/config'
 import { medir } from '@/lib/medir'
 import { Kicker, Title, type Level } from './Heading'
@@ -10,10 +10,34 @@ import Orbitas from '../Orbitas'
 
 const CATS = ['Todos', ...Array.from(new Set(CONFIG.casos.map((c) => c.cat)))]
 const nombreServicio = (id: string) => CONFIG.servicios.find((s) => s.id === id)?.nombre ?? id
+/* Ícono de la portada según el rubro del proyecto (mientras no haya foto) */
+const ICONO_RUBRO: Record<string, LucideIcon> = { Streaming: MonitorPlay, Gastronomía: Wine }
 
 /* Casos aprobados (docs/HHA_BUSINESS_MODEL.md). Foto y resultado solo si son reales.
    Al tocar un proyecto se abre su galería: imágenes que se pasan con flechas, puntos, teclado
    o deslizando el dedo, cada una con qué se hizo y con qué servicio. */
+/* Portada de la tarjeta: la primera foto del proyecto o, mientras no haya, un fondo azul noche
+   con brillo rojo en movimiento, órbitas y el ícono del rubro (globals.css → .case-portada). */
+function Portada({ caso }: { caso: Caso }) {
+  const foto = caso.foto || caso.galeria.find((g) => g.imagen)?.imagen
+  const Icono = ICONO_RUBRO[caso.cat] ?? Images
+  return (
+    <div className="case-portada" aria-hidden="true">
+      {foto ? (
+        // eslint-disable-next-line @next/next/no-img-element -- next/image rompe la vista previa en HTML
+        <img src={foto} alt="" loading="lazy" />
+      ) : (
+        <>
+          <span className="case-orb case-orb-1" />
+          <span className="case-orb case-orb-2"><i /></span>
+          <span className="case-portada-ico"><Icono size={34} strokeWidth={1.6} /></span>
+        </>
+      )}
+      {caso.galeria.length > 0 && <span className="case-pasos mono">{caso.galeria.length} PASOS DEL PROYECTO</span>}
+    </div>
+  )
+}
+
 export default function Casos({ as = 'h2' }: { as?: Level }) {
   const [cat, setCat] = useState('Todos')
   const casos = CONFIG.casos.filter((c) => cat === 'Todos' || c.cat === cat)
@@ -75,11 +99,8 @@ export default function Casos({ as = 'h2' }: { as?: Level }) {
         </div>
         <div className="grid">
           {casos.map((c, i) => (
-            <article className={`case card${c.galeria.length ? ' case-abre' : ''}`} key={c.nombre} data-reveal style={{ '--d': `${i * 0.1}s` } as CSSProperties}>
-              {c.foto && (
-                // eslint-disable-next-line @next/next/no-img-element -- next/image rompe la vista previa en HTML
-                <div className="ph"><img src={c.foto} alt={c.nombre} loading="lazy" /></div>
-              )}
+            <article className={`case card brillo${c.galeria.length ? ' case-abre' : ''}`} key={c.nombre} data-reveal style={{ '--d': `${i * 0.1}s` } as CSSProperties}>
+              <Portada caso={c} />
               <span className="mono" style={{ fontSize: 12, letterSpacing: 1.5, color: 'var(--redtx)' }}>{c.tag}</span>
               <span className="card-t">{c.nombre}</span>
               <span className="muted">{c.resumen}</span>

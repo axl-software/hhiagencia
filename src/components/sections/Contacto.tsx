@@ -2,11 +2,13 @@
 
 import { useState, type FormEvent } from 'react'
 import { useSearchParams } from 'next/navigation'
+import { AtSign, Mail, MapPin, Phone } from 'lucide-react'
 import { CONFIG, telHref, telVisible } from '@/lib/config'
 import { armarMensaje, enviar, validar } from '@/lib/contacto'
 import { respuestasLegibles } from '@/lib/diagnostico'
 import { Kicker, Title, type Level } from './Heading'
 import Redes from '../Redes'
+import Orbitas from '../Orbitas'
 
 /* Formulario corto para cotizar: nombre (persona o proyecto), de qué se trata el negocio,
    servicios y correo y/o teléfono. Lee ?servicios=a,b (de /servicios o del diagnóstico) y, si viene
@@ -59,7 +61,9 @@ export default function Contacto({ as = 'h2' }: { as?: Level }) {
   }
 
   return (
-    <section className="wrap sec contacto">
+    <section className="con-deco contacto-sec">
+      <Orbitas lado="izquierda" />
+      <div className="wrap sec contacto">
       <div className="contacto-intro">
         <Kicker style={{ margin: 0 }}>CONTACTO</Kicker>
         <Title as={as}>Te contactamos</Title>
@@ -69,14 +73,36 @@ export default function Contacto({ as = 'h2' }: { as?: Level }) {
         )}
       </div>
 
-      <div className="channels contacto-canales">
-        {CONFIG.whatsapp && <a href={telHref()}><span className="mono">TELÉFONO</span><strong>{telVisible()}</strong></a>}
-        {CONFIG.email && <a href={`mailto:${CONFIG.email}`}><span className="mono">CORREO</span><strong>{CONFIG.email}</strong></a>}
-        <div><span className="mono">REDES</span><Redes usuario="abajo" /></div>
-        <div><span className="mono">BASE</span><strong>Valparaíso · Trabajamos en todo Chile</strong></div>
+      {/* Datos de contacto, cada uno con su ícono */}
+      <div className="canales contacto-canales">
+        {CONFIG.whatsapp && (
+          <a className="canal" href={telHref()}>
+            <span className="canal-ico"><Phone size={18} strokeWidth={2} aria-hidden="true" /></span>
+            <span className="canal-txt"><span className="mono">TELÉFONO</span><strong>{telVisible()}</strong></span>
+          </a>
+        )}
+        {CONFIG.email && (
+          <a className="canal" href={`mailto:${CONFIG.email}`}>
+            <span className="canal-ico"><Mail size={18} strokeWidth={2} aria-hidden="true" /></span>
+            <span className="canal-txt"><span className="mono">CORREO</span><strong>{CONFIG.email}</strong></span>
+          </a>
+        )}
+        <div className="canal">
+          <span className="canal-ico"><AtSign size={18} strokeWidth={2} aria-hidden="true" /></span>
+          <span className="canal-txt"><span className="mono">REDES</span><Redes usuario="abajo" /></span>
+        </div>
+        <div className="canal">
+          <span className="canal-ico"><MapPin size={18} strokeWidth={2} aria-hidden="true" /></span>
+          <span className="canal-txt"><span className="mono">BASE</span><strong>Valparaíso · Trabajamos en todo Chile</strong></span>
+        </div>
       </div>
 
+      {/* Tarjeta del formulario: azul noche en ambos modos, con brillo rojo (globals.css → .contacto-form) */}
       <form className="contacto-form" onSubmit={onSubmit} noValidate>
+        <div className="form-cabeza">
+          <h2 className="card-t" style={{ margin: 0 }}>Cuéntanos de tu proyecto</h2>
+          <p className="muted" style={{ margin: 0 }}>Completa lo que puedas: el resto lo vemos en la conversación.</p>
+        </div>
         <label>Nombre (tuyo o de tu proyecto)<input id="nombre" name="nombre" autoComplete="name" required aria-invalid={error?.campo === 'nombre' || undefined} /></label>
         <label>¿De qué se trata tu negocio o proyecto?<input id="negocio" name="negocio" placeholder="Ej: cafetería, consultora, marca de ropa" /></label>
         <fieldset>
@@ -94,7 +120,7 @@ export default function Contacto({ as = 'h2' }: { as?: Level }) {
         <p className="note" style={{ marginTop: -10 }}>Con uno de los dos basta.</p>
         {error && <p className="form-error" role="alert">{error.texto}</p>}
         {/* El botón sigue la intención: con servicios elegidos pide cotización; sin ellos, una reunión */}
-        <button className="btn btn-red" type="submit" name="via" value="whatsapp" style={{ minHeight: 56, fontSize: 16 }}>
+        <button className="btn-vivo contacto-enviar" type="submit" name="via" value="whatsapp">
           {sel.length ? 'Solicita cotización →' : 'Agenda una reunión →'}
         </button>
         {CONFIG.email && (
@@ -102,6 +128,7 @@ export default function Contacto({ as = 'h2' }: { as?: Level }) {
         )}
         <p className="note" role="status">{msg}</p>
       </form>
+      </div>
     </section>
   )
 }

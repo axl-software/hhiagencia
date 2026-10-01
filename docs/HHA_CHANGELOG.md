@@ -2,6 +2,12 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-10-01 — Animated hook, closing-band kickers, contact redesign, livelier cards
+- Hero hook “DIGITALIZA · AUTOMATIZA · ESCALA” becomes an oval carousel inside a capsule (it looked asymmetric on mobile).
+- **Supersedes** “¿HABLAMOS?” on every closing band: one kicker per page; Proyectos band now reads “¿Y TU NEGOCIO?” / “Descubre qué soluciones le pueden servir a tu negocio.” (replaces “¿El próximo caso es el tuyo?”). New band for Cómo trabajamos.
+- Contact page redesign: site background kept, Midnight Navy form card with red glow in both themes, icons on contact details, animated red send button.
+- Services, process and projects: livelier cards (corner glow, hover lift, reacting icons, rotating border on the recommended plan, large step numbers, project covers with moving glow and orbits).
+
 ## 2026-10-01 — Service categories, need-based plans, buttons by intent
 - Web plan cards state the need they cover; the explanation moves to “Ver qué incluye”.
 - **Supersedes** the Servicios layout: categories (Desarrollo web, Marketing y captación, Automatización, IA y consultoría), then packs, then “Tu selección”. “Ver todos los servicios” removed (every service is visible in its category). “Elegir un servicio” opens a window with the pack's services.

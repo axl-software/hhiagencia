@@ -2,7 +2,8 @@
 
 import { useState, type FormEvent } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { CONFIG, igDmUrl, telVisible, waUrl } from '@/lib/config'
+import { CONFIG, igDmUrl, telHref, telVisible, waUrl } from '@/lib/config'
+import Redes from '../Redes'
 import { Kicker, Title, type Level } from './Heading'
 
 const EMAIL_OK = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -28,6 +29,7 @@ export default function Contacto({ as = 'h2' }: { as?: Level }) {
 
   const wa = waUrl()
   const [msg, setMsg] = useState('')
+  const [error, setError] = useState<{ campo: string; texto: string } | null>(null)
   const [igListo, setIgListo] = useState(false)
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -35,20 +37,17 @@ export default function Contacto({ as = 'h2' }: { as?: Level }) {
     const form = e.currentTarget
     const f = new FormData(form)
     const val = (k: string) => String(f.get(k) ?? '').trim()
-    const focus = (k: string) => form.querySelector<HTMLInputElement>(`[name="${k}"]`)?.focus()
-
-    if (!val('nombre')) {
-      setMsg('Escribe tu nombre o el de tu proyecto.')
-      return focus('nombre')
+    /* Los dos botones necesitan los mismos datos para armar el mensaje: si falta algo,
+       se avisa arriba del botón y se marca el campo. */
+    const falta = (campo: string, texto: string) => {
+      setMsg('')
+      setError({ campo, texto })
+      form.querySelector<HTMLInputElement>(`[name="${campo}"]`)?.focus()
     }
-    if (!val('email') && !val('telefono')) {
-      setMsg('Déjanos tu correo o tu teléfono para responderte.')
-      return focus('email')
-    }
-    if (val('email') && !EMAIL_OK.test(val('email'))) {
-      setMsg('Revisa tu correo: parece que le falta algo.')
-      return focus('email')
-    }
+    if (!val('nombre')) return falta('nombre', 'Escribe tu nombre o el de tu proyecto para continuar.')
+    if (!val('email') && !val('telefono')) return falta('email', 'Déjanos tu correo o tu teléfono para poder responderte.')
+    if (val('email') && !EMAIL_OK.test(val('email'))) return falta('email', 'Revisa tu correo: parece que le falta algo.')
+    setError(null)
 
     const text = `Hola HHiAgencia, soy ${val('nombre')}.
 Mi negocio o proyecto: ${val('negocio') || '-'}
@@ -62,8 +61,15 @@ Teléfono: ${val('telefono') || '-'}`
       window.open(waText, '_blank', 'noopener')
       setMsg('Abrimos WhatsApp con tu mensaje listo: solo falta enviarlo.')
     } else if (CONFIG.email) {
+      /* El enlace de correo depende de que el visitante tenga una app de correo configurada:
+         por si no se abre, el mensaje queda copiado y se muestra la dirección. */
+      try {
+        await navigator.clipboard.writeText(text)
+      } catch {
+        /* sin portapapeles: igual se intenta abrir el correo */
+      }
       window.location.href = `mailto:${CONFIG.email}?subject=${encodeURIComponent('Solicitud de cotización · HHiAgencia')}&body=${encodeURIComponent(text)}`
-      setMsg('Abrimos tu correo con el mensaje listo: solo falta enviarlo.')
+      setMsg(`Abrimos tu correo con el mensaje listo. Si no se abrió, escríbenos a ${CONFIG.email}: tu mensaje ya está copiado, solo pégalo.`)
     } else {
       try {
         await navigator.clipboard.writeText(text)
@@ -82,16 +88,17 @@ Teléfono: ${val('telefono') || '-'}`
         <Title as={as}>Agenda una reunión</Title>
         <p className="lead">Cuéntanos qué necesitas y llegamos a la reunión con una propuesta, no con preguntas.</p>
         <div className="channels">
-          {wa && <a href={wa} target="_blank" rel="noopener noreferrer"><span className="mono">WHATSAPP</span><strong>{telVisible()}</strong></a>}
+          {CONFIG.whatsapp && <a href={telHref()}><span className="mono">TELÉFONO</span><strong>{telVisible()}</strong></a>}
           {CONFIG.email && <a href={`mailto:${CONFIG.email}`}><span className="mono">CORREO</span><strong>{CONFIG.email}</strong></a>}
           <a href={`https://instagram.com/${CONFIG.instagram}`} target="_blank" rel="noopener noreferrer"><span className="mono">INSTAGRAM</span><strong>@{CONFIG.instagram}</strong></a>
+          <div><span className="mono">REDES</span><Redes /></div>
           <div><span className="mono">BASE</span><strong>Región de Valparaíso</strong></div>
           <div><span className="mono">ATENDEMOS</span><strong>Todo Chile</strong></div>
         </div>
       </div>
 
       <form onSubmit={onSubmit} noValidate>
-        <label>Nombre (tuyo o de tu proyecto)<input id="nombre" name="nombre" autoComplete="name" required /></label>
+        <label>Nombre (tuyo o de tu proyecto)<input id="nombre" name="nombre" autoComplete="name" required aria-invalid={error?.campo === 'nombre' || undefined} /></label>
         <label>¿De qué se trata tu negocio o proyecto?<input id="negocio" name="negocio" placeholder="Ej: cafetería, consultora, marca de ropa" /></label>
         <fieldset>
           <legend>¿Qué necesitas?</legend>
@@ -102,10 +109,11 @@ Teléfono: ${val('telefono') || '-'}`
           </div>
         </fieldset>
         <div className="two">
-          <label>Correo<input id="email" name="email" type="email" autoComplete="email" inputMode="email" /></label>
+          <label>Correo<input id="email" name="email" type="email" autoComplete="email" inputMode="email" aria-invalid={error?.campo === 'email' || undefined} /></label>
           <label>Teléfono o WhatsApp<input id="telefono" name="telefono" type="tel" autoComplete="tel" inputMode="tel" placeholder="+56 9 1234 5678" /></label>
         </div>
         <p className="note" style={{ marginTop: -10 }}>Con uno de los dos basta.</p>
+        {error && <p className="form-error" role="alert">{error.texto}</p>}
         <button className="btn btn-red" type="submit" name="via" value="principal" style={{ minHeight: 56, fontSize: 16 }}>Solicita cotización →</button>
         {wa && CONFIG.email && (
           <button className="link-btn" type="submit" name="via" value="email">o envíala por correo</button>

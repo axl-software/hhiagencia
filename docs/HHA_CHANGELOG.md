@@ -2,6 +2,12 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-10-01 — Contact without direct WhatsApp, plan guide
+- **Supersedes** the floating “Hablemos” WhatsApp button: removed for spam/bot protection. Phone shown as text with a call link in contact and footer.
+- Footer: contact column with phone, email and social icons (Instagram; Facebook and TikTok once their URLs are provided).
+- Hero main button becomes “¿Qué plan necesito?”: a 3-question guide that recommends Web Start/Business/Pro or another service line and pre-selects it for the quote.
+- Contact form: clear error message above the button; the email option copies the message in case the visitor has no mail app.
+
 ## 2026-10-01 — Hero line, extra services, plan details
 - Hero line ends with “en todo Chile” instead of “Desde la Región de Valparaíso para todo Chile”.
 - Website adds “Creación de contenido” and “Acompañamiento digital” (both already in Complementary services).

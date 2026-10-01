@@ -91,9 +91,13 @@ input,textarea{min-height:48px;background:var(--bg);border:1px solid var(--field
 textarea{resize:vertical}
 fieldset{border:0;margin:0;padding:0}legend{font-size:14px;font-weight:600;margin-bottom:10px;padding:0}
 footer{background:var(--deep);border-top:1px solid var(--line)}
-footer .wrap{display:flex;flex-wrap:wrap;gap:28px;justify-content:space-between;align-items:flex-start;padding-top:48px;padding-bottom:48px}
-footer nav{display:flex;flex-wrap:wrap;gap:22px;font-size:14px;font-weight:600}
-footer nav a{text-decoration:none;padding:12px 0}
+footer .pie{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) minmax(0,1fr);gap:32px 48px;padding-top:56px;padding-bottom:40px}
+footer .pie-marca{display:flex;flex-direction:column;gap:14px}
+footer .pie-col{display:flex;flex-direction:column;align-items:flex-start;gap:4px;font-size:14px;font-weight:600}
+footer .pie-col a{text-decoration:none;padding:8px 0}
+footer .pie-titulo{font-family:var(--f-mono);font-size:12px;font-weight:400;letter-spacing:1.5px;text-transform:uppercase;color:var(--mut);margin-bottom:6px}
+footer .pie-base{border-top:1px solid var(--line);padding-top:20px;padding-bottom:28px;font-size:13px;color:var(--mut)}
+@media (max-width:760px){footer .pie{grid-template-columns:1fr 1fr}footer .pie-marca{grid-column:1/-1}}
 }
 
 /* ===== Estilos del sitio (secciones bajo el hero) =====
@@ -188,15 +192,17 @@ footer nav a{text-decoration:none;padding:12px 0}
 .channels a,.channels div{display:flex;justify-content:space-between;gap:16px;padding:18px 0;border-bottom:1px solid var(--line);text-decoration:none}
 .channels .mono{font-size:13px;color:var(--mut)}
 .note{font-size:13px;color:var(--mut);margin:0}
+/* error de formulario: borde rojo (color funcional) con texto normal para mantener contraste */
+.form-error{margin:0;padding:12px 14px;border-left:3px solid var(--red);background:color-mix(in srgb,var(--red) 10%,transparent);border-radius:6px;font-size:14px;font-weight:600;color:var(--tx)}
+input[aria-invalid="true"]{border-color:var(--red);box-shadow:0 0 0 1px var(--red)}
 .link-btn{align-self:center;min-height:44px;background:none;border:0;padding:0 8px;color:var(--tx2);font:inherit;font-size:14px;text-decoration:underline;text-underline-offset:4px;cursor:pointer}.link-btn:hover{color:var(--tx)}
 
-.wa-float{position:fixed;right:16px;bottom:16px;z-index:30;box-shadow:0 8px 24px rgba(0,0,0,.35)}
 
 /* botón píldora con borde giratorio rojo (header, portada, CTA) */
 .btn-giro-wrap{position:relative;display:inline-flex;border-radius:50px}
 .btn-giro-wrap::before{content:'';position:absolute;inset:-3px;padding:3px;border-radius:inherit;background:conic-gradient(from var(--border-angle),var(--red),var(--bg2),var(--red),var(--bg2),var(--red));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);animation:border-spin 8s linear infinite;pointer-events:none}
 @keyframes border-spin{to{--border-angle:360deg}}
-.btn-giro{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:10px;border-radius:50px;background:var(--bg);color:var(--tx);padding:12px 26px;font-family:var(--f-body);font-size:14px;font-weight:700;letter-spacing:.2px;text-decoration:none;white-space:nowrap}
+.btn-giro{border:0;cursor:pointer;position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:10px;border-radius:50px;background:var(--bg);color:var(--tx);padding:12px 26px;font-family:var(--f-body);font-size:14px;font-weight:700;letter-spacing:.2px;text-decoration:none;white-space:nowrap}
 .btn-giro::after{content:'';position:absolute;inset:0;background:var(--red);transform:translateX(-100%);transition:transform .4s cubic-bezier(.22,1,.36,1)}
 .btn-giro:hover{color:var(--on-red)}.btn-giro:hover::after{transform:translateX(0)}
 .btn-giro>*{position:relative;z-index:1}
@@ -214,6 +220,27 @@ footer nav a{text-decoration:none;padding:12px 0}
 .team-tags{display:flex;flex-wrap:wrap;gap:6px 14px;font-family:var(--f-mono);font-size:12px;color:var(--mut)}
 .team-tags span::before{content:"● ";color:var(--red);font-size:9px;vertical-align:2px}
 @media (max-width:480px){.team-card{flex-direction:column}.team-ph{width:100%;max-width:280px}}
+/* redes sociales */
+.redes{list-style:none;margin:6px 0 0;padding:0;display:flex;gap:10px}
+.redes a{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;border:1.5px solid var(--line3);color:var(--tx);transition:background-color .25s ease,border-color .25s ease,color .25s ease}
+.redes a:hover{background:var(--red);border-color:var(--red);color:var(--on-red)}
+.channels .redes{margin:0}
+
+/* guía "¿Qué plan necesito?" */
+.guia-progreso{display:flex;gap:6px;margin-right:52px}
+.guia-progreso span{height:4px;flex:1;border-radius:99px;background:var(--line2)}
+.guia-progreso span.on{background:var(--red)}
+.guia-opciones{display:flex;flex-direction:column;gap:8px}
+.opcion{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:52px;padding:12px 16px;border:1.5px solid var(--line2);border-radius:12px;background:var(--bg2);color:var(--tx);font:inherit;font-size:15px;font-weight:600;text-align:left;cursor:pointer;transition:border-color .2s ease,background-color .2s ease}
+.opcion svg{flex:none;color:var(--mut);transition:transform .2s ease,color .2s ease}
+.opcion:hover{border-color:var(--red)}.opcion:hover svg{transform:translateX(4px);color:var(--red)}
+.opcion:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+.guia-resultado{display:flex;flex-direction:column;gap:10px}
+.guia-rec{display:flex;flex-direction:column;gap:6px;padding:16px 18px;border:1px solid var(--line2);border-radius:12px;background:var(--bg2)}
+.guia-rec.principal{border:1.5px solid var(--red)}
+.guia-rec strong{font-family:var(--f-head);font-size:20px}
+.guia-etiqueta{font-size:11px;letter-spacing:1.5px;color:var(--mut)}
+
 /* íconos de servicios */
 .plan-ico,.svc-ico{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:12px;flex:none;background:color-mix(in srgb,var(--red) 14%,transparent);color:var(--red);transition:background-color .25s ease,color .25s ease}
 .svc-ico{width:40px;height:40px;border-radius:10px}

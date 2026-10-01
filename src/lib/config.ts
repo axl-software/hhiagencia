@@ -45,6 +45,8 @@ export type Hooks = { inicio: string; servicios: string; casos: string }
 export type Config = {
   whatsapp: string
   instagram: string
+  facebook: string
+  tiktok: string
   email: string
   servicios: Servicio[]
   casos: Caso[]
@@ -56,6 +58,8 @@ export type Config = {
 export const CONFIG: Config = {
   whatsapp: '56939253239', // +56 9 3925 3239 (sin + ni espacios)
   instagram: 'hhiagencia.cl', // cuenta propia de HHA (docs/HHA_BRAND_FOUNDATION.md)
+  facebook: '', // enlace completo, ej: "https://facebook.com/..." (vacío = no se muestra)
+  tiktok: '', // enlace completo, ej: "https://tiktok.com/@..." (vacío = no se muestra)
   email: 'hhadigitalsolutions@gmail.com',
 
   // Precios: no se publican hasta aprobar costos y márgenes (docs/HHA_BUSINESS_MODEL.md).
@@ -149,6 +153,9 @@ export const waUrl = (texto?: string) =>
 
 /** Mensaje directo de Instagram: canal de respaldo si faltan WhatsApp y email. */
 export const igDmUrl = () => `https://ig.me/m/${CONFIG.instagram}`
+
+/** Enlace para llamar o guardar el número (no abre WhatsApp: evita spam y bots). */
+export const telHref = () => `tel:+${CONFIG.whatsapp}`
 
 /** Número para mostrar: "56939253239" → "+56 9 3925 3239". */
 export const telVisible = () => {

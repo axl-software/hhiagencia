@@ -24,6 +24,7 @@ Approved CTA while pricing is being defined:
 - **Solicita cotización**
 - **Haz tu diagnóstico** / **Solicita un diagnóstico** (open or lead to the 3-question diagnostic)
 - “Agenda una reunión” is no longer used as a website button (founders, 2026-10-01): the header uses “Haz tu diagnóstico” and the contact page title is “Te contactamos”.
+- Contact promise (founders, 2026-10-01): first a diagnostic conversation to understand the business, then a written proposal. The site must not promise a proposal before that conversation (matches “Cómo trabajamos”).
 
 ## 2. Automation
 - lead capture,

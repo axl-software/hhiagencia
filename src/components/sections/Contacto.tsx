@@ -63,7 +63,7 @@ export default function Contacto({ as = 'h2' }: { as?: Level }) {
       <div className="contacto-intro">
         <Kicker style={{ margin: 0 }}>CONTACTO</Kicker>
         <Title as={as}>Te contactamos</Title>
-        <p className="lead">Cuéntanos qué necesitas. Te escribimos para acordar una reunión y llegamos con una propuesta, no con preguntas.</p>
+        <p className="lead">Cuéntanos qué necesitas y agendamos una conversación de diagnóstico. Primero entendemos tu negocio; después te enviamos una propuesta por escrito.</p>
         {diagnostico.length > 0 && (
           <p className="note">Ya tenemos tus respuestas del diagnóstico: van incluidas en tu mensaje.</p>
         )}

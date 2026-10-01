@@ -2,6 +2,9 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-10-01 — Contact promise: diagnostic conversation first
+- **Supersedes** “we arrive at the meeting with a proposal, not questions”: contact text is now “Cuéntanos qué necesitas y agendamos una conversación de diagnóstico. Primero entendemos tu negocio; después te enviamos una propuesta por escrito.” Same idea in the contact page description and in the diagnostic window. Aligned with “Cómo trabajamos” (diagnostic meeting → written proposal).
+
 ## 2026-10-01 — Hero text, packs sold complete, project gallery
 - **Supersedes** the hero pre-title and the hero variant: a single text under the headline, “Creamos sistemas digitales que ayudan a marcas, creadores y empresas de todo Chile a vender y operar mejor, con estrategia, contenido y tecnología.” Nothing above the hook.
 - Hero hook: AUTOMATIZA in red, using contrast-safe shades of Signal Red for small text (`#EB4B5F` dark, `#B3192F` light).

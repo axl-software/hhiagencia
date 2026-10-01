@@ -131,7 +131,7 @@ export default function GuiaPlan({
 
                 {/* Contacto en la misma ventana: las respuestas van incluidas en el mensaje */}
                 <form className="guia-form" onSubmit={onSubmit} noValidate>
-                  <p className="muted" style={{ margin: 0 }}>Déjanos tus datos y te escribimos con una propuesta para tu caso.</p>
+                  <p className="muted" style={{ margin: 0 }}>Déjanos tus datos y te contactamos para una conversación de diagnóstico sobre tu caso.</p>
                   <label>Nombre (tuyo o de tu proyecto)<input id="guia-nombre" name="nombre" autoComplete="name" aria-invalid={error?.campo === 'nombre' || undefined} /></label>
                   <div className="two">
                     <label>Teléfono o WhatsApp<input id="guia-telefono" name="telefono" type="tel" autoComplete="tel" inputMode="tel" placeholder="+56 9 1234 5678" /></label>

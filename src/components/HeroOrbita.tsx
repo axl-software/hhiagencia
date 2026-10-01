@@ -7,10 +7,11 @@
 
 import type { CSSProperties } from 'react'
 import {
-  ArrowRight, Globe, LayoutTemplate, Mail, Megaphone, ShoppingCart,
+  Globe, LayoutTemplate, Mail, Megaphone, ShoppingCart,
   TrendingUp, Users, Workflow, type LucideIcon,
 } from 'lucide-react'
 import Link from 'next/link'
+import GuiaPlan from './GuiaPlan'
 import s from './HeroOrbita.module.css'
 
 /* ---------- textos ---------- */
@@ -74,12 +75,7 @@ export default function HeroOrbita() {
           <p className={s.lead}>{LEAD}</p>
 
           <div className={s.ctas}>
-            <span className="btn-giro-wrap">
-              <Link className="btn-giro btn-giro-lg" href="/contacto">
-                <span>Agenda una reunión</span>
-                <ArrowRight size={18} strokeWidth={2.25} aria-hidden="true" />
-              </Link>
-            </span>
+            <GuiaPlan />
             <Link className="btn btn-out" href="/servicios">Ver servicios</Link>
           </div>
         </div>

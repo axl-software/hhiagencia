@@ -21,7 +21,7 @@ export default function WhatsAppFlotante() {
       Hablemos
     </>
   )
-  const wa = waUrl('Hola HH, quiero conversar una idea.')
+  const wa = waUrl('Hola HHiAgencia, quiero conversar sobre mi proyecto.')
   return wa ? (
     <a className={cls} tabIndex={show ? 0 : -1} href={wa} target="_blank" rel="noopener noreferrer" aria-label="Escríbenos por WhatsApp">{inner}</a>
   ) : (

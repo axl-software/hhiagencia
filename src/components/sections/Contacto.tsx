@@ -31,7 +31,7 @@ export default function Contacto({ as = 'h2' }: { as?: Level }) {
       e.currentTarget.querySelector<HTMLInputElement>('[name="nombre"]')?.focus()
       return
     }
-    const text = `Hola HH, soy ${f.get('nombre')}${f.get('negocio') ? ' de ' + f.get('negocio') : ''}.
+    const text = `Hola HHiAgencia, soy ${f.get('nombre')}${f.get('negocio') ? ' de ' + f.get('negocio') : ''}.
 Quiero: ${sel.map((s) => s.nombre).join(', ') || 'Por definir'}
 Objetivo: ${f.get('objetivo') || '-'}
 Fecha tentativa: ${f.get('fecha') || '-'}
@@ -42,7 +42,7 @@ Decide: ${f.get('decisor') || '-'}`
       window.open(wa, '_blank', 'noopener')
       setMsg('Abrimos WhatsApp con tu mensaje listo.')
     } else if (CONFIG.email) {
-      window.location.href = `mailto:${CONFIG.email}?subject=${encodeURIComponent('Reunión de prueba HH')}&body=${encodeURIComponent(text)}`
+      window.location.href = `mailto:${CONFIG.email}?subject=${encodeURIComponent('Reunión con HHiAgencia')}&body=${encodeURIComponent(text)}`
     } else {
       setMsg('Falta configurar el WhatsApp o el email en src/lib/config.ts.')
     }

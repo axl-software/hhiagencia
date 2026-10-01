@@ -27,6 +27,7 @@
 .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--tx); }
 .logo:hover { color: var(--tx); }
 .logoImg { height: 34px; width: auto; }
+.logoTxt { font-family: var(--f-head); font-weight: 700; font-size: 18px; letter-spacing: -0.01em; }
 
 .nav { display: flex; gap: 32px; list-style: none; margin: 0; padding: 0; }
 .link {

@@ -46,7 +46,7 @@ export type Config = {
 
 export const CONFIG: Config = {
   whatsapp: '', // ej: "56912345678" (sin + ni espacios)
-  instagram: 'hh.condireccion', // confirma la grafía exacta
+  instagram: 'hhiagencia.cl', // cuenta propia de HHA (docs/HHA_BRAND_FOUNDATION.md)
   email: '', // ej: "hola@hhiagencia.cl"
 
   servicios: [

@@ -1,6 +1,8 @@
-# HH Studio Creativo — Web (hhiagencia.cl)
+# HHiAgencia — Web (hhiagencia.cl)
 
-Agencia de IA y marketing. Next.js 16 + React 19 + Tailwind CSS 4 + TypeScript + Lucide.
+Sitio de HHA Digital Solutions: web, automatización y marketing. Antes de cambiar marca, servicios o diseño, lee `CLAUDE.md` y `docs/`.
+
+Next.js 16 + React 19 + Tailwind CSS 4 + TypeScript + Lucide.
 
 ## Páginas
 

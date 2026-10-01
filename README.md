@@ -8,10 +8,10 @@ Next.js 16 + React 19 + Tailwind CSS 4 + TypeScript + Lucide.
 
 | Ruta | Contenido |
 |---|---|
-| `/` | Portada "órbita", postura, método (4 tomas), nosotros, CTA |
-| `/servicios` | Cotizador de servicios y precios, método, CTA |
-| `/casos-y-resenas` | Casos con filtro, reseñas, CTA |
-| `/contacto` | Formulario de diagnóstico → WhatsApp (o email) |
+| `/` | Portada ("Digitaliza. Automatiza. Escala."), por qué HHA, método, nosotros, equipo, CTA |
+| `/servicios` | Planes Web Start / Business / Pro y otras líneas, sin precios; la selección va a /contacto |
+| `/casos-y-resenas` | Casos aprobados; reseñas solo si hay reales |
+| `/contacto` | Formulario de diagnóstico → WhatsApp, email o (mientras faltan) chat de Instagram |
 
 El cotizador de `/servicios` envía la selección a `/contacto?servicios=redes,eventos`, y el formulario la deja marcada.
 
@@ -37,14 +37,14 @@ src/
 │       ├── Postura.tsx  Metodo.tsx  Nosotros.tsx  CtaBanda.tsx   (servidor)
 │       └── Servicios.tsx  Casos.tsx  Resenas.tsx  Contacto.tsx   (cliente)
 └── lib/
-    ├── config.ts             DATOS EDITABLES: WhatsApp, email, Instagram, precios, casos, reseñas
+    ├── config.ts             DATOS EDITABLES: WhatsApp, email, Instagram, servicios, casos, reseñas, equipo
     └── nav.ts                páginas del menú
 public/img/                   fotos
 preview/                      vista previa en un solo HTML (router por hash)
 ```
 
 ## Editar contenido
-- `src/lib/config.ts`: WhatsApp, email, Instagram, precios (`null` = "[TU PRECIO]"), casos y reseñas.
+- `src/lib/config.ts`: WhatsApp, email, Instagram, servicios, casos, reseñas y equipo. Lo que esté vacío no se muestra (sin textos de relleno). No se publican precios hasta que estén aprobados.
 - Fotos: en `public/img/` y `foto: '/img/archivo.jpg'` en `src/lib/config.ts`.
 - Agregar una página: crea `src/app/<ruta>/page.tsx` y súmala a `src/lib/nav.ts`.
 

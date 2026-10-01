@@ -81,7 +81,6 @@ footer nav a{text-decoration:none;padding:12px 0}
 .kicker{font-family:var(--f-mono);font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--redtx);margin-bottom:18px}
 .kicker::before{content:"";display:inline-block;width:20px;height:2px;background:var(--red);vertical-align:middle;margin-right:10px}
 .dot{width:10px;height:10px;border-radius:50%;background:var(--dot);display:inline-block;flex:none}
-.rec{animation:blink 1.6s steps(1) infinite}@keyframes blink{50%{opacity:.15}}
 .lead{font-size:18px;line-height:1.65;color:var(--tx2);margin:0}
 .btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 28px;border-radius:999px;font-weight:700;font-size:15px;text-decoration:none;border:0;cursor:pointer;font-family:inherit}
 .btn-red{background:var(--red);color:var(--tx)}.btn-red:hover{background:var(--tx);color:var(--bg)}
@@ -158,7 +157,7 @@ footer nav a{text-decoration:none;padding:12px 0}
 
 /* botón píldora con borde giratorio rojo (header, portada, CTA) */
 .btn-giro-wrap{position:relative;display:inline-flex;border-radius:50px}
-.btn-giro-wrap::before{content:'';position:absolute;inset:-3px;padding:3px;border-radius:inherit;background:conic-gradient(from var(--border-angle),var(--red),var(--bg2),var(--red),var(--bg2),var(--red));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);animation:border-spin 3s linear infinite;pointer-events:none}
+.btn-giro-wrap::before{content:'';position:absolute;inset:-3px;padding:3px;border-radius:inherit;background:conic-gradient(from var(--border-angle),var(--red),var(--bg2),var(--red),var(--bg2),var(--red));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);animation:border-spin 8s linear infinite;pointer-events:none}
 @keyframes border-spin{to{--border-angle:360deg}}
 .btn-giro{position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:10px;border-radius:50px;background:var(--bg);color:var(--tx);padding:12px 26px;font-family:var(--f-body);font-size:14px;font-weight:700;letter-spacing:.2px;text-decoration:none;white-space:nowrap}
 .btn-giro::after{content:'';position:absolute;inset:0;background:var(--red);transform:translateX(-100%);transition:transform .4s cubic-bezier(.22,1,.36,1)}
@@ -178,5 +177,5 @@ footer nav a{text-decoration:none;padding:12px 0}
 .team-tags{display:flex;flex-wrap:wrap;gap:6px 14px;font-family:var(--f-mono);font-size:12px;color:var(--mut)}
 .team-tags span::before{content:"● ";color:var(--red);font-size:9px;vertical-align:2px}
 @media (max-width:480px){.team-card{flex-direction:column}.team-ph{width:100%;max-width:280px}}
-@media (prefers-reduced-motion:reduce){.rec,.btn-giro-wrap::before{animation:none}.btn-giro::after{transition:none}html{scroll-behavior:auto}}
+@media (prefers-reduced-motion:reduce){.btn-giro-wrap::before{animation:none}.btn-giro::after{transition:none}html{scroll-behavior:auto}}
 }

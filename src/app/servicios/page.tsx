@@ -4,9 +4,10 @@ import Metodo from '@/components/sections/Metodo'
 import CtaBanda from '@/components/sections/CtaBanda'
 
 export const metadata: Metadata = {
-  title: 'Servicios y precios',
+  title: 'Servicios',
+  alternates: { canonical: '/servicios' },
   description:
-    'Dirección creativa, producción audiovisual, contenido para redes, eventos, propuestas para marcas y apoyo a creadores. Arma tu proyecto y cotiza.',
+    'Desarrollo web (Web Start, Web Business y Web Pro), automatización, marketing digital y consultoría en IA. Elige lo que necesitas y solicita tu cotización.',
 }
 
 export default function ServiciosPage() {
@@ -14,7 +15,7 @@ export default function ServiciosPage() {
     <>
       <Servicios as="h1" />
       <Metodo />
-      <CtaBanda titulo="¿Ya elegiste? Lo bajamos a una propuesta." />
+      <CtaBanda titulo="¿Ya elegiste? Te enviamos una propuesta." />
     </>
   )
 }

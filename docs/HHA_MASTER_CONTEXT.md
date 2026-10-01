@@ -16,7 +16,7 @@ Marketing, sales, client acquisition, operations, design direction, public commu
 Development, software, web, automation, cybersecurity and technical implementation.
 
 ## Website team copy (approved)
-- **Herberth Garay** — Role: *Estrategia, marketing y ventas*. Areas: Estrategia · Marketing · Ventas. Bio: pending (founder wants a more dynamic, hook-style line). Photo: available (studio portrait, dark background).
+- **Herberth Garay** — Role: *Estrategia, marketing y ventas*. Bio: “Primero pregunta qué tiene que vender tu negocio. Recién después diseña, escribe o automatiza.” Areas: Estrategia · Marketing · Ventas. Photo: available (studio portrait, dark background).
 - **Alexander Bello** — Role: *Desarrollo y automatización*. Bio: “Desarrolla las webs y automatizaciones de HHA, y se asegura de que sean seguras y fáciles de mantener.” Areas: Desarrollo web · Automatización · Ciberseguridad. Photo: pending.
 
 Never publish a placeholder photo box; if a photo is missing, render the card without a photo.

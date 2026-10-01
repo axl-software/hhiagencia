@@ -11,12 +11,15 @@ export default function Resenas({ as = 'h2' }: { as?: Level }) {
     track.current?.scrollBy({ left: dir * ((card?.offsetWidth || 400) + 16), behavior: 'smooth' })
   }
 
+  // Solo reseñas reales y con permiso: sin ninguna, la sección no se muestra.
+  if (!CONFIG.resenas.length) return null
+
   return (
     <section className="wrap sec reviews">
       <div className="head-row">
         <div>
           <Kicker>RESEÑAS</Kicker>
-          <Title as={as}>Lo que dicen después del rodaje</Title>
+          <Title as={as}>Lo que dicen nuestros clientes</Title>
         </div>
         <div className="rv-nav">
           <button type="button" aria-label="Reseña anterior" onClick={() => slide(-1)}>←</button>

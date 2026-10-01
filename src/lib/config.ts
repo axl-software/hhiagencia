@@ -1,35 +1,38 @@
 /* =========================================================
    EDITA AQUÍ TUS DATOS. El sitio se actualiza solo.
-   precio: número en CLP (ej: 150000) o null para mostrar "[TU PRECIO]".
+   Fuente de verdad: CLAUDE.md y docs/. No inventes precios, clientes,
+   resultados ni reseñas: lo que esté vacío simplemente no se muestra.
    ========================================================= */
 
 export type Servicio = {
   id: string
   nombre: string
   desc: string
-  puntual: number | null
-  mensual: number | null
+  /** 'web' = planes de desarrollo web; 'linea' = otras líneas de servicio */
+  grupo: 'web' | 'linea'
+  /** Plan recomendado (Web Business, según docs/HHA_SERVICES.md) */
+  destacado?: boolean
 }
 
 export type Caso = {
   cat: string
   tag: string
   nombre: string
-  /** Ruta dentro de /public (ej: "/img/aaron.jpg"). Vacío = marcador. */
+  /** Ruta dentro de /public (ej: "/img/aaron.jpg"). Vacío = sin foto. */
   foto: string
-  fotoTxt: string
   resumen: string
   items: string[]
+  /** Solo datos reales y con permiso del cliente. Vacío = no se muestra. */
   resultado: string
 }
 
 export type Resena = { texto: string; autor: string; rol: string }
 
 export type Integrante = {
-  credito: string // rol como en los créditos, ej: "DIRECCIÓN CREATIVA"
+  rol: string
   nombre: string
   bio: string
-  /** Ruta dentro de /public (ej: "/img/herberth.jpg"). Vacío = marcador. */
+  /** Ruta dentro de /public (ej: "/img/equipo/nombre.jpg"). Vacío = tarjeta sin foto. */
   foto: string
   tags: string[]
 }
@@ -45,69 +48,49 @@ export type Config = {
 }
 
 export const CONFIG: Config = {
-  whatsapp: '', // ej: "56912345678" (sin + ni espacios)
+  whatsapp: '', // pendiente de definir (ej: "56912345678", sin + ni espacios)
   instagram: 'hhiagencia.cl', // cuenta propia de HHA (docs/HHA_BRAND_FOUNDATION.md)
-  email: '', // ej: "hola@hhiagencia.cl"
+  email: '', // pendiente de definir
 
+  // Precios: no se publican hasta aprobar costos y márgenes (docs/HHA_BUSINESS_MODEL.md).
   servicios: [
-    { id: 'direccion', nombre: 'Dirección creativa', desc: 'Concepto, línea visual, guiones y revisión de cada pieza.', puntual: null, mensual: null },
-    { id: 'produccion', nombre: 'Producción audiovisual', desc: 'Plan de tomas, rodaje, fotografía y edición.', puntual: null, mensual: null },
-    { id: 'redes', nombre: 'Contenido para redes', desc: 'Calendario semanal, carruseles, reels e historias editables.', puntual: null, mensual: null },
-    { id: 'eventos', nombre: 'Eventos', desc: 'Formato, pauta minuto a minuto, invitados y cobertura.', puntual: null, mensual: null },
-    { id: 'marcas', nombre: 'Propuestas para marcas', desc: 'Idea de campaña o colaboración y documento listo para enviar.', puntual: null, mensual: null },
-    { id: 'creadores', nombre: 'Apoyo a creadores', desc: 'Formatos de stream, patrocinadores y clips para redes.', puntual: null, mensual: null },
+    { id: 'web-start', grupo: 'web', nombre: 'Web Start', desc: 'Para partir: una presencia web profesional y simple, lista para recibir contactos.' },
+    { id: 'web-business', grupo: 'web', destacado: true, nombre: 'Web Business', desc: 'La opción recomendada: un sitio completo para mostrar tus servicios y convertir visitas en clientes.' },
+    { id: 'web-pro', grupo: 'web', nombre: 'Web Pro', desc: 'Para proyectos más grandes: más secciones, funciones o una tienda online básica.' },
+    { id: 'automatizacion', grupo: 'linea', nombre: 'Automatización', desc: 'Captación de clientes, formularios, CRM, email marketing y tareas internas que hoy te quitan tiempo.' },
+    { id: 'marketing', grupo: 'linea', nombre: 'Marketing digital', desc: 'Estrategia, contenido, email marketing y embudos para generar clientes.' },
+    { id: 'ia', grupo: 'linea', nombre: 'Consultoría y capacitación en IA', desc: 'Te mostramos qué se puede automatizar y qué impacto puede tener, y capacitamos a tu equipo.' },
   ],
 
   casos: [
     {
-      cat: 'Streaming', tag: 'STREAMING · KICK', nombre: 'Aaron / aaronig12', foto: '', fotoTxt: '[FOTO: set del stream de Aaron]',
+      cat: 'Streaming', tag: 'STREAMING · KICK', nombre: 'Aaron / aaronig12', foto: '',
       resumen: 'Dirección creativa y producción de streams y eventos en su canal de Kick.',
       items: ['Formatos y pautas de cada stream', 'Invitados y actividades en vivo', 'Gestión de patrocinadores', 'Clips para redes'],
-      resultado: '[DATO REAL: seguidores, espectadores o patrocinios]',
+      resultado: '',
     },
     {
-      cat: 'Gastronomía', tag: 'GASTRONOMÍA · BAR', nombre: 'Bar de Blas', foto: '', fotoTxt: '[FOTO: sesión en Bar de Blas]',
+      cat: 'Gastronomía', tag: 'GASTRONOMÍA · BAR', nombre: 'Bar de Blas', foto: '',
       resumen: 'Apoyo de contenido y marketing para @bardeblas.',
       items: ['Análisis del perfil de Instagram', 'Pauta de contenido', 'Sesión de fotografía'],
-      resultado: '[DATO REAL: alcance, reservas o consultas]',
-    },
-    {
-      cat: 'Gastronomía', tag: 'GASTRONOMÍA · FONDA', nombre: 'L@s MALPORTAD@S', foto: '', fotoTxt: '[FOTO: la fonda]',
-      resumen: 'Consultoría de marketing para la fonda de Desna y Valeria.',
-      items: ['Diagnóstico del negocio', 'Propuesta de marketing', 'Seguimiento'],
-      resultado: '[DATO REAL: resultado de la temporada]',
-    },
-    {
-      cat: 'Contenido propio', tag: 'CONTENIDO · HH', nombre: 'Primera Semana Creativa', foto: '', fotoTxt: '[IMAGEN: carruseles de Content2]',
-      resumen: 'Sistema de contenido propio: estrategia, calendario y piezas listas.',
-      items: ['3 carruseles: “Este tornillo tiene una campaña”, “¿Qué hago con las manos?”, “Una campaña entre dos”', '14 historias en 7 diseños', '2 guiones de reels'],
-      resultado: '[DATO REAL: rendimiento al publicar]',
+      resultado: '',
     },
   ],
 
-  // Reseñas reales, textuales y con permiso del cliente.
-  resenas: [
-    { texto: '[RESEÑA REAL: frase textual de Aaron sobre el trabajo en sus streams.]', autor: 'Aaron', rol: 'STREAMER · KICK' },
-    { texto: '[RESEÑA REAL: frase del equipo de Bar de Blas.]', autor: 'Bar de Blas', rol: 'BAR' },
-    { texto: '[RESEÑA REAL: frase de Desna o Valeria.]', autor: 'Desna y Valeria', rol: 'L@S MALPORTAD@S' },
-  ],
+  // Reseñas reales, textuales y con permiso del cliente. Vacío = la sección no se muestra.
+  resenas: [],
 
-  // Equipo (sección "Créditos" del inicio). Agrega o quita integrantes aquí.
+  // Textos aprobados en docs/HHA_MASTER_CONTEXT.md → "Website team copy".
   equipo: [
     {
-      credito: 'DIRECCIÓN CREATIVA', nombre: 'Herberth Garay', foto: '',
-      bio: '[BIO: 1–2 frases sobre tu rol en HH y lo que haces en cada proyecto.]',
-      tags: ['Ideas', 'Guiones', 'Dirección'],
+      rol: 'Estrategia, marketing y ventas', nombre: 'Herberth Garay', foto: '/img/equipo/herberth-garay.jpg',
+      bio: 'Primero pregunta qué tiene que vender tu negocio. Recién después diseña, escribe o automatiza.',
+      tags: ['Estrategia', 'Marketing', 'Ventas'],
     },
     {
-      credito: '[ROL]', nombre: '[NOMBRE]', foto: '',
-      bio: '[BIO: qué hace esta persona en el equipo.]',
-      tags: ['[ÁREA]', '[ÁREA]'],
-    },
-    {
-      credito: '[ROL]', nombre: '[NOMBRE]', foto: '',
-      bio: '[BIO: qué hace esta persona en el equipo.]',
-      tags: ['[ÁREA]', '[ÁREA]'],
+      rol: 'Desarrollo y automatización', nombre: 'Alexander Bello', foto: '',
+      bio: 'Desarrolla las webs y automatizaciones de HHA, y se asegura de que sean seguras y fáciles de mantener.',
+      tags: ['Desarrollo web', 'Automatización', 'Ciberseguridad'],
     },
   ],
 }
@@ -117,3 +100,6 @@ export const waUrl = (texto?: string) =>
   CONFIG.whatsapp
     ? `https://wa.me/${CONFIG.whatsapp}${texto ? `?text=${encodeURIComponent(texto)}` : ''}`
     : null
+
+/** Mensaje directo de Instagram: canal provisorio mientras WhatsApp y email están pendientes. */
+export const igDmUrl = () => `https://ig.me/m/${CONFIG.instagram}`

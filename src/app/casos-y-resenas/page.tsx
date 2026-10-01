@@ -4,8 +4,9 @@ import Resenas from '@/components/sections/Resenas'
 import CtaBanda from '@/components/sections/CtaBanda'
 
 export const metadata: Metadata = {
-  title: 'Casos y reseñas',
-  description: 'Trabajo real con clientes reales: streaming en Kick, gastronomía y contenido propio. Lo que dicen después del rodaje.',
+  title: 'Casos',
+  alternates: { canonical: '/casos-y-resenas' },
+  description: 'Trabajo real con clientes reales: contenido, marketing y producción para streaming y gastronomía.',
 }
 
 export default function CasosYResenasPage() {

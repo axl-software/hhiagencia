@@ -15,6 +15,8 @@
 ## Positioning
 **Ayudamos a marcas, creadores y empresas con contenido, estrategias, automatizaciones y soluciones digitales.**
 
+Website hero variant (approved): “Ayudamos a marcas, creadores y empresas con contenido, estrategias, automatizaciones y soluciones digitales en todo Chile.”
+
 ## Primary hook
 **Digitaliza. Automatiza. Escala.**
 

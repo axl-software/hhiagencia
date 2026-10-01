@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react'
 import { CONFIG } from '@/lib/config'
 import { Kicker, Title, type Level } from './Heading'
 
@@ -5,7 +6,7 @@ import { Kicker, Title, type Level } from './Heading'
 export default function Equipo({ as = 'h2' }: { as?: Level }) {
   return (
     <section className="wrap sec">
-      <div className="head-row">
+      <div className="head-row" data-reveal>
         <div>
           <Kicker>FUNDADORES</Kicker>
           <Title as={as}>Equipo</Title>
@@ -13,8 +14,8 @@ export default function Equipo({ as = 'h2' }: { as?: Level }) {
       </div>
 
       <div className="team">
-        {CONFIG.equipo.map((p) => (
-          <article className="team-card" key={p.nombre}>
+        {CONFIG.equipo.map((p, i) => (
+          <article className="team-card" key={p.nombre} data-reveal style={{ '--d': `${i * 0.1}s` } as CSSProperties}>
             {p.foto && (
               <div className="team-ph">
                 {/* eslint-disable-next-line @next/next/no-img-element -- next/image rompe la vista previa en HTML */}

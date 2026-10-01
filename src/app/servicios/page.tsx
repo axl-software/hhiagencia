@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Servicios from '@/components/sections/Servicios'
 import Metodo from '@/components/sections/Metodo'
 import CtaBanda from '@/components/sections/CtaBanda'
+import { CONFIG } from '@/lib/config'
 
 export const metadata: Metadata = {
   title: 'Servicios',
@@ -15,7 +16,7 @@ export default function ServiciosPage() {
     <>
       <Servicios as="h1" />
       <Metodo />
-      <CtaBanda titulo="¿Ya elegiste? Te enviamos una propuesta." />
+      <CtaBanda titulo={CONFIG.hooks.servicios} />
     </>
   )
 }

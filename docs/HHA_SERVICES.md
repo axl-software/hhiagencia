@@ -42,6 +42,7 @@ Approved CTA while pricing is being defined:
 - lead generation systems.
 
 ## 4. Complementary
+Shown on the website as “Creación de contenido”, “Consultoría y capacitación en IA” and “Acompañamiento digital” (implementation support + templates).
 - AI consulting,
 - AI training,
 - content creation,

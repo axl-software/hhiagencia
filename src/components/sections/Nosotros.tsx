@@ -1,9 +1,11 @@
 import { Kicker, Title, type Level } from './Heading'
+import Orbitas from '../Orbitas'
 
 export default function Nosotros({ as = 'h2' }: { as?: Level }) {
   return (
-    <section className="alt">
-      <div className="wrap sec" style={{ display: 'flex', flexDirection: 'column', gap: 22, maxWidth: 900, marginLeft: 'auto', marginRight: 'auto' }}>
+    <section className="alt con-deco">
+      <Orbitas lado="izquierda" />
+      <div className="wrap sec" data-reveal style={{ display: 'flex', flexDirection: 'column', gap: 22, maxWidth: 900, marginLeft: 'auto', marginRight: 'auto' }}>
         <Kicker style={{ margin: 0 }}>NOSOTROS</Kicker>
         <Title as={as}>Negocio y tecnología en el mismo equipo</Title>
         <p className="lead">

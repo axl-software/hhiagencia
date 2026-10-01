@@ -6,7 +6,7 @@
   top: env(safe-area-inset-top, 0px);
   z-index: 40;
   height: 80px;
-  background: rgba(5, 7, 10, 0.82);
+  background: var(--header-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--line);
@@ -54,13 +54,28 @@
 .link:hover::after, .link[aria-current='page']::after { transform: scaleX(1); }
 .mute { color: var(--mut); }
 
+/* botón de tema claro/oscuro */
+.tema {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  border: 1.5px solid var(--line3);
+  background: transparent;
+  color: var(--tx);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex: none;
+}
+.tema:hover { border-color: var(--tx); }
+
 .burger {
   display: none;
   width: 44px; height: 44px;
   border-radius: 50%;
   border: 0;
   background: var(--red);
-  color: var(--tx);
+  color: var(--on-red);
   cursor: pointer;
   align-items: center;
   justify-content: center;
@@ -92,7 +107,7 @@
 .menuLink[aria-current='page'], .menuLink:hover { color: var(--red); }
 .menuFoot { margin-top: auto; display: flex; flex-direction: column; gap: 18px; align-items: flex-start; }
 
-.link:focus-visible, .logo:focus-visible, .burger:focus-visible, .menuLink:focus-visible {
+.link:focus-visible, .logo:focus-visible, .burger:focus-visible, .menuLink:focus-visible, .tema:focus-visible {
   outline: 2px solid var(--redtx); outline-offset: 4px;
 }
 
@@ -105,6 +120,7 @@
   .nav, .mute, .ctaDesk { display: none; }
   .burger { display: inline-flex; }
   .bar { padding: 0 20px; }
+  .right { gap: 12px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .menu { animation: none; }

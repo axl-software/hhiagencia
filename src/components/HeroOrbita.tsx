@@ -15,9 +15,14 @@ import s from './HeroOrbita.module.css'
 
 /* ---------- textos ---------- */
 const KICKER = 'DESARROLLO WEB · AUTOMATIZACIÓN · MARKETING DIGITAL'
+/* Alternativas listas si se quiere sacar "Desarrollo web" del primer lugar:
+   'MARKETING DIGITAL · AUTOMATIZACIÓN · DESARROLLO WEB'
+   'CONTENIDO · ESTRATEGIA · AUTOMATIZACIÓN'
+   'ESTRATEGIA · MARKETING · TECNOLOGÍA'
+   'SOLUCIONES DIGITALES PARA PYMES, MARCAS Y CREADORES' */
 const HOOK = ['Digitaliza.', 'Automatiza.', 'Escala.']
 const LEAD =
-  'Ayudamos a marcas, creadores y empresas con contenido, estrategias, automatizaciones y soluciones digitales. Desde Casablanca, Valparaíso y Viña del Mar.'
+  'Ayudamos a marcas, creadores y empresas con contenido, estrategias, automatizaciones y soluciones digitales. Desde la Región de Valparaíso para todo Chile.'
 
 /* Lo que hacemos, en la franja inferior (docs/HHA_SERVICES.md) */
 const FRANJA = [
@@ -86,7 +91,9 @@ export default function HeroOrbita() {
                 {oi === 0 && (
                   <div className={s.center}>
                     {/* eslint-disable-next-line @next/next/no-img-element -- next/image rompe la vista previa en HTML */}
-                    <img className={s.centerLogo} src="/brand/hh-logo-blanco.png" alt="" width={480} height={299} />
+                    <img className={`${s.centerLogo} solo-oscuro`} src="/brand/hh-logo-blanco.png" alt="" width={480} height={299} />
+                    {/* eslint-disable-next-line @next/next/no-img-element -- versión azul para el modo claro */}
+                    <img className={`${s.centerLogo} solo-claro`} src="/brand/hh-logo-azul.png" alt="" width={480} height={299} />
                   </div>
                 )}
                 {o.nodes.map((nd) => {

@@ -2,9 +2,22 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-10-01 — Cream light mode
+- **Supersedes** the light-mode background `#F8FAFC`: founders found it too bright. New light mode: Cream `#F1ECE2`, Sand `#E9E2D5`, secondary text `#5C5D64` (Midnight Navy at 65 %). `#64748B` and small red text are not used on cream (insufficient contrast).
+- TEST (pending founder confirmation, not yet a rule): location wording “Desde la Región de Valparaíso para todo Chile” replaces “Quinta Región y alrededores” on the website.
+
+## 2026-10-01 — Channels, geography, team roles and theme
+- **Supersedes** the pending contact channels: WhatsApp +56 9 3925 3239 and email hhadigitalsolutions@gmail.com.
+- **Supersedes** the initial geography (Casablanca, Valparaíso, Viña del Mar): now “Quinta Región y alrededores” (official: Región de Valparaíso), to expand later.
+- Customer profile: “service companies” becomes “service or product companies”.
+- Team roles: Herberth “Automatización, estrategia, marketing y ventas”; Alexander “Estrategia de desarrollo y automatización”.
+- Website: light and dark themes; follows the device by default with a visitor toggle.
+- Contact form reduced to: name (person or project), what the business is about, services needed, email and/or phone.
+
 ## 2026-10-01 — Domain and publishing flow
 - hhiagencia.cl is registered at NIC Chile; Herberth holds the main access and shared it with Alexander.
 - Publishing flow: working branch → pull request approved by the founders → `main` → Vercel.
+- HHA already has an active **Vercel Pro** plan.
 
 ## 2026-10-01 — Herberth bio approved
 - Website bio for Herberth Garay: “Primero pregunta qué tiene que vender tu negocio. Recién después diseña, escribe o automatiza.”

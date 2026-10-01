@@ -62,7 +62,7 @@ for i, w in enumerate(['Digitaliza.', 'Automatiza.', 'Escala.']):
 d.line((X, 548, W - X, 548), fill='#191D22', width=1)  # gris #94A3B8 al 14 % sobre el fondo (= --line)
 small = ImageFont.truetype(BODY, 24)
 d.text((X, 580), 'hhiagencia.cl', font=ImageFont.truetype(HEAD, 26), fill=WHITE, anchor='lm')
-d.text((W - X, 580), 'Casablanca · Valparaíso · Viña del Mar', font=small, fill=GRAY, anchor='rm')
+d.text((W - X, 580), 'Región de Valparaíso · Todo Chile', font=small, fill=GRAY, anchor='rm')
 
 og.save(REPO + '/src/app/opengraph-image.png', optimize=True)
 

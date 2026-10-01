@@ -48,9 +48,9 @@ export type Config = {
 }
 
 export const CONFIG: Config = {
-  whatsapp: '', // pendiente de definir (ej: "56912345678", sin + ni espacios)
+  whatsapp: '56939253239', // +56 9 3925 3239 (sin + ni espacios)
   instagram: 'hhiagencia.cl', // cuenta propia de HHA (docs/HHA_BRAND_FOUNDATION.md)
-  email: '', // pendiente de definir
+  email: 'hhadigitalsolutions@gmail.com',
 
   // Precios: no se publican hasta aprobar costos y márgenes (docs/HHA_BUSINESS_MODEL.md).
   servicios: [
@@ -83,14 +83,14 @@ export const CONFIG: Config = {
   // Textos aprobados en docs/HHA_MASTER_CONTEXT.md → "Website team copy".
   equipo: [
     {
-      rol: 'Estrategia, marketing y ventas', nombre: 'Herberth Garay', foto: '/img/equipo/herberth-garay.jpg',
+      rol: 'Automatización, estrategia, marketing y ventas', nombre: 'Herberth Garay', foto: '/img/equipo/herberth-garay.jpg',
       bio: 'Primero pregunta qué tiene que vender tu negocio. Recién después diseña, escribe o automatiza.',
-      tags: ['Estrategia', 'Marketing', 'Ventas'],
+      tags: ['Estrategia', 'Marketing', 'Ventas', 'Automatización'],
     },
     {
-      rol: 'Desarrollo y automatización', nombre: 'Alexander Bello', foto: '',
+      rol: 'Estrategia de desarrollo y automatización', nombre: 'Alexander Bello', foto: '',
       bio: 'Desarrolla las webs y automatizaciones de HHA, y se asegura de que sean seguras y fáciles de mantener.',
-      tags: ['Desarrollo web', 'Automatización', 'Ciberseguridad'],
+      tags: ['Estrategia', 'Desarrollo web', 'Automatización', 'Ciberseguridad'],
     },
   ],
 }
@@ -101,5 +101,11 @@ export const waUrl = (texto?: string) =>
     ? `https://wa.me/${CONFIG.whatsapp}${texto ? `?text=${encodeURIComponent(texto)}` : ''}`
     : null
 
-/** Mensaje directo de Instagram: canal provisorio mientras WhatsApp y email están pendientes. */
+/** Mensaje directo de Instagram: canal de respaldo si faltan WhatsApp y email. */
 export const igDmUrl = () => `https://ig.me/m/${CONFIG.instagram}`
+
+/** Número para mostrar: "56939253239" → "+56 9 3925 3239". */
+export const telVisible = () => {
+  const n = CONFIG.whatsapp
+  return /^569\d{8}$/.test(n) ? `+56 9 ${n.slice(3, 7)} ${n.slice(7)}` : `+${n}`
+}

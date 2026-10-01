@@ -11,7 +11,7 @@
 ## Domain and hosting
 - Domain: **hhiagencia.cl**, registered at **NIC Chile**. Herberth holds the main account access; access is shared with Alexander.
 - Code: GitHub repository `axl-software/hhiagencia` (Alexander's account; Herberth is a collaborator).
-- Hosting: Vercel (pending connection). Changes are prepared on a working branch and reach `main` only through a pull request approved by the founders.
+- Hosting: **Vercel Pro** (active plan, suitable for commercial use). The hhiagencia project is pending connection. Changes are prepared on a working branch and reach `main` only through a pull request approved by the founders.
 
 ## Roles
 ### Herberth Garay

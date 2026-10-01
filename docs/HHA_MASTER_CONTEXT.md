@@ -16,8 +16,10 @@ Marketing, sales, client acquisition, operations, design direction, public commu
 Development, software, web, automation, cybersecurity and technical implementation.
 
 ## Website team copy (approved)
-- **Herberth Garay** — Role: *Estrategia, marketing y ventas*. Bio: “Primero pregunta qué tiene que vender tu negocio. Recién después diseña, escribe o automatiza.” Areas: Estrategia · Marketing · Ventas. Photo: available (studio portrait, dark background).
-- **Alexander Bello** — Role: *Desarrollo y automatización*. Bio: “Desarrolla las webs y automatizaciones de HHA, y se asegura de que sean seguras y fáciles de mantener.” Areas: Desarrollo web · Automatización · Ciberseguridad. Photo: pending.
+- **Herberth Garay** — Role: *Automatización, estrategia, marketing y ventas*. Bio: “Primero pregunta qué tiene que vender tu negocio. Recién después diseña, escribe o automatiza.” Areas: Estrategia · Marketing · Ventas · Automatización. Photo: available (studio portrait, dark background).
+- **Alexander Bello** — Role: *Estrategia de desarrollo y automatización*. Bio: “Desarrolla las webs y automatizaciones de HHA, y se asegura de que sean seguras y fáciles de mantener.” Areas: Estrategia · Desarrollo web · Automatización · Ciberseguridad. Photo: pending.
+
+Each founder's role intentionally includes part of the other's area, to show an integrated team.
 
 Never publish a placeholder photo box; if a photo is missing, render the card without a photo.
 
@@ -27,16 +29,16 @@ HHA is a digital-solutions business combining web development, automation, marke
 ## Initial market
 Horizontal focus:
 - SMEs,
-- service companies,
+- service or product companies,
 - local businesses,
 - selected brands and creators.
 
 Initial geography:
-- Casablanca,
-- Valparaíso,
-- Viña del Mar,
+- **Quinta Región (official name: Región de Valparaíso) and surroundings**, including Casablanca, Valparaíso and Viña del Mar,
 - later Santiago,
 - later broader Latin America.
+
+Public wording: “Desde la Quinta Región y alrededores”. In SEO metadata and structured data use the official “Región de Valparaíso” plus the main cities, so local searches still match.
 
 ## Three-year vision
 Build a technology-enabled service company with recurring monthly clients, repeatable services, implementation fees + recurring revenue, progressively automated delivery, a small team, and scalable digital products/SaaS.

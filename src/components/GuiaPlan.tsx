@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { ArrowLeft, ArrowRight, RotateCcw, X } from 'lucide-react'
 import { CONFIG } from '@/lib/config'
 
-/* Guía "¿Qué plan necesito?": tres preguntas que recomiendan un plan web (Start, Business o Pro)
+/* Guía "Descubre qué necesita tu negocio": tres preguntas que recomiendan un plan web (Start, Business o Pro)
    o cualquiera de las otras líneas de servicio, y dejan la recomendación marcada para cotizar
    (/contacto?servicios=a,b). Prioriza la web cuando el negocio no tiene una que le sirva. */
 
@@ -76,7 +76,7 @@ export default function GuiaPlan({ className = 'btn-giro btn-giro-lg' }: { class
     <>
       <span className="btn-giro-wrap">
         <button type="button" className={className} onClick={abrir}>
-          <span>¿Qué plan necesito?</span>
+          <span>Descubre qué necesita tu negocio</span>
           <ArrowRight size={18} strokeWidth={2.25} aria-hidden="true" />
         </button>
       </span>
@@ -119,7 +119,7 @@ export default function GuiaPlan({ className = 'btn-giro btn-giro-lg' }: { class
             ) : (
               <>
                 <div className="kicker" style={{ margin: 0 }}>NUESTRA RECOMENDACIÓN</div>
-                <h3 id="guia-titulo" className="card-t" style={{ margin: 0, paddingRight: 44 }}>Esto es lo que te conviene para partir</h3>
+                <h3 id="guia-titulo" className="card-t" style={{ margin: 0, paddingRight: 44 }}>Esto es lo que tu negocio necesita para partir</h3>
                 <div className="guia-resultado">
                   {recomendados.map((s, i) => (
                     <div key={s.id} className={`guia-rec${i === 0 ? ' principal' : ''}`}>

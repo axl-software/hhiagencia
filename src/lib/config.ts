@@ -37,6 +37,8 @@ export type Integrante = {
   /** Ruta dentro de /public (ej: "/img/equipo/nombre.jpg"). Vacío = tarjeta sin foto. */
   foto: string
   tags: string[]
+  /** Instagram personal (sin @). Vacío = no se muestra. */
+  instagram?: string
 }
 
 /** Frase de la banda roja de cierre en cada página. */
@@ -129,9 +131,10 @@ export const CONFIG: Config = {
       rol: 'Automatización, estrategia, marketing y ventas', nombre: 'Herberth Garay', foto: '/img/equipo/herberth-garay.jpg',
       bio: 'Primero pregunta qué tiene que vender tu negocio. Recién después diseña, escribe o automatiza.',
       tags: ['Estrategia', 'Marketing', 'Ventas', 'Automatización'],
+      instagram: 'soyherberthgaray', // marca personal: CONFIRMAR la grafía exacta
     },
     {
-      rol: 'Estrategia de desarrollo y automatización', nombre: 'Alexander Bello', foto: '',
+      rol: 'Estrategia de desarrollo y automatización', nombre: 'Alexander Bello', foto: '/img/equipo/alexander-bello.jpg',
       bio: 'Desarrolla las webs y automatizaciones de HHA, y se asegura de que sean seguras y fáciles de mantener.',
       tags: ['Estrategia', 'Desarrollo web', 'Automatización', 'Ciberseguridad'],
     },

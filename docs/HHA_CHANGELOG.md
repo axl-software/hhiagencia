@@ -2,6 +2,10 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-10-01 — Cream light mode
+- **Supersedes** the light-mode background `#F8FAFC`: founders found it too bright. New light mode: Cream `#F1ECE2`, Sand `#E9E2D5`, secondary text `#5C5D64` (Midnight Navy at 65 %). `#64748B` and small red text are not used on cream (insufficient contrast).
+- TEST (pending founder confirmation, not yet a rule): location wording “Desde la Región de Valparaíso para todo Chile” replaces “Quinta Región y alrededores” on the website.
+
 ## 2026-10-01 — Channels, geography, team roles and theme
 - **Supersedes** the pending contact channels: WhatsApp +56 9 3925 3239 and email hhadigitalsolutions@gmail.com.
 - **Supersedes** the initial geography (Casablanca, Valparaíso, Viña del Mar): now “Quinta Región y alrededores” (official: Región de Valparaíso), to expand later.

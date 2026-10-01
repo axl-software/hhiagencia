@@ -54,15 +54,17 @@
   --f-impact:"Archivo Black",sans-serif;--f-head:"Space Grotesk",sans-serif;--f-body:Inter,sans-serif;--f-mono:"JetBrains Mono",monospace;
 }
 
-/* Modo claro (docs/HHA_DESIGN_SYSTEM.md → Light mode y Theme behavior).
-   Todas las superficies en #F8FAFC: el gris #64748B solo pasa contraste sobre ese fondo. */
+/* Modo claro crema (docs/HHA_DESIGN_SYSTEM.md → Light mode): fondo #F1ECE2 y secciones #E9E2D5.
+   Sobre crema, #64748B y el rojo en texto chico no pasan contraste: el texto secundario es el
+   azul noche al 65 % (#5C5D64, 5,1-5,6:1) y los textos chicos de acento van en ese mismo gris.
+   Líneas y bordes: azul noche con transparencia. */
 :root[data-theme="light"]{
   color-scheme:light;
-  --bg:#F8FAFC;--bg2:#F8FAFC;--deep:#0B1020;
-  --line:rgba(100,116,139,.18);--line2:rgba(100,116,139,.28);--line3:rgba(100,116,139,.45);
-  --field:rgba(100,116,139,.8);
-  --tx:#05070A;--tx2:#64748B;--mut:#64748B;--redtx:#D7263D;
-  --header-bg:rgba(248,250,252,.88);
+  --bg:#F1ECE2;--bg2:#E9E2D5;--deep:#0B1020;
+  --line:rgba(11,16,32,.10);--line2:rgba(11,16,32,.16);--line3:rgba(11,16,32,.28);
+  --field:rgba(11,16,32,.5);
+  --tx:#05070A;--tx2:#5C5D64;--mut:#5C5D64;--redtx:var(--tx2);
+  --header-bg:rgba(241,236,226,.9);
   --shadow:0 1px 2px rgba(11,16,32,.06),0 8px 24px rgba(11,16,32,.06);
 }
 /* El footer es Midnight Navy en ambos temas: dentro de él rigen los colores del modo oscuro */

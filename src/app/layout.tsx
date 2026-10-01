@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     template: '%s | HHA Digital Solutions',
   },
   description:
-    'Ayudamos a marcas, creadores y empresas con contenido, estrategias, automatizaciones y soluciones digitales. Región de Valparaíso (Quinta Región) y alrededores.',
+    'Ayudamos a marcas, creadores y empresas con contenido, estrategias, automatizaciones y soluciones digitales. Desde la Región de Valparaíso para todo Chile.',
   openGraph: {
     title: 'HHA Digital Solutions | Web, Automatización y Marketing',
     description: 'Digitaliza. Automatiza. Escala. Web, automatización y marketing para marcas, creadores y empresas.',
@@ -35,6 +35,7 @@ const ORGANIZACION = {
   description:
     'Ayudamos a marcas, creadores y empresas con contenido, estrategias, automatizaciones y soluciones digitales.',
   areaServed: [
+    { '@type': 'Country', name: 'Chile' },
     { '@type': 'AdministrativeArea', name: 'Región de Valparaíso' },
     ...['Valparaíso', 'Viña del Mar', 'Casablanca', 'Quilpué', 'Villa Alemana', 'San Antonio', 'Quillota', 'Los Andes', 'San Felipe'].map(
       (name) => ({ '@type': 'City', name })
@@ -51,7 +52,7 @@ const ORGANIZACION = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#F8FAFC' },
+    { media: '(prefers-color-scheme: light)', color: '#F1ECE2' },
     { media: '(prefers-color-scheme: dark)', color: '#05070A' },
   ],
 }

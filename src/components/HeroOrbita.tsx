@@ -22,7 +22,7 @@ const KICKER = 'DESARROLLO WEB · AUTOMATIZACIÓN · MARKETING DIGITAL'
    'SOLUCIONES DIGITALES PARA PYMES, MARCAS Y CREADORES' */
 const HOOK = ['Digitaliza.', 'Automatiza.', 'Escala.']
 const LEAD =
-  'Ayudamos a marcas, creadores y empresas con contenido, estrategias, automatizaciones y soluciones digitales. Desde la Quinta Región y alrededores.'
+  'Ayudamos a marcas, creadores y empresas con contenido, estrategias, automatizaciones y soluciones digitales. Desde la Región de Valparaíso para todo Chile.'
 
 /* Lo que hacemos, en la franja inferior (docs/HHA_SERVICES.md) */
 const FRANJA = [

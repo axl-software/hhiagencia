@@ -85,7 +85,8 @@ Teléfono: ${val('telefono') || '-'}`
           {wa && <a href={wa} target="_blank" rel="noopener noreferrer"><span className="mono">WHATSAPP</span><strong>{telVisible()}</strong></a>}
           {CONFIG.email && <a href={`mailto:${CONFIG.email}`}><span className="mono">CORREO</span><strong>{CONFIG.email}</strong></a>}
           <a href={`https://instagram.com/${CONFIG.instagram}`} target="_blank" rel="noopener noreferrer"><span className="mono">INSTAGRAM</span><strong>@{CONFIG.instagram}</strong></a>
-          <div><span className="mono">BASE</span><strong>Quinta Región y alrededores</strong></div>
+          <div><span className="mono">BASE</span><strong>Región de Valparaíso</strong></div>
+          <div><span className="mono">ATENDEMOS</span><strong>Todo Chile</strong></div>
         </div>
       </div>
 

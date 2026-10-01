@@ -7,8 +7,8 @@ export default function Equipo({ as = 'h2' }: { as?: Level }) {
     <section className="wrap sec">
       <div className="head-row">
         <div>
-          <Kicker>EQUIPO</Kicker>
-          <Title as={as}>Quiénes están detrás</Title>
+          <Kicker>FUNDADORES</Kicker>
+          <Title as={as}>Equipo</Title>
         </div>
       </div>
 

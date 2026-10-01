@@ -14,7 +14,12 @@ export type Servicio = {
   destacado?: boolean
   /** Lo que se ve en "Ver qué incluye" (solo planes web). */
   incluye?: string[]
+  /** Planes web: la necesidad que cubre, en la tarjeta. La explicación (desc) va en "Ver qué incluye". */
+  necesidad?: string
 }
+
+/** Categoría visual de Servicios: agrupa servicios sin cambiar el catálogo. */
+export type Categoria = { id: string; nombre: string; necesidad: string; servicios: string[] }
 
 /** Un paso de la galería de un proyecto: imagen, qué se hizo y con qué servicio. */
 export type PasoProyecto = {
@@ -67,6 +72,7 @@ export type Config = {
   tiktok: string
   email: string
   servicios: Servicio[]
+  categorias: Categoria[]
   packs: Pack[]
   casos: Caso[]
   resenas: Resena[]
@@ -86,6 +92,7 @@ export const CONFIG: Config = {
   servicios: [
     {
       id: 'web-start', grupo: 'web', nombre: 'Web Start',
+      necesidad: 'Para comenzar con una presencia digital profesional.',
       desc: 'Para partir: una presencia web profesional y simple, lista para recibir contactos.',
       incluye: [
         'Landing page de una sola página',
@@ -97,6 +104,7 @@ export const CONFIG: Config = {
     },
     {
       id: 'web-business', grupo: 'web', destacado: true, nombre: 'Web Business',
+      necesidad: 'Recomendado para negocios que quieren usar su web para captar clientes y crecer.',
       desc: 'La opción recomendada: un sitio completo para mostrar tus servicios y convertir visitas en clientes.',
       incluye: [
         'Todo lo de Web Start',
@@ -108,6 +116,7 @@ export const CONFIG: Config = {
     },
     {
       id: 'web-pro', grupo: 'web', nombre: 'Web Pro',
+      necesidad: 'Para negocios que necesitan vender online, integrar herramientas o desarrollar funciones más avanzadas.',
       desc: 'Para proyectos más grandes: más secciones, funciones o una tienda online básica.',
       incluye: [
         'Todo lo de Web Business',
@@ -118,6 +127,9 @@ export const CONFIG: Config = {
       ],
     },
     { id: 'automatizacion', grupo: 'linea', nombre: 'Automatización', desc: 'Captación de clientes, formularios, CRM, email marketing y tareas internas que hoy te quitan tiempo.' },
+    // Integraciones: conectar herramientas que el cliente ya usa; sin desarrollo de APIs a medida (docs/HHA_TECH_STACK.md → API status)
+    { id: 'integraciones', grupo: 'linea', nombre: 'Integraciones', desc: 'Conectamos las herramientas que ya usas (web, formularios, email marketing o CRM) para que la información pase sola de una a otra.' },
+    { id: 'procesos', grupo: 'linea', nombre: 'Procesos digitales', desc: 'Ordenamos y pasamos a digital cómo trabaja tu negocio: formularios, registros y flujos claros, sin papeles ni planillas sueltas.' },
     { id: 'marketing', grupo: 'linea', nombre: 'Marketing digital', desc: 'Estrategia, contenido, email marketing y embudos para generar clientes.' },
     { id: 'captacion', grupo: 'linea', nombre: 'Captación de clientes', desc: 'Formularios, páginas de captura y seguimiento automático para que ningún interesado se pierda.' },
     { id: 'contenido', grupo: 'linea', nombre: 'Creación de contenido', desc: 'Publicaciones, carruseles, reels y piezas para tus redes, alineadas a tu estrategia.' },
@@ -127,6 +139,13 @@ export const CONFIG: Config = {
 
   // Los packs se arman con ids de "servicios". El pack completo es el recomendado.
   // Sin precios públicos: cuando estén definidos, aquí se puede agregar el ahorro del pack.
+  // Servicios agrupados por categoría (jerarquía visual en /servicios; el catálogo no cambia)
+  categorias: [
+    { id: 'web', nombre: 'Desarrollo web', necesidad: 'Cada plan incluye la implementación y un servicio mensual de mantenimiento.', servicios: ['web-start', 'web-business', 'web-pro'] },
+    { id: 'marketing', nombre: 'Marketing y captación', necesidad: 'Para que más personas te encuentren, confíen en ti y te escriban.', servicios: ['marketing', 'captacion', 'contenido'] },
+    { id: 'automatizacion', nombre: 'Automatización', necesidad: 'Para ahorrar tiempo en tareas repetitivas y que tus herramientas trabajen juntas.', servicios: ['automatizacion', 'integraciones', 'procesos'] },
+    { id: 'ia', nombre: 'IA y consultoría', necesidad: 'Para entender qué puedes mejorar con IA y aplicarlo en tu negocio con acompañamiento.', servicios: ['ia', 'acompanamiento'] },
+  ],
   packs: [
     {
       id: 'clientes', problema: '¿Necesitas conseguir más clientes?',
@@ -135,8 +154,8 @@ export const CONFIG: Config = {
     },
     {
       id: 'tiempo', problema: '¿Pierdes tiempo en tareas manuales?',
-      detalle: 'Automatizamos lo repetitivo y te enseñamos a usar IA en tu día a día.',
-      servicios: ['automatizacion', 'ia'],
+      detalle: 'Automatizamos lo repetitivo, ordenamos tus procesos y te enseñamos a usar IA en tu día a día.',
+      servicios: ['automatizacion', 'procesos', 'ia'],
     },
     {
       id: 'imagen', problema: '¿Tu negocio no transmite profesionalismo online?',
@@ -144,10 +163,9 @@ export const CONFIG: Config = {
       servicios: ['web-business', 'contenido'],
     },
     {
-      // "Integraciones" no va como servicio aparte: docs/HHA_TECH_STACK.md → API status
       id: 'herramientas', problema: '¿Tienes herramientas, pero ninguna trabaja junta?',
-      detalle: 'Ordenamos tus herramientas, las conectamos con automatización y te acompañamos en la implementación.',
-      servicios: ['automatizacion', 'acompanamiento'],
+      detalle: 'Conectamos tus herramientas, automatizamos lo que se repite y te acompañamos en la implementación.',
+      servicios: ['integraciones', 'automatizacion', 'acompanamiento'],
     },
   ],
 
@@ -197,13 +215,16 @@ export const CONFIG: Config = {
     },
   ],
 
-  // Banda de cierre de cada página: tres llamados distintos.
+  // Banda de cierre de cada página, según lo que el visitante quiere en ese punto (docs/HHA_SERVICES.md → botones por intención)
   hooks: {
-    inicio: { titulo: 'Cuéntanos qué necesitas y te enviamos una propuesta.', boton: 'Solicita un diagnóstico', href: '/contacto' },
-    servicios: { titulo: '¿Ya elegiste? Te enviamos una propuesta.', boton: 'Solicita cotización', href: '/contacto' },
+    inicio: { titulo: 'Conversemos de tu negocio y te decimos por dónde partir.', boton: 'Agenda una reunión', href: '/contacto' },
+    servicios: { titulo: '¿Prefieres verlo en una conversación?', boton: 'Agenda una reunión', href: '/contacto' },
     proyectos: { titulo: '¿El próximo caso es el tuyo?', boton: 'Explora soluciones', href: '/servicios#soluciones' },
   },
 }
+
+/** Categoría a la que pertenece un servicio (para enlazar a /servicios#cat-…). */
+export const categoriaDe = (id: string) => CONFIG.categorias.find((c) => c.servicios.includes(id))
 
 /** Enlace de WhatsApp (con mensaje opcional) o null si falta el número. */
 export const waUrl = (texto?: string) =>

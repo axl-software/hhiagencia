@@ -44,14 +44,15 @@
    en claro sí pueden ir en rojo (4,7:1). --on-red: texto sobre rojo, siempre blanco.
    --field: borde de los campos del formulario (3:1 contra el fondo).
    --rojo-txt: rojo de marca ajustado para palabras chicas destacadas (5,5:1 sobre negro;
-   en claro, #B3192F da 5,8:1 sobre crema). */
+   en claro, #B3192F da 5,8:1 sobre crema). --rojo-hondo: rojo de marca oscurecido para el
+   borde 3D y el degradado del botón principal (texto blanco 8:1). */
 :root{
   color-scheme:dark;
   --bg:#05070A;--bg2:#0B1020;--deep:#05070A;
   --line:rgba(148,163,184,.14);--line2:rgba(148,163,184,.22);--line3:rgba(148,163,184,.36);
   --field:rgba(148,163,184,.55);
   --tx:#F8FAFC;--tx2:#94A3B8;--mut:#94A3B8;
-  --red:#D7263D;--dot:#D7263D;--redtx:var(--tx2);--rojo-txt:#EB4B5F;--on-red:#F8FAFC;
+  --red:#D7263D;--dot:#D7263D;--redtx:var(--tx2);--rojo-txt:#EB4B5F;--rojo-hondo:#9E1528;--on-red:#F8FAFC;
   --header-bg:rgba(5,7,10,.82);--shadow:none;--cta-bg:var(--red);
   --f-impact:"Archivo Black",sans-serif;--f-head:"Space Grotesk",sans-serif;--f-body:Inter,sans-serif;--f-mono:"JetBrains Mono",monospace;
 }
@@ -143,21 +144,38 @@ footer .pie-lema span{font-family:var(--f-mono);font-size:12px;letter-spacing:.5
 .sub{font-family:var(--f-head);font-weight:600;font-size:20px;letter-spacing:-.01em;margin:0 0 6px}
 .plans{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin:28px 0 64px}
 .plan{position:relative;background:var(--bg);border:1px solid var(--line2);box-shadow:var(--shadow);border-radius:14px;padding:28px;display:flex;flex-direction:column;gap:12px}
-.plan .muted{margin:0;flex:1}
+.plan-necesidad{margin:0;flex:1;font-size:16px;line-height:1.5;color:var(--tx)}
 .plan-acciones{display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px}
 .ver-mas{display:inline-flex;align-items:center;gap:6px;min-height:44px;background:none;border:0;padding:0;color:var(--tx);font:inherit;font-size:14px;font-weight:600;cursor:pointer;text-decoration:underline;text-decoration-color:var(--red);text-decoration-thickness:2px;text-underline-offset:6px}
 .ver-mas svg{transition:transform .25s ease}.ver-mas:hover svg{transform:translateX(4px)}
 .plan-top{border:1.5px solid var(--red)}
 .plan-badge{position:absolute;top:-11px;left:24px;background:var(--red);color:var(--on-red);font-family:var(--f-mono);font-size:11px;letter-spacing:1.5px;padding:4px 10px;border-radius:999px}
-.svc-list{border-top:1px solid var(--line2);margin-top:16px}
-.svc-row{display:grid;grid-template-columns:auto 1fr auto;gap:20px;align-items:center;padding:22px 0;border-bottom:1px solid var(--line)}
-.svc-row .n{font-family:var(--f-mono);color:var(--mut);font-size:13px}
+.svc-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:center;padding:22px 0;border-bottom:1px solid var(--line)}
 .svc-txt{display:flex;gap:16px;align-items:flex-start;min-width:0}
 .svc-row .t{font-family:var(--f-head);font-weight:600;font-size:22px;line-height:1.2}
 .svc-row .d{color:var(--tx2);font-size:14px;line-height:1.5;margin-top:6px}
 .add{min-height:44px;min-width:44px;padding:0 16px;border-radius:999px;border:1.5px solid var(--line3);background:transparent;color:var(--tx);font:inherit;font-weight:700;cursor:pointer;white-space:nowrap}
 .add[aria-pressed="true"]{background:var(--red);border-color:var(--red);color:var(--on-red)}
-@media (max-width:700px){.svc-row{grid-template-columns:1fr auto}.svc-row .n{display:none}}
+/* Categorías de servicios: número, nombre y la necesidad que cubren; a la derecha, sus servicios */
+.cat-web{display:flex;flex-direction:column;gap:6px}
+.cat-n{font-family:var(--f-mono);font-size:12px;letter-spacing:1.5px;color:var(--mut)}
+.cat-n::before{content:'';display:inline-block;width:20px;height:2px;background:var(--red);vertical-align:middle;margin-right:10px}
+.cats{display:flex;flex-direction:column;margin-bottom:72px}
+.cat{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:20px 56px;padding:36px 0;border-top:1px solid var(--line2)}
+.cat:last-child{border-bottom:1px solid var(--line2)}
+.cat-head{display:flex;flex-direction:column;gap:6px;align-self:start}
+.cat-head .sub,.cat-web .sub{font-size:24px;margin:4px 0 2px}
+.cat-lista .svc-row:first-child{padding-top:0}
+.cat-lista .svc-row:last-child{border-bottom:0;padding-bottom:0}
+.cat-lista .t{margin:0;font-size:20px}
+@media (max-width:860px){.cat{grid-template-columns:1fr}}
+/* en celular el botón "+ Agregar" va bajo el texto (alineado con el nombre), para no apretarlo */
+@media (max-width:520px){.cat-lista .svc-row{grid-template-columns:1fr;gap:12px}.cat-lista .add{justify-self:start;margin-left:56px}}
+/* Ventana "Elegir un servicio" de un pack */
+.pack-lista{display:flex;flex-direction:column;border-top:1px solid var(--line2)}
+.pack-fila{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:14px;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)}
+.pack-fila>div{display:flex;flex-direction:column;gap:4px;font-size:14px;line-height:1.45}
+.pack-fila strong{font-family:var(--f-head);font-size:17px}
 .quote{margin-top:28px;background:var(--bg);border:1.5px solid var(--red);border-radius:14px;padding:24px 28px;display:flex;flex-wrap:wrap;gap:16px 28px;align-items:center;justify-content:space-between}
 
 /* casos */
@@ -232,7 +250,7 @@ input[aria-invalid="true"]{border-color:var(--red);box-shadow:0 0 0 1px var(--re
 .legal a{color:var(--tx);text-decoration:underline;text-decoration-color:var(--red);text-underline-offset:4px}
 
 /* problema → solución (packs) */
-.soluciones-head{display:flex;flex-direction:column;gap:6px;scroll-margin-top:110px}
+.soluciones-head{display:flex;flex-direction:column;gap:6px}
 .packs{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));margin:24px 0 28px}
 .pack{display:flex;flex-direction:column;gap:14px;background:var(--bg);border:1px solid var(--line2);border-radius:14px;padding:26px;box-shadow:var(--shadow);transition:opacity .7s ease var(--d,0s),translate .7s cubic-bezier(.22,1,.36,1) var(--d,0s),border-color .25s ease}
 .pack-completo{border:1.5px solid var(--red)}
@@ -246,15 +264,6 @@ input[aria-invalid="true"]{border-color:var(--red);box-shadow:0 0 0 1px var(--re
 .pack-btn{min-height:46px;font-size:14px;padding:0 20px}
 .pack-badge{font-family:var(--f-mono);font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--mut)}
 .pack-completo .pack-badge{color:var(--tx)}
-.pack-uno{display:inline-flex;align-items:center;gap:6px}
-/* Lista completa abierta desde un pack: sus servicios van primero y marcados */
-.svc-nota{margin:0;padding:16px 0 4px;font-size:15px;color:var(--tx2)}
-.svc-nota:focus{outline:none}.svc-nota:focus-visible{outline:2px solid var(--red);outline-offset:4px}
-.svc-nota strong{color:var(--tx)}
-.svc-resaltado{box-shadow:inset 3px 0 0 var(--red);background:color-mix(in srgb,var(--red) 7%,transparent);padding-left:18px;padding-right:12px}
-.ver-todos{display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:0 20px;border-radius:999px;border:1.5px solid var(--line3);background:transparent;color:var(--tx);font:inherit;font-size:15px;font-weight:700;cursor:pointer}
-.ver-todos svg{transition:transform .25s ease}.ver-todos[aria-expanded="true"] svg{transform:rotate(180deg)}
-.ver-todos:hover{border-color:var(--tx)}
 
 /* proceso completo (/como-trabajamos) */
 .proceso{list-style:none;margin:48px 0 0;padding:0;display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,500px),1fr))}
@@ -390,3 +399,18 @@ input[aria-invalid="true"]{border-color:var(--red);box-shadow:0 0 0 1px var(--re
 @media (max-width:600px){.galeria{height:clamp(180px,32vh,280px)}.modal-proyecto .modal-caja{padding:24px 20px;gap:12px}}
 @keyframes fotoIn{from{opacity:0}}
 @media (prefers-reduced-motion:reduce){.galeria-foto,.galeria-texto{animation:none}.case-ver svg{transition:none}}
+
+/* ===== Botón principal de la portada (diagnóstico) =====
+   Rojo de marca con un degradado que se mueve y un brillo que lo recorre, para que destaque en el
+   oscuro. Borde inferior más oscuro (efecto 3D): al pasar el mouse el botón salta hacia arriba. */
+.btn-vivo{position:relative;isolation:isolate;overflow:hidden;display:inline-flex;align-items:center;gap:10px;min-height:56px;padding:0 30px;border:0;border-radius:999px;cursor:pointer;font-family:var(--f-body);font-size:16px;font-weight:700;letter-spacing:.2px;white-space:nowrap;color:var(--on-red);background:linear-gradient(110deg,var(--rojo-hondo) 0%,var(--red) 30%,var(--red) 70%,var(--rojo-hondo) 100%);background-size:220% 100%;box-shadow:0 5px 0 var(--rojo-hondo),0 14px 30px -8px rgba(215,38,61,.6);animation:vivoFondo 4s ease-in-out infinite alternate;transition:transform .35s cubic-bezier(.34,1.56,.64,1),box-shadow .35s ease}
+.btn-vivo::before{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.14) 50%,transparent 65%);transform:translateX(-100%);animation:vivoBrillo 3.2s ease-in-out infinite}
+.btn-vivo svg{transition:transform .3s ease}
+.btn-vivo:hover{transform:translateY(-5px) scale(1.04);box-shadow:0 10px 0 var(--rojo-hondo),0 26px 44px -10px rgba(215,38,61,.7)}
+.btn-vivo:hover svg{transform:translateX(4px)}
+.btn-vivo:active{transform:translateY(3px) scale(.99);box-shadow:0 2px 0 var(--rojo-hondo),0 6px 16px -6px rgba(215,38,61,.5);transition-duration:.1s}
+.btn-vivo:focus-visible{outline:2px solid var(--tx);outline-offset:6px}
+@keyframes vivoFondo{from{background-position:0% 50%}to{background-position:100% 50%}}
+@keyframes vivoBrillo{0%{transform:translateX(-100%)}60%,100%{transform:translateX(100%)}}
+@media (max-width:480px){.btn-vivo{min-height:52px;padding:0 22px;font-size:15px}}
+@media (prefers-reduced-motion:reduce){.btn-vivo,.btn-vivo::before{animation:none}.btn-vivo,.btn-vivo svg{transition:none}.btn-vivo:hover{transform:none}}

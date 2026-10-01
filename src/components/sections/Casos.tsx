@@ -3,7 +3,7 @@
 import { useEffect, useId, useRef, useState, type CSSProperties, type KeyboardEvent, type TouchEvent } from 'react'
 import Link from 'next/link'
 import { ArrowLeft, ArrowRight, Image as ImagenIcono, X } from 'lucide-react'
-import { CONFIG, type Caso } from '@/lib/config'
+import { CONFIG, categoriaDe, type Caso } from '@/lib/config'
 import { medir } from '@/lib/medir'
 import { Kicker, Title, type Level } from './Heading'
 import Orbitas from '../Orbitas'
@@ -38,7 +38,9 @@ export default function Casos({ as = 'h2' }: { as?: Level }) {
   const total = fotos.length
   const actual = fotos[paso]
   const ir = (n: number) => setPaso((n + total) % total)
-  const servicios = Array.from(new Set(fotos.map((f) => f.servicio)))
+  /* "Explora soluciones similares": lleva a la categoría de Servicios del servicio principal del proyecto */
+  const categoria = fotos.length ? categoriaDe(fotos[0].servicio) : undefined
+  const hrefSimilares = categoria ? `/servicios#cat-${categoria.id}` : '/servicios#soluciones'
 
   const onKeyDown = (e: KeyboardEvent<HTMLDialogElement>) => {
     if (e.key === 'ArrowRight') ir(paso + 1)
@@ -161,7 +163,7 @@ export default function Casos({ as = 'h2' }: { as?: Level }) {
             )}
 
             <div className="modal-acciones">
-              <Link className="btn btn-red" href={`/contacto?servicios=${servicios.join(',')}`} onClick={cerrar}>Quiero algo así →</Link>
+              <Link className="btn btn-red" href={hrefSimilares} onClick={cerrar}>Explora soluciones similares →</Link>
               <button type="button" className="btn btn-out" onClick={cerrar}>Cerrar</button>
             </div>
           </div>

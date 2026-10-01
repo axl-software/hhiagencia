@@ -12,7 +12,7 @@ import ContactoPage from '@/app/contacto/page'
 import PrivacidadPage from '@/app/privacidad/page'
 import TerminosPage from '@/app/terminos/page'
 import SeguridadPage from '@/app/seguridad/page'
-import { usePath } from './shims/router'
+import { useAncla, usePath } from './shims/router'
 import '@/app/globals.css'
 
 const PAGES: Record<string, ComponentType> = {
@@ -28,11 +28,15 @@ const PAGES: Record<string, ComponentType> = {
 
 function App() {
   const path = usePath()
+  const ancla = useAncla()
   const Page = PAGES[path] ?? Inicio
-  // con llaves: en Chrome reciente scrollTo devuelve una promesa, y React la tomaría como función de limpieza
+  // al cambiar de página: arriba, o a la sección pedida (#servicios#soluciones).
+  // Con llaves: en Chrome reciente scrollTo devuelve una promesa, y React la tomaría como función de limpieza
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [path])
+    const destino = ancla ? document.getElementById(ancla) : null
+    if (destino) destino.scrollIntoView()
+    else window.scrollTo(0, 0)
+  }, [path, ancla])
   return (
     <>
       <Header />

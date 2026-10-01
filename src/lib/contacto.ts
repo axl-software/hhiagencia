@@ -31,7 +31,7 @@ export function armarMensaje(d: DatosContacto) {
     lineas.push('Hice el diagnóstico en la web:')
     for (const r of d.diagnostico) lineas.push(`- ${r.pregunta} ${r.respuesta}`)
   }
-  lineas.push(`Me interesa: ${d.servicios.join(', ') || 'Por definir'}`)
+  lineas.push(d.servicios.length ? `Me interesa: ${d.servicios.join(', ')}` : 'Me gustaría agendar una reunión para conversar de mi negocio.')
   lineas.push(`Correo: ${d.email || '-'}`)
   lineas.push(`Teléfono: ${d.telefono || '-'}`)
   return lineas.join('\n')

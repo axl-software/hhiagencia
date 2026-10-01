@@ -9,11 +9,17 @@
 - Current status: project in development; not yet a constituted operating company.
 
 ## Founders
-### Herbert Garay
+### Herberth Garay
 Marketing, sales, client acquisition, operations, design direction, public communication and business strategy. Main public face.
 
 ### Alexander Bello
 Development, software, web, automation, cybersecurity and technical implementation.
+
+## Website team copy (approved)
+- **Herberth Garay** — Role: *Estrategia, marketing y ventas*. Areas: Estrategia · Marketing · Ventas. Bio: pending (founder wants a more dynamic, hook-style line). Photo: available (studio portrait, dark background).
+- **Alexander Bello** — Role: *Desarrollo y automatización*. Bio: “Desarrolla las webs y automatizaciones de HHA, y se asegura de que sean seguras y fáciles de mantener.” Areas: Desarrollo web · Automatización · Ciberseguridad. Photo: pending.
+
+Never publish a placeholder photo box; if a photo is missing, render the card without a photo.
 
 ## Strategic direction
 HHA is a digital-solutions business combining web development, automation, marketing, applied AI, consulting and future SaaS products.
@@ -38,5 +44,5 @@ Build a technology-enabled service company with recurring monthly clients, repea
 ## Strategic rule
 **Build first what is necessary to sell. Automate only what already works.**
 
-## Herbert personal brand relationship
-Herbert's personal brand educates around marketing, AI and automation, generates authority and leads, and may feed HHA commercially. HHA must still be able to grow independently from Herbert's personal image.
+## Herberth personal brand relationship
+Herberth's personal brand educates around marketing, AI and automation, generates authority and leads, and may feed HHA commercially. HHA must still be able to grow independently from Herberth's personal image.

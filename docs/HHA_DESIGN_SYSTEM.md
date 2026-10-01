@@ -66,6 +66,7 @@ Approved by the founders: pure white was too bright, so light mode uses a warm c
 ## Accessibility
 Do not use Signal Red for small body text on dark backgrounds when contrast is insufficient.
 When a founder asks for a small word in red, use the contrast-safe shades of Signal Red (`#EB4B5F` dark, `#B3192F` light, token `--rojo-txt`); they are tones of the same brand red, not new colors.
+Home main button: Signal Red with a slowly moving gradient to a deeper shade (`#9E1528`, token `--rojo-hondo`) and a soft passing shine; the deeper shade is also its bottom edge, so it reads as a 3D button that lifts on hover. Text stays `#F8FAFC`. With “reduce motion” it is static.
 Prefer white text on Signal Red buttons when contrast passes.
 Validate contrast for all interactive and text states.
 

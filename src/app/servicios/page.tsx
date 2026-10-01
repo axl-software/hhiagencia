@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: 'Servicios',
   alternates: { canonical: '/servicios' },
   description:
-    'Desarrollo web (Web Start, Web Business y Web Pro), automatización, marketing digital y consultoría en IA. Elige lo que necesitas y solicita tu cotización.',
+    'Desarrollo web (Web Start, Web Business y Web Pro), marketing y captación de clientes, automatización e integraciones, e IA y consultoría. Elige lo que necesitas y solicita tu cotización.',
 }
 
 export default function ServiciosPage() {

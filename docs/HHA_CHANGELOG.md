@@ -2,6 +2,15 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-10-01 — Service categories, need-based plans, buttons by intent
+- Web plan cards state the need they cover; the explanation moves to “Ver qué incluye”.
+- **Supersedes** the Servicios layout: categories (Desarrollo web, Marketing y captación, Automatización, IA y consultoría), then packs, then “Tu selección”. “Ver todos los servicios” removed (every service is visible in its category). “Elegir un servicio” opens a window with the pack's services.
+- **Supersedes** “Integraciones not offered”: now a service under Automatización, limited to connecting existing tools. New line: Procesos digitales.
+- Packs updated: “tareas manuales” adds Procesos digitales; “herramientas” adds Integraciones.
+- Home method: new approved texts; step 3 renamed “Lo construimos contigo”; link “Ver cómo trabajamos →”.
+- **Supersedes** the CTA list: buttons by visitor intent (see HHA_SERVICES.md). “Agenda una reunión” returns for visitors who want to talk (closing bands of Inicio and Servicios, contact button with no services selected). “Solicita un diagnóstico” removed. Project gallery button: “Explora soluciones similares”.
+- Home main button: “Te orientamos en 3 preguntas”, animated solid red with a 3D lift on hover.
+
 ## 2026-10-01 — Contact promise: diagnostic conversation first
 - **Supersedes** “we arrive at the meeting with a proposal, not questions”: contact text is now “Cuéntanos qué necesitas y agendamos una conversación de diagnóstico. Primero entendemos tu negocio; después te enviamos una propuesta por escrito.” Same idea in the contact page description and in the diagnostic window. Aligned with “Cómo trabajamos” (diagnostic meeting → written proposal).
 

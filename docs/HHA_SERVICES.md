@@ -18,12 +18,21 @@ Packages:
 
 Goal: Web Business should be the natural best-value option for most clients.
 
+On the website each plan card states the need it covers (approved by the founders); the explanation and what it includes go in “Ver qué incluye”:
+- Web Start: “Para comenzar con una presencia digital profesional.”
+- Web Business: “Recomendado para negocios que quieren usar su web para captar clientes y crecer.”
+- Web Pro: “Para negocios que necesitan vender online, integrar herramientas o desarrollar funciones más avanzadas.”
+
 Pricing is not public yet and must not be invented.
 
-Approved CTA while pricing is being defined:
-- **Solicita cotización**
-- **Haz tu diagnóstico** / **Solicita un diagnóstico** (open or lead to the 3-question diagnostic)
-- “Agenda una reunión” is no longer used as a website button (founders, 2026-10-01): the header uses “Haz tu diagnóstico” and the contact page title is “Te contactamos”.
+Approved CTA while pricing is being defined. Each button matches what the visitor wants at that point (founders, 2026-10-01; replaces the earlier list):
+- Does not know what they need yet → **Haz tu diagnóstico** (header, mobile menu, Servicios with nothing selected) and **Te orientamos en 3 preguntas** (home main button). Both open the 3-question diagnostic.
+- Wants to see the offer → **Ver servicios**.
+- Already selected services or a pack → **Solicita cotización** (carries the selection to the contact form).
+- Is looking at a project → **Explora soluciones similares** (gallery, goes to that project's service category) and **Explora soluciones** (Proyectos closing band, goes to the packs).
+- Understood the proposal and wants to talk → **Agenda una reunión** (closing bands of Inicio, Servicios and Cómo trabajamos; contact form button when no service is selected).
+- “Solicita un diagnóstico” is no longer used: it mixed the diagnostic and the contact form.
+- The contact page title stays “Te contactamos”.
 - Contact promise (founders, 2026-10-01): first a diagnostic conversation to understand the business, then a written proposal. The site must not promise a proposal before that conversation (matches “Cómo trabajamos”).
 
 ## 2. Automation
@@ -59,15 +68,26 @@ Not to be presented as mature offers unless approved:
 - advanced dashboards,
 - client portals.
 
-## Website presentation: problem → solution
-Approved after an external advisor review: clients know their problem, not the technical name of the solution. The Servicios page shows web plans, then problems with their solution packs, then “Ver todos los servicios”.
-- ¿Necesitas conseguir más clientes? → Marketing digital + Web Business + Captación de clientes.
-- ¿Pierdes tiempo en tareas manuales? → Automatización + Consultoría y capacitación en IA.
-- ¿Tu negocio no transmite profesionalismo online? → Web Business + Creación de contenido.
-- ¿Tienes herramientas, pero ninguna trabaja junta? → Automatización + Acompañamiento digital.
+## Website presentation: categories, then problem → solution
+Approved by the founders (2026-10-01; replaces “web plans, then packs, then Ver todos los servicios”). The catalog does not change: services are grouped visually so visitors who know what they want find it, and visitors who don't can start from their problem without knowing technical names. Order on the Servicios page:
+1. **Desarrollo web**: Web Start, Web Business, Web Pro.
+2. **Marketing y captación**: Marketing digital, Captación de clientes, Creación de contenido.
+3. **Automatización**: Automatización, Integraciones, Procesos digitales.
+4. **IA y consultoría**: Consultoría y capacitación en IA, Acompañamiento digital.
+5. **Packs** (“¿Qué problema quieres resolver?”).
+6. **Tu selección**: diagnostic if nothing is selected, quote if something is.
 
-Packs are sold complete: their services are listed but not selectable one by one. Each pack has “Elegir pack completo” and a smaller “Elegir un servicio”, which opens “Ver todos los servicios” with that pack's services first and highlighted, so the visitor adds only the ones they want. Once a pack is chosen, its button becomes “Solicita cotización”. No discount is shown until prices are approved.
-“Integraciones” is not offered as a separate service yet (see Tech Stack → API status).
+Each category shows the need it covers in one line.
+
+Packs (reviewed with the new services):
+- ¿Necesitas conseguir más clientes? → Marketing digital + Web Business + Captación de clientes.
+- ¿Pierdes tiempo en tareas manuales? → Automatización + Procesos digitales + Consultoría y capacitación en IA.
+- ¿Tu negocio no transmite profesionalismo online? → Web Business + Creación de contenido.
+- ¿Tienes herramientas, pero ninguna trabaja junta? → Integraciones + Automatización + Acompañamiento digital.
+
+Packs are sold complete: their services are listed but not selectable one by one. Each pack has “Elegir pack completo” and a smaller “Elegir un servicio”, which opens a window with that pack's services to add only the ones they want. Once a pack is chosen, its button becomes “Solicita cotización”. No discount is shown until prices are approved.
+**Integraciones** is offered as a service under Automatización (founders, 2026-10-01; replaces “not offered as a separate service”). Scope: connecting tools the client already uses (web, forms, email marketing, CRM). Custom API development is still not a proven capability (Tech Stack → API status) and must not be promised.
+**Procesos digitales** (new line, founders 2026-10-01): ordering and digitizing how the business works (forms, records, clear workflows).
 “Captación de clientes” is shown as its own line; it is the lead-capture part of Automation.
 Delivery times are not public: they are defined in the meeting, per project.
 

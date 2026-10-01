@@ -93,9 +93,12 @@ export default function Contacto({ as = 'h2' }: { as?: Level }) {
         </div>
         <p className="note" style={{ marginTop: -10 }}>Con uno de los dos basta.</p>
         {error && <p className="form-error" role="alert">{error.texto}</p>}
-        <button className="btn btn-red" type="submit" name="via" value="whatsapp" style={{ minHeight: 56, fontSize: 16 }}>Solicita cotización →</button>
+        {/* El botón sigue la intención: con servicios elegidos pide cotización; sin ellos, una reunión */}
+        <button className="btn btn-red" type="submit" name="via" value="whatsapp" style={{ minHeight: 56, fontSize: 16 }}>
+          {sel.length ? 'Solicita cotización →' : 'Agenda una reunión →'}
+        </button>
         {CONFIG.email && (
-          <button className="link-btn" type="submit" name="via" value="email">o envíala por correo</button>
+          <button className="link-btn" type="submit" name="via" value="email">o envíalo por correo</button>
         )}
         <p className="note" role="status">{msg}</p>
       </form>

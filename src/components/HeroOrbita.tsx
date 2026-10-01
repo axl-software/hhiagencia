@@ -81,7 +81,8 @@ export default function HeroOrbita() {
           <p className={s.lead}>{LEAD}</p>
 
           <div className={s.ctas}>
-            <GuiaPlan />
+            {/* Botón principal: abre las 3 preguntas del diagnóstico; rojo vivo y con salto al pasar el mouse */}
+            <GuiaPlan etiqueta="Te orientamos en 3 preguntas" className="btn-vivo" giro={false} />
             <Link className="btn btn-out" href="/servicios">Ver servicios</Link>
           </div>
         </div>

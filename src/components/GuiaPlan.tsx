@@ -8,12 +8,12 @@ import { armarMensaje, enviar, validar } from '@/lib/contacto'
 import { PREGUNTAS, recomendar, respuestasLegibles } from '@/lib/diagnostico'
 import { medir } from '@/lib/medir'
 
-/* Diagnóstico "Descubre qué necesita tu negocio": tres preguntas, una recomendación y, en la misma
-   ventana, nombre y contacto para enviar todo (respuestas incluidas) sin cambiar de página.
-   Se usa en el encabezado y el menú móvil ("Haz tu diagnóstico"), en la portada (botón principal)
-   y en Servicios ("Hacer diagnóstico"). */
+/* Diagnóstico de 3 preguntas: una recomendación y, en la misma ventana, nombre y contacto para
+   enviar todo (respuestas incluidas) sin cambiar de página. Es el botón de quien todavía no sabe qué
+   necesita: encabezado y menú móvil ("Haz tu diagnóstico"), portada ("Te orientamos en 3 preguntas")
+   y Servicios cuando no hay nada elegido. */
 export default function GuiaPlan({
-  etiqueta = 'Descubre qué necesita tu negocio',
+  etiqueta = 'Haz tu diagnóstico',
   className = 'btn-giro btn-giro-lg',
   giro = true,
   origen = 'portada',
@@ -124,7 +124,7 @@ export default function GuiaPlan({
                     <div key={s.id} className={`guia-rec${i === 0 ? ' principal' : ''}`}>
                       <span className="mono guia-etiqueta">{i === 0 ? 'TE RECOMENDAMOS' : 'PARA COMPLEMENTAR'}</span>
                       <strong>{s.nombre}</strong>
-                      <span className="muted">{s.desc}</span>
+                      <span className="muted">{s.necesidad ?? s.desc}</span>
                     </div>
                   ))}
                 </div>

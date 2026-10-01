@@ -58,6 +58,16 @@ npm run dev        # http://localhost:3000
 npm run build
 ```
 
+### Después de bajar cambios (git pull)
+Si alguien agregó o cambió paquetes (por ejemplo, las fuentes), hay que instalarlos y borrar la caché:
+```
+npm install
+npm run limpiar    # borra .next (la caché de compilación)
+npm run dev
+```
+Error típico si se salta este paso: `Can't resolve '@fontsource/...'` en `globals.css`.
+La caché puede seguir mostrando el error aunque el paquete ya esté instalado: por eso `npm run limpiar`.
+
 ## Vista previa en un solo HTML
 ```
 npm run preview:html   # preview-html/index.html, con las 4 páginas navegables

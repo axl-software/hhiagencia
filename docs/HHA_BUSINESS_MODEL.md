@@ -40,6 +40,8 @@ Not a client case: **Primera Semana Creativa** (HH Studio Creativo's own content
 
 Results, metrics and testimonials for these clients may only be published with real data and the client's permission. Never fill them with estimates.
 
+On the website each project opens a gallery: one image per step, with a short text of what was done and which HHA service it used. The current texts and service labels are DRAFTS taken from the approved case items; the founders must confirm them and provide the images (`public/img/proyectos/`). Until then each step shows “Imagen pendiente”.
+
 ## Offer strategy
 Web packages:
 - Web Start
@@ -53,7 +55,8 @@ Do not display public package prices until costs, margins and delivery scope are
 
 Use:
 - **Solicita cotización**
-- **Agenda una reunión**
+- **Haz tu diagnóstico** / **Solicita un diagnóstico**
+- (“Agenda una reunión” replaced on the website on 2026-10-01; see HHA_SERVICES.md.)
 
 ## First milestone
 Close the first web-development client with implementation fee, recurring monthly component, clear scope and repeatable delivery process.

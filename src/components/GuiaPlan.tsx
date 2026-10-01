@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState, type FormEvent } from 'react'
+import { useEffect, useId, useRef, useState, type FormEvent } from 'react'
 import Link from 'next/link'
 import { ArrowLeft, ArrowRight, RotateCcw, X } from 'lucide-react'
 import { CONFIG } from '@/lib/config'
@@ -10,7 +10,8 @@ import { medir } from '@/lib/medir'
 
 /* Diagnóstico "Descubre qué necesita tu negocio": tres preguntas, una recomendación y, en la misma
    ventana, nombre y contacto para enviar todo (respuestas incluidas) sin cambiar de página.
-   Se usa en la portada (botón principal) y en Servicios ("Hacer diagnóstico"). */
+   Se usa en el encabezado y el menú móvil ("Haz tu diagnóstico"), en la portada (botón principal)
+   y en Servicios ("Hacer diagnóstico"). */
 export default function GuiaPlan({
   etiqueta = 'Descubre qué necesita tu negocio',
   className = 'btn-giro btn-giro-lg',
@@ -18,6 +19,7 @@ export default function GuiaPlan({
   origen = 'portada',
 }: { etiqueta?: string; className?: string; giro?: boolean; origen?: string }) {
   const dialogo = useRef<HTMLDialogElement>(null)
+  const titulo = `${useId()}-titulo` // hay varias copias del botón en la misma página
   const [abierta, setAbierta] = useState(false)
   const [respuestas, setRespuestas] = useState<string[]>([])
   const [error, setError] = useState<{ campo: string; texto: string } | null>(null)
@@ -81,7 +83,7 @@ export default function GuiaPlan({
       <dialog
         ref={dialogo}
         className="modal guia"
-        aria-labelledby="guia-titulo"
+        aria-labelledby={titulo}
         onClose={() => setAbierta(false)}
         onClick={(e) => e.target === e.currentTarget && cerrar()}
       >
@@ -97,7 +99,7 @@ export default function GuiaPlan({
                   {PREGUNTAS.map((_, i) => <span key={i} className={i <= paso ? 'on' : undefined} />)}
                 </div>
                 <div className="kicker" style={{ margin: 0 }}>PREGUNTA {paso + 1} DE {PREGUNTAS.length}</div>
-                <h3 id="guia-titulo" className="card-t" style={{ margin: 0, paddingRight: 44 }}>{PREGUNTAS[paso].titulo}</h3>
+                <h3 id={titulo} className="card-t" style={{ margin: 0, paddingRight: 44 }}>{PREGUNTAS[paso].titulo}</h3>
                 <div className="guia-opciones">
                   {PREGUNTAS[paso].opciones.map(([valor, texto]) => (
                     <button key={valor} type="button" className="opcion" onClick={() => responder(valor)}>
@@ -116,7 +118,7 @@ export default function GuiaPlan({
             ) : (
               <>
                 <div className="kicker" style={{ margin: 0 }}>NUESTRA RECOMENDACIÓN</div>
-                <h3 id="guia-titulo" className="card-t" style={{ margin: 0, paddingRight: 44 }}>Esto es lo que tu negocio necesita para partir</h3>
+                <h3 id={titulo} className="card-t" style={{ margin: 0, paddingRight: 44 }}>Esto es lo que tu negocio necesita para partir</h3>
                 <div className="guia-resultado">
                   {recomendados.map((s, i) => (
                     <div key={s.id} className={`guia-rec${i === 0 ? ' principal' : ''}`}>

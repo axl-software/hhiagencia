@@ -54,15 +54,6 @@
   align-items: flex-start;
 }
 
-.pretitulo {
-  margin: 0 0 18px;
-  max-width: 460px;
-  font-size: 15px;
-  line-height: 1.5;
-  font-weight: 500;
-  color: var(--tx);
-}
-
 .kicker {
   font-family: var(--f-mono);
   font-size: 12px;
@@ -70,6 +61,8 @@
   color: var(--mut);
   margin-bottom: 24px;
 }
+/* Palabra destacada del hook: rojo de texto chico (--rojo-txt pasa 4,5:1 en ambos modos) */
+.kickerRojo { color: var(--rojo-txt); font-weight: 500; }
 .kicker::before {
   content: '';
   display: inline-block;

@@ -7,6 +7,7 @@ import { Menu, X } from 'lucide-react'
 import { NAV } from '@/lib/nav'
 import TemaToggle from './TemaToggle'
 import Redes from './Redes'
+import GuiaPlan from './GuiaPlan'
 import s from './Header.module.css'
 
 function Logo({ onClick }: { onClick?: () => void }) {
@@ -23,14 +24,17 @@ function Logo({ onClick }: { onClick?: () => void }) {
 
 export default function Header() {
   const pathname = usePathname()
-  const [open, setOpen] = useState(false)
-  const close = () => setOpen(false)
+  /* El menú móvil recuerda en qué página se abrió: al cambiar de página (por ejemplo desde
+     "Prefiero el formulario completo" del diagnóstico) se cierra solo. */
+  const [abiertoEn, setAbiertoEn] = useState<string | null>(null)
+  const open = abiertoEn === pathname
+  const close = () => setAbiertoEn(null)
 
   /* bloquea el scroll y cierra con Escape mientras el menú móvil está abierto */
   useEffect(() => {
     if (!open) return
     document.body.style.overflow = 'hidden'
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false)
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setAbiertoEn(null)
     window.addEventListener('keydown', onKey)
     return () => {
       document.body.style.overflow = ''
@@ -59,10 +63,11 @@ export default function Header() {
 
         <div className={s.right}>
           <TemaToggle className={s.tema} />
-          <span className={`btn-giro-wrap ${s.ctaDesk}`}>
-            <Link className="btn-giro" href="/contacto"><span>Agenda una reunión</span></Link>
+          {/* El botón principal abre el diagnóstico de 3 preguntas (docs/HHA_BRAND_FOUNDATION.md) */}
+          <span className={s.ctaDesk}>
+            <GuiaPlan etiqueta="Haz tu diagnóstico" className="btn-giro" origen="encabezado" />
           </span>
-          <button type="button" className={s.burger} onClick={() => setOpen(true)} aria-label="Abrir menú" aria-expanded={open}>
+          <button type="button" className={s.burger} onClick={() => setAbiertoEn(pathname)} aria-label="Abrir menú" aria-expanded={open}>
             <Menu size={20} strokeWidth={2.5} aria-hidden="true" />
           </button>
         </div>
@@ -88,9 +93,7 @@ export default function Header() {
           </ul>
           <div className={s.menuFoot}>
             <Redes />
-            <span className="btn-giro-wrap">
-              <Link className="btn-giro btn-giro-lg" href="/contacto" onClick={close}><span>Agenda una reunión</span></Link>
-            </span>
+            <GuiaPlan etiqueta="Haz tu diagnóstico" origen="menu" />
           </div>
         </div>
       )}

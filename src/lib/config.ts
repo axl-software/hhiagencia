@@ -16,6 +16,16 @@ export type Servicio = {
   incluye?: string[]
 }
 
+/** Un paso de la galería de un proyecto: imagen, qué se hizo y con qué servicio. */
+export type PasoProyecto = {
+  titulo: string
+  texto: string
+  /** id de un servicio de la lista de abajo (ej: "contenido") */
+  servicio: string
+  /** Ruta dentro de /public (ej: "/img/proyectos/aaron-1.jpg"). Vacío = recuadro "Imagen pendiente". */
+  imagen: string
+}
+
 export type Caso = {
   cat: string
   tag: string
@@ -26,6 +36,8 @@ export type Caso = {
   items: string[]
   /** Solo datos reales y con permiso del cliente. Vacío = no se muestra. */
   resultado: string
+  /** Galería que se abre al tocar el proyecto (Proyectos). */
+  galeria: PasoProyecto[]
 }
 
 export type Resena = { texto: string; autor: string; rol: string }
@@ -145,12 +157,25 @@ export const CONFIG: Config = {
       resumen: 'Dirección creativa y producción de streams y eventos en su canal de Kick.',
       items: ['Formatos y pautas de cada stream', 'Invitados y actividades en vivo', 'Gestión de patrocinadores', 'Clips para redes'],
       resultado: '',
+      // BORRADOR: textos y servicios por confirmar con los fundadores; imágenes por subir a /public/img/proyectos/
+      galeria: [
+        { titulo: 'Formato y pauta de cada stream', texto: 'Definimos el formato de cada transmisión y armamos su pauta.', servicio: 'contenido', imagen: '' },
+        { titulo: 'Invitados y actividades en vivo', texto: 'Coordinamos invitados y actividades para los streams y eventos del canal.', servicio: 'contenido', imagen: '' },
+        { titulo: 'Gestión de patrocinadores', texto: 'Gestionamos los patrocinadores del canal.', servicio: 'marketing', imagen: '' },
+        { titulo: 'Clips para redes', texto: 'Convertimos momentos de los streams en clips para redes sociales.', servicio: 'contenido', imagen: '' },
+      ],
     },
     {
       cat: 'Gastronomía', tag: 'GASTRONOMÍA · BAR', nombre: 'Bar de Blas', foto: '',
       resumen: 'Apoyo de contenido y marketing para @bardeblas.',
       items: ['Análisis del perfil de Instagram', 'Pauta de contenido', 'Sesión de fotografía'],
       resultado: '',
+      // BORRADOR: textos y servicios por confirmar con los fundadores; imágenes por subir a /public/img/proyectos/
+      galeria: [
+        { titulo: 'Análisis del perfil de Instagram', texto: 'Revisamos el perfil de @bardeblas para detectar qué mejorar.', servicio: 'marketing', imagen: '' },
+        { titulo: 'Pauta de contenido', texto: 'Armamos una pauta de publicaciones para sus redes.', servicio: 'contenido', imagen: '' },
+        { titulo: 'Sesión de fotografía', texto: 'Hicimos una sesión de fotos del bar para su contenido.', servicio: 'contenido', imagen: '' },
+      ],
     },
   ],
 

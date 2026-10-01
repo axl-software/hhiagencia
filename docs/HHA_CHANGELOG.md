@@ -2,6 +2,14 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-10-01 — Hero text, packs sold complete, project gallery
+- **Supersedes** the hero pre-title and the hero variant: a single text under the headline, “Creamos sistemas digitales que ayudan a marcas, creadores y empresas de todo Chile a vender y operar mejor, con estrategia, contenido y tecnología.” Nothing above the hook.
+- Hero hook: AUTOMATIZA in red, using contrast-safe shades of Signal Red for small text (`#EB4B5F` dark, `#B3192F` light).
+- **Supersedes** “Agenda una reunión”: header button “Haz tu diagnóstico” (opens the diagnostic); contact title “Te contactamos”, text about a scheduled meeting with a proposal, not questions.
+- @hhiagencia.cl written next to the Instagram icon (footer) and under it (contact).
+- **Supersedes** “pick one, two or the full pack”: packs are sold complete; “Elegir un servicio” opens the full list with that pack's services first and highlighted. “Ver todos los servicios” now lists all services, web plans included.
+- Projects: each card opens a gallery (image, what was done, service). Texts are drafts and images are pending.
+
 ## 2026-10-01 — Advisor review applied
 - Analytics: Vercel Web Analytics with custom events (instead of Plausible/Umami).
 - Diagnostic: answers now travel to the contact message; the result window asks for name and phone/email and sends without leaving the page.

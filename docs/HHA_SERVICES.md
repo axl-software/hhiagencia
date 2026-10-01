@@ -22,7 +22,8 @@ Pricing is not public yet and must not be invented.
 
 Approved CTA while pricing is being defined:
 - **Solicita cotización**
-- **Agenda una reunión**
+- **Haz tu diagnóstico** / **Solicita un diagnóstico** (open or lead to the 3-question diagnostic)
+- “Agenda una reunión” is no longer used as a website button (founders, 2026-10-01): the header uses “Haz tu diagnóstico” and the contact page title is “Te contactamos”.
 
 ## 2. Automation
 - lead capture,
@@ -64,7 +65,7 @@ Approved after an external advisor review: clients know their problem, not the t
 - ¿Tu negocio no transmite profesionalismo online? → Web Business + Creación de contenido.
 - ¿Tienes herramientas, pero ninguna trabaja junta? → Automatización + Acompañamiento digital.
 
-Visitors can pick one service, two, or the full pack; the full pack is labeled “Recomendado”. No discount is shown until prices are approved.
+Packs are sold complete: their services are listed but not selectable one by one. Each pack has “Elegir pack completo” and a smaller “Elegir un servicio”, which opens “Ver todos los servicios” with that pack's services first and highlighted, so the visitor adds only the ones they want. Once a pack is chosen, its button becomes “Solicita cotización”. No discount is shown until prices are approved.
 “Integraciones” is not offered as a separate service yet (see Tech Stack → API status).
 “Captación de clientes” is shown as its own line; it is the lead-capture part of Automation.
 Delivery times are not public: they are defined in the meeting, per project.

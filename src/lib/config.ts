@@ -12,6 +12,8 @@ export type Servicio = {
   grupo: 'web' | 'linea'
   /** Plan recomendado (Web Business, según docs/HHA_SERVICES.md) */
   destacado?: boolean
+  /** Lo que se ve en "Ver qué incluye" (solo planes web). */
+  incluye?: string[]
 }
 
 export type Caso = {
@@ -37,6 +39,9 @@ export type Integrante = {
   tags: string[]
 }
 
+/** Frase de la banda roja de cierre en cada página. */
+export type Hooks = { inicio: string; servicios: string; casos: string }
+
 export type Config = {
   whatsapp: string
   instagram: string
@@ -45,6 +50,7 @@ export type Config = {
   casos: Caso[]
   resenas: Resena[]
   equipo: Integrante[]
+  hooks: Hooks
 }
 
 export const CONFIG: Config = {
@@ -53,13 +59,46 @@ export const CONFIG: Config = {
   email: 'hhadigitalsolutions@gmail.com',
 
   // Precios: no se publican hasta aprobar costos y márgenes (docs/HHA_BUSINESS_MODEL.md).
+  // "incluye": BORRADOR para que los fundadores lo ajusten (docs/HHA_SERVICES.md aún no define el alcance de cada plan).
   servicios: [
-    { id: 'web-start', grupo: 'web', nombre: 'Web Start', desc: 'Para partir: una presencia web profesional y simple, lista para recibir contactos.' },
-    { id: 'web-business', grupo: 'web', destacado: true, nombre: 'Web Business', desc: 'La opción recomendada: un sitio completo para mostrar tus servicios y convertir visitas en clientes.' },
-    { id: 'web-pro', grupo: 'web', nombre: 'Web Pro', desc: 'Para proyectos más grandes: más secciones, funciones o una tienda online básica.' },
+    {
+      id: 'web-start', grupo: 'web', nombre: 'Web Start',
+      desc: 'Para partir: una presencia web profesional y simple, lista para recibir contactos.',
+      incluye: [
+        'Landing page de una sola página',
+        'Diseño adaptado a celular',
+        'Botón de WhatsApp y formulario de contacto',
+        'Configuración de dominio y hosting',
+        'Mantenimiento mensual',
+      ],
+    },
+    {
+      id: 'web-business', grupo: 'web', destacado: true, nombre: 'Web Business',
+      desc: 'La opción recomendada: un sitio completo para mostrar tus servicios y convertir visitas en clientes.',
+      incluye: [
+        'Todo lo de Web Start',
+        'Sitio con varias secciones: inicio, servicios, nosotros y contacto',
+        'Textos y estructura pensados para convertir visitas en clientes',
+        'Optimización básica para aparecer en Google',
+        'Mantenimiento mensual y ajustes menores',
+      ],
+    },
+    {
+      id: 'web-pro', grupo: 'web', nombre: 'Web Pro',
+      desc: 'Para proyectos más grandes: más secciones, funciones o una tienda online básica.',
+      incluye: [
+        'Todo lo de Web Business',
+        'Tienda online básica o funciones a medida',
+        'Integraciones con formularios, email marketing o CRM',
+        'Automatizaciones iniciales',
+        'Mantenimiento mensual con mejoras continuas',
+      ],
+    },
     { id: 'automatizacion', grupo: 'linea', nombre: 'Automatización', desc: 'Captación de clientes, formularios, CRM, email marketing y tareas internas que hoy te quitan tiempo.' },
     { id: 'marketing', grupo: 'linea', nombre: 'Marketing digital', desc: 'Estrategia, contenido, email marketing y embudos para generar clientes.' },
+    { id: 'contenido', grupo: 'linea', nombre: 'Creación de contenido', desc: 'Publicaciones, carruseles, reels y piezas para tus redes, alineadas a tu estrategia.' },
     { id: 'ia', grupo: 'linea', nombre: 'Consultoría y capacitación en IA', desc: 'Te mostramos qué se puede automatizar y qué impacto puede tener, y capacitamos a tu equipo.' },
+    { id: 'acompanamiento', grupo: 'linea', nombre: 'Acompañamiento digital', desc: 'Te ayudamos a implementar herramientas, plantillas y procesos digitales en tu negocio.' },
   ],
 
   casos: [
@@ -93,6 +132,13 @@ export const CONFIG: Config = {
       tags: ['Estrategia', 'Desarrollo web', 'Automatización', 'Ciberseguridad'],
     },
   ],
+
+  // Frases de la banda roja de cierre. Alternativas en docs/ o en la conversación con Claude.
+  hooks: {
+    inicio: 'Cuéntanos qué necesitas y te enviamos una propuesta.',
+    servicios: '¿Ya elegiste? Te enviamos una propuesta.',
+    casos: '¿El próximo caso es el tuyo?',
+  },
 }
 
 /** Enlace de WhatsApp (con mensaje opcional) o null si falta el número. */

@@ -2,6 +2,11 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-10-01 — Hero line, extra services, plan details
+- Hero line ends with “en todo Chile” instead of “Desde la Región de Valparaíso para todo Chile”.
+- Website adds “Creación de contenido” and “Acompañamiento digital” (both already in Complementary services).
+- Each web plan gets a “Ver qué incluye” window. Its contents are a DRAFT pending founder definition of each plan's scope.
+
 ## 2026-10-01 — Cream light mode
 - **Supersedes** the light-mode background `#F8FAFC`: founders found it too bright. New light mode: Cream `#F1ECE2`, Sand `#E9E2D5`, secondary text `#5C5D64` (Midnight Navy at 65 %). `#64748B` and small red text are not used on cream (insufficient contrast).
 - TEST (pending founder confirmation, not yet a rule): location wording “Desde la Región de Valparaíso para todo Chile” replaces “Quinta Región y alrededores” on the website.

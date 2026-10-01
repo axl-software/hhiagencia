@@ -3,6 +3,7 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { CONFIG } from '@/lib/config'
 import TemaScript from '@/components/TemaScript'
+import Revelar from '@/components/Revelar'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -73,6 +74,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
         <Header />
         <main>{children}</main>
         <Footer />
+        <Revelar />
       </body>
     </html>
   )

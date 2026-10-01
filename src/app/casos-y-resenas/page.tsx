@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Casos from '@/components/sections/Casos'
 import Resenas from '@/components/sections/Resenas'
 import CtaBanda from '@/components/sections/CtaBanda'
+import { CONFIG } from '@/lib/config'
 
 export const metadata: Metadata = {
   title: 'Casos',
@@ -14,7 +15,7 @@ export default function CasosYResenasPage() {
     <>
       <Casos as="h1" />
       <Resenas />
-      <CtaBanda titulo="¿El próximo caso es el tuyo?" />
+      <CtaBanda titulo={CONFIG.hooks.casos} />
     </>
   )
 }

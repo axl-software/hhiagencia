@@ -1,8 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, type CSSProperties } from 'react'
 import { CONFIG } from '@/lib/config'
 import { Kicker, Title, type Level } from './Heading'
+import Orbitas from '../Orbitas'
 
 const CATS = ['Todos', ...Array.from(new Set(CONFIG.casos.map((c) => c.cat)))]
 
@@ -12,9 +13,10 @@ export default function Casos({ as = 'h2' }: { as?: Level }) {
   const casos = CONFIG.casos.filter((c) => cat === 'Todos' || c.cat === cat)
 
   return (
-    <section className="alt">
+    <section className="alt con-deco">
+      <Orbitas lado="derecha" />
       <div className="wrap sec">
-        <div className="head-row">
+        <div className="head-row" data-reveal>
           <div>
             <Kicker>CASOS</Kicker>
             <Title as={as}>Trabajo real, clientes reales</Title>
@@ -28,8 +30,8 @@ export default function Casos({ as = 'h2' }: { as?: Level }) {
           )}
         </div>
         <div className="grid">
-          {casos.map((c) => (
-            <article className="case card" key={c.nombre}>
+          {casos.map((c, i) => (
+            <article className="case card" key={c.nombre} data-reveal style={{ '--d': `${i * 0.1}s` } as CSSProperties}>
               {c.foto && (
                 // eslint-disable-next-line @next/next/no-img-element -- next/image rompe la vista previa en HTML
                 <div className="ph"><img src={c.foto} alt={c.nombre} loading="lazy" /></div>

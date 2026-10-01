@@ -5,6 +5,7 @@ import Metodo from '@/components/sections/Metodo'
 import Nosotros from '@/components/sections/Nosotros'
 import Equipo from '@/components/sections/Equipo'
 import CtaBanda from '@/components/sections/CtaBanda'
+import { CONFIG } from '@/lib/config'
 
 export const metadata: Metadata = {
   alternates: { canonical: '/' },
@@ -19,7 +20,7 @@ export default function Inicio() {
       <Metodo alt />
       <Nosotros />
       <Equipo />
-      <CtaBanda />
+      <CtaBanda titulo={CONFIG.hooks.inicio} />
     </>
   )
 }

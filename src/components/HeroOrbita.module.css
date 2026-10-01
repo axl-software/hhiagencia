@@ -1,0 +1,355 @@
+/* =========================================================
+   PORTADA "ÓRBITA" — plantilla Marketeam llevada a la marca HH.
+   Azul noche + rojo REC, League Gothic / Montserrat / Anonymous Pro.
+   Visor de cámara (esquinas + REC con timecode) como sello de rodaje.
+   ========================================================= */
+
+.hero {
+  --noche: #061323;
+  --noche2: #0A1B30;
+  --rojo: #FE0000;
+  --tx: #F4F6FA;
+  --tx2: #C9D2E3;
+  --mut: #A9B4C8;
+  --line: #15304F;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  position: relative;
+  min-height: calc(100vh - 80px);
+  min-height: calc(100svh - 80px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  color: var(--tx);
+  font-family: Montserrat, sans-serif;
+  background:
+    radial-gradient(60% 70% at 78% 50%, rgba(254, 0, 0, 0.13) 0%, rgba(254, 0, 0, 0) 60%),
+    radial-gradient(50% 60% at 10% 0%, #0E2440 0%, rgba(14, 36, 64, 0) 70%),
+    linear-gradient(180deg, #061323 0%, #050F1D 100%);
+}
+
+/* rejilla tenue tipo monitor de cámara */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(70% 70% at 60% 50%, #000 0%, transparent 100%);
+  -webkit-mask-image: radial-gradient(70% 70% at 60% 50%, #000 0%, transparent 100%);
+  pointer-events: none;
+}
+
+/* ---------- visor de cámara ---------- */
+.corner {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border-color: rgba(244, 246, 250, 0.35);
+  border-style: solid;
+  border-width: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+.tl { top: 14px; left: 14px; border-top-width: 2px; border-left-width: 2px; }
+.tr { top: 14px; right: 14px; border-top-width: 2px; border-right-width: 2px; }
+.bl { bottom: 14px; left: 14px; border-bottom-width: 2px; border-left-width: 2px; }
+.br { bottom: 14px; right: 14px; border-bottom-width: 2px; border-right-width: 2px; }
+
+.rec {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Anonymous Pro', monospace;
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: var(--mut);
+  font-variant-numeric: tabular-nums;
+}
+.recDot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--rojo);
+  animation: blink 1.6s steps(1) infinite;
+}
+@keyframes blink { 50% { opacity: 0.15; } }
+
+/* ---------- cuerpo ---------- */
+.main {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  padding: 24px 64px 0;
+  max-width: 1920px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.heroLeft {
+  flex: 0 1 600px;
+  min-width: 0;
+  padding-top: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  animation: fadeUp 1s var(--ease) both;
+}
+
+.kicker {
+  font-family: 'Anonymous Pro', monospace;
+  font-size: 14px;
+  letter-spacing: 2px;
+  color: var(--rojo);
+  margin-bottom: 20px;
+}
+
+.h1 {
+  font-family: 'League Gothic', sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(56px, 5.9vw, 92px);
+  line-height: 0.92;
+  letter-spacing: 0.3px;
+  margin: 0;
+  min-height: 3.7em; /* reserva el alto final: el texto no empuja el layout al escribirse */
+  text-wrap: balance;
+}
+.h1White { color: var(--tx); }
+.h1Red { color: var(--rojo); }
+.caret {
+  display: inline-block;
+  width: 0.06em;
+  height: 0.8em;
+  margin-left: 0.06em;
+  background: var(--rojo);
+  vertical-align: -0.05em;
+  animation: blink 0.9s steps(1) infinite;
+}
+
+.lead {
+  margin: 22px 0 0;
+  max-width: 520px;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--tx2);
+  animation: fadeUp 0.8s var(--ease) 2.9s both;
+}
+
+.cta {
+  margin-top: 30px;
+  animation: fadeUp 0.8s var(--ease) 3.2s both;
+}
+
+.cursor {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+  margin-left: 290px;
+  margin-top: 26px;
+  animation: fadeUp 0.8s var(--ease) 3.6s both;
+}
+.cursorTag {
+  background: var(--rojo);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 7px 15px;
+  border-radius: 20px;
+  margin-top: 14px;
+}
+
+/* ---------- órbitas ---------- */
+.heroRight {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: scaleIn 1.2s var(--ease) 0.3s both;
+}
+.stage {
+  position: relative;
+  width: 720px;
+  height: 720px;
+  flex: none;
+}
+.orbit {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border-radius: 50%;
+  translate: -50% -50%;
+}
+.orbit::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  padding: 1px;
+  background: linear-gradient(180deg, rgba(169, 180, 200, 0) 0%, rgba(169, 180, 200, 0.75) 43%, rgba(169, 180, 200, 0) 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+}
+.orbitRed::before {
+  background: linear-gradient(180deg, rgba(254, 0, 0, 0) 0%, rgba(254, 0, 0, 0.9) 43%, rgba(254, 0, 0, 0) 100%);
+}
+.o1 { width: 353px; height: 353px; animation: spinL 30s linear infinite; }
+.o2 { width: 501px; height: 501px; animation: spinR 40s linear infinite; }
+.o3 { width: 649px; height: 649px; animation: spinR 50s linear infinite; }
+.o4 { width: 797px; height: 797px; animation: spinL 60s linear infinite; }
+@keyframes spinR { to { rotate: 360deg; } }
+@keyframes spinL { to { rotate: -360deg; } }
+
+/* contador central (contra-rota para quedar derecho) */
+.center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  animation: spinR 30s linear infinite;
+}
+.count {
+  font-family: 'League Gothic', sans-serif;
+  font-size: 104px;
+  line-height: 0.9;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  font-variant-numeric: tabular-nums;
+}
+.countDot { width: 16px; height: 16px; border-radius: 50%; background: var(--rojo); margin-top: 10px; }
+.countLabel {
+  font-family: 'Anonymous Pro', monospace;
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: var(--mut);
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* nodos sobre las órbitas */
+.node {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) rotate(var(--a)) translate(var(--r)) rotate(calc(-1 * var(--a)));
+}
+.cR30 { animation: spinR 30s linear infinite; }
+.cL40 { animation: spinL 40s linear infinite; }
+.cL50 { animation: spinL 50s linear infinite; }
+.cR60 { animation: spinR 60s linear infinite; }
+.tile {
+  width: var(--s);
+  height: var(--s);
+  border-radius: var(--br);
+  background: linear-gradient(160deg, #0F2846 0%, #081830 100%);
+  border: 1px solid #2E5480;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  color: var(--tx);
+  box-shadow: 0 0 28px 4px var(--glow);
+  animation: flyIn 1s var(--ease) var(--d) both;
+}
+.tileRed { background: var(--rojo); border-color: var(--rojo); color: #fff; }
+.tileLabel {
+  font-family: 'Anonymous Pro', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  line-height: 1;
+}
+@keyframes flyIn {
+  from { opacity: 0; transform: scale(0.3) rotate(-180deg); filter: blur(8px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+
+/* ---------- cinta inferior ---------- */
+.ticker {
+  position: relative;
+  z-index: 2;
+  padding: 22px 0 34px;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 12%, #000 88%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 12%, #000 88%, transparent 100%);
+  animation: fadeUp 1s var(--ease) 0.6s both;
+}
+.track {
+  display: flex;
+  width: max-content;
+  gap: 64px;
+  animation: ticker 20s linear infinite;
+}
+.tickItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 64px;
+  font-family: 'League Gothic', sans-serif;
+  font-size: 34px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--tx2);
+}
+.tickItem::after {
+  content: '';
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--rojo);
+}
+@keyframes ticker { to { transform: translateX(-50%); } }
+
+/* ---------- entradas ---------- */
+@keyframes fadeDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: none; } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: none; } }
+@keyframes scaleIn { from { opacity: 0; transform: scale(0.85); } to { opacity: 1; transform: none; } }
+
+
+/* ---------- responsive ---------- */
+@media (max-width: 1280px) {
+  .stage { zoom: 0.85; }
+}
+@media (max-height: 860px) and (min-width: 1025px) {
+  .stage { zoom: 0.8; }
+  .lead { margin-top: 16px; }
+  .cta { margin-top: 22px; }
+}
+@media (max-width: 1024px) {
+  .main { flex-direction: column; padding: 24px 32px 0; gap: 0; }
+  .heroLeft { flex: none; width: 100%; align-items: center; text-align: center; }
+  .lead { max-width: 560px; }
+  .h1 { font-size: 72px; }
+  .stage { zoom: 0.7; }
+  .cursor { margin-left: 160px; }
+}
+@media (max-width: 768px) {
+  .main { padding: 24px 20px 0; }
+  .h1 { font-size: 56px; }
+  .stage { zoom: 0.5; }
+  .cursor { margin-left: 120px; margin-top: 24px; }
+  .tickItem { font-size: 28px; gap: 40px; }
+  .track { gap: 40px; }
+}
+@media (max-width: 480px) {
+  .h1 { font-size: 46px; }
+  .lead { font-size: 15px; }
+  .stage { zoom: 0.42; }
+  .cursor { margin-left: 80px; }
+  .tickItem { font-size: 24px; }
+  .corner { width: 18px; height: 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero *, .hero *::before, .hero *::after { animation: none !important; transition: none !important; }
+}

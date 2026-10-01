@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# HH Studio Creativo — Web (hhiagencia.cl)
 
-## Getting Started
+Agencia de IA y marketing. Next.js 16 + React 19 + Tailwind CSS 4 + TypeScript + Lucide.
 
-First, run the development server:
+## Páginas
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+| Ruta | Contenido |
+|---|---|
+| `/` | Portada "órbita", postura, método (4 tomas), nosotros, CTA |
+| `/servicios` | Cotizador de servicios y precios, método, CTA |
+| `/casos-y-resenas` | Casos con filtro, reseñas, CTA |
+| `/contacto` | Formulario de diagnóstico → WhatsApp (o email) |
+
+El cotizador de `/servicios` envía la selección a `/contacto?servicios=redes,eventos`, y el formulario la deja marcada.
+
+## Estructura
+
+```
+src/
+├── app/
+│   ├── layout.tsx            Header + Footer + metadatos (título por página)
+│   ├── page.tsx              inicio
+│   ├── servicios/page.tsx
+│   ├── casos-y-resenas/page.tsx
+│   ├── contacto/page.tsx
+│   ├── not-found.tsx         404 en español
+│   └── globals.css           marca, tipografías, estilos de secciones
+├── components/
+│   ├── Header.tsx (+ .module.css)   nav, link activo, menú móvil
+│   ├── Footer.tsx
+│   ├── WhatsAppFlotante.tsx         botón "Hablemos"
+│   ├── HeroOrbita.tsx (+ .module.css) portada del inicio
+│   └── sections/
+│       ├── Heading.tsx       kicker + título (h1 si abre la página)
+│       ├── Postura.tsx  Metodo.tsx  Nosotros.tsx  CtaBanda.tsx   (servidor)
+│       └── Servicios.tsx  Casos.tsx  Resenas.tsx  Contacto.tsx   (cliente)
+└── lib/
+    ├── config.ts             DATOS EDITABLES: WhatsApp, email, Instagram, precios, casos, reseñas
+    └── nav.ts                páginas del menú
+public/img/                   fotos
+preview/                      vista previa en un solo HTML (router por hash)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Editar contenido
+- `src/lib/config.ts`: WhatsApp, email, Instagram, precios (`null` = "[TU PRECIO]"), casos y reseñas.
+- Fotos: en `public/img/` y `foto: '/img/archivo.jpg'` en `src/lib/config.ts`.
+- Agregar una página: crea `src/app/<ruta>/page.tsx` y súmala a `src/lib/nav.ts`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Marca
+Azul noche `#061323` · rojo REC `#FE0000` · League Gothic (títulos) · Montserrat (texto) · Anonymous Pro (etiquetas).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Local
+```
+npm install
+npm run dev        # http://localhost:3000
+npm run build
+```
 
-## Learn More
+## Vista previa en un solo HTML
+```
+npm run preview:html   # preview-html/index.html, con las 4 páginas navegables
+```
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Publicar
+Vercel detecta Next.js solo. Conectar el repo y apuntar el dominio hhiagencia.cl.

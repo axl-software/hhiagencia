@@ -1,14 +1,15 @@
 'use client'
 
-import { useState, type FormEvent } from 'react'
+import { useRef, useState, type FormEvent } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { AtSign, Mail, MapPin, Phone } from 'lucide-react'
 import { CONFIG, telHref, telVisible } from '@/lib/config'
-import { armarMensaje, enviar, validar } from '@/lib/contacto'
+import { armarMensaje, completaFalta, enviar, validar, type Falta } from '@/lib/contacto'
 import { respuestasLegibles } from '@/lib/diagnostico'
 import { Kicker, Title, type Level } from './Heading'
 import Redes from '../Redes'
 import Orbitas from '../Orbitas'
+import AvisoFalta from '../AvisoFalta'
 
 /* Formulario corto para cotizar: nombre (persona o proyecto), de qué se trata el negocio,
    servicios y correo y/o teléfono. Lee ?servicios=a,b (de /servicios o del diagnóstico) y, si viene
@@ -35,7 +36,9 @@ export default function Contacto({ as = 'h2' }: { as?: Level }) {
   })
 
   const [msg, setMsg] = useState('')
-  const [error, setError] = useState<{ campo: string; texto: string } | null>(null)
+  const [error, setError] = useState<Falta | null>(null)
+  const formRef = useRef<HTMLFormElement>(null)
+  const marcar = (campo: string) => error?.campos.includes(campo) || undefined
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -44,13 +47,12 @@ export default function Contacto({ as = 'h2' }: { as?: Level }) {
     const val = (k: string) => String(f.get(k) ?? '').trim()
     const datos = { nombre: val('nombre'), email: val('email'), telefono: val('telefono') }
 
-    /* Los dos botones necesitan los mismos datos para armar el mensaje: si falta algo,
-       se avisa arriba del botón y se marca el campo. */
+    /* Nombre y correo o WhatsApp son obligatorios: si falta algo, aparece un aviso amable arriba del
+       botón, con un botón que lleva directo al campo; los campos que faltan quedan marcados. */
     const falta = validar(datos)
     if (falta) {
       setMsg('')
       setError(falta)
-      form.querySelector<HTMLInputElement>(`[name="${falta.campo}"]`)?.focus()
       return
     }
     setError(null)
@@ -97,13 +99,26 @@ export default function Contacto({ as = 'h2' }: { as?: Level }) {
         </div>
       </div>
 
-      {/* Tarjeta del formulario: azul noche en ambos modos, con brillo rojo (globals.css → .contacto-form) */}
-      <form className="contacto-form" onSubmit={onSubmit} noValidate>
+      {/* Tarjeta del formulario: azul noche en ambos modos, con brillo rojo (globals.css → .contacto-form).
+          method="post": si alguien enviara antes de que cargue la página, sus datos no quedan en la dirección. */}
+      <form
+        ref={formRef}
+        className="contacto-form"
+        method="post"
+        onSubmit={onSubmit}
+        onInput={(e) => {
+          if (error && completaFalta(error, e.target as HTMLInputElement)) setError(null)
+        }}
+        noValidate
+      >
         <div className="form-cabeza">
           <h2 className="card-t" style={{ margin: 0 }}>Cuéntanos de tu proyecto</h2>
-          <p className="muted" style={{ margin: 0 }}>Completa lo que puedas: el resto lo vemos en la conversación.</p>
+          <p className="muted" style={{ margin: 0 }}>Solo tu nombre y un medio de contacto son obligatorios; el resto lo vemos en la conversación.</p>
         </div>
-        <label>Nombre (tuyo o de tu proyecto)<input id="nombre" name="nombre" autoComplete="name" required aria-invalid={error?.campo === 'nombre' || undefined} /></label>
+        <label>
+          <span className="label-fila">Nombre (tuyo o de tu proyecto) <span className="obligatorio">Obligatorio</span></span>
+          <input id="nombre" name="nombre" autoComplete="name" required aria-invalid={marcar('nombre')} />
+        </label>
         <label>¿De qué se trata tu negocio o proyecto?<input id="negocio" name="negocio" placeholder="Ej: cafetería, consultora, marca de ropa" /></label>
         <fieldset>
           <legend>¿Qué necesitas?</legend>
@@ -113,12 +128,14 @@ export default function Contacto({ as = 'h2' }: { as?: Level }) {
             ))}
           </div>
         </fieldset>
-        <div className="two">
-          <label>Correo<input id="email" name="email" type="email" autoComplete="email" inputMode="email" aria-invalid={error?.campo === 'email' || undefined} /></label>
-          <label>Teléfono o WhatsApp<input id="telefono" name="telefono" type="tel" autoComplete="tel" inputMode="tel" placeholder="+56 9 1234 5678" /></label>
-        </div>
-        <p className="note" style={{ marginTop: -10 }}>Con uno de los dos basta.</p>
-        {error && <p className="form-error" role="alert">{error.texto}</p>}
+        <fieldset>
+          <legend><span className="label-fila">¿Cómo te contactamos? <span className="obligatorio">Obligatorio: uno de los dos</span></span></legend>
+          <div className="two">
+            <label>Correo<input id="email" name="email" type="email" autoComplete="email" inputMode="email" aria-invalid={marcar('email')} /></label>
+            <label>Teléfono o WhatsApp<input id="telefono" name="telefono" type="tel" autoComplete="tel" inputMode="tel" placeholder="+56 9 1234 5678" aria-invalid={marcar('telefono')} /></label>
+          </div>
+        </fieldset>
+        {error && <AvisoFalta falta={error} form={formRef} />}
         {/* El botón sigue la intención: con servicios elegidos pide cotización; sin ellos, una reunión */}
         <button className="btn-vivo contacto-enviar" type="submit" name="via" value="whatsapp">
           {sel.length ? 'Solicita cotización →' : 'Agenda una reunión →'}

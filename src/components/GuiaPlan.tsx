@@ -4,9 +4,10 @@ import { useEffect, useId, useRef, useState, type FormEvent } from 'react'
 import Link from 'next/link'
 import { ArrowLeft, ArrowRight, RotateCcw, X } from 'lucide-react'
 import { CONFIG } from '@/lib/config'
-import { armarMensaje, enviar, validar } from '@/lib/contacto'
+import { armarMensaje, completaFalta, enviar, validar, type Falta } from '@/lib/contacto'
 import { PREGUNTAS, recomendar, respuestasLegibles } from '@/lib/diagnostico'
 import { medir } from '@/lib/medir'
+import AvisoFalta from './AvisoFalta'
 
 /* Diagnóstico de 3 preguntas: una recomendación y, en la misma ventana, nombre y contacto para
    enviar todo (respuestas incluidas) sin cambiar de página. Es el botón de quien todavía no sabe qué
@@ -22,7 +23,9 @@ export default function GuiaPlan({
   const titulo = `${useId()}-titulo` // hay varias copias del botón en la misma página
   const [abierta, setAbierta] = useState(false)
   const [respuestas, setRespuestas] = useState<string[]>([])
-  const [error, setError] = useState<{ campo: string; texto: string } | null>(null)
+  const [error, setError] = useState<Falta | null>(null)
+  const formRef = useRef<HTMLFormElement>(null)
+  const marcar = (campo: string) => error?.campos.includes(campo) || undefined
   const [msg, setMsg] = useState('')
 
   useEffect(() => {
@@ -60,7 +63,6 @@ export default function GuiaPlan({
     if (falta) {
       setMsg('')
       setError(falta)
-      form.querySelector<HTMLInputElement>(`[name="${falta.campo}"]`)?.focus()
       return
     }
     setError(null)
@@ -130,14 +132,29 @@ export default function GuiaPlan({
                 </div>
 
                 {/* Contacto en la misma ventana: las respuestas van incluidas en el mensaje */}
-                <form className="guia-form" onSubmit={onSubmit} noValidate>
+                <form
+                  ref={formRef}
+                  className="guia-form"
+                  method="post"
+                  onSubmit={onSubmit}
+                  onInput={(e) => {
+                    if (error && completaFalta(error, e.target as HTMLInputElement)) setError(null)
+                  }}
+                  noValidate
+                >
                   <p className="muted" style={{ margin: 0 }}>Déjanos tus datos y te contactamos para una conversación de diagnóstico sobre tu caso.</p>
-                  <label>Nombre (tuyo o de tu proyecto)<input id="guia-nombre" name="nombre" autoComplete="name" aria-invalid={error?.campo === 'nombre' || undefined} /></label>
-                  <div className="two">
-                    <label>Teléfono o WhatsApp<input id="guia-telefono" name="telefono" type="tel" autoComplete="tel" inputMode="tel" placeholder="+56 9 1234 5678" /></label>
-                    <label>Correo<input id="guia-email" name="email" type="email" autoComplete="email" inputMode="email" aria-invalid={error?.campo === 'email' || undefined} /></label>
-                  </div>
-                  {error && <p className="form-error" role="alert">{error.texto}</p>}
+                  <label>
+                    <span className="label-fila">Nombre (tuyo o de tu proyecto) <span className="obligatorio">Obligatorio</span></span>
+                    <input id="guia-nombre" name="nombre" autoComplete="name" required aria-invalid={marcar('nombre')} />
+                  </label>
+                  <fieldset>
+                    <legend><span className="label-fila">¿Cómo te contactamos? <span className="obligatorio">Obligatorio: uno de los dos</span></span></legend>
+                    <div className="two">
+                      <label>Teléfono o WhatsApp<input id="guia-telefono" name="telefono" type="tel" autoComplete="tel" inputMode="tel" placeholder="+56 9 1234 5678" aria-invalid={marcar('telefono')} /></label>
+                      <label>Correo<input id="guia-email" name="email" type="email" autoComplete="email" inputMode="email" aria-invalid={marcar('email')} /></label>
+                    </div>
+                  </fieldset>
+                  {error && <AvisoFalta falta={error} form={formRef} />}
                   <button className="btn btn-red" type="submit" name="via" value="whatsapp">Enviar por WhatsApp →</button>
                   {CONFIG.email && <button className="link-btn" type="submit" name="via" value="email">o envíalo por correo</button>}
                   <p className="note" role="status">{msg}</p>

@@ -39,21 +39,23 @@ function Icono({ id, size = 22 }: { id: string; size?: number }) {
   return I ? <I size={size} strokeWidth={1.75} aria-hidden="true" /> : null
 }
 
-/* Pack: se vende completo. Para llevar solo una parte, "Elegir un servicio" abre una ventana con
-   los servicios del pack para agregarlos uno por uno. */
-function PackCard({ pack, i, picked, href, elegirPack, elegirUno }: {
+/* Pack: se vende completo ("Elegir pack" agrega todos sus servicios). Quien quiera solo uno lo
+   agrega desde las categorías de arriba. */
+function PackCard({ pack, i, picked, href, elegirPack }: {
   pack: Pack
   i: number
   picked: Set<string>
   href: string
   elegirPack: (pack: Pack, agregar: boolean) => void
-  elegirUno: (pack: Pack) => void
 }) {
   const completo = pack.servicios.every((id) => picked.has(id))
   const IconoPack = ICONOS_PACK[pack.id]
   return (
     <article className={`pack brillo${completo ? ' pack-completo' : ''}`} data-reveal style={{ '--d': `${(i % 2) * 0.08}s` } as CSSProperties}>
-      {IconoPack && <span className="pack-ico"><IconoPack size={22} strokeWidth={1.75} aria-hidden="true" /></span>}
+      <div className="pack-cabeza">
+        {IconoPack && <span className="pack-ico"><IconoPack size={22} strokeWidth={1.75} aria-hidden="true" /></span>}
+        <span className="pack-nombre">PACK {pack.nombre.toUpperCase()}</span>
+      </div>
       <h4 className="pack-problema">{pack.problema}</h4>
       <p className="muted" style={{ margin: 0 }}>{pack.detalle}</p>
       <ul className="pack-solucion" aria-label="Incluye">
@@ -78,8 +80,7 @@ function PackCard({ pack, i, picked, href, elegirPack, elegirUno }: {
           </>
         ) : (
           <>
-            <button type="button" className="btn btn-red pack-btn" onClick={() => elegirPack(pack, true)}>Elegir pack completo</button>
-            <button type="button" className="link-btn" onClick={() => elegirUno(pack)}>Elegir un servicio</button>
+            <button type="button" className="btn btn-red pack-btn" onClick={() => elegirPack(pack, true)}>Elegir pack</button>
           </>
         )}
       </div>
@@ -91,7 +92,7 @@ function PackCard({ pack, i, picked, href, elegirPack, elegirUno }: {
    1. Categorías: Desarrollo web (planes, con la necesidad que cubren), Marketing y captación,
       Automatización, e IA y consultoría. Agrupan el catálogo para que quien sabe lo que quiere lo
       encuentre, sin buscar nombres técnicos. Cada categoría tiene ancla: /servicios#cat-marketing.
-   2. "¿Qué problema quieres resolver?": packs que se eligen completos.
+   2. "¿Qué problema quieres resolver?": packs con nombre, que se eligen completos.
    3. "Tu selección": sin nada elegido invita al diagnóstico; con algo elegido, a la cotización.
    Sin precios públicos (docs/HHA_BUSINESS_MODEL.md). La selección viaja a /contacto?servicios=a,b. */
 export default function Servicios({ as = 'h2' }: { as?: Level }) {
@@ -116,21 +117,13 @@ export default function Servicios({ as = 'h2' }: { as?: Level }) {
     cambiar(pack.servicios, agregar)
   }
 
-  /* Ventanas: "Ver qué incluye" de un plan y "Elegir un servicio" de un pack.
-     <dialog> nativo: se cierran con Esc, con la X o tocando fuera. */
+  /* Ventana "Ver qué incluye" de un plan. <dialog> nativo: se cierra con Esc, con la X o tocando fuera. */
   const [detalle, setDetalle] = useState<Servicio | null>(null)
   const dialogo = useRef<HTMLDialogElement>(null)
   useEffect(() => {
     if (detalle && !dialogo.current?.open) dialogo.current?.showModal()
   }, [detalle])
   const cerrar = () => dialogo.current?.close()
-
-  const [packUno, setPackUno] = useState<Pack | null>(null)
-  const dialogoPack = useRef<HTMLDialogElement>(null)
-  useEffect(() => {
-    if (packUno && !dialogoPack.current?.open) dialogoPack.current?.showModal()
-  }, [packUno])
-  const cerrarPack = () => dialogoPack.current?.close()
 
   const sel = CONFIG.servicios.filter((s) => picked.has(s.id))
   const href = `/contacto?servicios=${sel.map((s) => s.id).join(',')}`
@@ -215,11 +208,11 @@ export default function Servicios({ as = 'h2' }: { as?: Level }) {
         {/* Packs: problema → solución, se eligen completos */}
         <div id="soluciones" className="soluciones-head" data-reveal>
           <h3 className="sub">¿Qué problema quieres resolver?</h3>
-          <p className="muted" style={{ margin: 0 }}>Cada pack resuelve un problema completo. ¿Necesitas solo una parte? Elige un servicio por separado.</p>
+          <p className="muted" style={{ margin: 0 }}>Cada pack resuelve un problema completo e incluye todos sus servicios. ¿Necesitas solo uno? Agrégalo desde las categorías de arriba.</p>
         </div>
         <div className="packs">
           {CONFIG.packs.map((p, i) => (
-            <PackCard key={p.id} pack={p} i={i} picked={picked} href={href} elegirPack={elegirPack} elegirUno={setPackUno} />
+            <PackCard key={p.id} pack={p} i={i} picked={picked} href={href} elegirPack={elegirPack} />
           ))}
         </div>
 
@@ -275,40 +268,6 @@ export default function Servicios({ as = 'h2' }: { as?: Level }) {
         )}
       </dialog>
 
-      {/* Ventana "Elegir un servicio": los servicios del pack, para agregar solo los que quiera */}
-      <dialog
-        ref={dialogoPack}
-        className="modal"
-        aria-labelledby="pack-titulo"
-        onClose={() => setPackUno(null)}
-        onClick={(e) => e.target === e.currentTarget && cerrarPack()}
-      >
-        {packUno && (
-          <div className="modal-caja">
-            <button type="button" className="modal-x" onClick={cerrarPack} aria-label="Cerrar">
-              <X size={20} strokeWidth={2} aria-hidden="true" />
-            </button>
-            <div className="kicker" style={{ margin: 0 }}>ELIGE SOLO LO QUE NECESITAS</div>
-            <h3 id="pack-titulo" className="card-t" style={{ margin: 0, paddingRight: 44 }}>{packUno.problema}</h3>
-            <div className="pack-lista">
-              {packUno.servicios.map(porId).filter((s) => s !== undefined).map((s) => (
-                <div className="pack-fila" key={s.id}>
-                  <span className="svc-ico"><Icono id={s.id} size={20} /></span>
-                  <div>
-                    <strong>{s.nombre}</strong>
-                    <span className="muted">{s.necesidad ?? s.desc}</span>
-                  </div>
-                  {addBtn(s)}
-                </div>
-              ))}
-            </div>
-            <div className="modal-acciones">
-              {sel.length > 0 && <Link className="btn btn-red" href={href} onClick={cerrarPack}>Solicita cotización →</Link>}
-              <button type="button" className="btn btn-out" onClick={cerrarPack}>{sel.length ? 'Seguir viendo' : 'Cerrar'}</button>
-            </div>
-          </div>
-        )}
-      </dialog>
     </section>
   )
 }

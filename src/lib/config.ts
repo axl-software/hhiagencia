@@ -27,8 +27,13 @@ export type PasoProyecto = {
   texto: string
   /** id de un servicio de la lista de abajo (ej: "contenido") */
   servicio: string
-  /** Ruta dentro de /public (ej: "/img/proyectos/aaron-1.jpg"). Vacío = recuadro "Imagen pendiente". */
+  /** Ruta dentro de /public (ej: "/img/proyectos/aaron/escenario.jpg"). Vacío = recuadro "Imagen pendiente".
+      Si hay video, es su portada (el cuadro que se ve antes de que cargue). */
   imagen: string
+  /** Clip corto sin sonido (mp4) que se reproduce en bucle en la galería. */
+  video?: string
+  /** Punto de la foto que debe verse en la portada de la tarjeta (recorte horizontal), ej: "50% 70%". */
+  foco?: string
 }
 
 export type Caso = {
@@ -58,8 +63,9 @@ export type Integrante = {
   instagram?: string
 }
 
-/** Problema del cliente → servicios que lo resuelven (Servicios → "¿Qué problema quieres resolver?"). */
-export type Pack = { id: string; problema: string; detalle: string; servicios: string[] }
+/** Problema del cliente → servicios que lo resuelven (Servicios → "¿Qué problema quieres resolver?").
+    nombre: una palabra que resume el pack (se ve arriba, en chico: "PACK CRECIMIENTO"). */
+export type Pack = { id: string; nombre: string; problema: string; detalle: string; servicios: string[] }
 
 /** Banda de cierre de cada página: frase chica de arriba, frase grande, texto del botón y destino. */
 export type Cierre = { kicker: string; titulo: string; boton: string; href: string }
@@ -148,22 +154,22 @@ export const CONFIG: Config = {
   ],
   packs: [
     {
-      id: 'clientes', problema: '¿Necesitas conseguir más clientes?',
+      id: 'clientes', nombre: 'Crecimiento', problema: '¿Necesitas conseguir más clientes?',
       detalle: 'Hacemos que más personas te encuentren, confíen en ti y te escriban.',
       servicios: ['marketing', 'web-business', 'captacion'],
     },
     {
-      id: 'tiempo', problema: '¿Pierdes tiempo en tareas manuales?',
+      id: 'tiempo', nombre: 'Eficiencia', problema: '¿Pierdes tiempo en tareas manuales?',
       detalle: 'Automatizamos lo repetitivo, ordenamos tus procesos y te enseñamos a usar IA en tu día a día.',
       servicios: ['automatizacion', 'procesos', 'ia'],
     },
     {
-      id: 'imagen', problema: '¿Tu negocio no transmite profesionalismo online?',
+      id: 'imagen', nombre: 'Presencia', problema: '¿Tu negocio no transmite profesionalismo online?',
       detalle: 'Una web y contenido que muestren lo que vales.',
       servicios: ['web-business', 'contenido'],
     },
     {
-      id: 'herramientas', problema: '¿Tienes herramientas, pero ninguna trabaja junta?',
+      id: 'herramientas', nombre: 'Conexión', problema: '¿Tienes herramientas, pero ninguna trabaja junta?',
       detalle: 'Conectamos tus herramientas, automatizamos lo que se repite y te acompañamos en la implementación.',
       servicios: ['integraciones', 'automatizacion', 'acompanamiento'],
     },
@@ -173,26 +179,31 @@ export const CONFIG: Config = {
     {
       cat: 'Streaming', tag: 'STREAMING · KICK', nombre: 'Aaron / aaronig12', foto: '',
       resumen: 'Dirección creativa y producción de streams y eventos en su canal de Kick.',
-      items: ['Formatos y pautas de cada stream', 'Invitados y actividades en vivo', 'Gestión de patrocinadores', 'Clips para redes'],
+      items: ['Automatización de formatos y pautas para cada stream', 'Invitados y actividades en vivo', 'Gestión de patrocinadores', 'Clips para redes'],
       resultado: '',
-      // BORRADOR: textos y servicios por confirmar con los fundadores; imágenes por subir a /public/img/proyectos/
+      // Textos de REFERENCIA según lo que muestra cada imagen; los fundadores los corrigen después.
+      // Material en /public/img/proyectos/aaron/ (el clip es un corte de 4,5 s del video del evento).
       galeria: [
-        { titulo: 'Formato y pauta de cada stream', texto: 'Definimos el formato de cada transmisión y armamos su pauta.', servicio: 'contenido', imagen: '' },
-        { titulo: 'Invitados y actividades en vivo', texto: 'Coordinamos invitados y actividades para los streams y eventos del canal.', servicio: 'contenido', imagen: '' },
-        { titulo: 'Gestión de patrocinadores', texto: 'Gestionamos los patrocinadores del canal.', servicio: 'marketing', imagen: '' },
-        { titulo: 'Clips para redes', texto: 'Convertimos momentos de los streams en clips para redes sociales.', servicio: 'contenido', imagen: '' },
+        { titulo: 'Show en vivo', texto: 'Aaron en el escenario frente al público; registramos el evento para convertirlo en contenido.', servicio: 'contenido', imagen: '/img/proyectos/aaron/evento.jpg', video: '/img/proyectos/aaron/evento.mp4', foco: '50% 58%' },
+        { titulo: 'Formato y pauta de cada stream', texto: 'Cada transmisión tiene su formato y su pauta, como este episodio #01. Automatizamos cómo se arman para repetirlos sin partir de cero.', servicio: 'automatizacion', imagen: '/img/proyectos/aaron/episodio-01.jpg' },
+        { titulo: 'Invitados en el stream', texto: 'Conversación con invitados en el set del canal.', servicio: 'contenido', imagen: '/img/proyectos/aaron/invitados.jpg' },
+        { titulo: 'Aaron en escenario', texto: 'Presentación en vivo durante uno de los eventos.', servicio: 'contenido', imagen: '/img/proyectos/aaron/escenario.jpg' },
+        { titulo: 'Cierre con los invitados', texto: 'Aaron junto a los invitados de la transmisión.', servicio: 'contenido', imagen: '/img/proyectos/aaron/invitados-grupo.jpg' },
       ],
     },
     {
       cat: 'Gastronomía', tag: 'GASTRONOMÍA · BAR', nombre: 'Bar de Blas', foto: '',
-      resumen: 'Apoyo de contenido y marketing para @bardeblas.',
-      items: ['Análisis del perfil de Instagram', 'Pauta de contenido', 'Sesión de fotografía'],
+      resumen: 'Contenido, marketing y automatización para @bardeblas.',
+      items: ['Análisis del perfil de Instagram', 'Pauta de contenido', 'Sesión de fotografía', 'Automatización para editar reels y generar ideas para carruseles'],
       resultado: '',
-      // BORRADOR: textos y servicios por confirmar con los fundadores; imágenes por subir a /public/img/proyectos/
+      // Textos de REFERENCIA según lo que muestra cada imagen; los fundadores los corrigen después.
+      // Material en /public/img/proyectos/bardeblas/ (el clip es un corte de 5 s del reel).
       galeria: [
-        { titulo: 'Análisis del perfil de Instagram', texto: 'Revisamos el perfil de @bardeblas para detectar qué mejorar.', servicio: 'marketing', imagen: '' },
-        { titulo: 'Pauta de contenido', texto: 'Armamos una pauta de publicaciones para sus redes.', servicio: 'contenido', imagen: '' },
-        { titulo: 'Sesión de fotografía', texto: 'Hicimos una sesión de fotos del bar para su contenido.', servicio: 'contenido', imagen: '' },
+        { titulo: 'Fotografía de producto', texto: 'Cóctel embotellado de Bar de Blas, fotografiado con luz natural.', servicio: 'contenido', imagen: '/img/proyectos/bardeblas/botella.jpg', foco: '50% 74%' },
+        { titulo: 'Reels con edición automatizada', texto: 'Preparación de un cóctel para reel. Implementamos automatización para editar reels y generar ideas para carruseles.', servicio: 'automatizacion', imagen: '/img/proyectos/bardeblas/reel-coctel.jpg', video: '/img/proyectos/bardeblas/reel-coctel.mp4' },
+        { titulo: 'Detalle de la barra', texto: 'La estación de trabajo vista desde arriba: naranja deshidratada para decorar y la carta del bar.', servicio: 'contenido', imagen: '/img/proyectos/bardeblas/barra.jpg' },
+        { titulo: 'Ambientación al atardecer', texto: 'El espacio exterior preparado para la sesión de contenido.', servicio: 'contenido', imagen: '/img/proyectos/bardeblas/terraza.jpg' },
+        { titulo: 'Detrás de cámara', texto: 'Grabación de una conversación para las redes del bar.', servicio: 'contenido', imagen: '/img/proyectos/bardeblas/detras-de-camara.jpg' },
       ],
     },
   ],
@@ -219,7 +230,7 @@ export const CONFIG: Config = {
   hooks: {
     inicio: { kicker: '¿EMPEZAMOS?', titulo: 'Conversemos de tu negocio y te decimos por dónde partir.', boton: 'Agenda una reunión', href: '/contacto' },
     servicios: { kicker: '¿TODAVÍA CON DUDAS?', titulo: 'Lo vemos juntos y elegimos lo que de verdad necesitas.', boton: 'Agenda una reunión', href: '/contacto' },
-    proyectos: { kicker: '¿Y TU NEGOCIO?', titulo: 'Descubre qué soluciones le pueden servir a tu negocio.', boton: 'Explora soluciones', href: '/servicios#soluciones' },
+    proyectos: { kicker: '¿TE IMAGINAS EL TUYO?', titulo: 'Entendemos tu negocio y te proponemos la solución que de verdad necesita.', boton: 'Agenda una reunión', href: '/contacto' },
     proceso: { kicker: '¿TE HACE SENTIDO?', titulo: 'El primer paso es una conversación sobre tu negocio.', boton: 'Agenda una reunión', href: '/contacto' },
   },
 }

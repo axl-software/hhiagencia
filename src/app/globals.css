@@ -107,6 +107,11 @@ footer .pie-lema span{font-family:var(--f-mono);font-size:12px;letter-spacing:.5
 .wrap{max-width:1240px;margin:0 auto;padding-left:clamp(16px,4vw,48px);padding-right:clamp(16px,4vw,48px)}
 .sec{padding-top:clamp(64px,9vw,120px);padding-bottom:clamp(64px,9vw,120px)}
 .alt{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+/* Modo claro: todas las secciones de todas las páginas en crema (los fundadores no quieren franjas
+   de otro color; en oscuro siguen alternando negro y azul noche). Las tarjetas que estaban en esas
+   secciones pasan a arena para seguir destacando sobre el crema. */
+:root[data-theme="light"] .alt{background:var(--bg)}
+:root[data-theme="light"] .alt .card,:root[data-theme="light"] .plan,:root[data-theme="light"] .pack,:root[data-theme="light"] .quote,:root[data-theme="light"] .metrica{background:var(--bg2)}
 .impact{font-family:var(--f-impact);font-weight:400;letter-spacing:-.01em}
 .display{font-family:var(--f-head);font-weight:700;line-height:1.05;margin:0;letter-spacing:-.02em}
 .h1{font-size:clamp(40px,6vw,80px);line-height:1}
@@ -171,11 +176,6 @@ footer .pie-lema span{font-family:var(--f-mono);font-size:12px;letter-spacing:.5
 @media (max-width:860px){.cat{grid-template-columns:1fr}}
 /* en celular el botón "+ Agregar" va bajo el texto (alineado con el nombre), para no apretarlo */
 @media (max-width:520px){.cat-lista .svc-row{grid-template-columns:1fr;gap:12px}.cat-lista .add{justify-self:start;margin-left:56px}}
-/* Ventana "Elegir un servicio" de un pack */
-.pack-lista{display:flex;flex-direction:column;border-top:1px solid var(--line2)}
-.pack-fila{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:14px;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)}
-.pack-fila>div{display:flex;flex-direction:column;gap:4px;font-size:14px;line-height:1.45}
-.pack-fila strong{font-family:var(--f-head);font-size:17px}
 .quote{margin-top:28px;background:var(--bg);border:1.5px solid var(--red);border-radius:14px;padding:24px 28px;display:flex;flex-wrap:wrap;gap:16px 28px;align-items:center;justify-content:space-between}
 
 /* casos */
@@ -183,15 +183,17 @@ footer .pie-lema span{font-family:var(--f-mono);font-size:12px;letter-spacing:.5
 /* Portada de cada proyecto: azul noche en ambos modos, brillo rojo que se mueve, órbitas que giran
    y el ícono del rubro, que salta al pasar el mouse. Con foto, la foto se acerca un poco. */
 .case-portada{position:relative;overflow:hidden;height:190px;margin:-8px -8px 4px;border-radius:12px;display:grid;place-items:center;background:radial-gradient(70% 80% at 85% 10%,rgba(215,38,61,.55),transparent 62%),radial-gradient(60% 70% at 10% 100%,rgba(215,38,61,.2),transparent 60%),linear-gradient(160deg,#151D3A,#0B1020 60%,#05070A);background-size:170% 170%,100% 100%,100% 100%;background-position:0% 0%,0 0,0 0;animation:portadaMueve 11s ease-in-out infinite alternate}
-.case-portada img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.22,1,.36,1)}
+.case-portada img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 45%;transition:transform .6s cubic-bezier(.22,1,.36,1)}
+.case-portada-foto::before{display:none} /* la trama de puntos es solo para la portada sin foto */
 .case-abre:hover .case-portada img{transform:scale(1.05)}
-.case-orb{position:absolute;left:50%;top:50%;translate:-50% -50%;border-radius:50%;border:1px solid rgba(248,250,252,.16)}
-.case-orb-1{width:140px;height:140px}
-.case-orb-2{width:250px;height:250px;border-style:dashed;animation:orbGira 40s linear infinite}
-.case-orb-2 i{position:absolute;top:-4px;left:50%;width:8px;height:8px;margin-left:-4px;border-radius:50%;background:var(--red);box-shadow:0 0 0 4px rgba(215,38,61,.25)}
+/* trama de puntos que se desvanece hacia los bordes */
+.case-portada::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(248,250,252,.2) 1px,transparent 1.5px);background-size:16px 16px;-webkit-mask-image:radial-gradient(ellipse 70% 65% at 50% 50%,#000 25%,transparent 80%);mask-image:radial-gradient(ellipse 70% 65% at 50% 50%,#000 25%,transparent 80%);pointer-events:none}
+/* haz de luz diagonal que cruza la portada cada cierto tiempo */
+.case-portada::after{content:'';position:absolute;inset:-50%;background:linear-gradient(115deg,transparent 44%,rgba(248,250,252,.09) 50%,transparent 56%);transform:translateX(-45%);animation:portadaHaz 7s ease-in-out infinite;pointer-events:none}
+@keyframes portadaHaz{0%{transform:translateX(-45%)}55%,100%{transform:translateX(45%)}}
 .case-portada-ico{position:relative;display:inline-flex;align-items:center;justify-content:center;width:76px;height:76px;border-radius:22px;background:rgba(248,250,252,.08);border:1px solid rgba(248,250,252,.22);color:#F8FAFC;transition:transform .45s cubic-bezier(.34,1.56,.64,1),background-color .3s ease,border-color .3s ease}
 .case-abre:hover .case-portada-ico{transform:translateY(-6px) rotate(-6deg) scale(1.06);background:var(--red);border-color:var(--red)}
-.case-pasos{position:absolute;left:12px;bottom:12px;padding:5px 10px;border-radius:999px;background:rgba(5,7,10,.6);border:1px solid rgba(248,250,252,.15);color:#F8FAFC;font-size:11px;letter-spacing:1px}
+.case-pasos{position:absolute;z-index:1;left:12px;bottom:12px;padding:5px 10px;border-radius:999px;background:rgba(5,7,10,.6);border:1px solid rgba(248,250,252,.15);color:#F8FAFC;font-size:11px;letter-spacing:1px}
 .case-abre:hover{border-color:color-mix(in srgb,var(--red) 50%,var(--line3))}
 @keyframes portadaMueve{to{background-position:100% 100%,0 0,0 0}}
 .case ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px;font-size:14px}
@@ -231,7 +233,17 @@ a.canal:hover{color:var(--tx)}a.canal:hover .canal-ico{background:var(--red);col
 .canal .redes{margin:0}.canal .red-usuario-abajo{align-items:flex-start !important}
 .note{font-size:13px;color:var(--mut);margin:0}
 /* error de formulario: borde rojo (color funcional) con texto normal para mantener contraste */
-.form-error{margin:0;padding:12px 14px;border-left:3px solid var(--red);background:color-mix(in srgb,var(--red) 10%,transparent);border-radius:6px;font-size:14px;font-weight:600;color:var(--tx)}
+/* Datos obligatorios (nombre, y correo o WhatsApp) en todos los formularios: etiqueta "Obligatorio",
+   campo marcado si falta y un aviso amable con un botón que lleva directo al campo. */
+.label-fila{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px}
+.obligatorio{font-family:var(--f-mono);font-size:10.5px;font-weight:500;letter-spacing:1px;text-transform:uppercase;padding:3px 9px;border-radius:999px;background:color-mix(in srgb,var(--red) 18%,transparent);color:var(--tx)}
+.form-aviso{display:flex;flex-direction:column;gap:12px;padding:14px 16px;border-radius:12px;border:1px solid color-mix(in srgb,var(--red) 55%,transparent);background:color-mix(in srgb,var(--red) 12%,transparent);font-size:14px;line-height:1.5;color:var(--tx);animation:avisoEntra .35s cubic-bezier(.22,1,.36,1)}
+.form-aviso p{margin:0;font-weight:600}
+.form-aviso-btn{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;min-height:42px;padding:0 18px;border:0;border-radius:999px;background:var(--red);color:var(--on-red);font:inherit;font-size:14px;font-weight:700;cursor:pointer;transition:transform .2s ease}
+.form-aviso-btn:hover{transform:translateY(-2px)}
+.form-aviso-btn:focus-visible{outline:2px solid var(--tx);outline-offset:3px}
+@keyframes avisoEntra{from{opacity:0;transform:translateY(6px)}}
+@media (prefers-reduced-motion:reduce){.form-aviso{animation:none}.form-aviso-btn{transition:none}.form-aviso-btn:hover{transform:none}}
 input[aria-invalid="true"]{border-color:var(--red);box-shadow:0 0 0 1px var(--red)}
 .link-btn{align-self:center;min-height:44px;background:none;border:0;padding:0 8px;color:var(--tx2);font:inherit;font-size:14px;text-decoration:underline;text-underline-offset:4px;cursor:pointer}.link-btn:hover{color:var(--tx)}
 
@@ -415,7 +427,9 @@ input[aria-invalid="true"]{border-color:var(--red);box-shadow:0 0 0 1px var(--re
 /* alto según la pantalla, para que la ventana entre completa; la imagen se recorta sola (cover) */
 .galeria{position:relative;height:clamp(200px,46vh,400px);border-radius:12px;overflow:hidden;background:var(--bg2);border:1px solid var(--line);touch-action:pan-y}
 .galeria-foto{position:absolute;inset:0;animation:fotoIn .35s ease}
-.galeria-foto img{width:100%;height:100%;object-fit:cover}
+/* la foto o el clip completos (contain) sobre la misma imagen difuminada, para no recortar fotos verticales */
+.galeria-fondo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:blur(24px) saturate(1.15);transform:scale(1.2);opacity:.55}
+.galeria-medio{position:relative;display:block;width:100%;height:100%;object-fit:contain}
 .galeria-vacia{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--mut);font-family:var(--f-mono);font-size:13px;background-image:repeating-linear-gradient(135deg,var(--line) 0 2px,transparent 2px 16px)}
 .galeria-flecha{position:absolute;top:50%;translate:0 -50%;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--line3);background:var(--bg);color:var(--tx);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:var(--shadow);transition:background-color .25s ease,border-color .25s ease,color .25s ease}
 .galeria-ant{left:12px}.galeria-sig{right:12px}
@@ -471,6 +485,9 @@ input[aria-invalid="true"]{border-color:var(--red);box-shadow:0 0 0 1px var(--re
 .svc-row:hover .t{color:var(--rojo-txt)}
 
 /* Packs: ícono del problema, salto al pasar el mouse */
+.pack-cabeza{display:flex;align-items:center;gap:12px}
+.pack-nombre{font-family:var(--f-mono);font-size:12px;letter-spacing:1.5px;color:var(--tx2)}
+.pack-completo .pack-nombre{color:var(--tx)}
 .pack-ico{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:13px;background:color-mix(in srgb,var(--red) 14%,transparent);color:var(--red);transition:background-color .25s ease,color .25s ease,transform .45s cubic-bezier(.34,1.56,.64,1)}
 .pack{transition:opacity .7s ease var(--d,0s),translate .7s cubic-bezier(.22,1,.36,1) var(--d,0s),border-color .25s ease,transform .25s ease}
 .pack:hover{transform:translateY(-4px);border-color:var(--line3)}
@@ -498,7 +515,7 @@ input[aria-invalid="true"]{border-color:var(--red);box-shadow:0 0 0 1px var(--re
 
 @media (prefers-reduced-motion:reduce){
   .brillo::before,.plan::after,.plan-ico,.pack-ico,.step-num,.proceso-ico,.svc-row .t{transition:none}
-  .plan-top::before,.step::before,.case-portada,.case-orb-2{animation:none}
+  .plan-top::before,.step::before,.case-portada,.case-portada::after{animation:none}
   .step::after{transition:none}
   .pack:hover,.proceso-paso:hover,.metrica:hover,.brillo:hover::before,.plan:hover .plan-ico,.pack:hover .pack-ico,.proceso-paso:hover .proceso-ico,.case-abre:hover .case-portada-ico,.step:hover .step-num,.proceso-paso:hover .step-num{transform:none}
 }

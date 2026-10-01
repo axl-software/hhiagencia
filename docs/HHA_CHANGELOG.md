@@ -2,6 +2,14 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-10-01 — Required form data, named packs, cream backgrounds in light mode
+- **Supersedes** the Proyectos closing band: “¿TE IMAGINAS EL TUYO?” / “Entendemos tu negocio y te proponemos la solución que de verdad necesita.” / “Agenda una reunión”.
+- Forms (contact and diagnostic): name, and email or WhatsApp, are required and labeled “Obligatorio”; a friendly notice with a button takes the visitor to the missing field.
+- **Supersedes** pack buttons: “Elegir pack” (adds all services); “Elegir un servicio” removed. Each pack has a short name: Crecimiento, Eficiencia, Presencia, Conexión.
+- Project covers without orbits: dot pattern and a passing light beam.
+- **Supersedes** light-mode Sand section bands: all section backgrounds are Cream; cards in those sections become Sand.
+- Real project material: photos and short clips (4.5 s from Aaron's event video, 5 s from Bar de Blas' reel) in the galleries, with reference texts. Automation added to both references (Aaron: stream formats and scripts; Bar de Blas: reels editing and carousel ideas).
+
 ## 2026-10-01 — Animated hook, closing-band kickers, contact redesign, livelier cards
 - Hero hook “DIGITALIZA · AUTOMATIZA · ESCALA” becomes an oval carousel inside a capsule (it looked asymmetric on mobile).
 - **Supersedes** “¿HABLAMOS?” on every closing band: one kicker per page; Proyectos band now reads “¿Y TU NEGOCIO?” / “Descubre qué soluciones le pueden servir a tu negocio.” (replaces “¿El próximo caso es el tuyo?”). New band for Cómo trabajamos.

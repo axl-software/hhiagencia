@@ -40,7 +40,11 @@ Not a client case: **Primera Semana Creativa** (HH Studio Creativo's own content
 
 Results, metrics and testimonials for these clients may only be published with real data and the client's permission. Never fill them with estimates.
 
-On the website each project opens a gallery: one image per step, with a short text of what was done and which HHA service it used. The current texts and service labels are DRAFTS taken from the approved case items; the founders must confirm them and provide the images (`public/img/proyectos/`). Until then each step shows “Imagen pendiente”.
+On the website each project opens a gallery: one image or short clip per slide, with a short text of what was done and which HHA service it used. Material provided by the founders (2026-10-01) is in `public/img/proyectos/` (Aaron: event clip, stream episode, guests, stage; Bar de Blas: product photo, reel clip, bar detail, setting, behind the scenes). The slide texts are REFERENCE descriptions of what each image shows; the founders will correct them.
+
+Services confirmed by the founders for these references (2026-10-01):
+- Aaron: automation of formats and scripts (pautas) for each stream, plus content and event production.
+- Bar de Blas: automation for editing reels and generating carousel ideas, plus content and marketing.
 
 ## Offer strategy
 Web packages:

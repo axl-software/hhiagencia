@@ -47,6 +47,14 @@ These are **functional UI colors only**, not HHA brand colors.
 - Secondary text: `#94A3B8`
 - Accent: `#D7263D`
 
+## Theme behavior (website)
+- The site follows the visitor's device setting (light or dark) by default.
+- Visitors can switch theme with a button in the header; the choice is remembered on that device.
+- Light-mode surfaces stay on `#F8FAFC` (no tinted gray panels), because `#64748B` only reaches ~4.5:1 on `#F8FAFC`. Separate sections with lines and soft shadows instead.
+- The footer uses Midnight Navy `#0B1020` with dark-mode text colors in both themes (brand emphasis).
+- Text on Signal Red is always `#F8FAFC`, in both themes.
+- The logo switches automatically: white version on dark backgrounds, navy version on light backgrounds.
+
 ## Accessibility
 Do not use Signal Red for small body text on dark backgrounds when contrast is insufficient.
 Prefer white text on Signal Red buttons when contrast passes.

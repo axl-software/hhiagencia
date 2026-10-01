@@ -66,5 +66,5 @@ No vector (SVG) version exists yet. Do not trace or redraw one without approval.
 
 ## Official channels
 - Instagram: **@hhiagencia.cl** (HHA's own account). `@hh.condireccion` belongs to Herberth's personal brand and must not be used as HHA's channel.
-- WhatsApp: **pending definition**. Do not invent or reuse another number.
-- Email: **pending definition**. The current mailbox belongs to HH Studio Creativo; do not present it as HHA's email unless the founders approve it.
+- WhatsApp: **+56 9 3925 3239** (`56939253239` in links).
+- Email: **hhadigitalsolutions@gmail.com**.

@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { CONFIG } from '@/lib/config'
+import { TEMA_SCRIPT } from '@/lib/tema'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
     template: '%s | HHA Digital Solutions',
   },
   description:
-    'Ayudamos a marcas, creadores y empresas con contenido, estrategias, automatizaciones y soluciones digitales. Casablanca, Valparaíso y Viña del Mar.',
+    'Ayudamos a marcas, creadores y empresas con contenido, estrategias, automatizaciones y soluciones digitales. Región de Valparaíso (Quinta Región) y alrededores.',
   openGraph: {
     title: 'HHA Digital Solutions | Web, Automatización y Marketing',
     description: 'Digitaliza. Automatiza. Escala. Web, automatización y marketing para marcas, creadores y empresas.',
@@ -33,7 +34,14 @@ const ORGANIZACION = {
   slogan: 'Digitaliza. Automatiza. Escala.',
   description:
     'Ayudamos a marcas, creadores y empresas con contenido, estrategias, automatizaciones y soluciones digitales.',
-  areaServed: ['Casablanca', 'Valparaíso', 'Viña del Mar'].map((name) => ({ '@type': 'City', name })),
+  areaServed: [
+    { '@type': 'AdministrativeArea', name: 'Región de Valparaíso' },
+    ...['Valparaíso', 'Viña del Mar', 'Casablanca', 'Quilpué', 'Villa Alemana', 'San Antonio', 'Quillota', 'Los Andes', 'San Felipe'].map(
+      (name) => ({ '@type': 'City', name })
+    ),
+  ],
+  email: CONFIG.email,
+  telephone: `+${CONFIG.whatsapp}`,
   founder: [
     { '@type': 'Person', name: 'Herberth Garay' },
     { '@type': 'Person', name: 'Alexander Bello' },
@@ -42,12 +50,19 @@ const ORGANIZACION = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#05070A',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#F8FAFC' },
+    { media: '(prefers-color-scheme: dark)', color: '#05070A' },
+  ],
 }
 
 export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
-    <html lang="es-CL">
+    // suppressHydrationWarning: el script de tema agrega data-theme antes de que React cargue
+    <html lang="es-CL" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: TEMA_SCRIPT }} />
+      </head>
       <body>
         <script
           type="application/ld+json"

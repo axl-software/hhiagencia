@@ -14,7 +14,7 @@ export default function Footer() {
               <img src="/brand/hh-logo-blanco.png" alt="" width={480} height={299} style={{ height: 40, width: 'auto' }} />
               <span style={{ fontFamily: 'var(--f-head)', fontWeight: 700, fontSize: 18, letterSpacing: '-0.01em' }}>HHA Digital Solutions</span>
             </Link>
-            <span style={{ fontSize: 14, color: 'var(--mut)' }}>Web, automatización y marketing · Casablanca · Valparaíso · Viña del Mar, Chile</span>
+            <span style={{ fontSize: 14, color: 'var(--mut)' }}>Web, automatización y marketing · Quinta Región y alrededores, Chile</span>
           </div>
           <nav aria-label="Pie de página">
             <Link href="/">Inicio</Link>

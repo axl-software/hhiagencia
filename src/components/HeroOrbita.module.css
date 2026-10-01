@@ -175,8 +175,9 @@
   justify-content: center;
   gap: 4px;
   color: var(--tx);
+  box-shadow: var(--shadow);
 }
-.tileRed { background: var(--red); border-color: var(--red); color: var(--tx); }
+.tileRed { background: var(--red); border-color: var(--red); color: var(--on-red); }
 .tileLabel {
   font-family: var(--f-mono);
   font-size: 9px;

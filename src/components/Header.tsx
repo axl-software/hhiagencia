@@ -6,13 +6,16 @@ import { usePathname } from 'next/navigation'
 import { Menu, X } from 'lucide-react'
 import { CONFIG } from '@/lib/config'
 import { NAV } from '@/lib/nav'
+import TemaToggle from './TemaToggle'
 import s from './Header.module.css'
 
 function Logo({ onClick }: { onClick?: () => void }) {
   return (
     <Link href="/" className={s.logo} aria-label="HHiAgencia, inicio" onClick={onClick}>
       {/* eslint-disable-next-line @next/next/no-img-element -- logo chico; next/image rompe la vista previa en HTML */}
-      <img className={s.logoImg} src="/brand/hh-logo-blanco.png" alt="" width={480} height={299} />
+      <img className={`${s.logoImg} solo-oscuro`} src="/brand/hh-logo-blanco.png" alt="" width={480} height={299} />
+      {/* eslint-disable-next-line @next/next/no-img-element -- versión azul para el modo claro */}
+      <img className={`${s.logoImg} solo-claro`} src="/brand/hh-logo-azul.png" alt="" width={480} height={299} />
       <span className={s.logoTxt}>HHiAgencia</span>
     </Link>
   )
@@ -55,6 +58,7 @@ export default function Header() {
         </div>
 
         <div className={s.right}>
+          <TemaToggle className={s.tema} />
           <a className={`${s.link} ${s.mute}`} href={`https://instagram.com/${CONFIG.instagram}`} target="_blank" rel="noopener noreferrer">
             Instagram
           </a>

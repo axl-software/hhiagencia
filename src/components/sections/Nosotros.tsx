@@ -10,7 +10,7 @@ export default function Nosotros({ as = 'h2' }: { as?: Level }) {
           HHA Digital Solutions nace de dos perfiles que se complementan: estrategia, marketing y ventas por un lado; desarrollo, automatización y ciberseguridad por el otro. Por eso cada proyecto parte por el negocio y termina en algo que funciona y se puede mantener.
         </p>
         <p className="lead">
-          Trabajamos con pymes, empresas de servicios, negocios locales, marcas y creadores, desde Casablanca, Valparaíso y Viña del Mar.
+          Trabajamos con pymes, empresas de servicios o productos, negocios locales, marcas y creadores, desde la Quinta Región y alrededores.
         </p>
         <div className="chips">
           {['Estrategia', 'Marketing', 'Desarrollo web', 'Automatización', 'IA aplicada'].map((t) => (

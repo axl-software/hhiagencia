@@ -2,6 +2,14 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-10-01 — Channels, geography, team roles and theme
+- **Supersedes** the pending contact channels: WhatsApp +56 9 3925 3239 and email hhadigitalsolutions@gmail.com.
+- **Supersedes** the initial geography (Casablanca, Valparaíso, Viña del Mar): now “Quinta Región y alrededores” (official: Región de Valparaíso), to expand later.
+- Customer profile: “service companies” becomes “service or product companies”.
+- Team roles: Herberth “Automatización, estrategia, marketing y ventas”; Alexander “Estrategia de desarrollo y automatización”.
+- Website: light and dark themes; follows the device by default with a visitor toggle.
+- Contact form reduced to: name (person or project), what the business is about, services needed, email and/or phone.
+
 ## 2026-10-01 — Domain and publishing flow
 - hhiagencia.cl is registered at NIC Chile; Herberth holds the main access and shared it with Alexander.
 - Publishing flow: working branch → pull request approved by the founders → `main` → Vercel.

@@ -2,6 +2,18 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-10-02 — Web plans: maintenance paid separately, minimum terms, free demo
+- **Supersedes** “Cada plan incluye la implementación y un servicio mensual de mantenimiento” and the maintenance items inside each plan's “Ver qué incluye”: the initial payment covers only the development; monthly maintenance is separate, with minimum terms (Web Start 3 months; Web Business 3, 6 or 12 months; Web Pro 6 months).
+- New: free demo when quoting, to try the website before deciding (period to be defined by the founders: `demoPlazo`).
+- Website: line on each plan card, category intro, demo note and “Cómo se paga” in “Ver qué incluye”. No prices shown.
+
+## 2026-10-02 — Hero: screen text, light-mode version, AI note; animated process and metrics
+- The laptop screen in the hero video and still image now reads “Digitaliza. / Automatiza. / Escala.” (Escala in red), replacing “Desarrollo web. / Automatizaciones. / Llega a más clientes.” (which the AI had also misspelled).
+- **Supersedes** the light-mode treatment of the hero background (dark video washed with filters looked like a dark stain): light mode now uses its own files (`fondo-claro.*`), the same scene in warm cream tones with the brand red only on the screen.
+- Small “Escena generada con IA” note under the hero background (transparency; see Tech Stack → Media).
+- Cómo trabajamos: each of the 8 steps and each of the 4 metrics has its own animated scene (Ilustraciones.tsx), replacing the static icons.
+- **Supersedes** the orbits behind Proyectos: a content-editing interface (preview, automation flow, timeline with a moving playhead).
+
 ## 2026-10-02 — Hero video background, header button, new plan cards
 - Hero: the founders' laptop video (6 s loop, ~1.1 MB) is now a background layer on the right side, behind the orbits; its first frame is the still image for loading, tablets, phones and reduced motion. Copy, buttons, layout, strip, orbits, nodes and logo unchanged. See Design System → Hero background.
 - **Supersedes** the header “Haz tu diagnóstico” outline button with rotating border: it now uses the hero's red 3D button (`.btn-vivo`, compact). Same in the mobile menu.

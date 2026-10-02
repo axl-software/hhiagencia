@@ -3,8 +3,8 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import Link from 'next/link'
 import {
-  ArrowRight, Building2, Check, Clock, GraduationCap, LifeBuoy, ListChecks, Magnet, Megaphone, PenTool,
-  Plug, Puzzle, Rocket, ShoppingCart, Sparkles, Users, Workflow, X, type LucideIcon,
+  ArrowRight, Building2, CalendarClock, Check, Clock, Gift, GraduationCap, LifeBuoy, ListChecks, Magnet, Megaphone, PenTool,
+  Plug, Puzzle, Rocket, ShoppingCart, Sparkles, Users, Wallet, Workflow, X, type LucideIcon,
 } from 'lucide-react'
 import { CONFIG, type Categoria, type Pack, type Servicio } from '@/lib/config'
 import { medir } from '@/lib/medir'
@@ -13,6 +13,10 @@ import Orbitas from '../Orbitas'
 import GuiaPlan from '../GuiaPlan'
 
 const pad = (n: number) => String(n).padStart(2, '0')
+/* Demo gratuita de los planes web; el plazo se edita en src/lib/config.ts → demoPlazo */
+const DEMO = `al cotizar te preparamos una demo para que pruebes tu web antes de decidir${
+  CONFIG.demoPlazo ? `, durante ${CONFIG.demoPlazo}` : ' (el plazo de prueba lo acordamos contigo)'
+}.`
 const porId = (id: string) => CONFIG.servicios.find((s) => s.id === id)
 const serviciosDe = (c: Categoria) => c.servicios.map(porId).filter((s) => s !== undefined)
 
@@ -146,6 +150,13 @@ function PlanCard({ plan, nivel, elegido, href, toggle, verDetalle }: {
         </span>
       </div>
       <p className="plan-necesidad">{plan.necesidad ?? plan.desc}</p>
+      {/* el mantenimiento se paga aparte del desarrollo, con plazo mínimo por plan */}
+      {plan.mantencion && (
+        <p className="plan-mant">
+          <CalendarClock size={15} strokeWidth={2} aria-hidden="true" />
+          <span><strong>+ Mantenimiento mensual</strong><small>{plan.mantencion}</small></span>
+        </p>
+      )}
       <div className="plan-acciones">
         {elegido ? (
           <>
@@ -297,6 +308,7 @@ export default function Servicios({ as = 'h2' }: { as?: Level }) {
           <span className="cat-n">{pad(1)}</span>
           <h3 className="sub">{web.nombre}</h3>
           <p className="muted" style={{ margin: 0 }}>{web.necesidad}</p>
+          <p className="cat-demo"><Gift size={16} strokeWidth={2} aria-hidden="true" /><span><strong>Demo gratuita:</strong> {DEMO}</span></p>
         </div>
         <div className="plans">
           {serviciosDe(web).map((s, i) => (
@@ -383,6 +395,16 @@ export default function Servicios({ as = 'h2' }: { as?: Level }) {
                 <li key={it}><Check size={18} strokeWidth={2.25} aria-hidden="true" />{it}</li>
               ))}
             </ul>
+            {detalle.mantencion && (
+              <>
+                <div className="kicker" style={{ margin: '8px 0 0' }}>CÓMO SE PAGA</div>
+                <ul className="incluye">
+                  <li><Wallet size={18} strokeWidth={2} aria-hidden="true" />Pago inicial: el desarrollo y la puesta en marcha de tu web.</li>
+                  <li><CalendarClock size={18} strokeWidth={2} aria-hidden="true" />Mantenimiento mensual, aparte: {detalle.mantencion}.</li>
+                  <li><Gift size={18} strokeWidth={2} aria-hidden="true" /><span><strong>Demo gratuita:</strong> {DEMO}</span></li>
+                </ul>
+              </>
+            )}
             <p className="note"><strong>Plazo de entrega:</strong> se define en la reunión según el alcance de tu proyecto, igual que el valor.</p>
             <div className="modal-acciones">
               <button type="button" className="btn btn-red" onClick={() => toggle(detalle.id)} aria-pressed={picked.has(detalle.id)}>

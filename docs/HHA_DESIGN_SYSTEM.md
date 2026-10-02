@@ -91,13 +91,22 @@ Use motion only when it clarifies hierarchy or improves perceived quality. Avoid
 ## Hero background (home)
 - The right side of the hero has a background layer behind the orbital system: a 6-second looping video of hands working on a laptop that shows the HHA site (`public/img/hero/fondo.mp4`), and its first frame as a still image (`fondo.webp`, `fondo-960.webp`). It is one layer: the image shows while the video loads, if it fails, on tablets and phones, and with reduced motion; the video fades in on top only once it plays (desktop, 1025 px and up).
 - Order, back to front: page background → video/image → orbits, nodes and center logo. The text column (H1, lead, buttons) always sits above and the layer never enters it.
-- The layer fades into the page on the left, top and bottom. The overlay uses the page colors (`--bg`, `--bg2`): Deep Black and Midnight Navy in dark mode, Cream and Sand in light mode, so it follows the theme on its own. Dark: dark, low contrast (55 % opacity). Light: washed and warm (36 % opacity, lower contrast and saturation) so it never reads as a dark patch on the cream.
-- The laptop screen sits beside the center logo, not under it. Do not add or overlay content on the laptop screen.
+- The layer fades into the page on the left, top and bottom. The overlay uses the page colors (`--bg`, `--bg2`): Deep Black and Midnight Navy in dark mode, Cream and Sand in light mode, so it follows the theme on its own. Dark: dark, low contrast (55 % opacity).
+- Light mode uses its own files (2026-10-02, supersedes the filtered dark video, which looked like a dark stain): the same scene in two warm tones (sand to warm white) with the brand red only on the laptop screen, at 85 % opacity.
+- The laptop screen reads “Digitaliza. / Automatiza. / Escala.” (Escala in red). A small “Escena generada con IA” note sits under the layer, bottom right.
+- The laptop screen sits beside the center logo, not under it. Do not add other content on the laptop screen.
 - The video's top-left corner (where the generator places its mark) is outside the frame and under a shadow.
 
 ## Primary buttons
 - `.btn-vivo`: Signal Red with a moving gradient, a passing shine and a darker bottom edge (3D); it jumps up on hover. Used for the main action of a view: hero (“Te orientamos en 3 preguntas”), header and mobile menu (“Haz tu diagnóstico”, compact `.btn-vivo-sm` in the header), contact form, recommended plan.
 - `.btn-plan`: solid button in the text color (white on dark, near-black on light) with the same 3D edge; turns red on hover. Used for the non-recommended plans.
+
+## Animated scenes (Cómo trabajamos)
+- Each of the 8 process steps and each of the 4 metrics has a small animated scene (`src/components/Ilustraciones.tsx`) in the same visual language as the plan drawings: windows, blocks and Signal Red. Step scenes: message and reply, video call taking turns, proposal written and approved, checklist completing, site built in stages with a progress bar, tested on computer and phone and published, monthly calendar with a rising line, improvement cycle. Metrics: line chart, incoming contacts, funnel, clock and gear.
+- Motion has soft bounces and pauses between cycles (not mechanical loops), starts when the card appears and stops with reduced motion (each piece rests in its final state). No numbers: nothing that looks like real results.
+
+## Projects background
+- The Proyectos section no longer uses the orbits: it has a tilted content-editing interface at the top right (video preview with REC, an automation flow and a timeline with clips, audio and markers, with the red playhead moving). It alludes to the real work behind the projects; faded and behind the cards.
 
 ## Plan cards (Services → Desarrollo web)
 - Midnight Navy gradient cards (not black) in dark mode; ivory cards with a warm shadow in light mode.

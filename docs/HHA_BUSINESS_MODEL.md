@@ -54,6 +54,8 @@ Web packages:
 
 Web Business should be positioned as the strongest value-to-price option.
 
+Web plans are sold as an initial payment for the development only, plus monthly maintenance paid separately with a minimum term: Web Start 3 months minimum; Web Business 3, 6 or 12 months; Web Pro 6 months minimum. A free demo is offered when quoting (founders, 2026-10-02; details in HHA_SERVICES.md).
+
 ## Pricing rule
 Do not display public package prices until costs, margins and delivery scope are approved.
 

@@ -6,7 +6,7 @@ import { ArrowLeft, ArrowRight, Image as ImagenIcono, Images, MonitorPlay, Wine,
 import { CONFIG, categoriaDe, type Caso } from '@/lib/config'
 import { medir } from '@/lib/medir'
 import { Kicker, Title, type Level } from './Heading'
-import Orbitas from '../Orbitas'
+import FondoProyectos from '../FondoProyectos'
 
 const CATS = ['Todos', ...Array.from(new Set(CONFIG.casos.map((c) => c.cat)))]
 const nombreServicio = (id: string) => CONFIG.servicios.find((s) => s.id === id)?.nombre ?? id
@@ -89,7 +89,8 @@ export default function Casos({ as = 'h2' }: { as?: Level }) {
 
   return (
     <section className="alt con-deco">
-      <Orbitas lado="derecha" />
+      {/* fondo propio de Proyectos: interfaz de edición y automatización (no las órbitas) */}
+      <FondoProyectos />
       <div className="wrap sec">
         <div className="head-row" data-reveal>
           <div>

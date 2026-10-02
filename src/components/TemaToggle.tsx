@@ -2,18 +2,10 @@
 
 import { useEffect, useSyncExternalStore } from 'react'
 import { Moon, Sun } from 'lucide-react'
-import { TEMA_CLAVE as CLAVE } from '@/lib/tema'
+import { TEMA_CLAVE as CLAVE, leerTema as leer, suscribirTema as suscribir, type Tema } from '@/lib/tema'
 
 /* Botón de tema claro/oscuro. El tema inicial lo pone TEMA_SCRIPT (src/lib/tema.ts);
    aquí solo se lee y se cambia, y la elección queda guardada en este navegador. */
-type Tema = 'light' | 'dark'
-
-const leer = (): Tema => (document.documentElement.dataset.theme === 'light' ? 'light' : 'dark')
-const suscribir = (cb: () => void) => {
-  const mo = new MutationObserver(cb)
-  mo.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] })
-  return () => mo.disconnect()
-}
 const aplicar = (t: Tema) => {
   document.documentElement.dataset.theme = t
 }

@@ -308,14 +308,15 @@ input[aria-invalid="true"]{border-color:var(--red);box-shadow:0 0 0 1px var(--re
 
 /* proceso completo (/como-trabajamos) */
 .proceso{list-style:none;margin:48px 0 0;padding:0;display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,500px),1fr))}
-.proceso-paso{display:flex;gap:18px;align-items:flex-start;padding:24px;border:1px solid var(--line2);border-radius:14px;background:var(--bg2);box-shadow:var(--shadow)}
-.proceso-ico{display:inline-flex;align-items:center;justify-content:center;flex:none;width:48px;height:48px;border-radius:12px;background:color-mix(in srgb,var(--red) 14%,transparent);color:var(--red)}
+.proceso-paso{display:grid;grid-template-columns:minmax(0,170px) minmax(0,1fr);gap:22px;align-items:start;padding:22px;border:1px solid var(--line2);border-radius:16px;background:var(--bg2);box-shadow:var(--shadow)}
+@media (max-width:640px){.proceso-paso{grid-template-columns:1fr;gap:16px}.paso-ilus{max-width:300px}}
 .proceso-txt{display:flex;flex-direction:column;gap:8px;min-width:0}
 .proceso-n{font-size:12px;letter-spacing:1.5px;color:var(--mut)}
 .proceso-tu{margin:4px 0 0;padding-top:10px;border-top:1px solid var(--line);font-size:14px;line-height:1.5;color:var(--tx2)}
 .proceso-tu strong{color:var(--tx)}
 .metricas{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));margin-top:36px}
-.metrica{display:flex;flex-direction:column;gap:8px;padding:22px;border-top:2px solid var(--red);background:var(--bg);border-radius:0 0 12px 12px}
+.metrica{display:flex;flex-direction:column;gap:8px;padding:18px 18px 22px;border-top:2px solid var(--red);background:var(--bg);border-radius:0 0 14px 14px}
+.metrica-ilus{margin-bottom:8px}
 
 /* contacto: en móvil, el formulario antes que los datos */
 .contacto{display:grid;gap:28px 48px;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);grid-template-areas:"intro form" "canales form";align-items:start}
@@ -491,13 +492,20 @@ input[aria-invalid="true"]{border-color:var(--red);box-shadow:0 0 0 1px var(--re
    (1 a 3 barras), para quién es y un botón principal a lo ancho. El recomendado lleva brillo rojo,
    borde que gira y el botón rojo animado (.btn-vivo); los otros, un botón sólido que se vuelve rojo.
    En claro: tarjetas marfil sobre el crema, con sombra cálida. */
+/* colores de los dibujos (planes, pasos del proceso y métricas) */
+.plan,.ilus{
+  --pi-ventana:#0B1020;--pi-borde:rgba(148,163,184,.26);--pi-texto:rgba(248,250,252,.82);--pi-suave:rgba(148,163,184,.34);
+  --pi-bloque:rgba(148,163,184,.13);--pi-burbuja:#F8FAFC;--pi-osc:#0B1020;--pi-osc2:rgba(11,16,32,.35)
+}
+:root[data-theme="light"] .plan,:root[data-theme="light"] .ilus{
+  --pi-ventana:#FFFFFF;--pi-borde:rgba(11,16,32,.12);--pi-texto:#0B1020;--pi-suave:rgba(11,16,32,.2);
+  --pi-bloque:rgba(11,16,32,.07);--pi-burbuja:#FFFFFF;--pi-osc:#0B1020;--pi-osc2:rgba(11,16,32,.3)
+}
 .plan{
   --plan-fondo:linear-gradient(180deg,#121A35 0%,#0B1020 100%);
   --plan-borde:rgba(148,163,184,.18);
   --plan-sombra:inset 0 1px 0 rgba(255,255,255,.06),0 26px 50px -30px rgba(0,0,0,.9);
   --plan-escena:radial-gradient(90% 100% at 75% 0%,rgba(215,38,61,.2),transparent 62%),linear-gradient(180deg,#18213F,#0F1630);
-  --pi-ventana:#0B1020;--pi-borde:rgba(148,163,184,.26);--pi-texto:rgba(248,250,252,.82);--pi-suave:rgba(148,163,184,.34);
-  --pi-bloque:rgba(148,163,184,.13);--pi-burbuja:#F8FAFC;--pi-osc:#0B1020;--pi-osc2:rgba(11,16,32,.35);
   position:relative;isolation:isolate;display:flex;flex-direction:column;gap:14px;padding:14px 14px 22px;border-radius:20px;
   background:var(--plan-fondo);border:1px solid var(--plan-borde);box-shadow:var(--plan-sombra)
 }
@@ -511,9 +519,7 @@ input[aria-invalid="true"]{border-color:var(--red);box-shadow:0 0 0 1px var(--re
   --plan-fondo:linear-gradient(180deg,#FFFDF9 0%,#F7F2E9 100%);
   --plan-borde:rgba(11,16,32,.10);
   --plan-sombra:0 1px 2px rgba(11,16,32,.06),0 26px 46px -28px rgba(60,40,20,.38);
-  --plan-escena:radial-gradient(90% 100% at 75% 0%,rgba(215,38,61,.12),transparent 62%),linear-gradient(180deg,#EFE8DB,#E7DECF);
-  --pi-ventana:#FFFFFF;--pi-borde:rgba(11,16,32,.12);--pi-texto:#0B1020;--pi-suave:rgba(11,16,32,.2);
-  --pi-bloque:rgba(11,16,32,.07);--pi-burbuja:#FFFFFF;--pi-osc:#0B1020;--pi-osc2:rgba(11,16,32,.3)
+  --plan-escena:radial-gradient(90% 100% at 75% 0%,rgba(215,38,61,.12),transparent 62%),linear-gradient(180deg,#EFE8DB,#E7DECF)
 }
 :root[data-theme="light"] .plan-top{
   --plan-fondo:radial-gradient(120% 55% at 50% 0%,rgba(215,38,61,.09),transparent 70%),linear-gradient(180deg,#FFFDF9 0%,#F7F2E9 100%);
@@ -564,6 +570,13 @@ input[aria-invalid="true"]{border-color:var(--red);box-shadow:0 0 0 1px var(--re
 .plan-elegido-fila{display:flex;align-items:center;justify-content:center;gap:4px 10px;flex-wrap:wrap}
 .plan-check{display:inline-flex;align-items:center;gap:6px;font-family:var(--f-mono);font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--tx)}
 .plan-check svg{color:var(--red)}
+/* mantenimiento mensual aparte (plazo por plan) y demo gratuita */
+.plan-mant{display:flex;align-items:center;gap:8px;margin:0 8px;padding:9px 12px;border-radius:10px;border:1px dashed var(--line3);background:color-mix(in srgb,var(--tx) 4%,transparent);font-size:13.5px;line-height:1.4;color:var(--tx2)}
+.plan-mant svg{flex:none;color:var(--rojo-txt)}
+.plan-mant strong{display:block;color:var(--tx);font-weight:600}
+.plan-mant small{display:block;font-family:var(--f-mono);font-size:11.5px;letter-spacing:.4px;color:var(--tx2)}
+.cat-demo{display:inline-flex;align-items:flex-start;gap:9px;align-self:flex-start;max-width:640px;margin:10px 0 0;padding:9px 16px;border-radius:14px;border:1px solid color-mix(in srgb,var(--red) 35%,transparent);background:color-mix(in srgb,var(--red) 10%,transparent);font-size:14px;line-height:1.45;color:var(--tx)}
+.cat-demo svg{flex:none;margin-top:1px;color:var(--rojo-txt)}
 .plan-top::before{content:'';position:absolute;inset:-1.5px;padding:1.5px;border-radius:inherit;background:conic-gradient(from var(--border-angle),var(--red),rgba(215,38,61,.15) 25%,rgba(215,38,61,.15) 50%,var(--red) 75%,rgba(215,38,61,.15) 90%,var(--red));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);animation:border-spin 7s linear infinite;pointer-events:none}
 
 /* Categorías: el nombre del servicio se tiñe al pasar el mouse */
@@ -594,15 +607,181 @@ input[aria-invalid="true"]{border-color:var(--red);box-shadow:0 0 0 1px var(--re
 @keyframes pasoPulso{0%{box-shadow:0 0 0 0 rgba(215,38,61,.45)}70%,100%{box-shadow:0 0 0 9px rgba(215,38,61,0)}}
 .proceso-paso{transition:opacity .7s ease var(--d,0s),translate .7s cubic-bezier(.22,1,.36,1) var(--d,0s),transform .25s ease,border-color .25s ease}
 .proceso-paso:hover{transform:translateY(-4px);border-color:var(--line3)}
-.proceso-ico{transition:background-color .25s ease,color .25s ease,transform .45s cubic-bezier(.34,1.56,.64,1)}
-.proceso-paso:hover .proceso-ico{background:var(--red);color:var(--on-red);transform:rotate(-8deg) scale(1.08)}
 .metrica{transition:opacity .7s ease var(--d,0s),translate .7s cubic-bezier(.22,1,.36,1) var(--d,0s),transform .25s ease}
 .metrica:hover{transform:translateY(-4px)}
 
 @media (prefers-reduced-motion:reduce){
-  .brillo::before,.pack-ico,.step-num,.proceso-ico,.svc-row .t,.plan-ilus svg,.btn-plan,.btn-plan svg{transition:none}
+  .brillo::before,.pack-ico,.step-num,.svc-row .t,.plan-ilus svg,.btn-plan,.btn-plan svg{transition:none}
   .plan-top::before,.step::before,.case-portada,.case-portada::after,.pi-flujo,.pi-flota,.pi-latido{animation:none}
   .plan:hover .plan-ilus svg,.btn-plan:hover,.btn-plan:hover svg{transform:none}
   .step::after{transition:none}
-  .pack:hover,.proceso-paso:hover,.metrica:hover,.brillo:hover::before,.pack:hover .pack-ico,.proceso-paso:hover .proceso-ico,.case-abre:hover .case-portada-ico,.step:hover .step-num,.proceso-paso:hover .step-num{transform:none}
+  .pack:hover,.proceso-paso:hover,.metrica:hover,.brillo:hover::before,.pack:hover .pack-ico,.case-abre:hover .case-portada-ico,.step:hover .step-num,.proceso-paso:hover .step-num{transform:none}
 }
+
+/* ===== Escenas animadas de Cómo trabajamos (src/components/Ilustraciones.tsx) =====
+   Una por paso del proceso y una por métrica. Rebotes suaves y pausas entre ciclos para que no se vean
+   mecánicas. Arrancan cuando la tarjeta aparece; con "reducir movimiento" quedan quietas en su estado
+   final (por eso el estado normal de cada pieza es el final de su animación). */
+.ilus{position:relative;overflow:hidden;border-radius:12px;border:1px solid var(--line);background:radial-gradient(90% 100% at 80% 0%,rgba(215,38,61,.18),transparent 62%),linear-gradient(180deg,#151D3A,#0C1229)}
+:root[data-theme="light"] .ilus{background:radial-gradient(90% 100% at 80% 0%,rgba(215,38,61,.1),transparent 62%),linear-gradient(180deg,#F6F1E8,#EEE6D8)}
+.ilus::before{content:'';position:absolute;inset:0;background-image:radial-gradient(var(--pi-suave) 1px,transparent 1.2px);background-size:14px 14px;opacity:.3;-webkit-mask-image:linear-gradient(180deg,#000,transparent 85%);mask-image:linear-gradient(180deg,#000,transparent 85%)}
+.ilus svg{position:relative;display:block;width:100%;height:auto}
+.ilus svg *{transform-box:fill-box;transform-origin:center}
+.pi-medio{opacity:.7}
+:root[data-theme="light"] .ilus .pi-burbuja{filter:drop-shadow(0 6px 12px rgba(60,40,20,.16))}
+.reveal-pending .ilus *{animation-play-state:paused}
+.proceso-paso:hover .ilus,.metrica:hover .ilus{border-color:color-mix(in srgb,var(--red) 45%,transparent)}
+.ilus{transition:border-color .3s ease}
+
+/* 1. Primer contacto: llega el mensaje, escribimos y respondemos */
+.ch-1{transform-origin:left bottom;animation:ch1 6s cubic-bezier(.34,1.4,.64,1) infinite}
+.ch-2{transform-origin:right bottom;animation:ch2 6s cubic-bezier(.34,1.4,.64,1) infinite}
+.ch-puntos{opacity:0;animation:chPuntos 6s ease infinite}
+.ch-punto{animation:chBote 1s ease-in-out infinite}.ch-punto-1{animation-delay:.15s}.ch-punto-2{animation-delay:.3s}
+@keyframes ch1{0%{opacity:0;transform:translateY(8px) scale(.85)}8%,86%{opacity:1;transform:none}94%,100%{opacity:0;transform:none}}
+@keyframes ch2{0%,42%{opacity:0;transform:translateY(8px) scale(.85)}50%,86%{opacity:1;transform:none}94%,100%{opacity:0;transform:none}}
+@keyframes chPuntos{0%,16%{opacity:0}22%,40%{opacity:1}44%,100%{opacity:0}}
+@keyframes chBote{0%,60%,100%{transform:none}30%{transform:translateY(-3px)}}
+
+/* 2. Reunión de diagnóstico: hablan por turnos */
+.ll-marco{fill:none;stroke:var(--red);stroke-width:2}
+.ll-1,.ll-onda-1{opacity:0}
+.ll-0,.ll-onda-0{animation:llA 5s ease-in-out infinite}
+.ll-1,.ll-onda-1{animation:llB 5s ease-in-out infinite}
+.ll-barra{transform-origin:center bottom;animation:llOnda .9s ease-in-out infinite alternate}
+.ll-barra-1{animation-duration:.7s;animation-delay:-.2s}.ll-barra-2{animation-duration:1.1s;animation-delay:-.5s}.ll-barra-3{animation-duration:.8s;animation-delay:-.35s}
+@keyframes llA{0%,44%{opacity:1}50%,94%{opacity:0}100%{opacity:1}}
+@keyframes llB{0%,44%{opacity:0}50%,94%{opacity:1}100%{opacity:0}}
+@keyframes llOnda{from{transform:scaleY(.3)}to{transform:none}}
+
+/* 3. Propuesta por escrito: se escribe, se firma y queda aprobada */
+.doc-l{transform-origin:left center;animation:docL 6s cubic-bezier(.22,1,.36,1) infinite backwards}
+.doc-l-1{animation-delay:.15s}.doc-l-2{animation-delay:.3s}.doc-l-3{animation-delay:.45s}.doc-l-4{animation-delay:.6s}
+.doc-firma{fill:none;stroke:var(--pi-osc);stroke-width:1.6;stroke-linecap:round;stroke-dasharray:100;animation:docFirma 6s ease-in-out infinite}
+.doc-sello{transform:rotate(-8deg);animation:docSello 6s cubic-bezier(.34,1.56,.64,1) infinite}
+@keyframes docL{0%{transform:scaleX(0)}14%,88%{transform:none;opacity:1}96%,100%{transform:none;opacity:0}}
+@keyframes docFirma{0%,30%{stroke-dashoffset:100}48%,88%{stroke-dashoffset:0;opacity:1}96%,100%{stroke-dashoffset:0;opacity:0}}
+@keyframes docSello{0%,52%{opacity:0;transform:scale(.3) rotate(-25deg)}60%,88%{opacity:1;transform:rotate(-8deg)}96%,100%{opacity:0;transform:rotate(-8deg)}}
+
+/* 4. Inicio del proyecto: la lista se completa */
+.chk-caja{fill:none;stroke:var(--pi-borde);stroke-width:1.5}
+.chk-lleno{animation:chkLleno 6s cubic-bezier(.34,1.56,.64,1) infinite backwards}
+.chk-v{stroke-dasharray:14;animation:chkV 6s ease-out infinite backwards}
+.chk-lleno-1,.chk-v-1{animation-delay:.8s}.chk-lleno-2,.chk-v-2{animation-delay:1.6s}
+@keyframes chkLleno{0%,6%{transform:scale(0)}16%,84%{transform:none;opacity:1}92%,100%{transform:none;opacity:0}}
+@keyframes chkV{0%,12%{stroke-dashoffset:14}22%,84%{stroke-dashoffset:0;opacity:1}92%,100%{stroke-dashoffset:0;opacity:0}}
+
+/* 5. Construcción con avances: el sitio se arma por partes y la barra avanza por etapas */
+.obra-b{animation:7s cubic-bezier(.22,1,.36,1) infinite}
+.obra-b1{animation-name:obra1}.obra-b2{animation-name:obra2}.obra-b3{animation-name:obra3}.obra-b4{animation-name:obra4}.obra-b5{animation-name:obra5}
+.obra-barra{transform-origin:left center;animation:obraBarra 7s cubic-bezier(.65,0,.35,1) infinite}
+@keyframes obra1{0%{opacity:0;transform:translateY(6px)}6%,90%{opacity:1;transform:none}97%,100%{opacity:0}}
+@keyframes obra2{0%,14%{opacity:0;transform:translateY(6px)}22%,90%{opacity:1;transform:none}97%,100%{opacity:0}}
+@keyframes obra3{0%,42%{opacity:0;transform:translateY(6px)}50%,90%{opacity:1;transform:none}97%,100%{opacity:0}}
+@keyframes obra4{0%,46%{opacity:0;transform:translateY(6px)}54%,90%{opacity:1;transform:none}97%,100%{opacity:0}}
+@keyframes obra5{0%,50%{opacity:0;transform:translateY(6px)}58%,90%{opacity:1;transform:none}97%,100%{opacity:0}}
+@keyframes obraBarra{0%{transform:scaleX(.02)}12%,26%{transform:scaleX(.34)}38%,56%{transform:scaleX(.68)}70%,90%{transform:none;opacity:1}97%,100%{transform:none;opacity:0}}
+
+/* 6. Pruebas, entrega y capacitación: probado en computador y celular, y publicado */
+.pr-1,.pr-2{animation:6s cubic-bezier(.34,1.56,.64,1) infinite}
+.pr-1{animation-name:pr1}.pr-2{animation-name:pr2}
+.pr-pista{fill:var(--red);animation:prPista 6s ease infinite}
+.pr-perilla{fill:#F8FAFC;transform:translateX(18px);animation:prPerilla 6s cubic-bezier(.34,1.4,.64,1) infinite}
+@keyframes pr1{0%,10%{opacity:0;transform:scale(.3)}18%,88%{opacity:1;transform:none}96%,100%{opacity:0}}
+@keyframes pr2{0%,28%{opacity:0;transform:scale(.3)}36%,88%{opacity:1;transform:none}96%,100%{opacity:0}}
+@keyframes prPista{0%,48%{fill:var(--pi-bloque)}56%,92%{fill:var(--red)}98%,100%{fill:var(--pi-bloque)}}
+@keyframes prPerilla{0%,48%{transform:none}56%,92%{transform:translateX(18px)}98%,100%{transform:none}}
+
+/* 7. Acompañamiento mensual: una revisión cada mes y la línea de resultados avanza */
+.cal-marca{fill:none;stroke:var(--red);stroke-width:2;animation:calMarca 8s cubic-bezier(.65,0,.35,1) infinite}
+.cal-linea{fill:none;stroke:var(--red);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:100;animation:calLinea 8s cubic-bezier(.65,0,.35,1) infinite}
+.cal-punto{animation:calPunto 8s ease infinite}
+@keyframes calMarca{0%,18%{transform:none}25%,43%{transform:translate(-38px,18px)}50%,68%{transform:translate(19px,36px)}75%,93%{transform:translate(-19px,54px)}100%{transform:none}}
+@keyframes calLinea{0%{stroke-dashoffset:100;opacity:1}25%{stroke-dashoffset:75}50%{stroke-dashoffset:50}75%{stroke-dashoffset:25}88%,94%{stroke-dashoffset:0;opacity:1}99%,100%{stroke-dashoffset:0;opacity:0}}
+@keyframes calPunto{0%,84%{opacity:0;transform:scale(.4)}90%,95%{opacity:1;transform:none}100%{opacity:0}}
+
+/* 8. Mejora continua: el ciclo da la vuelta con pausas y las barras suben */
+.ciclo{transform-box:view-box;transform-origin:100px 65px;animation:cicloGira 6s cubic-bezier(.65,0,.35,1) infinite}
+.ciclo-arco,.ciclo-punta{fill:none;stroke:var(--pi-texto);stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+.ciclo-barra{transform-origin:center bottom;animation:cicloBarra 3s cubic-bezier(.34,1.4,.64,1) infinite alternate}
+.ciclo-barra-1{animation-delay:.25s}.ciclo-barra-2{animation-delay:.5s}
+@keyframes cicloGira{0%,15%{transform:none}50%,65%{transform:rotate(180deg)}100%{transform:rotate(360deg)}}
+@keyframes cicloBarra{0%,20%{transform:scaleY(.55)}80%,100%{transform:none}}
+
+/* Métricas */
+.mv-linea{fill:none;stroke:var(--red);stroke-width:2.5;stroke-linecap:round;stroke-dasharray:100;animation:mvLinea 6s cubic-bezier(.65,0,.35,1) infinite}
+.mv-area{fill:var(--red);opacity:.16;animation:mvArea 6s ease infinite}
+.mv-punto{animation:6s cubic-bezier(.34,1.56,.64,1) infinite}
+.mv-punto-0{animation-name:mvP0}.mv-punto-1{animation-name:mvP1}.mv-punto-2{animation-name:mvP2}
+@keyframes mvLinea{0%{stroke-dashoffset:100}48%,88%{stroke-dashoffset:0;opacity:1}96%,100%{stroke-dashoffset:0;opacity:0}}
+@keyframes mvArea{0%,30%{opacity:0}55%,88%{opacity:.16}96%,100%{opacity:0}}
+@keyframes mvP0{0%,20%{opacity:0;transform:scale(0)}26%,88%{opacity:1;transform:none}96%,100%{opacity:0}}
+@keyframes mvP1{0%,29%{opacity:0;transform:scale(0)}35%,88%{opacity:1;transform:none}96%,100%{opacity:0}}
+@keyframes mvP2{0%,46%{opacity:0;transform:scale(0)}52%,88%{opacity:1;transform:none}96%,100%{opacity:0}}
+
+.mc{transform-origin:left center;animation:6s cubic-bezier(.34,1.4,.64,1) infinite}
+.mc-0{animation-name:mc0}.mc-1{animation-name:mc1}.mc-2{animation-name:mc2}
+.mc-aviso{animation:mcAviso 1.6s ease-in-out infinite}
+@keyframes mc0{0%{opacity:0;transform:translateX(-10px) scale(.9)}8%,86%{opacity:1;transform:none}94%,100%{opacity:0}}
+@keyframes mc1{0%,22%{opacity:0;transform:translateX(-10px) scale(.9)}30%,86%{opacity:1;transform:none}94%,100%{opacity:0}}
+@keyframes mc2{0%,44%{opacity:0;transform:translateX(-10px) scale(.9)}52%,86%{opacity:1;transform:none}94%,100%{opacity:0}}
+@keyframes mcAviso{0%,100%{transform:none}50%{transform:scale(1.3)}}
+
+.mf-cae{animation:mfCae 2.4s cubic-bezier(.45,0,.55,1) infinite backwards}
+.mf-cae-1{animation-delay:.4s}.mf-cae-2{animation-delay:.8s}.mf-cae-3{animation-delay:1.2s}.mf-cae-4{animation-delay:1.6s}.mf-cae-5{animation-delay:2s}
+.mf-sale{animation:mfSale 2.4s cubic-bezier(.45,0,.55,1) infinite backwards}.mf-sale-1{animation-delay:1.2s}
+@keyframes mfCae{0%{opacity:0;transform:none}15%,70%{opacity:1}100%{opacity:0;transform:translateY(24px)}}
+@keyframes mfSale{0%,30%{opacity:0;transform:none}45%,75%{opacity:1}100%{opacity:0;transform:translateY(26px)}}
+
+.mt-marca{stroke:var(--pi-suave);stroke-width:1.5;stroke-linecap:round}
+.mt-aguja{stroke:var(--pi-texto);stroke-width:2.4;stroke-linecap:round;transform-box:view-box;transform-origin:62px 40px}
+.mt-aguja-larga{animation:mtVuelta 3s cubic-bezier(.65,0,.35,1) infinite}
+.mt-aguja-corta{animation:mtVuelta 12s linear infinite}
+.mt-engrane{transform-box:view-box;transform-origin:132px 40px;animation:mtEngrane 1.5s cubic-bezier(.65,0,.35,1) infinite}
+.mt-rayo{animation:mtRayo 3s ease-in-out infinite}
+@keyframes mtVuelta{to{transform:rotate(360deg)}}
+@keyframes mtEngrane{0%,20%{transform:none}100%{transform:rotate(40deg)}}
+@keyframes mtRayo{0%,70%,100%{opacity:1;transform:none}80%{opacity:.5;transform:scale(.88)}90%{opacity:1;transform:scale(1.08)}}
+
+@media (prefers-reduced-motion:reduce){
+  .ilus *{animation:none !important}
+}
+
+/* ===== Fondo de Proyectos (src/components/FondoProyectos.tsx) =====
+   Interfaz de edición de contenido inclinada arriba a la derecha: vista previa con REC, flujo de
+   automatización y línea de tiempo con el cabezal rojo avanzando. Detrás de las tarjetas y desvanecida. */
+.fondo-proy{
+  --fp-panel:rgba(11,16,32,.92);--fp-monitor:rgba(5,7,10,.6);--fp-borde:rgba(148,163,184,.22);--fp-bloque:rgba(148,163,184,.12);
+  --fp-bloque-2:rgba(148,163,184,.2);--fp-suave:rgba(148,163,184,.34);--fp-cuadro:rgba(148,163,184,.16);
+  position:absolute;z-index:0;top:28px;right:-36px;width:min(560px,46vw);pointer-events:none;opacity:.7;
+  transform:perspective(1400px) rotateY(-16deg) rotateX(6deg) rotateZ(-2deg);transform-origin:right top;
+  -webkit-mask-image:linear-gradient(180deg,#000 62%,transparent 98%),linear-gradient(90deg,transparent 0%,#000 22%);
+  -webkit-mask-composite:source-in;
+  mask-image:linear-gradient(180deg,#000 62%,transparent 98%),linear-gradient(90deg,transparent 0%,#000 22%);
+  mask-composite:intersect
+}
+:root[data-theme="light"] .fondo-proy{
+  --fp-panel:rgba(255,255,255,.88);--fp-monitor:rgba(241,236,226,.95);--fp-borde:rgba(11,16,32,.12);--fp-bloque:rgba(11,16,32,.07);
+  --fp-bloque-2:rgba(11,16,32,.12);--fp-suave:rgba(11,16,32,.22);--fp-cuadro:rgba(11,16,32,.08);opacity:.85
+}
+.fondo-proy svg{display:block;width:100%;height:auto}
+.fp-panel{fill:var(--fp-panel);stroke:var(--fp-borde)}
+.fp-monitor{fill:var(--fp-monitor);stroke:var(--fp-borde)}
+.fp-bloque{fill:var(--fp-bloque)}.fp-bloque-2,.fp-clip{fill:var(--fp-bloque-2)}.fp-suave,.fp-play,.fp-onda{fill:var(--fp-suave)}
+.fp-rojo{fill:var(--red)}.fp-blanco{fill:#F8FAFC}.fp-cuadro{fill:var(--fp-cuadro)}.fp-pista{fill:var(--fp-bloque)}
+.fp-clip-rojo{fill:color-mix(in srgb,var(--red) 55%,transparent)}
+.fp-flujo{fill:none;stroke:var(--red);stroke-width:2;stroke-dasharray:4 6;animation:fpFlujo 1.2s linear infinite}
+.fp-rec-punto{animation:fpRec 1.6s ease-in-out infinite}
+.fp-cabezal{animation:fpCabezal 14s linear infinite}
+.fp-avance{transform-box:fill-box;transform-origin:left center;animation:fpAvance 14s linear infinite}
+.fp-nodo{transform-box:fill-box;transform-origin:center;animation:fpNodo 4.8s ease-in-out infinite}
+.fp-nodo-1{animation-delay:1.2s}.fp-nodo-2{animation-delay:2.4s}.fp-nodo-3{animation-delay:3.6s}
+.fp-onda{transform-box:fill-box;transform-origin:center;animation:fpOnda 1.6s ease-in-out infinite alternate}
+@keyframes fpFlujo{to{stroke-dashoffset:-20}}
+@keyframes fpRec{50%{opacity:.25}}
+@keyframes fpCabezal{to{transform:translateX(588px)}}
+@keyframes fpAvance{from{transform:scaleX(0)}to{transform:none}}
+@keyframes fpNodo{0%,30%,100%{transform:none}12%{transform:translateY(-3px) scale(1.05)}}
+@keyframes fpOnda{from{transform:scaleY(.55)}to{transform:none}}
+@media (max-width:860px){.fondo-proy{width:400px;right:-170px;top:24px;opacity:.45}:root[data-theme="light"] .fondo-proy{opacity:.55}}
+@media (prefers-reduced-motion:reduce){.fondo-proy *{animation:none !important}}

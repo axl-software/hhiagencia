@@ -72,3 +72,30 @@ export async function enviar(texto: string, via: 'whatsapp' | 'email', origen: '
   }
   return ''
 }
+
+/** Datos que se guardan en Supabase (src/app/api/solicitudes/route.ts). */
+export type Solicitud = DatosContacto & {
+  origen: 'formulario' | 'diagnostico'
+  canal: 'whatsapp' | 'email'
+  /** Campo trampa invisible: si viene con algo, lo llenó un bot. */
+  sitio: string
+  /** Momento en que la persona empezó a escribir (Date.now()), o null si no se sabe. */
+  inicio: number | null
+}
+
+/* Guarda la solicitud sin hacer esperar a nadie: se llama justo antes de abrir WhatsApp o el correo
+   (que deben abrirse en el mismo clic) y, si falla, el mensaje igual llega por esos canales.
+   keepalive: el envío termina aunque el correo cambie de página. */
+export function guardar({ inicio, ...s }: Solicitud) {
+  try {
+    const ms = inicio === null ? -1 : Date.now() - inicio // tiempo que tomó completar el formulario
+    void fetch('/api/solicitudes', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...s, ms, pagina: window.location.pathname }),
+      keepalive: true,
+    }).catch(() => {})
+  } catch {
+    /* sin conexión o sin servidor (vista previa): el mensaje igual sale por WhatsApp o correo */
+  }
+}

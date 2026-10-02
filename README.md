@@ -68,6 +68,19 @@ npm run dev
 Error típico si se salta este paso: `Can't resolve '@fontsource/...'` en `globals.css`.
 La caché puede seguir mostrando el error aunque el paquete ya esté instalado: por eso `npm run limpiar`.
 
+## Supabase (solicitudes de los formularios)
+Cada envío del formulario de contacto y del diagnóstico se guarda en la tabla `solicitudes_cotizacion`
+(además de abrir WhatsApp o el correo). Lo hace `src/app/api/solicitudes/route.ts`.
+
+1. Copiar `.env.example` como `.env.local` y completar la URL y la clave **publishable** del proyecto
+   (Supabase → Project Settings → API). Nunca usar la *secret key* ni la *service_role*.
+2. En Supabase → SQL Editor, pegar y ejecutar `supabase/solicitudes_cotizacion.sql` (crea o completa la tabla
+   y la protege: desde la web solo se puede agregar; nadie puede leer).
+3. En Vercel → Settings → Environment Variables, agregar las mismas dos variables.
+4. Ver las solicitudes: Supabase → Table Editor → `solicitudes_cotizacion`.
+
+Sin las variables, la web funciona igual (el mensaje sale por WhatsApp o correo); solo no se guarda.
+
 ## Vista previa en un solo HTML
 ```
 npm run preview:html   # preview-html/index.html, con las 4 páginas navegables

@@ -4,7 +4,7 @@ import { useEffect, useId, useRef, useState, type FormEvent } from 'react'
 import Link from 'next/link'
 import { ArrowLeft, ArrowRight, RotateCcw, X } from 'lucide-react'
 import { CONFIG } from '@/lib/config'
-import { armarMensaje, completaFalta, enviar, validar, type Falta } from '@/lib/contacto'
+import { armarMensaje, completaFalta, enviar, guardar, validar, type Falta } from '@/lib/contacto'
 import { PREGUNTAS, recomendar, respuestasLegibles } from '@/lib/diagnostico'
 import { medir } from '@/lib/medir'
 import AvisoFalta from './AvisoFalta'
@@ -25,6 +25,7 @@ export default function GuiaPlan({
   const [respuestas, setRespuestas] = useState<string[]>([])
   const [error, setError] = useState<Falta | null>(null)
   const formRef = useRef<HTMLFormElement>(null)
+  const inicio = useRef<number | null>(null) // cuándo empezó a escribir (contra bots)
   const marcar = (campo: string) => error?.campos.includes(campo) || undefined
   const [msg, setMsg] = useState('')
 
@@ -67,8 +68,10 @@ export default function GuiaPlan({
     }
     setError(null)
     const via = ((e.nativeEvent as SubmitEvent).submitter as HTMLButtonElement | null)?.value === 'email' ? 'email' : 'whatsapp'
-    const texto = armarMensaje({ ...datos, servicios: recomendados.map((s) => s.nombre), diagnostico: respuestasLegibles(valores) })
-    setMsg(await enviar(texto, via, 'diagnostico'))
+    const completo = { ...datos, servicios: recomendados.map((s) => s.nombre), diagnostico: respuestasLegibles(valores) }
+    /* se guarda en Supabase y, en el mismo clic, se abre WhatsApp o el correo */
+    guardar({ ...completo, origen: 'diagnostico', canal: via, sitio: val('sitio'), inicio: inicio.current })
+    setMsg(await enviar(armarMensaje(completo), via, 'diagnostico'))
   }
 
   const boton = (
@@ -138,6 +141,7 @@ export default function GuiaPlan({
                   method="post"
                   onSubmit={onSubmit}
                   onInput={(e) => {
+                    if (inicio.current === null) inicio.current = Date.now()
                     if (error && completaFalta(error, e.target as HTMLInputElement)) setError(null)
                   }}
                   noValidate
@@ -154,9 +158,16 @@ export default function GuiaPlan({
                       <label>Correo<input id="guia-email" name="email" type="email" autoComplete="email" inputMode="email" aria-invalid={marcar('email')} /></label>
                     </div>
                   </fieldset>
+                  {/* campo trampa: invisible para las personas; si llega con algo, lo llenó un bot */}
+                  <div className="trampa" aria-hidden="true">
+                    <label>Sitio web<input name="sitio" tabIndex={-1} autoComplete="off" /></label>
+                  </div>
                   {error && <AvisoFalta falta={error} form={formRef} />}
                   <button className="btn btn-red" type="submit" name="via" value="whatsapp">Enviar por WhatsApp →</button>
                   {CONFIG.email && <button className="link-btn" type="submit" name="via" value="email">o envíalo por correo</button>}
+                  <p className="note form-legal">
+                    Al enviar, guardamos tus datos para poder contactarte. Más detalles en <Link href="/privacidad" onClick={cerrar}>Privacidad</Link>.
+                  </p>
                   <p className="note" role="status">{msg}</p>
                 </form>
 

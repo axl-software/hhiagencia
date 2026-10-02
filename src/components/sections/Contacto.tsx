@@ -1,10 +1,11 @@
 'use client'
 
 import { useRef, useState, type FormEvent } from 'react'
+import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { AtSign, Mail, MapPin, Phone } from 'lucide-react'
 import { CONFIG, telHref, telVisible } from '@/lib/config'
-import { armarMensaje, completaFalta, enviar, validar, type Falta } from '@/lib/contacto'
+import { armarMensaje, completaFalta, enviar, guardar, validar, type Falta } from '@/lib/contacto'
 import { respuestasLegibles } from '@/lib/diagnostico'
 import { Kicker, Title, type Level } from './Heading'
 import Redes from '../Redes'
@@ -38,6 +39,7 @@ export default function Contacto({ as = 'h2' }: { as?: Level }) {
   const [msg, setMsg] = useState('')
   const [error, setError] = useState<Falta | null>(null)
   const formRef = useRef<HTMLFormElement>(null)
+  const inicio = useRef<number | null>(null) // cuándo empezó a escribir (contra bots)
   const marcar = (campo: string) => error?.campos.includes(campo) || undefined
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -58,8 +60,10 @@ export default function Contacto({ as = 'h2' }: { as?: Level }) {
     setError(null)
 
     const via = ((e.nativeEvent as SubmitEvent).submitter as HTMLButtonElement | null)?.value === 'email' ? 'email' : 'whatsapp'
-    const texto = armarMensaje({ ...datos, negocio: val('negocio'), servicios: sel.map((s) => s.nombre), diagnostico })
-    setMsg(await enviar(texto, via, 'formulario'))
+    const completo = { ...datos, negocio: val('negocio'), servicios: sel.map((s) => s.nombre), diagnostico }
+    /* se guarda en Supabase y, en el mismo clic, se abre WhatsApp o el correo */
+    guardar({ ...completo, origen: 'formulario', canal: via, sitio: val('sitio'), inicio: inicio.current })
+    setMsg(await enviar(armarMensaje(completo), via, 'formulario'))
   }
 
   return (
@@ -107,6 +111,7 @@ export default function Contacto({ as = 'h2' }: { as?: Level }) {
         method="post"
         onSubmit={onSubmit}
         onInput={(e) => {
+          if (inicio.current === null) inicio.current = Date.now()
           if (error && completaFalta(error, e.target as HTMLInputElement)) setError(null)
         }}
         noValidate
@@ -135,6 +140,10 @@ export default function Contacto({ as = 'h2' }: { as?: Level }) {
             <label>Teléfono o WhatsApp<input id="telefono" name="telefono" type="tel" autoComplete="tel" inputMode="tel" placeholder="+56 9 1234 5678" aria-invalid={marcar('telefono')} /></label>
           </div>
         </fieldset>
+        {/* campo trampa: invisible para las personas; si llega con algo, lo llenó un bot */}
+        <div className="trampa" aria-hidden="true">
+          <label>Sitio web<input name="sitio" tabIndex={-1} autoComplete="off" /></label>
+        </div>
         {error && <AvisoFalta falta={error} form={formRef} />}
         {/* El botón sigue la intención: con servicios elegidos pide cotización; sin ellos, una reunión */}
         <button className="btn-vivo contacto-enviar" type="submit" name="via" value="whatsapp">
@@ -143,6 +152,9 @@ export default function Contacto({ as = 'h2' }: { as?: Level }) {
         {CONFIG.email && (
           <button className="link-btn" type="submit" name="via" value="email">o envíalo por correo</button>
         )}
+        <p className="note form-legal">
+          Al enviar, guardamos tus datos para poder contactarte. Más detalles en <Link href="/privacidad">Privacidad</Link>.
+        </p>
         <p className="note" role="status">{msg}</p>
       </form>
       </div>

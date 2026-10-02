@@ -4,13 +4,15 @@ import { useEffect, useId, useRef, useState, type FormEvent } from 'react'
 import Link from 'next/link'
 import { ArrowLeft, ArrowRight, RotateCcw, X } from 'lucide-react'
 import { CONFIG } from '@/lib/config'
-import { armarMensaje, completaFalta, enviar, guardar, validar, type Falta } from '@/lib/contacto'
+import { armarMensaje, completaFalta, contactarPor, enviarSolicitud, validar, type Falta } from '@/lib/contacto'
 import { PREGUNTAS, recomendar, respuestasLegibles } from '@/lib/diagnostico'
 import { medir } from '@/lib/medir'
 import AvisoFalta from './AvisoFalta'
+import RespuestaSolicitud, { type Resultado } from './RespuestaSolicitud'
 
 /* Diagnóstico de 3 preguntas: una recomendación y, en la misma ventana, nombre y contacto para
-   enviar todo (respuestas incluidas) sin cambiar de página. Es el botón de quien todavía no sabe qué
+   enviar todo (respuestas incluidas) sin cambiar de página. Al enviar se guarda en Supabase y la
+   ventana muestra el mensaje de gracias (RespuestaSolicitud). Es el botón de quien todavía no sabe qué
    necesita: encabezado y menú móvil ("Haz tu diagnóstico"), portada ("Te orientamos en 3 preguntas")
    y Servicios cuando no hay nada elegido. */
 export default function GuiaPlan({
@@ -27,7 +29,10 @@ export default function GuiaPlan({
   const formRef = useRef<HTMLFormElement>(null)
   const inicio = useRef<number | null>(null) // cuándo empezó a escribir (contra bots)
   const marcar = (campo: string) => error?.campos.includes(campo) || undefined
-  const [msg, setMsg] = useState('')
+  const [enviando, setEnviando] = useState(false)
+  const [resultado, setResultado] = useState<Resultado | null>(null)
+  /* si falla y la persona vuelve a intentar, sus datos siguen escritos */
+  const [previo, setPrevio] = useState({ nombre: '', email: '', telefono: '' })
 
   useEffect(() => {
     if (abierta && !dialogo.current?.open) dialogo.current?.showModal()
@@ -43,7 +48,8 @@ export default function GuiaPlan({
   const abrir = () => {
     setRespuestas([])
     setError(null)
-    setMsg('')
+    setResultado(null)
+    setEnviando(false)
     setAbierta(true)
     medir('guia_inicio', { origen })
   }
@@ -62,16 +68,25 @@ export default function GuiaPlan({
     const datos = { nombre: val('nombre'), email: val('email'), telefono: val('telefono') }
     const falta = validar(datos)
     if (falta) {
-      setMsg('')
       setError(falta)
       return
     }
     setError(null)
-    const via = ((e.nativeEvent as SubmitEvent).submitter as HTMLButtonElement | null)?.value === 'email' ? 'email' : 'whatsapp'
+    /* Se guarda en Supabase (y desde ahí parte la respuesta automática); ya no se abre WhatsApp. */
     const completo = { ...datos, servicios: recomendados.map((s) => s.nombre), diagnostico: respuestasLegibles(valores) }
-    /* se guarda en Supabase y, en el mismo clic, se abre WhatsApp o el correo */
-    guardar({ ...completo, origen: 'diagnostico', canal: via, sitio: val('sitio'), inicio: inicio.current })
-    setMsg(await enviar(armarMensaje(completo), via, 'diagnostico'))
+    const canal = contactarPor(datos)
+    setPrevio(datos)
+    setEnviando(true)
+    const ok = await enviarSolicitud({ ...completo, origen: 'diagnostico', canal, sitio: val('sitio'), inicio: inicio.current })
+    setEnviando(false)
+    setResultado({
+      ok,
+      nombre: datos.nombre,
+      canal,
+      dato: canal === 'whatsapp' ? datos.telefono : datos.email,
+      texto: armarMensaje(completo),
+      origen: 'diagnostico',
+    })
   }
 
   const boton = (
@@ -120,6 +135,8 @@ export default function GuiaPlan({
                   </button>
                 )}
               </>
+            ) : resultado ? (
+              <RespuestaSolicitud r={resultado} tituloId={titulo} onListo={resultado.ok ? cerrar : () => setResultado(null)} />
             ) : (
               <>
                 <div className="kicker" style={{ margin: 0 }}>NUESTRA RECOMENDACIÓN</div>
@@ -149,13 +166,13 @@ export default function GuiaPlan({
                   <p className="muted" style={{ margin: 0 }}>Déjanos tus datos y te contactamos para una conversación de diagnóstico sobre tu caso.</p>
                   <label>
                     <span className="label-fila">Nombre (tuyo o de tu proyecto) <span className="obligatorio">Obligatorio</span></span>
-                    <input id="guia-nombre" name="nombre" autoComplete="name" required aria-invalid={marcar('nombre')} />
+                    <input id="guia-nombre" name="nombre" autoComplete="name" required defaultValue={previo.nombre} aria-invalid={marcar('nombre')} />
                   </label>
                   <fieldset>
                     <legend><span className="label-fila">¿Cómo te contactamos? <span className="obligatorio">Obligatorio: uno de los dos</span></span></legend>
                     <div className="two">
-                      <label>Teléfono o WhatsApp<input id="guia-telefono" name="telefono" type="tel" autoComplete="tel" inputMode="tel" placeholder="+56 9 1234 5678" aria-invalid={marcar('telefono')} /></label>
-                      <label>Correo<input id="guia-email" name="email" type="email" autoComplete="email" inputMode="email" aria-invalid={marcar('email')} /></label>
+                      <label>Teléfono o WhatsApp<input id="guia-telefono" name="telefono" type="tel" autoComplete="tel" inputMode="tel" placeholder="+56 9 1234 5678" defaultValue={previo.telefono} aria-invalid={marcar('telefono')} /></label>
+                      <label>Correo<input id="guia-email" name="email" type="email" autoComplete="email" inputMode="email" defaultValue={previo.email} aria-invalid={marcar('email')} /></label>
                     </div>
                   </fieldset>
                   {/* campo trampa: invisible para las personas; si llega con algo, lo llenó un bot */}
@@ -163,12 +180,13 @@ export default function GuiaPlan({
                     <label>Sitio web<input name="sitio" tabIndex={-1} autoComplete="off" /></label>
                   </div>
                   {error && <AvisoFalta falta={error} form={formRef} />}
-                  <button className="btn btn-red" type="submit" name="via" value="whatsapp">Enviar por WhatsApp →</button>
-                  {CONFIG.email && <button className="link-btn" type="submit" name="via" value="email">o envíalo por correo</button>}
+                  <button className="btn btn-red" type="submit" disabled={enviando} aria-busy={enviando || undefined}>
+                    {enviando ? 'Enviando…' : 'Agenda una reunión →'}
+                  </button>
                   <p className="note form-legal">
                     Al enviar, guardamos tus datos para poder contactarte. Más detalles en <Link href="/privacidad" onClick={cerrar}>Privacidad</Link>.
                   </p>
-                  <p className="note" role="status">{msg}</p>
+                  <p className="note" role="status">{enviando ? 'Enviando tu solicitud…' : ''}</p>
                 </form>
 
                 <div className="guia-pie">

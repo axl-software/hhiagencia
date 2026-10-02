@@ -15,6 +15,9 @@ import SeguridadPage from '@/app/seguridad/page'
 import { useAncla, usePath } from './shims/router'
 import '@/app/globals.css'
 
+/* Sin servidor: los formularios muestran el mensaje de gracias como demostración (src/lib/contacto.ts) */
+;(window as Window & { __VISTA_PREVIA__?: boolean }).__VISTA_PREVIA__ = true
+
 const PAGES: Record<string, ComponentType> = {
   '/': Inicio,
   '/servicios': ServiciosPage,

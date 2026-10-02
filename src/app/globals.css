@@ -239,6 +239,16 @@ a.canal:hover{color:var(--tx)}a.canal:hover .canal-ico{background:var(--red);col
 /* campo trampa contra bots: fuera de la pantalla, sin ocupar espacio */
 .trampa{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden}
 .form-legal{text-align:center}.form-legal a{color:var(--tx);text-underline-offset:3px}
+/* Mensaje después de enviar un formulario (gracias, o cómo enviarlo igual si falló) */
+.respuesta{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;padding:12px 4px 4px}
+.respuesta .muted{max-width:420px}
+.respuesta strong{color:var(--tx)}
+.respuesta-ico{display:inline-flex;align-items:center;justify-content:center;width:68px;height:68px;border-radius:50%;background:var(--red);color:var(--on-red);box-shadow:0 0 0 8px color-mix(in srgb,var(--red) 18%,transparent);animation:respuestaPop .55s cubic-bezier(.34,1.56,.64,1)}
+.respuesta-error .respuesta-ico{background:color-mix(in srgb,var(--red) 16%,transparent);color:var(--red);box-shadow:none}
+.respuesta-acciones{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+@keyframes respuestaPop{from{transform:scale(.4);opacity:0}}
+.contacto-enviar:disabled,.guia-form .btn:disabled{opacity:.7;cursor:progress}
+@media (prefers-reduced-motion:reduce){.respuesta-ico{animation:none}}
 .obligatorio{font-family:var(--f-mono);font-size:10.5px;font-weight:500;letter-spacing:1px;text-transform:uppercase;padding:3px 9px;border-radius:999px;background:color-mix(in srgb,var(--red) 18%,transparent);color:var(--tx)}
 .form-aviso{display:flex;flex-direction:column;gap:12px;padding:14px 16px;border-radius:12px;border:1px solid color-mix(in srgb,var(--red) 55%,transparent);background:color-mix(in srgb,var(--red) 12%,transparent);font-size:14px;line-height:1.5;color:var(--tx);animation:avisoEntra .35s cubic-bezier(.22,1,.36,1)}
 .form-aviso p{margin:0;font-weight:600}

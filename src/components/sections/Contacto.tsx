@@ -1,16 +1,17 @@
 'use client'
 
-import { useRef, useState, type FormEvent } from 'react'
+import { useEffect, useRef, useState, type FormEvent } from 'react'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { AtSign, Mail, MapPin, Phone } from 'lucide-react'
 import { CONFIG, telHref, telVisible } from '@/lib/config'
-import { armarMensaje, completaFalta, enviar, guardar, validar, type Falta } from '@/lib/contacto'
+import { armarMensaje, completaFalta, contactarPor, enviarSolicitud, validar, type Falta } from '@/lib/contacto'
 import { respuestasLegibles } from '@/lib/diagnostico'
 import { Kicker, Title, type Level } from './Heading'
 import Redes from '../Redes'
 import Orbitas from '../Orbitas'
 import AvisoFalta from '../AvisoFalta'
+import RespuestaSolicitud, { type Resultado } from '../RespuestaSolicitud'
 
 /* Formulario corto para cotizar: nombre (persona o proyecto), de qué se trata el negocio,
    servicios y correo y/o teléfono. Lee ?servicios=a,b (de /servicios o del diagnóstico) y, si viene
@@ -36,8 +37,14 @@ export default function Contacto({ as = 'h2' }: { as?: Level }) {
     etapa: params.get('etapa') ?? '',
   })
 
-  const [msg, setMsg] = useState('')
   const [error, setError] = useState<Falta | null>(null)
+  const [enviando, setEnviando] = useState(false)
+  /* Después de enviar se abre una ventana: gracias y por dónde lo contactamos (o, si falló, cómo enviarla igual) */
+  const [resultado, setResultado] = useState<Resultado | null>(null)
+  const ventana = useRef<HTMLDialogElement>(null)
+  useEffect(() => {
+    if (resultado && !ventana.current?.open) ventana.current?.showModal()
+  }, [resultado])
   const formRef = useRef<HTMLFormElement>(null)
   const inicio = useRef<number | null>(null) // cuándo empezó a escribir (contra bots)
   const marcar = (campo: string) => error?.campos.includes(campo) || undefined
@@ -53,17 +60,30 @@ export default function Contacto({ as = 'h2' }: { as?: Level }) {
        botón, con un botón que lleva directo al campo; los campos que faltan quedan marcados. */
     const falta = validar(datos)
     if (falta) {
-      setMsg('')
       setError(falta)
       return
     }
     setError(null)
 
-    const via = ((e.nativeEvent as SubmitEvent).submitter as HTMLButtonElement | null)?.value === 'email' ? 'email' : 'whatsapp'
+    /* Se guarda en Supabase (y desde ahí parte la respuesta automática); ya no se abre WhatsApp. */
     const completo = { ...datos, negocio: val('negocio'), servicios: sel.map((s) => s.nombre), diagnostico }
-    /* se guarda en Supabase y, en el mismo clic, se abre WhatsApp o el correo */
-    guardar({ ...completo, origen: 'formulario', canal: via, sitio: val('sitio'), inicio: inicio.current })
-    setMsg(await enviar(armarMensaje(completo), via, 'formulario'))
+    const canal = contactarPor(datos)
+    setEnviando(true)
+    const ok = await enviarSolicitud({ ...completo, origen: 'formulario', canal, sitio: val('sitio'), inicio: inicio.current })
+    setEnviando(false)
+    setResultado({
+      ok,
+      nombre: datos.nombre,
+      canal,
+      dato: canal === 'whatsapp' ? datos.telefono : datos.email,
+      texto: armarMensaje(completo),
+      origen: 'formulario',
+    })
+    if (ok) {
+      form.reset()
+      setPicked(new Set())
+      inicio.current = null
+    }
   }
 
   return (
@@ -146,18 +166,30 @@ export default function Contacto({ as = 'h2' }: { as?: Level }) {
         </div>
         {error && <AvisoFalta falta={error} form={formRef} />}
         {/* El botón sigue la intención: con servicios elegidos pide cotización; sin ellos, una reunión */}
-        <button className="btn-vivo contacto-enviar" type="submit" name="via" value="whatsapp">
-          {sel.length ? 'Solicita cotización →' : 'Agenda una reunión →'}
+        <button className="btn-vivo contacto-enviar" type="submit" disabled={enviando} aria-busy={enviando || undefined}>
+          {enviando ? 'Enviando…' : sel.length ? 'Solicita cotización →' : 'Agenda una reunión →'}
         </button>
-        {CONFIG.email && (
-          <button className="link-btn" type="submit" name="via" value="email">o envíalo por correo</button>
-        )}
         <p className="note form-legal">
           Al enviar, guardamos tus datos para poder contactarte. Más detalles en <Link href="/privacidad">Privacidad</Link>.
         </p>
-        <p className="note" role="status">{msg}</p>
+        <p className="note" role="status">{enviando ? 'Enviando tu solicitud…' : ''}</p>
       </form>
       </div>
+
+      {/* Ventana después de enviar. <dialog> nativo: se cierra con Esc, con "Listo" o tocando fuera. */}
+      <dialog
+        ref={ventana}
+        className="modal"
+        aria-labelledby="respuesta-titulo"
+        onClose={() => setResultado(null)}
+        onClick={(e) => e.target === e.currentTarget && ventana.current?.close()}
+      >
+        {resultado && (
+          <div className="modal-caja">
+            <RespuestaSolicitud r={resultado} tituloId="respuesta-titulo" onListo={() => ventana.current?.close()} />
+          </div>
+        )}
+      </dialog>
     </section>
   )
 }

@@ -72,6 +72,8 @@ export type Cierre = { kicker: string; titulo: string; boton: string; href: stri
 export type Hooks = { inicio: Cierre; servicios: Cierre; proyectos: Cierre; proceso: Cierre }
 
 export type Config = {
+  /** Plazo que se promete en el mensaje de gracias después de enviar un formulario. */
+  tiempoRespuesta: string
   whatsapp: string
   instagram: string
   facebook: string
@@ -87,6 +89,7 @@ export type Config = {
 }
 
 export const CONFIG: Config = {
+  tiempoRespuesta: 'en la próxima hora', // "Nuestro asesor comercial te contactará por WhatsApp al … en la próxima hora"
   whatsapp: '56939253239', // +56 9 3925 3239 (sin + ni espacios)
   instagram: 'hhiagencia.cl', // cuenta propia de HHA (docs/HHA_BRAND_FOUNDATION.md)
   facebook: '', // enlace completo, ej: "https://facebook.com/..." (vacío = no se muestra)
@@ -184,11 +187,12 @@ export const CONFIG: Config = {
       // Textos de REFERENCIA según lo que muestra cada imagen; los fundadores los corrigen después.
       // Material en /public/img/proyectos/aaron/ (el clip es un corte de 4,5 s del video del evento).
       galeria: [
-        { titulo: 'Show en vivo', texto: 'Aaron en el escenario frente al público; registramos el evento para convertirlo en contenido.', servicio: 'contenido', imagen: '/img/proyectos/aaron/evento.jpg', video: '/img/proyectos/aaron/evento.mp4', foco: '50% 58%' },
-        { titulo: 'Formato y pauta de cada stream', texto: 'Cada transmisión tiene su formato y su pauta, como este episodio #01. Automatizamos cómo se arman para repetirlos sin partir de cero.', servicio: 'automatizacion', imagen: '/img/proyectos/aaron/episodio-01.jpg' },
-        { titulo: 'Invitados en el stream', texto: 'Conversación con invitados en el set del canal.', servicio: 'contenido', imagen: '/img/proyectos/aaron/invitados.jpg' },
+        // La primera foto es la portada de la tarjeta (pedido de los fundadores); el clip va al final.
+        { titulo: 'Formato y pauta de cada stream', texto: 'Cada transmisión tiene su formato y su pauta: invitados, dinámicas y orden de cada bloque. Automatizamos cómo se arman para repetirlos sin partir de cero.', servicio: 'automatizacion', imagen: '/img/proyectos/aaron/invitados.jpg', foco: '50% 50%' },
         { titulo: 'Aaron en escenario', texto: 'Presentación en vivo durante uno de los eventos.', servicio: 'contenido', imagen: '/img/proyectos/aaron/escenario.jpg' },
         { titulo: 'Cierre con los invitados', texto: 'Aaron junto a los invitados de la transmisión.', servicio: 'contenido', imagen: '/img/proyectos/aaron/invitados-grupo.jpg' },
+        { titulo: 'Bajo las luces', texto: 'Aaron de espaldas al público, bajo las luces del escenario.', servicio: 'contenido', imagen: '/img/proyectos/aaron/escenario-luces.jpg' },
+        { titulo: 'Show en vivo', texto: 'Aaron frente al público; registramos el evento para convertirlo en contenido.', servicio: 'contenido', imagen: '/img/proyectos/aaron/evento.jpg', video: '/img/proyectos/aaron/evento.mp4' },
       ],
     },
     {

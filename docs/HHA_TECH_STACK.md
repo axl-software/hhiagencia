@@ -19,7 +19,8 @@
 - Security: the website uses only the **publishable** key, through a server route (`src/app/api/solicitudes/route.ts`). The table allows insert-only for that key (row level security + column grants); nobody can read, change or delete rows from outside. The team reads them in the Supabase dashboard. The secret key is never used by the site and must never be shared in chats.
 - Anti-spam: hidden honeypot field, minimum fill time, same-site check, server-side validation and length limits in the database. Cloudflare Turnstile can be added later if spam appears.
 - Environment variables: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (`.env.local` locally, Vercel → Environment Variables in production).
-- If saving fails, the visitor's message still goes out by WhatsApp or email, so no lead is lost.
+- After sending, the site shows a thank-you window (no redirect to WhatsApp). If saving fails, the window offers to send the request by WhatsApp or email with one click, so no lead is lost.
+- Automatic reply hook: if `SOLICITUDES_WEBHOOK_URL` is set (server-only; e.g. an n8n webhook), every saved request is posted there as JSON (`evento: nueva_solicitud`, contact data, services, diagnostic answers, `contactar_por`). Optional `SOLICITUDES_WEBHOOK_SECRETO` is sent as header `x-hha-secreto`. The founders will connect it to base replies per type of project. Payload documented in the README.
 - `@supabase/ssr` and Supabase agent skills are not installed: they are for user logins and AI-assistant guidance, not needed for saving form submissions. Add `@supabase/ssr` when the client portal (logins) starts.
 
 ## Analytics

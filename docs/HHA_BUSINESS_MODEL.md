@@ -43,7 +43,7 @@ Results, metrics and testimonials for these clients may only be published with r
 On the website each project opens a gallery: one image or short clip per slide, with a short text of what was done and which HHA service it used. Material provided by the founders (2026-10-01) is in `public/img/proyectos/` (Aaron: event clip, stream episode, guests, stage; Bar de Blas: product photo, reel clip, bar detail, setting, behind the scenes). The slide texts are REFERENCE descriptions of what each image shows; the founders will correct them.
 
 Services confirmed by the founders for these references (2026-10-01):
-- Aaron: automation of formats and scripts (pautas) for each stream, plus content and event production.
+- Aaron: automation of formats and scripts (pautas) for each stream, plus content and event production. Card cover: the guests photo (founders' choice); the event clip goes last in the gallery.
 - Bar de Blas: automation for editing reels and generating carousel ideas, plus content and marketing.
 
 ## Offer strategy

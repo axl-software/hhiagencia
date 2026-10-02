@@ -2,6 +2,12 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-10-02 — Hero video background, header button, new plan cards
+- Hero: the founders' laptop video (6 s loop, ~1.1 MB) is now a background layer on the right side, behind the orbits; its first frame is the still image for loading, tablets, phones and reduced motion. Copy, buttons, layout, strip, orbits, nodes and logo unchanged. See Design System → Hero background.
+- **Supersedes** the header “Haz tu diagnóstico” outline button with rotating border: it now uses the hero's red 3D button (`.btn-vivo`, compact). Same in the mobile menu.
+- **Supersedes** the plan cards (dark square with icon, “+ Agregar”): Midnight Navy/ivory cards with a drawing of the site each plan builds, level bars, full-width “Elegir plan” button (red for Web Business) that becomes “Solicita cotización →”. The “Ver qué incluye” window button reads “Elegir este plan”.
+- Decorated sections use `overflow: clip`, so the side orbits can never be scrolled into view by focus or links.
+
 ## 2026-10-01 — Thank-you window instead of WhatsApp, automatic reply hook, Aaron gallery
 - **Supersedes** “the form opens WhatsApp or email”: forms save the request and show a thank-you window promising contact by the visitor's channel “en la próxima hora”; WhatsApp/email only as a backup if saving fails. Applies to the contact form and the diagnostic.
 - Automatic reply hook: optional `SOLICITUDES_WEBHOOK_URL` (+ `SOLICITUDES_WEBHOOK_SECRETO`) receives every saved request, for n8n base replies per project.

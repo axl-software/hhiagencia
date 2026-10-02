@@ -46,6 +46,8 @@
 }
 
 .heroLeft {
+  position: relative;
+  z-index: 2; /* siempre por encima del fondo de video del lado derecho */
   flex: 0 1 620px;
   min-width: 0;
   container-type: inline-size; /* el titular se mide contra esta columna (cqi) */
@@ -188,13 +190,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  animation: fadeIn 0.6s ease both;
 }
 .stage {
   position: relative;
+  z-index: 1; /* órbitas, nodos y logo por encima del fondo de video */
   width: 720px;
   height: 720px;
   flex: none;
+  /* las órbitas aparecen suave; el fondo no (así la imagen fija cuenta como lo principal de la carga
+     y el video, que llega después, no empeora la métrica de velocidad de Google) */
+  animation: fadeIn 0.6s ease both;
 }
 .orbit {
   position: absolute;
@@ -224,6 +229,64 @@
 .o4 { width: 797px; height: 797px; animation: spinL 150s linear infinite; }
 @keyframes spinR { to { rotate: 360deg; } }
 @keyframes spinL { to { rotate: -360deg; } }
+
+/* ---------- fondo del lado derecho (HeroFondo.tsx) ----------
+   Video del notebook (o su imagen fija) como textura detrás de las órbitas. En escritorio ocupa el
+   lado derecho de la portada, sin entrar en la columna de texto; se funde con la página por la
+   izquierda, arriba y abajo. El velo usa los colores de la página (--bg y --bg2: negro y azul noche
+   en oscuro; crema y arena en claro), así cambia solo con el tema. La sombra de arriba a la izquierda
+   tapa la marca que trae el video. */
+.fondo {
+  --fondo-op: 0.55;
+  --fondo-filtro: saturate(0.8) contrast(0.92) brightness(0.92);
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  bottom: 0;
+  left: 42%;
+  right: min(0px, calc((1920px - 100vw) / 2)); /* en pantallas de más de 1920 px llega hasta el borde */
+  overflow: hidden;
+  pointer-events: none;
+  opacity: var(--fondo-op);
+  -webkit-mask-image:
+    linear-gradient(90deg, transparent 0%, #000 36%),
+    linear-gradient(180deg, transparent 0%, #000 14%, #000 86%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(90deg, transparent 0%, #000 36%),
+    linear-gradient(180deg, transparent 0%, #000 14%, #000 86%, transparent 100%);
+  mask-composite: intersect;
+}
+/* Alto completo y anclado a la derecha (como las órbitas), con el borde derecho del cuadro un poco
+   afuera: así la pantalla del notebook queda al lado del logo central en cualquier tamaño de pantalla. */
+.fondoMedio {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: auto;
+  max-width: none;
+  aspect-ratio: 16 / 9;
+  translate: 22% 0;
+  object-fit: cover;
+  filter: var(--fondo-filtro);
+}
+/* el video aparece sobre la imagen recién cuando ya se reproduce (son el mismo cuadro) */
+.fondoVideo { opacity: 0; transition: opacity 0.8s ease; }
+.fondoVideo[data-listo] { opacity: 1; }
+.fondo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(55% 45% at 0% 0%, var(--bg) 20%, transparent 100%),
+    linear-gradient(90deg, color-mix(in srgb, var(--bg) 55%, transparent) 0%, color-mix(in srgb, var(--bg2) 30%, transparent) 55%, color-mix(in srgb, var(--bg) 40%, transparent) 100%);
+}
+/* claro: más suave y lavado, para que no quede una mancha oscura sobre el crema */
+:global(:root[data-theme='light']) .fondo {
+  --fondo-op: 0.36;
+  --fondo-filtro: sepia(0.15) saturate(0.6) contrast(0.72) brightness(1.35);
+}
 
 /* logo al centro (contra-rota para quedar derecho) */
 .center {
@@ -313,6 +376,17 @@
 }
 @media (max-width: 1024px) {
   .main { flex-direction: column; padding: 48px 32px 0; gap: 8px; }
+  /* bajo el texto: el fondo ocupa el ancho completo detrás de las órbitas */
+  .heroRight { position: relative; }
+  .fondo {
+    top: -6%;
+    bottom: 0;
+    left: calc(50% - 50vw);
+    right: calc(50% - 50vw);
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 28%, #000 82%, transparent 100%);
+    mask-image: linear-gradient(180deg, transparent 0%, #000 28%, #000 82%, transparent 100%);
+  }
+  .fondoMedio { inset: 0; width: 100%; aspect-ratio: auto; translate: none; object-position: 64% 50%; }
   .heroLeft { flex: none; width: 100%; align-items: center; text-align: center; }
   .h1 { align-items: center; }
   .lead { max-width: 560px; }

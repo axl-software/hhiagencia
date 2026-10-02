@@ -111,7 +111,7 @@ footer .pie-lema span{font-family:var(--f-mono);font-size:12px;letter-spacing:.5
    de otro color; en oscuro siguen alternando negro y azul noche). Las tarjetas que estaban en esas
    secciones pasan a arena para seguir destacando sobre el crema. */
 :root[data-theme="light"] .alt{background:var(--bg)}
-:root[data-theme="light"] .alt .card,:root[data-theme="light"] .plan,:root[data-theme="light"] .pack,:root[data-theme="light"] .quote,:root[data-theme="light"] .metrica{background:var(--bg2)}
+:root[data-theme="light"] .alt .card,:root[data-theme="light"] .pack,:root[data-theme="light"] .quote,:root[data-theme="light"] .metrica{background:var(--bg2)}
 .impact{font-family:var(--f-impact);font-weight:400;letter-spacing:-.01em}
 .display{font-family:var(--f-head);font-weight:700;line-height:1.05;margin:0;letter-spacing:-.02em}
 .h1{font-size:clamp(40px,6vw,80px);line-height:1}
@@ -148,12 +148,9 @@ footer .pie-lema span{font-family:var(--f-mono);font-size:12px;letter-spacing:.5
 /* servicios (sin precios públicos) */
 .sub{font-family:var(--f-head);font-weight:600;font-size:20px;letter-spacing:-.01em;margin:0 0 6px}
 .plans{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin:28px 0 64px}
-.plan{position:relative;background:var(--bg);border:1px solid var(--line2);box-shadow:var(--shadow);border-radius:14px;padding:28px;display:flex;flex-direction:column;gap:12px}
-.plan-necesidad{margin:0;flex:1;font-size:16px;line-height:1.5;color:var(--tx)}
-.plan-acciones{display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px}
+/* Tarjeta de plan (diseño en "Planes web" más abajo) */
 .ver-mas{display:inline-flex;align-items:center;gap:6px;min-height:44px;background:none;border:0;padding:0;color:var(--tx);font:inherit;font-size:14px;font-weight:600;cursor:pointer;text-decoration:underline;text-decoration-color:var(--red);text-decoration-thickness:2px;text-underline-offset:6px}
 .ver-mas svg{transition:transform .25s ease}.ver-mas:hover svg{transform:translateX(4px)}
-.plan-top{border:1.5px solid var(--red)}
 .plan-badge{position:absolute;top:-11px;left:24px;background:var(--red);color:var(--on-red);font-family:var(--f-mono);font-size:11px;letter-spacing:1.5px;padding:4px 10px;border-radius:999px}
 .svc-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:center;padding:22px 0;border-bottom:1px solid var(--line)}
 .svc-txt{display:flex;gap:16px;align-items:flex-start;min-width:0}
@@ -377,7 +374,7 @@ input[aria-invalid="true"]{border-color:var(--red);box-shadow:0 0 0 1px var(--re
 /* íconos de servicios */
 .plan-ico,.svc-ico{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:12px;flex:none;background:color-mix(in srgb,var(--red) 14%,transparent);color:var(--red);transition:background-color .25s ease,color .25s ease}
 .svc-ico{width:40px;height:40px;border-radius:10px}
-.plan:hover .plan-ico,.svc-row:hover .svc-ico{background:var(--red);color:var(--on-red)}
+.svc-row:hover .svc-ico{background:var(--red);color:var(--on-red)}
 
 /* ventana "Ver qué incluye" */
 /* margin:auto centra el <dialog>: la base de Tailwind le quita el margen */
@@ -395,7 +392,8 @@ input[aria-invalid="true"]{border-color:var(--red);box-shadow:0 0 0 1px var(--re
 .modal-acciones{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
 
 /* vida bajo la portada: órbitas decorativas, aparición al bajar y tarjetas que responden */
-.con-deco{position:relative;overflow:hidden}
+/* clip (no hidden): las órbitas que sobresalen no se pueden desplazar con el foco ni con un enlace */
+.con-deco{position:relative;overflow:hidden;overflow:clip}
 .con-deco>.wrap{position:relative;z-index:1}
 .orbitas{position:absolute;top:50%;width:560px;height:560px;pointer-events:none;z-index:0;translate:0 -50%}
 .orbitas-derecha{right:-220px}
@@ -474,6 +472,10 @@ input[aria-invalid="true"]{border-color:var(--red);box-shadow:0 0 0 1px var(--re
 @keyframes vivoFondo{from{background-position:0% 50%}to{background-position:100% 50%}}
 @keyframes vivoBrillo{0%{transform:translateX(-100%)}60%,100%{transform:translateX(100%)}}
 @media (max-width:480px){.btn-vivo{min-height:52px;padding:0 22px;font-size:15px}}
+/* Versión compacta para el encabezado: mismo diseño, brillo y salto 3D, a la altura de la barra */
+.btn-vivo-sm{min-height:44px;padding:0 22px;gap:8px;font-size:14px;box-shadow:0 4px 0 var(--rojo-hondo),0 10px 22px -8px rgba(215,38,61,.55)}
+.btn-vivo-sm:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 7px 0 var(--rojo-hondo),0 18px 32px -10px rgba(215,38,61,.65)}
+.btn-vivo-sm:focus-visible{outline-offset:4px}
 @media (prefers-reduced-motion:reduce){.btn-vivo,.btn-vivo::before{animation:none}.btn-vivo,.btn-vivo svg{transition:none}.btn-vivo:hover{transform:none}}
 
 /* ===== Vida en las tarjetas (servicios, proceso, proyectos) =====
@@ -484,14 +486,85 @@ input[aria-invalid="true"]{border-color:var(--red);box-shadow:0 0 0 1px var(--re
 .brillo::before{content:'';position:absolute;z-index:-1;width:380px;height:380px;top:-200px;right:-180px;border-radius:50%;background:radial-gradient(circle,rgba(215,38,61,.16),transparent 65%);opacity:.8;transition:transform .7s cubic-bezier(.22,1,.36,1),opacity .4s ease;pointer-events:none}
 .brillo:hover::before{transform:translate(-60px,60px) scale(1.25);opacity:1}
 
-/* Planes: brillo de esquina y borde que gira en el recomendado */
-.plan{isolation:isolate}
-.plan::after{content:'';position:absolute;inset:0;z-index:-1;border-radius:inherit;background:radial-gradient(70% 60% at 100% 0%,rgba(215,38,61,.14),transparent 70%);opacity:.6;transition:opacity .4s ease;pointer-events:none}
-.plan:hover::after{opacity:1}
-.plan-top{border-color:transparent}
+/* ===== Planes web =====
+   Tarjeta en azul noche (no negra) con un dibujo del sitio que se construye, el nombre con su nivel
+   (1 a 3 barras), para quién es y un botón principal a lo ancho. El recomendado lleva brillo rojo,
+   borde que gira y el botón rojo animado (.btn-vivo); los otros, un botón sólido que se vuelve rojo.
+   En claro: tarjetas marfil sobre el crema, con sombra cálida. */
+.plan{
+  --plan-fondo:linear-gradient(180deg,#121A35 0%,#0B1020 100%);
+  --plan-borde:rgba(148,163,184,.18);
+  --plan-sombra:inset 0 1px 0 rgba(255,255,255,.06),0 26px 50px -30px rgba(0,0,0,.9);
+  --plan-escena:radial-gradient(90% 100% at 75% 0%,rgba(215,38,61,.2),transparent 62%),linear-gradient(180deg,#18213F,#0F1630);
+  --pi-ventana:#0B1020;--pi-borde:rgba(148,163,184,.26);--pi-texto:rgba(248,250,252,.82);--pi-suave:rgba(148,163,184,.34);
+  --pi-bloque:rgba(148,163,184,.13);--pi-burbuja:#F8FAFC;--pi-osc:#0B1020;--pi-osc2:rgba(11,16,32,.35);
+  position:relative;isolation:isolate;display:flex;flex-direction:column;gap:14px;padding:14px 14px 22px;border-radius:20px;
+  background:var(--plan-fondo);border:1px solid var(--plan-borde);box-shadow:var(--plan-sombra)
+}
+.plan-top{
+  --plan-fondo:radial-gradient(120% 55% at 50% 0%,rgba(215,38,61,.2),transparent 70%),linear-gradient(180deg,#161E3D 0%,#0B1020 100%);
+  --plan-sombra:inset 0 1px 0 rgba(255,255,255,.07),0 34px 70px -34px rgba(215,38,61,.55);
+  --plan-escena:radial-gradient(90% 110% at 70% 0%,rgba(215,38,61,.38),transparent 62%),linear-gradient(180deg,#1C2446,#111834);
+  border-color:transparent
+}
+:root[data-theme="light"] .plan{
+  --plan-fondo:linear-gradient(180deg,#FFFDF9 0%,#F7F2E9 100%);
+  --plan-borde:rgba(11,16,32,.10);
+  --plan-sombra:0 1px 2px rgba(11,16,32,.06),0 26px 46px -28px rgba(60,40,20,.38);
+  --plan-escena:radial-gradient(90% 100% at 75% 0%,rgba(215,38,61,.12),transparent 62%),linear-gradient(180deg,#EFE8DB,#E7DECF);
+  --pi-ventana:#FFFFFF;--pi-borde:rgba(11,16,32,.12);--pi-texto:#0B1020;--pi-suave:rgba(11,16,32,.2);
+  --pi-bloque:rgba(11,16,32,.07);--pi-burbuja:#FFFFFF;--pi-osc:#0B1020;--pi-osc2:rgba(11,16,32,.3)
+}
+:root[data-theme="light"] .plan-top{
+  --plan-fondo:radial-gradient(120% 55% at 50% 0%,rgba(215,38,61,.09),transparent 70%),linear-gradient(180deg,#FFFDF9 0%,#F7F2E9 100%);
+  --plan-sombra:0 1px 2px rgba(11,16,32,.06),0 34px 60px -32px rgba(215,38,61,.45);
+  --plan-escena:radial-gradient(90% 110% at 70% 0%,rgba(215,38,61,.2),transparent 62%),linear-gradient(180deg,#F1E6DA,#E9DCCB)
+}
+.plan-elegido{border-color:var(--red)}
+.plan:hover{border-color:var(--line3)}
+.plan-top:hover,.plan-elegido:hover{border-color:var(--red)}
+.plan-ilus{position:relative;overflow:hidden;border-radius:14px;background:var(--plan-escena);border:1px solid var(--plan-borde)}
+.plan-ilus::before{content:'';position:absolute;inset:0;background-image:radial-gradient(var(--pi-suave) 1px,transparent 1.2px);background-size:16px 16px;opacity:.35;-webkit-mask-image:linear-gradient(180deg,#000,transparent 85%);mask-image:linear-gradient(180deg,#000,transparent 85%)}
+.plan-ilus svg{position:relative;display:block;width:100%;height:auto;transition:transform .6s cubic-bezier(.22,1,.36,1)}
+.plan:hover .plan-ilus svg{transform:translateY(-4px) scale(1.02)}
+.pi-ventana{fill:var(--pi-ventana);stroke:var(--pi-borde);stroke-width:1}
+.pi-punto{fill:var(--pi-suave)}
+.pi-texto{fill:var(--pi-texto)}
+.pi-suave{fill:var(--pi-suave)}
+.pi-bloque{fill:var(--pi-bloque)}
+.pi-rojo{fill:var(--red)}
+.pi-blanco{fill:#F8FAFC}
+.pi-burbuja{fill:var(--pi-burbuja);filter:drop-shadow(0 8px 14px rgba(0,0,0,.35))}
+.pi-texto-osc{fill:var(--pi-osc)}
+.pi-suave-osc{fill:var(--pi-osc2)}
+.pi-check{fill:none;stroke:#F8FAFC;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.pi-nodo{fill:var(--pi-ventana);stroke:var(--pi-borde);stroke-width:1}
+.pi-nodo-rojo{fill:var(--red);stroke:var(--red)}
+.pi-flujo{fill:none;stroke:var(--red);stroke-width:1.6;stroke-dasharray:3 5;opacity:.85;animation:piFlujo 1.4s linear infinite}
+.pi-flota{animation:piFlota 3.6s ease-in-out infinite}
+.pi-latido{animation:piLatido 2.4s ease-in-out infinite}
+@keyframes piFlujo{to{stroke-dashoffset:-16}}
+@keyframes piFlota{50%{transform:translateY(-5px)}}
+@keyframes piLatido{50%{opacity:.55}}
+.plan-cabeza{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:6px 8px 0}
+.plan-nombre{margin:0;font-family:var(--f-head);font-weight:700;font-size:clamp(24px,2.2vw,28px);line-height:1.1;letter-spacing:-.02em}
+.plan-nivel{display:inline-flex;gap:4px;flex:none}
+.plan-nivel i{width:16px;height:6px;border-radius:3px;background:var(--line3)}
+.plan-nivel i.on{background:var(--red)}
+.plan-necesidad{margin:0;padding:0 8px;flex:1;font-size:16px;line-height:1.55;color:var(--tx2)}
+.plan-acciones{display:flex;flex-direction:column;align-items:stretch;gap:6px;padding:6px 8px 0}
+.plan-btn{width:100%;justify-content:center;min-height:52px;font-size:15px;text-decoration:none}
+.plan-acciones .ver-mas{align-self:center}
+.btn-plan{display:inline-flex;align-items:center;gap:10px;padding:0 24px;border:0;border-radius:999px;cursor:pointer;font-family:var(--f-body);font-weight:700;letter-spacing:.2px;white-space:nowrap;background:var(--tx);color:var(--bg);box-shadow:0 4px 0 color-mix(in srgb,var(--tx) 45%,var(--bg));transition:transform .35s cubic-bezier(.34,1.56,.64,1),background-color .25s ease,color .25s ease,box-shadow .35s ease}
+.btn-plan svg{transition:transform .3s ease}
+.btn-plan:hover{background:var(--red);color:var(--on-red);transform:translateY(-3px);box-shadow:0 7px 0 var(--rojo-hondo),0 18px 32px -12px rgba(215,38,61,.55)}
+.btn-plan:hover svg{transform:translateX(4px)}
+.btn-plan:active{transform:translateY(2px);box-shadow:0 1px 0 var(--rojo-hondo);transition-duration:.1s}
+.btn-plan:focus-visible{outline:2px solid var(--red);outline-offset:4px}
+.plan-elegido-fila{display:flex;align-items:center;justify-content:center;gap:4px 10px;flex-wrap:wrap}
+.plan-check{display:inline-flex;align-items:center;gap:6px;font-family:var(--f-mono);font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--tx)}
+.plan-check svg{color:var(--red)}
 .plan-top::before{content:'';position:absolute;inset:-1.5px;padding:1.5px;border-radius:inherit;background:conic-gradient(from var(--border-angle),var(--red),rgba(215,38,61,.15) 25%,rgba(215,38,61,.15) 50%,var(--red) 75%,rgba(215,38,61,.15) 90%,var(--red));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);animation:border-spin 7s linear infinite;pointer-events:none}
-.plan-ico{transition:background-color .25s ease,color .25s ease,transform .45s cubic-bezier(.34,1.56,.64,1)}
-.plan:hover .plan-ico{transform:rotate(-8deg) scale(1.08)}
 
 /* Categorías: el nombre del servicio se tiñe al pasar el mouse */
 .svc-row .t{transition:color .25s ease}
@@ -527,8 +600,9 @@ input[aria-invalid="true"]{border-color:var(--red);box-shadow:0 0 0 1px var(--re
 .metrica:hover{transform:translateY(-4px)}
 
 @media (prefers-reduced-motion:reduce){
-  .brillo::before,.plan::after,.plan-ico,.pack-ico,.step-num,.proceso-ico,.svc-row .t{transition:none}
-  .plan-top::before,.step::before,.case-portada,.case-portada::after{animation:none}
+  .brillo::before,.pack-ico,.step-num,.proceso-ico,.svc-row .t,.plan-ilus svg,.btn-plan,.btn-plan svg{transition:none}
+  .plan-top::before,.step::before,.case-portada,.case-portada::after,.pi-flujo,.pi-flota,.pi-latido{animation:none}
+  .plan:hover .plan-ilus svg,.btn-plan:hover,.btn-plan:hover svg{transform:none}
   .step::after{transition:none}
-  .pack:hover,.proceso-paso:hover,.metrica:hover,.brillo:hover::before,.plan:hover .plan-ico,.pack:hover .pack-ico,.proceso-paso:hover .proceso-ico,.case-abre:hover .case-portada-ico,.step:hover .step-num,.proceso-paso:hover .step-num{transform:none}
+  .pack:hover,.proceso-paso:hover,.metrica:hover,.brillo:hover::before,.pack:hover .pack-ico,.proceso-paso:hover .proceso-ico,.case-abre:hover .case-portada-ico,.step:hover .step-num,.proceso-paso:hover .step-num{transform:none}
 }

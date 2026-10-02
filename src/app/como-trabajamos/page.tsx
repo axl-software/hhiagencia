@@ -82,7 +82,8 @@ export default function ComoTrabajamosPage() {
 
           <ol className="proceso">
             {PASOS.map(({ icono: Icono, titulo, texto, tu }, i) => (
-              <li key={titulo} className="proceso-paso" data-reveal style={{ '--d': `${(i % 4) * 0.06}s` } as CSSProperties}>
+              <li key={titulo} className="proceso-paso brillo" data-reveal style={{ '--d': `${(i % 4) * 0.06}s` } as CSSProperties}>
+                <span className="step-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
                 <span className="proceso-ico"><Icono size={22} strokeWidth={1.75} aria-hidden="true" /></span>
                 <div className="proceso-txt">
                   <span className="mono proceso-n">PASO {String(i + 1).padStart(2, '0')}</span>
@@ -107,7 +108,7 @@ export default function ComoTrabajamosPage() {
           </div>
           <div className="metricas">
             {METRICAS.map(([t, d], i) => (
-              <div key={t} className="metrica" data-reveal style={{ '--d': `${i * 0.06}s` } as CSSProperties}>
+              <div key={t} className="metrica brillo" data-reveal style={{ '--d': `${i * 0.06}s` } as CSSProperties}>
                 <span className="card-t">{t}</span>
                 <span className="muted">{d}</span>
               </div>
@@ -116,7 +117,7 @@ export default function ComoTrabajamosPage() {
         </div>
       </section>
 
-      <CtaBanda cierre={CONFIG.hooks.inicio} />
+      <CtaBanda cierre={CONFIG.hooks.proceso} />
     </>
   )
 }

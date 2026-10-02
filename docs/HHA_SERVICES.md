@@ -29,8 +29,9 @@ Approved CTA while pricing is being defined. Each button matches what the visito
 - Does not know what they need yet → **Haz tu diagnóstico** (header, mobile menu, Servicios with nothing selected) and **Te orientamos en 3 preguntas** (home main button). Both open the 3-question diagnostic.
 - Wants to see the offer → **Ver servicios**.
 - Already selected services or a pack → **Solicita cotización** (carries the selection to the contact form).
-- Is looking at a project → **Explora soluciones similares** (gallery, goes to that project's service category) and **Explora soluciones** (Proyectos closing band, goes to the packs).
-- Understood the proposal and wants to talk → **Agenda una reunión** (closing bands of Inicio, Servicios and Cómo trabajamos; contact form button when no service is selected).
+- Is looking at a project → **Explora soluciones similares** (gallery, goes to that project's service category). The Proyectos closing band no longer says “Explora soluciones”: founders felt it left visitors to figure it out alone; it now follows HHA's method (“Entendemos tu negocio y te proponemos la solución que de verdad necesita.” → **Agenda una reunión**).
+- Understood the proposal and wants to talk → **Agenda una reunión** (closing bands of Inicio, Servicios, Proyectos and Cómo trabajamos; contact form button when no service is selected).
+- Required data in every form (contact and diagnostic): name, and email or WhatsApp (one is enough). Fields show an “Obligatorio” label; if something is missing, a friendly notice (“Parece que te faltó…”, never “error”) appears above the button with a button that takes the visitor straight to the missing field.
 - “Solicita un diagnóstico” is no longer used: it mixed the diagnostic and the contact form.
 - The contact page title stays “Te contactamos”.
 - Contact promise (founders, 2026-10-01): first a diagnostic conversation to understand the business, then a written proposal. The site must not promise a proposal before that conversation (matches “Cómo trabajamos”).
@@ -79,13 +80,13 @@ Approved by the founders (2026-10-01; replaces “web plans, then packs, then Ve
 
 Each category shows the need it covers in one line.
 
-Packs (reviewed with the new services):
-- ¿Necesitas conseguir más clientes? → Marketing digital + Web Business + Captación de clientes.
-- ¿Pierdes tiempo en tareas manuales? → Automatización + Procesos digitales + Consultoría y capacitación en IA.
-- ¿Tu negocio no transmite profesionalismo online? → Web Business + Creación de contenido.
-- ¿Tienes herramientas, pero ninguna trabaja junta? → Integraciones + Automatización + Acompañamiento digital.
+Packs (reviewed with the new services), each with a one-word name shown small above the problem:
+- **Pack Crecimiento** — ¿Necesitas conseguir más clientes? → Marketing digital + Web Business + Captación de clientes.
+- **Pack Eficiencia** — ¿Pierdes tiempo en tareas manuales? → Automatización + Procesos digitales + Consultoría y capacitación en IA.
+- **Pack Presencia** — ¿Tu negocio no transmite profesionalismo online? → Web Business + Creación de contenido.
+- **Pack Conexión** — ¿Tienes herramientas, pero ninguna trabaja junta? → Integraciones + Automatización + Acompañamiento digital.
 
-Packs are sold complete: their services are listed but not selectable one by one. Each pack has “Elegir pack completo” and a smaller “Elegir un servicio”, which opens a window with that pack's services to add only the ones they want. Once a pack is chosen, its button becomes “Solicita cotización”. No discount is shown until prices are approved.
+Packs are sold complete: the button is “Elegir pack” (adds all its services at once; replaces “Elegir pack completo”, which suggested an incomplete pack was possible). There is no “Elegir un servicio” in the packs: single services are added from the categories above. Once a pack is chosen, its button becomes “Solicita cotización”. No discount is shown until prices are approved.
 **Integraciones** is offered as a service under Automatización (founders, 2026-10-01; replaces “not offered as a separate service”). Scope: connecting tools the client already uses (web, forms, email marketing, CRM). Custom API development is still not a proven capability (Tech Stack → API status) and must not be promised.
 **Procesos digitales** (new line, founders 2026-10-01): ordering and digitizing how the business works (forms, records, clear workflows).
 “Captación de clientes” is shown as its own line; it is the lead-capture part of Automation.

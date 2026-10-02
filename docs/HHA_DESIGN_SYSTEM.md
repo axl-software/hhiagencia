@@ -57,9 +57,12 @@ Approved by the founders: pure white was too bright, so light mode uses a warm c
 ## Theme behavior (website)
 - The site follows the visitor's device setting (light or dark) by default.
 - Visitors can switch theme with a button in the header; the choice is remembered on that device.
-- Light-mode surfaces: Cream `#F1ECE2` for the page and Sand `#E9E2D5` for alternate sections, tiles and cards; lines and soft shadows add separation.
+- Light-mode surfaces: every section background on every page is Cream `#F1ECE2` (founders, 2026-10-01: no alternating Sand bands in light mode; dark mode keeps alternating black and navy). Sand `#E9E2D5` is for cards and tiles on the cream, and for the footer; lines and soft shadows add separation.
 - Closing call-to-action band: Signal Red in dark mode; Midnight Navy `#0B1020` in light mode (founders asked to change the red band in light mode; navy keeps it inside the palette, white text ~18:1).
 - Footer: Deep Black in dark mode; Sand `#E9E2D5` in light mode, with the navy logo.
+- Closing bands: each page has its own small kicker (Inicio “¿EMPEZAMOS?”, Servicios “¿TODAVÍA CON DUDAS?”, Proyectos “¿Y TU NEGOCIO?”, Cómo trabajamos “¿TE HACE SENTIDO?”) instead of repeating “¿HABLAMOS?”.
+- Contact page: same page background as the rest of the site (cream in light mode), with orbit lines and a soft red glow. The form card is Midnight Navy in both themes (contrasts on black and on cream), with a slowly moving red glow and a red top line; its send button is the animated red main button. Contact details show one icon each.
+- Cards with life (founders asked for less static, less “robotic” sections): a soft red corner glow that shifts on hover, lift on hover, icons that react; the recommended plan has a slowly rotating red border; steps show a large outlined number and a red line that draws in when they appear. Project cards have a Midnight Navy cover with a moving red glow, a dot pattern, a light beam that crosses it and the project's category icon until real photos replace it (no orbits: founders asked to move away from repeating the orbit motif there). All motion stops with “reduce motion”.
 - Text on Signal Red is always `#F8FAFC`, in both themes.
 - The logo switches automatically: white version on dark backgrounds, navy version on light backgrounds.
 

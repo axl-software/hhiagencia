@@ -20,7 +20,7 @@ Website hero text (approved, replaces the earlier hero variant and the pre-title
 ## Primary hook
 **Digitaliza. Automatiza. Escala.**
 
-Website hero (approved, SEO-driven): the hook in small caps “DIGITALIZA · AUTOMATIZA · ESCALA” with **AUTOMATIZA in red**, the big headline “Desarrollo web. / Automatizaciones. / Llega a más clientes.” (searchable terms in the H1), then the hero text above. No pre-title above the hook. Main button: “Te orientamos en 3 preguntas” (opens the diagnostic), solid animated red with a 3D lift on hover.
+Website hero (approved, SEO-driven): the hook in small caps “DIGITALIZA · AUTOMATIZA · ESCALA” with **AUTOMATIZA in red**, shown as an oval carousel (the three words orbit inside a capsule; the front one is readable, the others pass behind smaller and fainter; centered on mobile; static line with “reduce motion”), the big headline “Desarrollo web. / Automatizaciones. / Llega a más clientes.” (searchable terms in the H1), then the hero text above. No pre-title above the hook. Main button: “Te orientamos en 3 preguntas” (opens the diagnostic), solid animated red with a 3D lift on hover.
 
 Home method block “Así trabajamos contigo” (approved texts):
 1. **Conversamos**: “Entendemos tu negocio, qué quieres mejorar y dónde está el problema antes de ofrecerte cualquier solución.”

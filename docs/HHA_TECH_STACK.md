@@ -14,7 +14,7 @@
 - Hosting: **Vercel Pro** (active plan, suitable for commercial use). The hhiagencia project is pending connection. Changes are prepared on a working branch and reach `main` only through a pull request approved by the founders.
 
 ## Analytics
-Vercel Web Analytics (included in Vercel Pro; anonymous, no cookies). Custom events: `guia_inicio`, `guia_fin`, `servicio_agregado`, `formulario_enviado` (channel and origin). Chosen over Plausible/Umami to avoid another account and cost. The privacy page must stay consistent with it.
+Vercel Web Analytics (included in Vercel Pro; anonymous, no cookies). Custom events: `guia_inicio`, `guia_fin`, `servicio_agregado`, `formulario_enviado` (channel and origin), `proyecto_visto`. The analytics script loads only in builds made on Vercel (`VERCEL=1`); on a local machine it is skipped, because its file only exists on Vercel and would show a 404 error in the browser. Chosen over Plausible/Umami to avoid another account and cost. The privacy page must stay consistent with it.
 
 ## Roles
 ### Herberth Garay

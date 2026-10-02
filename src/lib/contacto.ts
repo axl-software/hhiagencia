@@ -16,13 +16,26 @@ export type DatosContacto = {
   diagnostico?: { pregunta: string; respuesta: string }[]
 }
 
-/** Devuelve el campo que falta y el aviso, o null si está todo bien. */
-export function validar(d: Pick<DatosContacto, 'nombre' | 'email' | 'telefono'>): { campo: string; texto: string } | null {
-  if (!d.nombre) return { campo: 'nombre', texto: 'Escribe tu nombre o el de tu proyecto para continuar.' }
-  if (!d.email && !d.telefono) return { campo: 'email', texto: 'Déjanos tu correo o tu teléfono para poder responderte.' }
-  if (d.email && !EMAIL_OK.test(d.email)) return { campo: 'email', texto: 'Revisa tu correo: parece que le falta algo.' }
+/** Dato obligatorio que falta: campos a marcar, aviso amable y texto del botón que lleva a completarlo. */
+export type Falta = { campos: string[]; texto: string; accion: string }
+
+/* Obligatorio en todos los formularios del sitio: el nombre, y el correo o el WhatsApp (con uno basta).
+   Devuelve lo que falta o null si está todo bien. */
+export function validar(d: Pick<DatosContacto, 'nombre' | 'email' | 'telefono'>): Falta | null {
+  if (!d.nombre) {
+    return { campos: ['nombre'], texto: 'Parece que te faltó tu nombre (o el de tu proyecto). Lo necesitamos para saber con quién hablamos.', accion: 'Escribir mi nombre' }
+  }
+  if (!d.email && !d.telefono) {
+    return { campos: ['email', 'telefono'], texto: 'Parece que te faltó cómo contactarte: déjanos tu correo o tu WhatsApp (con uno basta).', accion: 'Agregar correo o WhatsApp' }
+  }
+  if (d.email && !EMAIL_OK.test(d.email)) {
+    return { campos: ['email'], texto: 'Revisa tu correo: parece que le falta algo, por ejemplo la @.', accion: 'Corregir mi correo' }
+  }
   return null
 }
+
+/** true si el visitante ya escribió en uno de los campos que faltaban (para quitar el aviso). */
+export const completaFalta = (falta: Falta, campo: HTMLInputElement) => falta.campos.includes(campo.name) && campo.value.trim() !== ''
 
 export function armarMensaje(d: DatosContacto) {
   const lineas = [`Hola HHiAgencia, soy ${d.nombre}.`]

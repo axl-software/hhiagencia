@@ -22,6 +22,7 @@ export default function Metodo({ as = 'h2', alt = false }: { as?: Level; alt?: b
       <div className="steps">
         {PASOS.map(([t, d], i) => (
           <div className="step" key={t} data-reveal style={{ '--d': `${i * 0.1}s` } as CSSProperties}>
+            <span className="step-num" aria-hidden="true">{pad(i + 1)}</span>
             <span className="mono" style={{ color: 'var(--redtx)', fontSize: 12, letterSpacing: 1.5 }}>PASO {pad(i + 1)}</span>
             <span className="card-t">{t}</span>
             <span className="muted">{d}</span>

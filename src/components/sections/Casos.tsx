@@ -1,8 +1,8 @@
 'use client'
 
-import { useEffect, useId, useRef, useState, type CSSProperties, type KeyboardEvent, type TouchEvent } from 'react'
+import { useEffect, useId, useRef, useState, useSyncExternalStore, type CSSProperties, type KeyboardEvent, type TouchEvent } from 'react'
 import Link from 'next/link'
-import { ArrowLeft, ArrowRight, Image as ImagenIcono, X } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Image as ImagenIcono, Images, MonitorPlay, Wine, X, type LucideIcon } from 'lucide-react'
 import { CONFIG, categoriaDe, type Caso } from '@/lib/config'
 import { medir } from '@/lib/medir'
 import { Kicker, Title, type Level } from './Heading'
@@ -10,14 +10,45 @@ import Orbitas from '../Orbitas'
 
 const CATS = ['Todos', ...Array.from(new Set(CONFIG.casos.map((c) => c.cat)))]
 const nombreServicio = (id: string) => CONFIG.servicios.find((s) => s.id === id)?.nombre ?? id
+/* "Reducir movimiento" del dispositivo: los clips no se reproducen solos (se muestran con controles) */
+const sinSuscripcion = () => () => {}
+const useReducirMovimiento = () =>
+  useSyncExternalStore(sinSuscripcion, () => window.matchMedia('(prefers-reduced-motion: reduce)').matches, () => false)
+
+/* Ícono de la portada según el rubro del proyecto (mientras no haya foto) */
+const ICONO_RUBRO: Record<string, LucideIcon> = { Streaming: MonitorPlay, Gastronomía: Wine }
 
 /* Casos aprobados (docs/HHA_BUSINESS_MODEL.md). Foto y resultado solo si son reales.
    Al tocar un proyecto se abre su galería: imágenes que se pasan con flechas, puntos, teclado
    o deslizando el dedo, cada una con qué se hizo y con qué servicio. */
+/* Portada de la tarjeta: la primera foto del proyecto o, mientras no haya, un fondo azul noche con
+   brillo rojo en movimiento, una trama de puntos, un haz de luz que la cruza y el ícono del rubro
+   (globals.css → .case-portada). */
+function Portada({ caso }: { caso: Caso }) {
+  const primera = caso.galeria.find((g) => g.imagen)
+  const foto = caso.foto || primera?.imagen
+  const Icono = ICONO_RUBRO[caso.cat] ?? Images
+  const videos = caso.galeria.filter((g) => g.video).length
+  const fotos = caso.galeria.length - videos
+  const conteo = [fotos && `${fotos} ${fotos === 1 ? 'FOTO' : 'FOTOS'}`, videos && `${videos} ${videos === 1 ? 'VIDEO' : 'VIDEOS'}`].filter(Boolean).join(' · ')
+  return (
+    <div className={`case-portada${foto ? ' case-portada-foto' : ''}`} aria-hidden="true">
+      {foto ? (
+        // eslint-disable-next-line @next/next/no-img-element -- next/image rompe la vista previa en HTML
+        <img src={foto} alt="" loading="lazy" style={primera?.foco && !caso.foto ? { objectPosition: primera.foco } : undefined} />
+      ) : (
+        <span className="case-portada-ico"><Icono size={34} strokeWidth={1.6} /></span>
+      )}
+      {caso.galeria.length > 0 && <span className="case-pasos mono">{conteo}</span>}
+    </div>
+  )
+}
+
 export default function Casos({ as = 'h2' }: { as?: Level }) {
   const [cat, setCat] = useState('Todos')
   const casos = CONFIG.casos.filter((c) => cat === 'Todos' || c.cat === cat)
 
+  const reducir = useReducirMovimiento()
   const [abierto, setAbierto] = useState<Caso | null>(null)
   const [paso, setPaso] = useState(0)
   const dialogo = useRef<HTMLDialogElement>(null)
@@ -75,11 +106,8 @@ export default function Casos({ as = 'h2' }: { as?: Level }) {
         </div>
         <div className="grid">
           {casos.map((c, i) => (
-            <article className={`case card${c.galeria.length ? ' case-abre' : ''}`} key={c.nombre} data-reveal style={{ '--d': `${i * 0.1}s` } as CSSProperties}>
-              {c.foto && (
-                // eslint-disable-next-line @next/next/no-img-element -- next/image rompe la vista previa en HTML
-                <div className="ph"><img src={c.foto} alt={c.nombre} loading="lazy" /></div>
-              )}
+            <article className={`case card brillo${c.galeria.length ? ' case-abre' : ''}`} key={c.nombre} data-reveal style={{ '--d': `${i * 0.1}s` } as CSSProperties}>
+              <Portada caso={c} />
               <span className="mono" style={{ fontSize: 12, letterSpacing: 1.5, color: 'var(--redtx)' }}>{c.tag}</span>
               <span className="card-t">{c.nombre}</span>
               <span className="muted">{c.resumen}</span>
@@ -116,10 +144,31 @@ export default function Casos({ as = 'h2' }: { as?: Level }) {
             </div>
 
             <div className="galeria" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
+              {/* La foto o el clip se ven completos; detrás, la misma imagen difuminada llena los costados */}
               <div className="galeria-foto" key={paso}>
-                {actual.imagen ? (
-                  // eslint-disable-next-line @next/next/no-img-element -- next/image rompe la vista previa en HTML
-                  <img src={actual.imagen} alt={actual.titulo} />
+                {actual.imagen || actual.video ? (
+                  <>
+                    {actual.imagen && (
+                      // eslint-disable-next-line @next/next/no-img-element -- fondo decorativo
+                      <img className="galeria-fondo" src={actual.imagen} alt="" aria-hidden="true" />
+                    )}
+                    {actual.video ? (
+                      <video
+                        className="galeria-medio"
+                        src={actual.video}
+                        poster={actual.imagen || undefined}
+                        aria-label={actual.titulo}
+                        muted
+                        loop
+                        playsInline
+                        autoPlay={!reducir}
+                        controls={reducir}
+                      />
+                    ) : (
+                      // eslint-disable-next-line @next/next/no-img-element -- next/image rompe la vista previa en HTML
+                      <img className="galeria-medio" src={actual.imagen} alt={actual.titulo} />
+                    )}
+                  </>
                 ) : (
                   <div className="galeria-vacia">
                     <ImagenIcono size={32} strokeWidth={1.5} aria-hidden="true" />

@@ -1,0 +1,3 @@
+Contact: mailto:hhadigitalsolutions@gmail.com
+Canonical: https://www.hhiagencia.cl/.well-known/security.txt
+Policy: https://www.hhiagencia.cl/seguridad

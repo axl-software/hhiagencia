@@ -14,7 +14,8 @@ export default function SeguridadPage() {
       <h2>Cómo cuidamos el sitio</h2>
       <ul>
         <li>La conexión con el sitio va cifrada (HTTPS).</li>
-        <li>El formulario no guarda tus datos en servidores: el mensaje lo envías tú por WhatsApp o por correo.</li>
+        <li>Lo que envías por el formulario se guarda en una base de datos protegida: desde la web solo se pueden agregar solicitudes, no leerlas; solo el equipo de HHA puede verlas.</li>
+        <li>El formulario tiene protecciones contra envíos automáticos (bots).</li>
         <li>No usamos cookies de seguimiento; la analítica es anónima y sin cookies.</li>
         <li>Los enlaces externos se abren en una pestaña nueva y sin acceso a esta página.</li>
       </ul>

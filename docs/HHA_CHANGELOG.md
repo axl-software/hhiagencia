@@ -2,6 +2,12 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-10-01 — Supabase connected for form submissions
+- Contact and diagnostic forms save each submission in Supabase (`solicitudes_cotizacion`), in addition to opening WhatsApp or email.
+- Insert-only access with the publishable key through a server route; honeypot and minimum fill time against bots.
+- **Supersedes** “the form does not store data on servers” in Privacidad and Seguridad: both pages now explain the data is stored in Supabase (servers in the United States) and protected. A short notice under the send buttons links to Privacidad.
+- Region stays us-east-1 (founders' question answered; see Tech Stack → Database).
+
 ## 2026-10-01 — Required form data, named packs, cream backgrounds in light mode
 - **Supersedes** the Proyectos closing band: “¿TE IMAGINAS EL TUYO?” / “Entendemos tu negocio y te proponemos la solución que de verdad necesita.” / “Agenda una reunión”.
 - Forms (contact and diagnostic): name, and email or WhatsApp, are required and labeled “Obligatorio”; a friendly notice with a button takes the visitor to the missing field.

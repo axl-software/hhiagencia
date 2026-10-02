@@ -28,10 +28,11 @@ export default function PrivacidadPage() {
       </ul>
       <p>No pedimos datos sensibles ni datos de pago.</p>
 
-      <h2>Cómo nos llegan</h2>
+      <h2>Cómo nos llegan y dónde se guardan</h2>
       <p>
-        El formulario no guarda tus datos en nuestros servidores: arma un mensaje que tú decides enviarnos por WhatsApp o por correo. Desde ese momento lo
-        recibimos en esos canales.
+        Cuando envías el formulario, guardamos tus datos en nuestra base de datos para poder responderte, y además se abre WhatsApp o tu correo con
+        el mensaje listo para que nos lo envíes. La base de datos es de Supabase, con servidores en Estados Unidos; está protegida para que nadie fuera
+        del equipo de HHA pueda leerla.
       </p>
 
       <h2>Para qué los usamos</h2>
@@ -54,8 +55,9 @@ export default function PrivacidadPage() {
 
       <h2>Servicios de terceros</h2>
       <p>
-        Si nos escribes por WhatsApp o por correo, o haces clic en nuestras redes sociales, esos servicios tratan tus datos según sus propias políticas. Nuestro
-        proveedor de alojamiento puede registrar datos técnicos de la conexión (como la dirección IP) para que el sitio funcione y sea seguro.
+        Si nos escribes por WhatsApp o por correo, o haces clic en nuestras redes sociales, esos servicios tratan tus datos según sus propias políticas. Tus
+        solicitudes se guardan en Supabase (base de datos) y el sitio se aloja en Vercel; estos proveedores pueden registrar datos técnicos de la conexión
+        (como la dirección IP) para que el sitio funcione y sea seguro.
       </p>
     </Legal>
   )

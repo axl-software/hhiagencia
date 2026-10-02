@@ -236,6 +236,9 @@ a.canal:hover{color:var(--tx)}a.canal:hover .canal-ico{background:var(--red);col
 /* Datos obligatorios (nombre, y correo o WhatsApp) en todos los formularios: etiqueta "Obligatorio",
    campo marcado si falta y un aviso amable con un botón que lleva directo al campo. */
 .label-fila{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px}
+/* campo trampa contra bots: fuera de la pantalla, sin ocupar espacio */
+.trampa{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden}
+.form-legal{text-align:center}.form-legal a{color:var(--tx);text-underline-offset:3px}
 .obligatorio{font-family:var(--f-mono);font-size:10.5px;font-weight:500;letter-spacing:1px;text-transform:uppercase;padding:3px 9px;border-radius:999px;background:color-mix(in srgb,var(--red) 18%,transparent);color:var(--tx)}
 .form-aviso{display:flex;flex-direction:column;gap:12px;padding:14px 16px;border-radius:12px;border:1px solid color-mix(in srgb,var(--red) 55%,transparent);background:color-mix(in srgb,var(--red) 12%,transparent);font-size:14px;line-height:1.5;color:var(--tx);animation:avisoEntra .35s cubic-bezier(.22,1,.36,1)}
 .form-aviso p{margin:0;font-weight:600}

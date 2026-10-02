@@ -1,9 +1,9 @@
 import type { CSSProperties } from 'react'
 import type { Metadata } from 'next'
-import { BarChart3, CalendarCheck, ClipboardList, FileText, Hammer, MessagesSquare, RefreshCw, Rocket } from 'lucide-react'
 import { Kicker, Title } from '@/components/sections/Heading'
 import CtaBanda from '@/components/sections/CtaBanda'
 import Orbitas from '@/components/Orbitas'
+import { MetricaIlustracion, PasoIlustracion } from '@/components/Ilustraciones'
 import { CONFIG } from '@/lib/config'
 
 export const metadata: Metadata = {
@@ -14,55 +14,56 @@ export const metadata: Metadata = {
 }
 
 /* Proceso completo. BORRADOR aprobado para publicar y ajustar con la práctica (los fundadores
-   pidieron detallarlo aunque haya que corregirlo después). Sin plazos fijos: se definen en la propuesta. */
+   pidieron detallarlo aunque haya que corregirlo después). Sin plazos fijos: se definen en la propuesta.
+   Cada paso y cada métrica tiene una escena animada (src/components/Ilustraciones.tsx). */
 const PASOS = [
   {
-    icono: MessagesSquare, titulo: 'Primer contacto',
+    titulo: 'Primer contacto',
     texto: 'Nos escribes o haces el diagnóstico en la web. Te respondemos para coordinar una reunión.',
     tu: 'Contarnos en pocas palabras qué necesitas.',
   },
   {
-    icono: ClipboardList, titulo: 'Reunión de diagnóstico',
+    titulo: 'Reunión de diagnóstico',
     texto: 'Entendemos tu negocio, tus clientes, cómo trabajas hoy y qué herramientas usas. Buscamos dónde se pierden ventas o tiempo.',
     tu: 'Una conversación de unos 30 a 45 minutos.',
   },
   {
-    icono: FileText, titulo: 'Propuesta por escrito',
+    titulo: 'Propuesta por escrito',
     texto: 'Te enviamos qué vamos a hacer, qué incluye, qué no, plazos de entrega y valor. Nada empieza sin que esté claro y aprobado.',
     tu: 'Revisarla y resolver tus dudas con nosotros.',
   },
   {
-    icono: CalendarCheck, titulo: 'Inicio del proyecto',
+    titulo: 'Inicio del proyecto',
     texto: 'Ordenamos lo necesario para partir: accesos, textos, fotos, logo y lo que haga falta según el servicio.',
     tu: 'Entregarnos los materiales y accesos de la lista.',
   },
   {
-    icono: Hammer, titulo: 'Construcción con avances',
+    titulo: 'Construcción con avances',
     texto: 'Diseñamos y desarrollamos tu web, automatización o estrategia. Te mostramos avances para ajustar a tiempo, no al final.',
     tu: 'Revisar los avances y darnos tus comentarios.',
   },
   {
-    icono: Rocket, titulo: 'Pruebas, entrega y capacitación',
+    titulo: 'Pruebas, entrega y capacitación',
     texto: 'Probamos todo en celular y computador, publicamos y te enseñamos a usar lo que construimos.',
     tu: 'Aprobar la entrega.',
   },
   {
-    icono: BarChart3, titulo: 'Acompañamiento mensual',
+    titulo: 'Acompañamiento mensual',
     texto: 'Mantenimiento, seguridad y ajustes. Revisamos contigo las métricas para ver qué está funcionando.',
     tu: 'Contarnos qué notas en tu día a día con clientes.',
   },
   {
-    icono: RefreshCw, titulo: 'Mejora continua',
+    titulo: 'Mejora continua',
     texto: 'Con los datos en la mano decidimos qué mejorar después. Automatizamos solo lo que ya funciona.',
     tu: 'Decidir con nosotros el siguiente paso.',
   },
 ]
 
 const METRICAS = [
-  ['Visitas', 'Cuántas personas llegan a tu web y desde dónde.'],
-  ['Contactos', 'Cuántas de esas visitas te escriben o piden una cotización.'],
-  ['Conversión', 'Qué porcentaje de las visitas termina en contacto.'],
-  ['Tiempo ahorrado', 'Cuántas tareas dejaron de hacerse a mano gracias a una automatización.'],
+  ['visitas', 'Visitas', 'Cuántas personas llegan a tu web y desde dónde.'],
+  ['contactos', 'Contactos', 'Cuántas de esas visitas te escriben o piden una cotización.'],
+  ['conversion', 'Conversión', 'Qué porcentaje de las visitas termina en contacto.'],
+  ['tiempo', 'Tiempo ahorrado', 'Cuántas tareas dejaron de hacerse a mano gracias a una automatización.'],
 ]
 
 export default function ComoTrabajamosPage() {
@@ -81,10 +82,10 @@ export default function ComoTrabajamosPage() {
           </div>
 
           <ol className="proceso">
-            {PASOS.map(({ icono: Icono, titulo, texto, tu }, i) => (
+            {PASOS.map(({ titulo, texto, tu }, i) => (
               <li key={titulo} className="proceso-paso brillo" data-reveal style={{ '--d': `${(i % 4) * 0.06}s` } as CSSProperties}>
                 <span className="step-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-                <span className="proceso-ico"><Icono size={22} strokeWidth={1.75} aria-hidden="true" /></span>
+                <PasoIlustracion n={i} />
                 <div className="proceso-txt">
                   <span className="mono proceso-n">PASO {String(i + 1).padStart(2, '0')}</span>
                   <h2 className="card-t" style={{ margin: 0 }}>{titulo}</h2>
@@ -107,8 +108,9 @@ export default function ComoTrabajamosPage() {
             </p>
           </div>
           <div className="metricas">
-            {METRICAS.map(([t, d], i) => (
-              <div key={t} className="metrica brillo" data-reveal style={{ '--d': `${i * 0.06}s` } as CSSProperties}>
+            {METRICAS.map(([id, t, d], i) => (
+              <div key={id} className="metrica brillo" data-reveal style={{ '--d': `${i * 0.06}s` } as CSSProperties}>
+                <MetricaIlustracion id={id} />
                 <span className="card-t">{t}</span>
                 <span className="muted">{d}</span>
               </div>

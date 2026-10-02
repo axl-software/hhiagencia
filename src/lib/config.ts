@@ -16,6 +16,8 @@ export type Servicio = {
   incluye?: string[]
   /** Planes web: la necesidad que cubre, en la tarjeta. La explicación (desc) va en "Ver qué incluye". */
   necesidad?: string
+  /** Planes web: plazo del mantenimiento mensual, que se paga aparte del desarrollo (docs/HHA_SERVICES.md). */
+  mantencion?: string
 }
 
 /** Categoría visual de Servicios: agrupa servicios sin cambiar el catálogo. */
@@ -74,6 +76,8 @@ export type Hooks = { inicio: Cierre; servicios: Cierre; proyectos: Cierre; proc
 export type Config = {
   /** Plazo que se promete en el mensaje de gracias después de enviar un formulario. */
   tiempoRespuesta: string
+  /** Cuánto dura la demo gratuita de los planes web (ej. '7 días'). Vacío = se acuerda al cotizar. */
+  demoPlazo: string
   whatsapp: string
   instagram: string
   facebook: string
@@ -96,43 +100,49 @@ export const CONFIG: Config = {
   tiktok: '', // enlace completo, ej: "https://tiktok.com/@..." (vacío = no se muestra)
   email: 'hhadigitalsolutions@gmail.com',
 
+  // Demo gratuita de los planes web (fundadores, 2026-10-02): al cotizar, una demo para probar la web antes de decidir.
+  // demoPlazo: cuánto dura la prueba (ej. '7 días'). Vacío = "durante un plazo que acordamos al cotizar".
+  demoPlazo: '',
+
   // Precios: no se publican hasta aprobar costos y márgenes (docs/HHA_BUSINESS_MODEL.md).
   // "incluye": BORRADOR para que los fundadores lo ajusten (docs/HHA_SERVICES.md aún no define el alcance de cada plan).
+  // Planes web: el pago inicial cubre solo el desarrollo; el mantenimiento mensual se paga aparte, con plazo
+  // mínimo por plan ("mantencion"). Por eso el mantenimiento no va en "incluye" (fundadores, 2026-10-02).
   servicios: [
     {
       id: 'web-start', grupo: 'web', nombre: 'Web Start',
       necesidad: 'Para comenzar con una presencia digital profesional.',
+      mantencion: 'mínimo 3 meses',
       desc: 'Para partir: una presencia web profesional y simple, lista para recibir contactos.',
       incluye: [
         'Landing page de una sola página',
         'Diseño adaptado a celular',
         'Botón de WhatsApp y formulario de contacto',
         'Configuración de dominio y hosting',
-        'Mantenimiento mensual',
       ],
     },
     {
       id: 'web-business', grupo: 'web', destacado: true, nombre: 'Web Business',
       necesidad: 'Recomendado para negocios que quieren usar su web para captar clientes y crecer.',
+      mantencion: 'a 3, 6 o 12 meses',
       desc: 'La opción recomendada: un sitio completo para mostrar tus servicios y convertir visitas en clientes.',
       incluye: [
         'Todo lo de Web Start',
         'Sitio con varias secciones: inicio, servicios, nosotros y contacto',
         'Textos y estructura pensados para convertir visitas en clientes',
         'Optimización básica para aparecer en Google',
-        'Mantenimiento mensual y ajustes menores',
       ],
     },
     {
       id: 'web-pro', grupo: 'web', nombre: 'Web Pro',
       necesidad: 'Para negocios que necesitan vender online, integrar herramientas o desarrollar funciones más avanzadas.',
+      mantencion: 'mínimo 6 meses',
       desc: 'Para proyectos más grandes: más secciones, funciones o una tienda online básica.',
       incluye: [
         'Todo lo de Web Business',
         'Tienda online básica o funciones a medida',
         'Integraciones con formularios, email marketing o CRM',
         'Automatizaciones iniciales',
-        'Mantenimiento mensual con mejoras continuas',
       ],
     },
     { id: 'automatizacion', grupo: 'linea', nombre: 'Automatización', desc: 'Captación de clientes, formularios, CRM, email marketing y tareas internas que hoy te quitan tiempo.' },
@@ -150,7 +160,7 @@ export const CONFIG: Config = {
   // Sin precios públicos: cuando estén definidos, aquí se puede agregar el ahorro del pack.
   // Servicios agrupados por categoría (jerarquía visual en /servicios; el catálogo no cambia)
   categorias: [
-    { id: 'web', nombre: 'Desarrollo web', necesidad: 'Cada plan incluye la implementación y un servicio mensual de mantenimiento.', servicios: ['web-start', 'web-business', 'web-pro'] },
+    { id: 'web', nombre: 'Desarrollo web', necesidad: 'Pagas una vez el desarrollo de tu web. El mantenimiento mensual va aparte, con un plazo mínimo según el plan.', servicios: ['web-start', 'web-business', 'web-pro'] },
     { id: 'marketing', nombre: 'Marketing y captación', necesidad: 'Para que más personas te encuentren, confíen en ti y te escriban.', servicios: ['marketing', 'captacion', 'contenido'] },
     { id: 'automatizacion', nombre: 'Automatización', necesidad: 'Para ahorrar tiempo en tareas repetitivas y que tus herramientas trabajen juntas.', servicios: ['automatizacion', 'integraciones', 'procesos'] },
     { id: 'ia', nombre: 'IA y consultoría', necesidad: 'Para entender qué puedes mejorar con IA y aplicarlo en tu negocio con acompañamiento.', servicios: ['ia', 'acompanamiento'] },

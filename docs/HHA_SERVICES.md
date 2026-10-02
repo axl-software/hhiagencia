@@ -23,6 +23,12 @@ On the website each plan card states the need it covers (approved by the founder
 - Web Business: “Recomendado para negocios que quieren usar su web para captar clientes y crecer.”
 - Web Pro: “Para negocios que necesitan vender online, integrar herramientas o desarrollar funciones más avanzadas.”
 
+How web plans are sold (founders, 2026-10-02; supersedes “each plan includes the implementation and a monthly maintenance service”):
+- The initial payment covers only the service: developing and launching the website.
+- Monthly maintenance is paid separately and is not part of “what's included”. Minimum terms: **Web Start** at least 3 months; **Web Business** 3, 6 or 12 months; **Web Pro** at least 6 months.
+- Free demo: when quoting, HHA prepares a demo so the client can try the website before deciding, for a defined period (`demoPlazo` in `src/lib/config.ts`; still to be set by the founders).
+- On the website this is shown discreetly: a line on each plan card (“+ Mantenimiento mensual …”), the category intro, a demo note under it, and a “Cómo se paga” section in “Ver qué incluye”. No prices.
+
 Pricing is not public yet and must not be invented.
 
 Approved CTA while pricing is being defined. Each button matches what the visitor wants at that point (founders, 2026-10-01; replaces the earlier list):

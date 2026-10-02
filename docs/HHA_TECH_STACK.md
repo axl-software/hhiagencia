@@ -25,7 +25,10 @@
 
 ## Media (hero video)
 - `public/img/hero/fondo.mp4`: H.264 (High), 1920×1080, 30 fps, 6 s, no audio, `faststart`, ~1.1 MB. Built from the founders' 5 s clip as a smooth back-and-forth camera move (it eases to a stop at each end and starts and ends on the same frame), so the loop has no visible cut. The original clip was HEVC, which many browsers do not play.
-- Still image: `fondo.webp` (1672 px, ~33 KB) and `fondo-960.webp` (~16 KB), from the founders' image, which matches the video's first frame.
+- Still image: `fondo.webp` (1672 px, ~32 KB) and `fondo-960.webp` (~15 KB), from the founders' image, which matches the video's first frame.
+- Screen text replaced in every frame and in the still image: “Digitaliza. / Automatiza. / Escala.” (Archivo Black, Escala in red), tracking the screen and the content that the AI drifts inside it, so it moves with the rest of the page drawn on the screen.
+- Light mode has its own files: `fondo-claro.mp4` (~0.7 MB), `fondo-claro.webp`, `fondo-claro-960.webp`: the same scene in two warm tones (sand to warm white) with the brand red only on the screen. The still image is chosen by CSS from the theme (only the right one downloads) and the video by HeroFondo.tsx.
+- AI provenance: made with CapCut (Dreamina Seedance 2.5, Edit Pilot beta) on a free plan. Dreamina's terms (updated 2026-01-22) say the user owns the outputs and do not mention watermarks; CapCut sells watermark-free export as part of its paid plan and recommends disclosing realistic AI footage. The site shows a small “Escena generada con IA” note under the hero background. Founders to confirm commercial use with a paid plan.
 - Loading: the image is in the page from the start (no layout shift; the layer is positioned absolutely). The video is requested only after the page finishes loading, only on screens 1025 px and wider, without reduced motion and without data saver; it pauses when the hero is off screen. No extra libraries.
 
 ## Analytics

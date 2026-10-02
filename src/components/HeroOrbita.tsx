@@ -12,6 +12,7 @@ import {
 } from 'lucide-react'
 import Link from 'next/link'
 import GuiaPlan from './GuiaPlan'
+import HeroFondo from './HeroFondo'
 import s from './HeroOrbita.module.css'
 
 /* ---------- textos ---------- */
@@ -98,6 +99,8 @@ export default function HeroOrbita() {
         </div>
 
         <div className={s.heroRight} aria-hidden="true">
+          {/* video del notebook (o su imagen fija) debajo de las órbitas */}
+          <HeroFondo />
           <div className={s.stage}>
             {ORBITS.map((o, oi) => (
               <div key={oi} className={`${s.orbit} ${o.cls} ${o.red ? s.orbitRed : ''}`}>

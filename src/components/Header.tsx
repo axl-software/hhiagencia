@@ -63,9 +63,10 @@ export default function Header() {
 
         <div className={s.right}>
           <TemaToggle className={s.tema} />
-          {/* El botón principal abre el diagnóstico de 3 preguntas (docs/HHA_BRAND_FOUNDATION.md) */}
+          {/* El botón principal abre el diagnóstico de 3 preguntas (docs/HHA_BRAND_FOUNDATION.md).
+              Mismo diseño que el botón rojo de la portada (.btn-vivo), en tamaño compacto. */}
           <span className={s.ctaDesk}>
-            <GuiaPlan etiqueta="Haz tu diagnóstico" className="btn-giro" origen="encabezado" />
+            <GuiaPlan etiqueta="Haz tu diagnóstico" className="btn-vivo btn-vivo-sm" giro={false} origen="encabezado" />
           </span>
           <button type="button" className={s.burger} onClick={() => setAbiertoEn(pathname)} aria-label="Abrir menú" aria-expanded={open}>
             <Menu size={20} strokeWidth={2.5} aria-hidden="true" />
@@ -93,7 +94,7 @@ export default function Header() {
           </ul>
           <div className={s.menuFoot}>
             <Redes />
-            <GuiaPlan etiqueta="Haz tu diagnóstico" origen="menu" />
+            <GuiaPlan etiqueta="Haz tu diagnóstico" className="btn-vivo" giro={false} origen="menu" />
           </div>
         </div>
       )}

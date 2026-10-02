@@ -87,3 +87,20 @@ Clean grids, generous spacing, strong hierarchy, restrained motion, high contras
 
 ## Motion
 Use motion only when it clarifies hierarchy or improves perceived quality. Avoid decorative motion that delays conversion.
+
+## Hero background (home)
+- The right side of the hero has a background layer behind the orbital system: a 6-second looping video of hands working on a laptop that shows the HHA site (`public/img/hero/fondo.mp4`), and its first frame as a still image (`fondo.webp`, `fondo-960.webp`). It is one layer: the image shows while the video loads, if it fails, on tablets and phones, and with reduced motion; the video fades in on top only once it plays (desktop, 1025 px and up).
+- Order, back to front: page background → video/image → orbits, nodes and center logo. The text column (H1, lead, buttons) always sits above and the layer never enters it.
+- The layer fades into the page on the left, top and bottom. The overlay uses the page colors (`--bg`, `--bg2`): Deep Black and Midnight Navy in dark mode, Cream and Sand in light mode, so it follows the theme on its own. Dark: dark, low contrast (55 % opacity). Light: washed and warm (36 % opacity, lower contrast and saturation) so it never reads as a dark patch on the cream.
+- The laptop screen sits beside the center logo, not under it. Do not add or overlay content on the laptop screen.
+- The video's top-left corner (where the generator places its mark) is outside the frame and under a shadow.
+
+## Primary buttons
+- `.btn-vivo`: Signal Red with a moving gradient, a passing shine and a darker bottom edge (3D); it jumps up on hover. Used for the main action of a view: hero (“Te orientamos en 3 preguntas”), header and mobile menu (“Haz tu diagnóstico”, compact `.btn-vivo-sm` in the header), contact form, recommended plan.
+- `.btn-plan`: solid button in the text color (white on dark, near-black on light) with the same 3D edge; turns red on hover. Used for the non-recommended plans.
+
+## Plan cards (Services → Desarrollo web)
+- Midnight Navy gradient cards (not black) in dark mode; ivory cards with a warm shadow in light mode.
+- Each card shows a small drawing of the site the plan builds, which grows from Start (one page) to Business (several sections and a new lead arriving) to Pro (store connected to other tools); the plan name with a 1–3 bar level; who it is for; a full-width main button (“Elegir plan”); and “Ver qué incluye”.
+- Web Business (recommended): red glow, rotating red border, “RECOMENDADO” badge and the red `.btn-vivo` button.
+- After choosing a plan, its button becomes “Solicita cotización →” (with the current selection) plus “Quitar”, the same pattern as the packs.

@@ -23,6 +23,11 @@
 - Automatic reply hook: if `SOLICITUDES_WEBHOOK_URL` is set (server-only; e.g. an n8n webhook), every saved request is posted there as JSON (`evento: nueva_solicitud`, contact data, services, diagnostic answers, `contactar_por`). Optional `SOLICITUDES_WEBHOOK_SECRETO` is sent as header `x-hha-secreto`. The founders will connect it to base replies per type of project. Payload documented in the README.
 - `@supabase/ssr` and Supabase agent skills are not installed: they are for user logins and AI-assistant guidance, not needed for saving form submissions. Add `@supabase/ssr` when the client portal (logins) starts.
 
+## Media (hero video)
+- `public/img/hero/fondo.mp4`: H.264 (High), 1920×1080, 30 fps, 6 s, no audio, `faststart`, ~1.1 MB. Built from the founders' 5 s clip as a smooth back-and-forth camera move (it eases to a stop at each end and starts and ends on the same frame), so the loop has no visible cut. The original clip was HEVC, which many browsers do not play.
+- Still image: `fondo.webp` (1672 px, ~33 KB) and `fondo-960.webp` (~16 KB), from the founders' image, which matches the video's first frame.
+- Loading: the image is in the page from the start (no layout shift; the layer is positioned absolutely). The video is requested only after the page finishes loading, only on screens 1025 px and wider, without reduced motion and without data saver; it pauses when the hero is off screen. No extra libraries.
+
 ## Analytics
 Vercel Web Analytics (included in Vercel Pro; anonymous, no cookies). Custom events: `guia_inicio`, `guia_fin`, `servicio_agregado`, `formulario_enviado` (channel and origin), `proyecto_visto`. The analytics script loads only in builds made on Vercel (`VERCEL=1`); on a local machine it is skipped, because its file only exists on Vercel and would show a 404 error in the browser. Chosen over Plausible/Umami to avoid another account and cost. The privacy page must stay consistent with it.
 

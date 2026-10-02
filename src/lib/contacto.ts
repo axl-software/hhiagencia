@@ -76,6 +76,7 @@ export async function enviar(texto: string, via: 'whatsapp' | 'email', origen: '
 /** Datos que se guardan en Supabase (src/app/api/solicitudes/route.ts). */
 export type Solicitud = DatosContacto & {
   origen: 'formulario' | 'diagnostico'
+  /** Por dónde lo contactamos: WhatsApp si dejó teléfono; si no, correo. */
   canal: 'whatsapp' | 'email'
   /** Campo trampa invisible: si viene con algo, lo llenó un bot. */
   sitio: string
@@ -83,19 +84,30 @@ export type Solicitud = DatosContacto & {
   inicio: number | null
 }
 
-/* Guarda la solicitud sin hacer esperar a nadie: se llama justo antes de abrir WhatsApp o el correo
-   (que deben abrirse en el mismo clic) y, si falla, el mensaje igual llega por esos canales.
-   keepalive: el envío termina aunque el correo cambie de página. */
-export function guardar({ inicio, ...s }: Solicitud) {
+/** Cómo contactamos a la persona: WhatsApp si dejó teléfono; si no, el correo. */
+export const contactarPor = (d: Pick<DatosContacto, 'telefono'>): Solicitud['canal'] => (d.telefono ? 'whatsapp' : 'email')
+
+/* Envía la solicitud al servidor (que la guarda en Supabase y avisa al flujo de respuesta automática)
+   y espera la respuesta. Devuelve true si quedó guardada. Si falla (sin conexión, o sin servidor como
+   en la vista previa), el formulario ofrece enviarla por WhatsApp o correo para que no se pierda. */
+export async function enviarSolicitud({ inicio, ...s }: Solicitud): Promise<boolean> {
+  /* Vista previa en un solo HTML (preview/main.tsx): no hay servidor; se muestra el mensaje de gracias
+     como demostración y no se guarda nada. */
+  if ((window as Window & { __VISTA_PREVIA__?: boolean }).__VISTA_PREVIA__) return true
   try {
     const ms = inicio === null ? -1 : Date.now() - inicio // tiempo que tomó completar el formulario
-    void fetch('/api/solicitudes', {
+    const r = await fetch('/api/solicitudes', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ ...s, ms, pagina: window.location.pathname }),
-      keepalive: true,
-    }).catch(() => {})
+      signal: AbortSignal.timeout(15000),
+    })
+    const j = (await r.json().catch(() => null)) as { ok?: boolean } | null
+    const ok = r.ok && j?.ok === true
+    medir('formulario_enviado', { canal: s.canal, origen: s.origen, resultado: ok ? 'guardado' : 'error' })
+    return ok
   } catch {
-    /* sin conexión o sin servidor (vista previa): el mensaje igual sale por WhatsApp o correo */
+    medir('formulario_enviado', { canal: s.canal, origen: s.origen, resultado: 'error' })
+    return false
   }
 }

@@ -35,6 +35,7 @@ Approved CTA while pricing is being defined. Each button matches what the visito
 - “Solicita un diagnóstico” is no longer used: it mixed the diagnostic and the contact form.
 - The contact page title stays “Te contactamos”.
 - Contact promise (founders, 2026-10-01): first a diagnostic conversation to understand the business, then a written proposal. The site must not promise a proposal before that conversation (matches “Cómo trabajamos”).
+- After submitting a form (contact or diagnostic), the site does not redirect to WhatsApp (founders, 2026-10-01). It shows a thank-you window: “¡Gracias por contarnos tu proyecto, {nombre}! Nuestro asesor comercial te contactará por WhatsApp al … / por correo a … en la próxima hora.” The channel is WhatsApp when the visitor left a phone, otherwise email. The time promise lives in `src/lib/config.ts` → `tiempoRespuesta`; it must be achievable (automatic reply or a person on duty).
 
 ## 2. Automation
 - lead capture,

@@ -1,11 +1,17 @@
+import { after } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import { validar } from '@/lib/contacto'
 
-/* Guarda en Supabase cada solicitud de los formularios (contacto y diagnóstico), además del mensaje
-   que el visitante envía por WhatsApp o correo. Tabla: solicitudes_cotizacion (supabase/solicitudes_cotizacion.sql).
+/* Guarda en Supabase cada solicitud de los formularios (contacto y diagnóstico). Después de enviar, la
+   página muestra el mensaje de gracias (no abre WhatsApp). Tabla: solicitudes_cotizacion (supabase/solicitudes_cotizacion.sql).
    La tabla solo acepta agregar filas desde la web (nadie puede leerlas con la clave pública);
    el equipo las ve en el panel de Supabase.
-   Variables: NEXT_PUBLIC_SUPABASE_URL y NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY (.env.local y Vercel). */
+   Variables: NEXT_PUBLIC_SUPABASE_URL y NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY (.env.local y Vercel).
+
+   Respuesta automática: si existe SOLICITUDES_WEBHOOK_URL (por ejemplo, un webhook de n8n), cada solicitud
+   guardada se le envía para que el flujo responda por WhatsApp o correo con el mensaje base que
+   corresponda. Si existe SOLICITUDES_WEBHOOK_SECRETO, va en el encabezado x-hha-secreto para que el flujo
+   compruebe que el aviso viene de la web. El aviso sale después de responderle al visitante. */
 
 const URL_SUPABASE = process.env.NEXT_PUBLIC_SUPABASE_URL?.replace(/\/+$/, '')
 const CLAVE = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
@@ -52,7 +58,8 @@ export async function POST(req: Request) {
         }))
       : null,
     origen: b.origen === 'diagnostico' ? 'diagnostico' : 'formulario',
-    canal: b.canal === 'email' ? 'email' : 'whatsapp',
+    /* por dónde contactarlo: WhatsApp si dejó teléfono; si no, correo */
+    canal: texto(b.telefono, 40) ? 'whatsapp' : 'email',
     pagina: texto(b.pagina, 200) || null,
   }
   /* Mismas reglas que en la página: nombre, y correo o WhatsApp */
@@ -63,6 +70,26 @@ export async function POST(req: Request) {
   if (error) {
     console.error('[solicitudes] no se pudo guardar:', error.code, error.message)
     return respuesta(false, 502)
+  }
+
+  const webhook = process.env.SOLICITUDES_WEBHOOK_URL
+  if (webhook) {
+    after(async () => {
+      try {
+        const r = await fetch(webhook, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            ...(process.env.SOLICITUDES_WEBHOOK_SECRETO ? { 'x-hha-secreto': process.env.SOLICITUDES_WEBHOOK_SECRETO } : {}),
+          },
+          body: JSON.stringify({ evento: 'nueva_solicitud', fecha: new Date().toISOString(), ...datos, contactar_por: datos.canal }),
+          signal: AbortSignal.timeout(8000),
+        })
+        if (!r.ok) console.error('[solicitudes] el flujo de respuesta respondió', r.status)
+      } catch (e) {
+        console.error('[solicitudes] no se pudo avisar al flujo de respuesta:', e instanceof Error ? e.message : e)
+      }
+    })
   }
   return respuesta(true)
 }

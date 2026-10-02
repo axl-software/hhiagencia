@@ -77,7 +77,7 @@ No vector (SVG) version exists yet. Do not trace or redraw one without approval.
 
 ## Official channels
 - Instagram: **@hhiagencia.cl** (HHA's own account). `@hh.condireccion` belongs to Herberth's personal brand and must not be used as HHA's channel.
-- Phone / WhatsApp: **+56 9 3925 3239** (`56939253239`). On the website it is shown as text with a call link (`tel:`). No floating WhatsApp button and no direct `wa.me` links in contact or footer, to reduce spam and bots (founders' decision). The contact form may still open WhatsApp with the visitor's message after they fill it in.
+- Phone / WhatsApp: **+56 9 3925 3239** (`56939253239`). On the website it is shown as text with a call link (`tel:`). No floating WhatsApp button and no direct `wa.me` links in contact or footer, to reduce spam and bots (founders' decision). The contact form does not open WhatsApp anymore (founders, 2026-10-01): it saves the request and shows a thank-you window; it only offers WhatsApp or email as a backup if saving fails.
 - Facebook and TikTok: accounts to be linked; the site shows each icon only once its URL is set.
 - The header shows no social links (only theme toggle and the button “Haz tu diagnóstico”, which opens the 3-question diagnostic; it replaces “Agenda una reunión”); social icons live in the footer and mobile menu.
 - The handle **@hhiagencia.cl** is written next to the Instagram icon in the footer and under it in the contact page.

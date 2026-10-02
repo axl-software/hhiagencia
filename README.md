@@ -79,7 +79,24 @@ Cada envío del formulario de contacto y del diagnóstico se guarda en la tabla 
 3. En Vercel → Settings → Environment Variables, agregar las mismas dos variables.
 4. Ver las solicitudes: Supabase → Table Editor → `solicitudes_cotizacion`.
 
-Sin las variables, la web funciona igual (el mensaje sale por WhatsApp o correo); solo no se guarda.
+Después de enviar, la página muestra un mensaje de gracias: "Nuestro asesor comercial te contactará por
+WhatsApp al … / por correo a … en la próxima hora" (plazo en `src/lib/config.ts` → `tiempoRespuesta`).
+Ya no abre WhatsApp. Si no se puede guardar (sin variables, sin conexión o en la vista previa), ofrece
+enviar la solicitud por WhatsApp o correo con un clic, para que no se pierda.
+
+### Respuesta automática (n8n u otro)
+Si se define `SOLICITUDES_WEBHOOK_URL` (en `.env.local` y en Vercel, sin `NEXT_PUBLIC_`), cada solicitud
+guardada se envía a esa URL con un POST en JSON:
+```json
+{ "evento": "nueva_solicitud", "fecha": "2026-10-01T15:00:00.000Z",
+  "nombre": "…", "negocio": "…", "email": "…", "telefono": "…",
+  "servicios": ["Web Business"], "diagnostico": [{ "pregunta": "Prioridad:", "respuesta": "…" }],
+  "origen": "formulario | diagnostico", "canal": "whatsapp | email", "contactar_por": "whatsapp | email",
+  "pagina": "/contacto" }
+```
+Con `SOLICITUDES_WEBHOOK_SECRETO`, la petición lleva el encabezado `x-hha-secreto` para que el flujo
+verifique que viene de la web. El flujo elige el mensaje base según `servicios`/`origen` y responde por
+`contactar_por`.
 
 ## Vista previa en un solo HTML
 ```

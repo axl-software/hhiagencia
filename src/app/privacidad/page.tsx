@@ -30,9 +30,9 @@ export default function PrivacidadPage() {
 
       <h2>Cómo nos llegan y dónde se guardan</h2>
       <p>
-        Cuando envías el formulario, guardamos tus datos en nuestra base de datos para poder responderte, y además se abre WhatsApp o tu correo con
-        el mensaje listo para que nos lo envíes. La base de datos es de Supabase, con servidores en Estados Unidos; está protegida para que nadie fuera
-        del equipo de HHA pueda leerla.
+        Cuando envías el formulario, guardamos tus datos en nuestra base de datos y nuestro equipo te contacta por el medio que nos dejaste (WhatsApp o
+        correo). Podemos usar herramientas de automatización para enviarte una primera respuesta. La base de datos es de Supabase, con servidores en
+        Estados Unidos; está protegida para que nadie fuera del equipo de HHA pueda leerla.
       </p>
 
       <h2>Para qué los usamos</h2>

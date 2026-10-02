@@ -2,6 +2,11 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-10-01 — Thank-you window instead of WhatsApp, automatic reply hook, Aaron gallery
+- **Supersedes** “the form opens WhatsApp or email”: forms save the request and show a thank-you window promising contact by the visitor's channel “en la próxima hora”; WhatsApp/email only as a backup if saving fails. Applies to the contact form and the diagnostic.
+- Automatic reply hook: optional `SOLICITUDES_WEBHOOK_URL` (+ `SOLICITUDES_WEBHOOK_SECRETO`) receives every saved request, for n8n base replies per project.
+- Aaron gallery: cover is the guests photo; the repeated “#01” photo was removed; a new stage photo was added; the event clip moved to the end.
+
 ## 2026-10-01 — Supabase connected for form submissions
 - Contact and diagnostic forms save each submission in Supabase (`solicitudes_cotizacion`), in addition to opening WhatsApp or email.
 - Insert-only access with the publishable key through a server route; honeypot and minimum fill time against bots.

@@ -14,9 +14,7 @@ import GuiaPlan from '../GuiaPlan'
 
 const pad = (n: number) => String(n).padStart(2, '0')
 /* Demo gratuita de los planes web; el plazo se edita en src/lib/config.ts → demoPlazo */
-const DEMO = `al cotizar te preparamos una demo para que pruebes tu web antes de decidir${
-  CONFIG.demoPlazo ? `, durante ${CONFIG.demoPlazo}` : ' (el plazo de prueba lo acordamos contigo)'
-}.`
+const DEMO = `al cotizar te preparamos una demo para que pruebes tu web antes de decidir`
 const porId = (id: string) => CONFIG.servicios.find((s) => s.id === id)
 const serviciosDe = (c: Categoria) => c.servicios.map(porId).filter((s) => s !== undefined)
 
@@ -150,13 +148,6 @@ function PlanCard({ plan, nivel, elegido, href, toggle, verDetalle }: {
         </span>
       </div>
       <p className="plan-necesidad">{plan.necesidad ?? plan.desc}</p>
-      {/* el mantenimiento se paga aparte del desarrollo, con plazo mínimo por plan */}
-      {plan.mantencion && (
-        <p className="plan-mant">
-          <CalendarClock size={15} strokeWidth={2} aria-hidden="true" />
-          <span><strong>+ Mantenimiento mensual</strong><small>{plan.mantencion}</small></span>
-        </p>
-      )}
       <div className="plan-acciones">
         {elegido ? (
           <>
@@ -308,7 +299,6 @@ export default function Servicios({ as = 'h2' }: { as?: Level }) {
           <span className="cat-n">{pad(1)}</span>
           <h3 className="sub">{web.nombre}</h3>
           <p className="muted" style={{ margin: 0 }}>{web.necesidad}</p>
-          <p className="cat-demo"><Gift size={16} strokeWidth={2} aria-hidden="true" /><span><strong>Demo gratuita:</strong> {DEMO}</span></p>
         </div>
         <div className="plans">
           {serviciosDe(web).map((s, i) => (

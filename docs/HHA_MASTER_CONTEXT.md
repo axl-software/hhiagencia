@@ -17,7 +17,7 @@ Development, software, web, automation, cybersecurity and technical implementati
 
 ## Website team copy (approved)
 - **Herberth Garay** — Role: *Automatización, estrategia, marketing y ventas*. Bio: “Primero pregunta qué tiene que vender tu negocio. Recién después diseña, escribe o automatiza.” Areas: Estrategia · Marketing · Ventas · Automatización. Photo: available (studio portrait, dark background).
-- **Alexander Bello** — Role: *Estrategia de desarrollo y automatización*. Bio: “Desarrolla las webs y automatizaciones de HHA, y se asegura de que sean seguras y fáciles de mantener.” Areas: Estrategia · Desarrollo web · Automatización · Ciberseguridad. Photo: pending.
+- **Alexander Bello** — Role: *Estrategia de desarrollo y automatización*. Bio: “Desarrolla las webs y automatizaciones de HHA, y se asegura de que sean seguras y fáciles de mantener.” Areas: Estrategia · Desarrollo web · Automatización · Ciberseguridad. Photo: available and approved, already used in the Equipo section (`public/img/equipo/alexander-bello.jpg`).
 
 Each founder's role intentionally includes part of the other's area, to show an integrated team.
 

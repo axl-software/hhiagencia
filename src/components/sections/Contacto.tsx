@@ -48,6 +48,9 @@ export default function Contacto({ as = 'h2' }: { as?: Level }) {
   const formRef = useRef<HTMLFormElement>(null)
   const inicio = useRef<number | null>(null) // cuándo empezó a escribir (contra bots)
   const marcar = (campo: string) => error?.campos.includes(campo) || undefined
+  /* el aviso de datos faltantes queda asociado a los campos marcados (aria-describedby) */
+  const AVISO = 'contacto-aviso'
+  const describe = (campo: string) => (marcar(campo) ? AVISO : undefined)
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -142,7 +145,7 @@ export default function Contacto({ as = 'h2' }: { as?: Level }) {
         </div>
         <label>
           <span className="label-fila">Nombre (tuyo o de tu proyecto) <span className="obligatorio">Obligatorio</span></span>
-          <input id="nombre" name="nombre" autoComplete="name" required aria-invalid={marcar('nombre')} />
+          <input id="nombre" name="nombre" autoComplete="name" required aria-invalid={marcar('nombre')} aria-describedby={describe('nombre')} />
         </label>
         <label>¿De qué se trata tu negocio o proyecto?<input id="negocio" name="negocio" placeholder="Ej: cafetería, consultora, marca de ropa" /></label>
         <fieldset>
@@ -156,15 +159,15 @@ export default function Contacto({ as = 'h2' }: { as?: Level }) {
         <fieldset>
           <legend><span className="label-fila">¿Cómo te contactamos? <span className="obligatorio">Obligatorio: uno de los dos</span></span></legend>
           <div className="two">
-            <label>Correo<input id="email" name="email" type="email" autoComplete="email" inputMode="email" aria-invalid={marcar('email')} /></label>
-            <label>Teléfono o WhatsApp<input id="telefono" name="telefono" type="tel" autoComplete="tel" inputMode="tel" placeholder="+56 9 1234 5678" aria-invalid={marcar('telefono')} /></label>
+            <label>Correo<input id="email" name="email" type="email" autoComplete="email" inputMode="email" aria-invalid={marcar('email')} aria-describedby={describe('email')} /></label>
+            <label>Teléfono o WhatsApp<input id="telefono" name="telefono" type="tel" autoComplete="tel" inputMode="tel" placeholder="+56 9 1234 5678" aria-invalid={marcar('telefono')} aria-describedby={describe('telefono')} /></label>
           </div>
         </fieldset>
         {/* campo trampa: invisible para las personas; si llega con algo, lo llenó un bot */}
         <div className="trampa" aria-hidden="true">
           <label>Sitio web<input name="sitio" tabIndex={-1} autoComplete="off" /></label>
         </div>
-        {error && <AvisoFalta falta={error} form={formRef} />}
+        {error && <AvisoFalta falta={error} form={formRef} id={AVISO} />}
         {/* El botón sigue la intención: con servicios elegidos pide cotización; sin ellos, una reunión */}
         <button className="btn-vivo contacto-enviar" type="submit" disabled={enviando} aria-busy={enviando || undefined}>
           {enviando ? 'Enviando…' : sel.length ? 'Solicita cotización →' : 'Agenda una reunión →'}

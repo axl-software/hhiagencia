@@ -112,14 +112,16 @@ function PlanIlustracion({ nivel }: { nivel: number }) {
 }
 
 /* Plan web: dibujo del sitio, para quién es y un botón principal. Al elegirlo, el botón pasa a
-   "Solicita cotización" con la selección (igual que los packs). El recomendado lleva el botón rojo. */
-function PlanCard({ plan, nivel, elegido, href, toggle, verDetalle }: {
+   "Solicita cotización" con la selección (igual que los packs). El recomendado lleva el botón rojo.
+   Titulo: el nivel de encabezado que corresponde bajo el de su categoría (sin saltos). */
+function PlanCard({ plan, nivel, elegido, href, toggle, verDetalle, Titulo }: {
   plan: Servicio
   nivel: number
   elegido: boolean
   href: string
   toggle: (id: string) => void
   verDetalle: (s: Servicio) => void
+  Titulo: 'h3' | 'h4'
 }) {
   /* Al elegir el plan con su botón, el foco pasa a "Solicita cotización" para seguir con el teclado */
   const cotizar = useRef<HTMLAnchorElement>(null)
@@ -142,7 +144,7 @@ function PlanCard({ plan, nivel, elegido, href, toggle, verDetalle }: {
       {plan.destacado && <span className="plan-badge">RECOMENDADO</span>}
       <div className="plan-ilus" aria-hidden="true"><PlanIlustracion nivel={nivel} /></div>
       <div className="plan-cabeza">
-        <h4 className="plan-nombre">{plan.nombre}</h4>
+        <Titulo className="plan-nombre">{plan.nombre}</Titulo>
         <span className="plan-nivel" aria-hidden="true">
           {[1, 2, 3].map((n) => <i key={n} className={n <= nivel ? 'on' : undefined} />)}
         </span>
@@ -181,12 +183,13 @@ function PlanCard({ plan, nivel, elegido, href, toggle, verDetalle }: {
 
 /* Pack: se vende completo ("Elegir pack" agrega todos sus servicios). Quien quiera solo uno lo
    agrega desde las categorías de arriba. */
-function PackCard({ pack, i, picked, href, elegirPack }: {
+function PackCard({ pack, i, picked, href, elegirPack, Titulo }: {
   pack: Pack
   i: number
   picked: Set<string>
   href: string
   elegirPack: (pack: Pack, agregar: boolean) => void
+  Titulo: 'h3' | 'h4'
 }) {
   const completo = pack.servicios.every((id) => picked.has(id))
   const IconoPack = ICONOS_PACK[pack.id]
@@ -196,7 +199,7 @@ function PackCard({ pack, i, picked, href, elegirPack }: {
         {IconoPack && <span className="pack-ico"><IconoPack size={22} strokeWidth={1.75} aria-hidden="true" /></span>}
         <span className="pack-nombre">PACK {pack.nombre.toUpperCase()}</span>
       </div>
-      <h4 className="pack-problema">{pack.problema}</h4>
+      <Titulo className="pack-problema">{pack.problema}</Titulo>
       <p className="muted" style={{ margin: 0 }}>{pack.detalle}</p>
       <ul className="pack-solucion" aria-label="Incluye">
         {pack.servicios.map((id) => {
@@ -236,6 +239,10 @@ function PackCard({ pack, i, picked, href, elegirPack }: {
    3. "Tu selección": sin nada elegido invita al diagnóstico; con algo elegido, a la cotización.
    Sin precios públicos (docs/HHA_BUSINESS_MODEL.md). La selección viaja a /contacto?servicios=a,b. */
 export default function Servicios({ as = 'h2' }: { as?: Level }) {
+  /* Encabezados sin saltos: las categorías van un nivel bajo el título de la sección, y los planes,
+     servicios y packs un nivel bajo su categoría. El diseño lo dan las clases, no el elemento. */
+  const Categoria = as === 'h1' ? 'h2' : 'h3'
+  const Item = as === 'h1' ? 'h3' : 'h4'
   const [picked, setPicked] = useState<Set<string>>(() => new Set())
   const cambiar = (ids: string[], agregar: boolean) =>
     setPicked((prev) => {
@@ -297,12 +304,12 @@ export default function Servicios({ as = 'h2' }: { as?: Level }) {
             la explicación va en "Ver qué incluye" */}
         <div id={`cat-${web.id}`} className="cat-web" data-reveal>
           <span className="cat-n">{pad(1)}</span>
-          <h3 className="sub">{web.nombre}</h3>
+          <Categoria className="sub">{web.nombre}</Categoria>
           <p className="muted" style={{ margin: 0 }}>{web.necesidad}</p>
         </div>
         <div className="plans">
           {serviciosDe(web).map((s, i) => (
-            <PlanCard key={s.id} plan={s} nivel={i + 1} elegido={picked.has(s.id)} href={href} toggle={toggle} verDetalle={setDetalle} />
+            <PlanCard key={s.id} plan={s} nivel={i + 1} elegido={picked.has(s.id)} href={href} toggle={toggle} verDetalle={setDetalle} Titulo={Item} />
           ))}
         </div>
 
@@ -312,7 +319,7 @@ export default function Servicios({ as = 'h2' }: { as?: Level }) {
             <div id={`cat-${c.id}`} className="cat" key={c.id} data-reveal>
               <div className="cat-head">
                 <span className="cat-n">{pad(ci + 2)}</span>
-                <h3 className="sub">{c.nombre}</h3>
+                <Categoria className="sub">{c.nombre}</Categoria>
                 <p className="muted" style={{ margin: 0 }}>{c.necesidad}</p>
               </div>
               <div className="cat-lista">
@@ -321,7 +328,7 @@ export default function Servicios({ as = 'h2' }: { as?: Level }) {
                     <div className="svc-txt">
                       <span className="svc-ico"><Icono id={s.id} size={20} /></span>
                       <div>
-                        <h4 className="t">{s.nombre}</h4>
+                        <Item className="t">{s.nombre}</Item>
                         <div className="d">{s.desc}</div>
                       </div>
                     </div>
@@ -335,12 +342,12 @@ export default function Servicios({ as = 'h2' }: { as?: Level }) {
 
         {/* Packs: problema → solución, se eligen completos */}
         <div id="soluciones" className="soluciones-head" data-reveal>
-          <h3 className="sub">¿Qué problema quieres resolver?</h3>
+          <Categoria className="sub">¿Qué problema quieres resolver?</Categoria>
           <p className="muted" style={{ margin: 0 }}>Cada pack resuelve un problema completo e incluye todos sus servicios. ¿Necesitas solo uno? Agrégalo desde las categorías de arriba.</p>
         </div>
         <div className="packs">
           {CONFIG.packs.map((p, i) => (
-            <PackCard key={p.id} pack={p} i={i} picked={picked} href={href} elegirPack={elegirPack} />
+            <PackCard key={p.id} pack={p} i={i} picked={picked} href={href} elegirPack={elegirPack} Titulo={Item} />
           ))}
         </div>
 

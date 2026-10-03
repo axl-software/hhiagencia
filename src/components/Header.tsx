@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Menu, X } from 'lucide-react'
@@ -29,16 +29,40 @@ export default function Header() {
   const [abiertoEn, setAbiertoEn] = useState<string | null>(null)
   const open = abiertoEn === pathname
   const close = () => setAbiertoEn(null)
+  const panel = useRef<HTMLDivElement>(null)
+  const hamburguesa = useRef<HTMLButtonElement>(null)
 
-  /* bloquea el scroll y cierra con Escape mientras el menú móvil está abierto */
+  /* Mientras el menú está abierto: se bloquea el scroll, cierra con Escape y el tabulador da la
+     vuelta dentro del panel (está sobre la página, que sigue debajo). Al cerrarlo, el foco vuelve
+     al botón que lo abrió. Si encima se abre el diagnóstico, su <dialog> maneja el foco y aquí no
+     se interviene, para no pelear con él. */
   useEffect(() => {
     if (!open) return
     document.body.style.overflow = 'hidden'
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setAbiertoEn(null)
+    const onKey = (e: KeyboardEvent) => {
+      if (document.querySelector('dialog[open]')) return
+      if (e.key === 'Escape') {
+        setAbiertoEn(null)
+        return
+      }
+      if (e.key !== 'Tab' || !panel.current) return
+      const focosables = panel.current.querySelectorAll<HTMLElement>('a[href], button:not([disabled])')
+      if (!focosables.length) return
+      const primero = focosables[0]
+      const ultimo = focosables[focosables.length - 1]
+      if (e.shiftKey && document.activeElement === primero) {
+        e.preventDefault()
+        ultimo.focus()
+      } else if (!e.shiftKey && document.activeElement === ultimo) {
+        e.preventDefault()
+        primero.focus()
+      }
+    }
     window.addEventListener('keydown', onKey)
     return () => {
       document.body.style.overflow = ''
       window.removeEventListener('keydown', onKey)
+      hamburguesa.current?.focus()
     }
   }, [open])
 
@@ -68,7 +92,7 @@ export default function Header() {
           <span className={s.ctaDesk}>
             <GuiaPlan etiqueta="Haz tu diagnóstico" className="btn-vivo btn-vivo-sm" giro={false} origen="encabezado" />
           </span>
-          <button type="button" className={s.burger} onClick={() => setAbiertoEn(pathname)} aria-label="Abrir menú" aria-expanded={open}>
+          <button ref={hamburguesa} type="button" className={s.burger} onClick={() => setAbiertoEn(pathname)} aria-label="Abrir menú" aria-expanded={open}>
             <Menu size={20} strokeWidth={2.5} aria-hidden="true" />
           </button>
         </div>
@@ -77,7 +101,7 @@ export default function Header() {
 
       {/* fuera del <header>: su backdrop-filter recortaría un elemento fixed */}
       {open && (
-        <div className={s.menu} role="dialog" aria-modal="true" aria-label="Menú">
+        <div ref={panel} className={s.menu} role="dialog" aria-modal="true" aria-label="Menú">
           <div className={s.menuTop}>
             <Logo onClick={close} />
             <button type="button" className={s.burger} style={{ display: 'inline-flex' }} onClick={close} aria-label="Cerrar menú" autoFocus>

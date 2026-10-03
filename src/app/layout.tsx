@@ -8,7 +8,7 @@ import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://hhiagencia.cl'),
+  metadataBase: new URL('https://www.hhiagencia.cl'),
   title: {
     default: 'HHA Digital Solutions | Web, Automatización y Marketing',
     template: '%s | HHA Digital Solutions',
@@ -31,8 +31,8 @@ const ORGANIZACION = {
   '@type': 'Organization',
   name: 'HHA Digital Solutions',
   alternateName: 'HHiAgencia',
-  url: 'https://hhiagencia.cl',
-  logo: 'https://hhiagencia.cl/brand/hh-logo-azul.png',
+  url: 'https://www.hhiagencia.cl',
+  logo: 'https://www.hhiagencia.cl/brand/hh-logo-azul.png',
   slogan: 'Digitaliza. Automatiza. Escala.',
   description:
     'Ayudamos a marcas, creadores y empresas con contenido, estrategias, automatizaciones y soluciones digitales.',

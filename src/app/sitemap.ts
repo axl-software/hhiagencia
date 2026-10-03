@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next'
 
-const BASE = 'https://hhiagencia.cl'
+const BASE = 'https://www.hhiagencia.cl'
 
 /* Mapa del sitio para Google: /sitemap.xml */
 export default function sitemap(): MetadataRoute.Sitemap {

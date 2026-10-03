@@ -23,7 +23,9 @@ export default function TerminosPage() {
 
       <h2 id="responsable" tabIndex={-1}>1. Quién opera este sitio</h2>
       <p>HHiAgencia es la marca comercial del proyecto HHA Digital Solutions, operado por Herberth Garay y Alexander Bello, con atención principal a clientes en Chile.</p>
-      <p><strong>Pendiente antes de publicar:</strong> completar el domicilio de contacto y la identificación de quien celebra y factura los contratos. No se atribuye la operación a una sociedad todavía no constituida.</p>
+      {/* PENDIENTE ANTES DE PUBLICAR (no visible para el visitante): completar el domicilio de contacto
+          y la identificación de quien celebra y factura los contratos. No se atribuye la operación a una
+          sociedad todavía no constituida. */}
       <p>Para consultas, escríbenos a <a href={`mailto:${CONFIG.email}`}>{CONFIG.email}</a>.</p>
 
       <h2 id="cotizaciones" tabIndex={-1}>2. Información y solicitudes de cotización</h2>

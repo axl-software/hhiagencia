@@ -1,10 +1,9 @@
 import type { ReactNode } from 'react'
 import { Kicker } from './Heading'
 
-/* Plantilla de las páginas legales (privacidad, términos, seguridad).
-   Los textos son BORRADORES basados en cómo funciona hoy el sitio: deben revisarse con un abogado
-   antes de publicar, y actualizarse si cambia algo (por ejemplo, si el formulario empieza a guardar datos). */
-export const ACTUALIZADO = '1 de octubre de 2026'
+/* Borradores para revisión: completar los pendientes de privacidad y contratación
+   y verificar las prácticas reales antes de publicar. */
+export const ACTUALIZADO = '2 de octubre de 2026'
 
 export default function Legal({ titulo, children }: { titulo: string; children: ReactNode }) {
   return (

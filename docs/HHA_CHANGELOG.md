@@ -2,6 +2,10 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-10-02 — Alexander Bello's team photo approved
+- **Supersedes** “Alexander Bello — Photo: pending” in Master Context → Website team copy: the photo exists, is approved and is already used in the Equipo section (`public/img/equipo/alexander-bello.jpg`, referenced from `src/lib/config.ts`). Approved by the founders.
+- The rule “never publish a placeholder photo box; if a photo is missing, render the card without a photo” is unchanged.
+
 ## 2026-10-02 — Web plans: maintenance paid separately, minimum terms, free demo
 - **Supersedes** “Cada plan incluye la implementación y un servicio mensual de mantenimiento” and the maintenance items inside each plan's “Ver qué incluye”: the initial payment covers only the development; monthly maintenance is separate, with minimum terms (Web Start 3 months; Web Business 3, 6 or 12 months; Web Pro 6 months).
 - New: free demo when quoting, to try the website before deciding (period to be defined by the founders: `demoPlazo`).

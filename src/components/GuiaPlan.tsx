@@ -23,12 +23,18 @@ export default function GuiaPlan({
 }: { etiqueta?: string; className?: string; giro?: boolean; origen?: string }) {
   const dialogo = useRef<HTMLDialogElement>(null)
   const titulo = `${useId()}-titulo` // hay varias copias del botón en la misma página
+  const pasoId = `${titulo}-paso` // "PREGUNTA n DE 3": lo lee el lector de pantalla junto al encabezado
+  const encabezado = useRef<HTMLHeadingElement>(null)
+  const pasoPrevio = useRef<number | null>(null)
   const [abierta, setAbierta] = useState(false)
   const [respuestas, setRespuestas] = useState<string[]>([])
   const [error, setError] = useState<Falta | null>(null)
   const formRef = useRef<HTMLFormElement>(null)
   const inicio = useRef<number | null>(null) // cuándo empezó a escribir (contra bots)
   const marcar = (campo: string) => error?.campos.includes(campo) || undefined
+  /* el aviso de datos faltantes queda asociado a los campos marcados (aria-describedby) */
+  const avisoId = `${titulo}-aviso`
+  const describe = (campo: string) => (marcar(campo) ? avisoId : undefined)
   const [enviando, setEnviando] = useState(false)
   const [resultado, setResultado] = useState<Resultado | null>(null)
   /* si falla y la persona vuelve a intentar, sus datos siguen escritos */
@@ -44,6 +50,22 @@ export default function GuiaPlan({
   const recomendados = ids.map((id) => CONFIG.servicios.find((s) => s.id === id)).filter((s) => s !== undefined)
   const valores = { prioridad: respuestas[0] ?? '', web: respuestas[1] ?? '', etapa: respuestas[2] ?? '' }
   const hrefFormulario = `/contacto?${new URLSearchParams({ servicios: ids.join(','), ...valores }).toString()}`
+
+  /* Al responder, el botón elegido desaparece y el foco se iba al <body>: quien navega con teclado o
+     lector de pantalla quedaba fuera de la ventana, que seguía abierta. Al cambiar de paso movemos el
+     foco al encabezado de la pregunta nueva (tabIndex -1, no entra en el orden de tabulación), y así
+     el lector lo anuncia junto con "PREGUNTA n DE 3" (aria-describedby). No se mueve al abrir ni al
+     enviar: ahí el foco ya queda donde corresponde. */
+  useEffect(() => {
+    if (!abierta) {
+      pasoPrevio.current = null
+      return
+    }
+    if (pasoPrevio.current !== null && pasoPrevio.current !== paso) {
+      encabezado.current?.focus({ preventScroll: true })
+    }
+    pasoPrevio.current = paso
+  }, [abierta, paso])
 
   const abrir = () => {
     setRespuestas([])
@@ -118,8 +140,8 @@ export default function GuiaPlan({
                 <div className="guia-progreso" aria-hidden="true">
                   {PREGUNTAS.map((_, i) => <span key={i} className={i <= paso ? 'on' : undefined} />)}
                 </div>
-                <div className="kicker" style={{ margin: 0 }}>PREGUNTA {paso + 1} DE {PREGUNTAS.length}</div>
-                <h3 id={titulo} className="card-t" style={{ margin: 0, paddingRight: 44 }}>{PREGUNTAS[paso].titulo}</h3>
+                <div id={pasoId} className="kicker" style={{ margin: 0 }}>PREGUNTA {paso + 1} DE {PREGUNTAS.length}</div>
+                <h3 ref={encabezado} id={titulo} tabIndex={-1} aria-describedby={pasoId} className="card-t" style={{ margin: 0, paddingRight: 44 }}>{PREGUNTAS[paso].titulo}</h3>
                 <div className="guia-opciones">
                   {PREGUNTAS[paso].opciones.map(([valor, texto]) => (
                     <button key={valor} type="button" className="opcion" onClick={() => responder(valor)}>
@@ -140,7 +162,7 @@ export default function GuiaPlan({
             ) : (
               <>
                 <div className="kicker" style={{ margin: 0 }}>NUESTRA RECOMENDACIÓN</div>
-                <h3 id={titulo} className="card-t" style={{ margin: 0, paddingRight: 44 }}>Esto es lo que tu negocio necesita para partir</h3>
+                <h3 ref={encabezado} id={titulo} tabIndex={-1} className="card-t" style={{ margin: 0, paddingRight: 44 }}>Esto es lo que tu negocio necesita para partir</h3>
                 <div className="guia-resultado">
                   {recomendados.map((s, i) => (
                     <div key={s.id} className={`guia-rec${i === 0 ? ' principal' : ''}`}>
@@ -166,20 +188,20 @@ export default function GuiaPlan({
                   <p className="muted" style={{ margin: 0 }}>Déjanos tus datos y te contactamos para una conversación de diagnóstico sobre tu caso.</p>
                   <label>
                     <span className="label-fila">Nombre (tuyo o de tu proyecto) <span className="obligatorio">Obligatorio</span></span>
-                    <input id="guia-nombre" name="nombre" autoComplete="name" required defaultValue={previo.nombre} aria-invalid={marcar('nombre')} />
+                    <input id="guia-nombre" name="nombre" autoComplete="name" required defaultValue={previo.nombre} aria-invalid={marcar('nombre')} aria-describedby={describe('nombre')} />
                   </label>
                   <fieldset>
                     <legend><span className="label-fila">¿Cómo te contactamos? <span className="obligatorio">Obligatorio: uno de los dos</span></span></legend>
                     <div className="two">
-                      <label>Teléfono o WhatsApp<input id="guia-telefono" name="telefono" type="tel" autoComplete="tel" inputMode="tel" placeholder="+56 9 1234 5678" defaultValue={previo.telefono} aria-invalid={marcar('telefono')} /></label>
-                      <label>Correo<input id="guia-email" name="email" type="email" autoComplete="email" inputMode="email" defaultValue={previo.email} aria-invalid={marcar('email')} /></label>
+                      <label>Teléfono o WhatsApp<input id="guia-telefono" name="telefono" type="tel" autoComplete="tel" inputMode="tel" placeholder="+56 9 1234 5678" defaultValue={previo.telefono} aria-invalid={marcar('telefono')} aria-describedby={describe('telefono')} /></label>
+                      <label>Correo<input id="guia-email" name="email" type="email" autoComplete="email" inputMode="email" defaultValue={previo.email} aria-invalid={marcar('email')} aria-describedby={describe('email')} /></label>
                     </div>
                   </fieldset>
                   {/* campo trampa: invisible para las personas; si llega con algo, lo llenó un bot */}
                   <div className="trampa" aria-hidden="true">
                     <label>Sitio web<input name="sitio" tabIndex={-1} autoComplete="off" /></label>
                   </div>
-                  {error && <AvisoFalta falta={error} form={formRef} />}
+                  {error && <AvisoFalta falta={error} form={formRef} id={avisoId} />}
                   <button className="btn btn-red" type="submit" disabled={enviando} aria-busy={enviando || undefined}>
                     {enviando ? 'Enviando…' : 'Agenda una reunión →'}
                   </button>

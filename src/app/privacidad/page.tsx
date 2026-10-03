@@ -16,7 +16,8 @@ export default function PrivacidadPage() {
 
       <h2>1. Responsable y contacto</h2>
       <p>HHiAgencia es la marca comercial del proyecto HHA Digital Solutions, operado por Herberth Garay y Alexander Bello, con atención principal a clientes en Chile.</p>
-      <p><strong>Pendiente antes de publicar:</strong> confirmar quién o quiénes deciden sobre el tratamiento de los datos y completar su identificación y domicilio de contacto.</p>
+      {/* PENDIENTE ANTES DE PUBLICAR (no visible para el visitante): confirmar quién o quiénes deciden
+          sobre el tratamiento de los datos y completar su identificación y domicilio de contacto. */}
       <p>Puedes dirigir tus consultas de privacidad a <a href={`mailto:${CONFIG.email}`}>{CONFIG.email}</a>.</p>
 
       <h2>2. Qué información tratamos</h2>
@@ -37,17 +38,24 @@ export default function PrivacidadPage() {
       <h2>4. Autorización y datos necesarios</h2>
       <p>Decides si envías una solicitud. Para poder atenderla necesitamos un nombre y al menos un medio de contacto. Sin esos datos no es posible completar el formulario.</p>
       <p>Cuando el tratamiento se base en tu consentimiento, puedes revocarlo escribiendo al correo de contacto, sin efecto retroactivo. La mera visita a esta página no constituye autorización para cualquier tratamiento.</p>
-      <p><strong>Pendiente antes de publicar:</strong> completar el mecanismo de autorización informada en ambos formularios y su registro, o documentar la habilitación legal aplicable. Este texto no sustituye ese mecanismo.</p>
+      {/* PENDIENTE ANTES DE PUBLICAR (no visible para el visitante): completar el mecanismo de
+          autorización informada en ambos formularios y su registro, o documentar la habilitación
+          legal aplicable. Este texto no sustituye ese mecanismo. */}
 
       <h2>5. Almacenamiento, proveedores y comunicaciones</h2>
       <p>Las solicitudes se almacenan en Supabase. Según la configuración documentada del proyecto, la base de datos está ubicada en Virginia del Norte, Estados Unidos. El sitio utiliza Vercel para alojamiento y analítica.</p>
       <p>Estos proveedores intervienen en el tratamiento necesario para prestar sus servicios. Si nos escribes a nuestra dirección de Gmail o por WhatsApp, Google o el proveedor de WhatsApp también procesan información conforme a sus condiciones y políticas.</p>
-      <p><strong>Pendiente antes de publicar:</strong> confirmar si está activa la automatización de respuestas y detallar su proveedor, alojamiento y destinatarios. El sistema permite remitir los datos de la solicitud a ese flujo; no debe describirse como un tratamiento exclusivamente interno.</p>
+      {/* PENDIENTE ANTES DE PUBLICAR (no visible para el visitante): confirmar si está activa la
+          automatización de respuestas y detallar su proveedor, alojamiento y destinatarios. El sistema
+          permite remitir los datos de la solicitud a ese flujo (SOLICITUDES_WEBHOOK_URL); no debe
+          describirse como un tratamiento exclusivamente interno. */}
       <p>El uso de estos servicios puede implicar tratamiento fuera de Chile. Puedes consultar por los proveedores y las condiciones aplicables a tus datos mediante el correo de contacto.</p>
 
       <h2>6. Conservación y eliminación</h2>
       <p>La conservación debe responder a la finalidad de atención y, si existe contratación, a la gestión del servicio y las obligaciones legales aplicables. Una solicitud de eliminación se evaluará considerando si existe un motivo legal para conservar parte de la información.</p>
-      <p><strong>Pendiente antes de publicar:</strong> definir los plazos de solicitudes sin contratación, comunicaciones, documentación contractual y copias de respaldo, junto con el procedimiento para cumplirlos. No existe un plazo automático de borrado acreditado en el código revisado.</p>
+      {/* PENDIENTE ANTES DE PUBLICAR (no visible para el visitante): definir los plazos de solicitudes
+          sin contratación, comunicaciones, documentación contractual y copias de respaldo, junto con el
+          procedimiento para cumplirlos. No existe un plazo automático de borrado acreditado en el código. */}
 
       <h2>7. Tus derechos</h2>
       <p>Puedes solicitar información sobre tus datos, su procedencia, finalidad y destinatarios, así como su rectificación, eliminación o bloqueo cuando corresponda. También puedes comunicar tu oposición al uso publicitario y revocar una autorización en los términos legales aplicables.</p>

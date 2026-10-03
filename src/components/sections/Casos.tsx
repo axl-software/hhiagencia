@@ -2,7 +2,7 @@
 
 import { useEffect, useId, useRef, useState, useSyncExternalStore, type CSSProperties, type KeyboardEvent, type TouchEvent } from 'react'
 import Link from 'next/link'
-import { ArrowLeft, ArrowRight, Image as ImagenIcono, Images, MonitorPlay, Wine, X, type LucideIcon } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Image as ImagenIcono, Images, MonitorPlay, Pause, Play, Wine, X, type LucideIcon } from 'lucide-react'
 import { CONFIG, categoriaDe, type Caso } from '@/lib/config'
 import { medir } from '@/lib/medir'
 import { Kicker, Title, type Level } from './Heading'
@@ -45,6 +45,9 @@ function Portada({ caso }: { caso: Caso }) {
 }
 
 export default function Casos({ as = 'h2' }: { as?: Level }) {
+  /* El nombre de cada proyecto es un encabezado, un nivel bajo el título de la sección: así se puede
+     saltar de un proyecto a otro con lector de pantalla. La clase .card-t mantiene el mismo aspecto. */
+  const Nombre = as === 'h1' ? 'h2' : 'h3'
   const [cat, setCat] = useState('Todos')
   const casos = CONFIG.casos.filter((c) => cat === 'Todos' || c.cat === cat)
 
@@ -53,6 +56,10 @@ export default function Casos({ as = 'h2' }: { as?: Level }) {
   const [paso, setPaso] = useState(0)
   const dialogo = useRef<HTMLDialogElement>(null)
   const toque = useRef<number | null>(null)
+  /* Los clips se reproducen solos y en bucle: hace falta poder pausarlos (WCAG 2.2.2).
+     Con "reducir movimiento" no arrancan solos y ya traen los controles del navegador. */
+  const video = useRef<HTMLVideoElement>(null)
+  const [pausado, setPausado] = useState(false)
   const titulo = useId()
   useEffect(() => {
     if (abierto && !dialogo.current?.open) dialogo.current?.showModal()
@@ -110,7 +117,7 @@ export default function Casos({ as = 'h2' }: { as?: Level }) {
             <article className={`case card brillo${c.galeria.length ? ' case-abre' : ''}`} key={c.nombre} data-reveal style={{ '--d': `${i * 0.1}s` } as CSSProperties}>
               <Portada caso={c} />
               <span className="mono" style={{ fontSize: 12, letterSpacing: 1.5, color: 'var(--redtx)' }}>{c.tag}</span>
-              <span className="card-t">{c.nombre}</span>
+              <Nombre className="card-t">{c.nombre}</Nombre>
               <span className="muted">{c.resumen}</span>
               <ul>{c.items.map((it) => <li key={it}>{it}</li>)}</ul>
               {c.resultado && <div className="result">RESULTADO: {c.resultado}</div>}
@@ -155,6 +162,7 @@ export default function Casos({ as = 'h2' }: { as?: Level }) {
                     )}
                     {actual.video ? (
                       <video
+                        ref={video}
                         className="galeria-medio"
                         src={actual.video}
                         poster={actual.imagen || undefined}
@@ -164,6 +172,8 @@ export default function Casos({ as = 'h2' }: { as?: Level }) {
                         playsInline
                         autoPlay={!reducir}
                         controls={reducir}
+                        onPlay={() => setPausado(false)}
+                        onPause={() => setPausado(true)}
                       />
                     ) : (
                       // eslint-disable-next-line @next/next/no-img-element -- next/image rompe la vista previa en HTML
@@ -186,6 +196,25 @@ export default function Casos({ as = 'h2' }: { as?: Level }) {
                     <ArrowRight size={20} strokeWidth={2.25} aria-hidden="true" />
                   </button>
                 </>
+              )}
+              {/* Pausar o reanudar el clip. Solo cuando arranca solo: con "reducir movimiento" el
+                  video ya muestra los controles del navegador y no se duplican. */}
+              {actual.video && !reducir && (
+                <button
+                  type="button"
+                  className="galeria-flecha galeria-pausa"
+                  onClick={() => {
+                    const v = video.current
+                    if (!v) return
+                    if (v.paused) v.play().catch(() => {})
+                    else v.pause()
+                  }}
+                  aria-label={pausado ? 'Reproducir el video' : 'Pausar el video'}
+                >
+                  {pausado
+                    ? <Play size={18} strokeWidth={2.25} aria-hidden="true" />
+                    : <Pause size={18} strokeWidth={2.25} aria-hidden="true" />}
+                </button>
               )}
               <span className="galeria-contador mono" aria-hidden="true">{paso + 1} / {total}</span>
             </div>

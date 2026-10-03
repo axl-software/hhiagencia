@@ -43,13 +43,16 @@
    --redtx: textos chicos de acento. En oscuro van en gris (el rojo da 4,1:1 y no pasa);
    en claro sí pueden ir en rojo (4,7:1). --on-red: texto sobre rojo, siempre blanco.
    --field: borde de los campos del formulario (3:1 contra el fondo).
+   --line3: borde de los controles con contorno (chips, "+ Agregar", "Ver servicios", flechas de la
+   galería, cerrar ventana, iconos de redes). Llega a 3:1 sobre todos los fondos donde aparece, incluida
+   la tarjeta de plan destacada (WCAG 1.4.11). --line y --line2 son separadores, no controles.
    --rojo-txt: rojo de marca ajustado para palabras chicas destacadas (5,5:1 sobre negro;
    en claro, #B3192F da 5,8:1 sobre crema). --rojo-hondo: rojo de marca oscurecido para el
    borde 3D y el degradado del botón principal (texto blanco 8:1). */
 :root{
   color-scheme:dark;
   --bg:#05070A;--bg2:#0B1020;--deep:#05070A;
-  --line:rgba(148,163,184,.14);--line2:rgba(148,163,184,.22);--line3:rgba(148,163,184,.36);
+  --line:rgba(148,163,184,.14);--line2:rgba(148,163,184,.22);--line3:rgba(148,163,184,.58);
   --field:rgba(148,163,184,.55);
   --tx:#F8FAFC;--tx2:#94A3B8;--mut:#94A3B8;
   --red:#D7263D;--dot:#D7263D;--redtx:var(--tx2);--rojo-txt:#EB4B5F;--rojo-hondo:#9E1528;--on-red:#F8FAFC;
@@ -64,7 +67,7 @@
 :root[data-theme="light"]{
   color-scheme:light;
   --bg:#F1ECE2;--bg2:#E9E2D5;--deep:#E9E2D5;
-  --line:rgba(11,16,32,.10);--line2:rgba(11,16,32,.16);--line3:rgba(11,16,32,.28);
+  --line:rgba(11,16,32,.10);--line2:rgba(11,16,32,.16);--line3:rgba(11,16,32,.47);
   --field:rgba(11,16,32,.5);
   --tx:#05070A;--tx2:#5C5D64;--mut:#5C5D64;--redtx:var(--tx2);--rojo-txt:#B3192F;
   --header-bg:rgba(241,236,226,.9);--cta-bg:#0B1020;
@@ -327,7 +330,7 @@ input[aria-invalid="true"]{border-color:var(--red);box-shadow:0 0 0 1px var(--re
 .contacto-sec{background:radial-gradient(55% 45% at 80% 25%,rgba(215,38,61,.12),transparent 70%),var(--bg)}
 /* Tarjeta del formulario: azul noche en ambos modos (resalta sobre negro y sobre crema), con un brillo
    rojo que se mueve lento y una línea roja arriba. Los colores de texto y bordes se ajustan adentro. */
-.contacto-form{--tx:#F8FAFC;--tx2:#B4BECD;--mut:#B4BECD;--line:rgba(248,250,252,.1);--line2:rgba(248,250,252,.16);--line3:rgba(248,250,252,.32);--field:rgba(248,250,252,.3);position:relative;isolation:isolate;overflow:hidden;color:var(--tx);background:linear-gradient(160deg,#151D3A 0%,#0B1020 55%,#070A14 100%);border:1px solid rgba(248,250,252,.12);box-shadow:0 30px 70px -30px rgba(5,7,10,.8)}
+.contacto-form{--tx:#F8FAFC;--tx2:#B4BECD;--mut:#B4BECD;--line:rgba(248,250,252,.1);--line2:rgba(248,250,252,.16);--line3:rgba(248,250,252,.35);--field:rgba(248,250,252,.35);position:relative;isolation:isolate;overflow:hidden;color:var(--tx);background:linear-gradient(160deg,#151D3A 0%,#0B1020 55%,#070A14 100%);border:1px solid rgba(248,250,252,.12);box-shadow:0 30px 70px -30px rgba(5,7,10,.8)}
 .contacto-form::before{content:'';position:absolute;z-index:-1;width:440px;height:440px;top:-220px;right:-170px;border-radius:50%;background:radial-gradient(circle,rgba(215,38,61,.42),transparent 65%);animation:formBrillo 14s ease-in-out infinite alternate;pointer-events:none}
 .contacto-form::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--red),rgba(215,38,61,0) 75%)}
 :root[data-theme="light"] .contacto-form{box-shadow:0 34px 60px -30px rgba(11,16,32,.55)}
@@ -371,6 +374,9 @@ input[aria-invalid="true"]{border-color:var(--red);box-shadow:0 0 0 1px var(--re
 .guia-rec.principal{border:1.5px solid var(--red)}
 .guia-rec strong{font-family:var(--f-head);font-size:20px}
 .guia-etiqueta{font-size:11px;letter-spacing:1.5px;color:var(--mut)}
+/* Al cambiar de pregunta, el foco pasa al encabezado (GuiaPlan.tsx) para no salirse de la ventana.
+   No es un control y no entra en el orden de tabulación: sin recuadro, el diagnóstico se ve igual. */
+.guia h3:focus,.guia h3:focus-visible{outline:none}
 
 /* íconos de servicios */
 .plan-ico,.svc-ico{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:12px;flex:none;background:color-mix(in srgb,var(--red) 14%,transparent);color:var(--red);transition:background-color .25s ease,color .25s ease}
@@ -445,6 +451,8 @@ input[aria-invalid="true"]{border-color:var(--red);box-shadow:0 0 0 1px var(--re
 .galeria-vacia{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--mut);font-family:var(--f-mono);font-size:13px;background-image:repeating-linear-gradient(135deg,var(--line) 0 2px,transparent 2px 16px)}
 .galeria-flecha{position:absolute;top:50%;translate:0 -50%;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--line3);background:var(--bg);color:var(--tx);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:var(--shadow);transition:background-color .25s ease,border-color .25s ease,color .25s ease}
 .galeria-ant{left:12px}.galeria-sig{right:12px}
+/* pausar/reanudar el clip: misma pastilla que las flechas, abajo a la izquierda */
+.galeria-pausa{top:auto;bottom:12px;left:12px;translate:none}
 .galeria-flecha:hover{background:var(--red);border-color:var(--red);color:var(--on-red)}
 .galeria-flecha:focus-visible{outline:2px solid var(--red);outline-offset:3px}
 .galeria-contador{position:absolute;right:12px;bottom:12px;padding:4px 10px;border-radius:999px;background:var(--bg);border:1px solid var(--line2);font-size:12px;color:var(--tx)}

@@ -78,7 +78,7 @@ export default function Casos({ as = 'h2' }: { as?: Level }) {
   const ir = (n: number) => setPaso((n + total) % total)
   /* "Explora soluciones similares": lleva a la categoría de Servicios del servicio principal del proyecto */
   const categoria = fotos.length ? categoriaDe(fotos[0].servicio) : undefined
-  const hrefSimilares = categoria ? `/servicios#cat-${categoria.id}` : '/servicios#soluciones'
+  const hrefSimilares = categoria ? `${categoria.id === 'marketing' ? '/marketing' : '/servicios'}#cat-${categoria.id}` : '/servicios#soluciones'
 
   const onKeyDown = (e: KeyboardEvent<HTMLDialogElement>) => {
     if (e.key === 'ArrowRight') ir(paso + 1)

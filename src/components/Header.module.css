@@ -57,7 +57,7 @@
 /* botón de tema claro/oscuro */
 .tema {
   width: 40px; height: 40px;
-  border-radius: 50%;
+  border-radius: 0;
   border: 1.5px solid var(--line3);
   background: transparent;
   color: var(--tx);
@@ -72,7 +72,7 @@
 .burger {
   display: none;
   width: 44px; height: 44px;
-  border-radius: 50%;
+  border-radius: 0;
   border: 0;
   background: var(--red);
   color: var(--on-red);
@@ -116,7 +116,7 @@
   .left { gap: 24px; }
   .nav { gap: 18px; }
 }
-@media (max-width: 860px) {
+@media (max-width: 1180px) {
   .nav, .mute, .ctaDesk { display: none; }
   .burger { display: inline-flex; }
   .bar { padding: 0 20px; }

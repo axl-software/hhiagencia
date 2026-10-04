@@ -238,7 +238,7 @@ function PackCard({ pack, i, picked, href, elegirPack, Titulo }: {
    2. "¿Qué problema quieres resolver?": packs con nombre, que se eligen completos.
    3. "Tu selección": sin nada elegido invita al diagnóstico; con algo elegido, a la cotización.
    Sin precios públicos (docs/HHA_BUSINESS_MODEL.md). La selección viaja a /contacto?servicios=a,b. */
-export default function Servicios({ as = 'h2' }: { as?: Level }) {
+export default function Servicios({ as = 'h2', marketing = false }: { as?: Level; marketing?: boolean }) {
   /* Encabezados sin saltos: las categorías van un nivel bajo el título de la sección, y los planes,
      servicios y packs un nivel bajo su categoría. El diseño lo dan las clases, no el elemento. */
   const Categoria = as === 'h1' ? 'h2' : 'h3'
@@ -284,7 +284,8 @@ export default function Servicios({ as = 'h2' }: { as?: Level }) {
     )
   }
 
-  const [web, ...lineas] = CONFIG.categorias
+  const [web, ...otrasLineas] = CONFIG.categorias
+  const lineas = marketing ? otrasLineas.filter((c) => c.id === 'marketing') : otrasLineas
 
   return (
     <section className="alt con-deco">
@@ -292,8 +293,8 @@ export default function Servicios({ as = 'h2' }: { as?: Level }) {
       <div className="wrap sec">
         <div className="head-row" data-reveal>
           <div>
-            <Kicker>SERVICIOS</Kicker>
-            <Title as={as}>Elige por dónde empezar</Title>
+            <Kicker>{marketing ? 'MARKETING' : 'SERVICIOS'}</Kicker>
+            <Title as={as}>{marketing ? 'Marketing y captación' : 'Elige por dónde empezar'}</Title>
           </div>
           <p className="muted" style={{ maxWidth: 420, margin: 0 }}>
             Marca lo que te interesa y solicita tu cotización. El valor y los plazos dependen del alcance de tu proyecto: los definimos contigo en la reunión.
@@ -302,6 +303,7 @@ export default function Servicios({ as = 'h2' }: { as?: Level }) {
 
         {/* 1. Desarrollo web: la tarjeta dice para quién es, con un dibujo del sitio que se construye;
             la explicación va en "Ver qué incluye" */}
+        {!marketing && <>
         <div id={`cat-${web.id}`} className="cat-web" data-reveal>
           <span className="cat-n">{pad(1)}</span>
           <Categoria className="sub">{web.nombre}</Categoria>
@@ -313,16 +315,20 @@ export default function Servicios({ as = 'h2' }: { as?: Level }) {
           ))}
         </div>
 
+        </>}
+
         {/* 2-4. Marketing y captación, Automatización, IA y consultoría */}
         <div className="cats">
           {lineas.map((c, ci) => (
             <div id={`cat-${c.id}`} className="cat" key={c.id} data-reveal>
               <div className="cat-head">
-                <span className="cat-n">{pad(ci + 2)}</span>
+                <span className="cat-n">{pad(ci + (marketing ? 1 : 2))}</span>
                 <Categoria className="sub">{c.nombre}</Categoria>
                 <p className="muted" style={{ margin: 0 }}>{c.necesidad}</p>
               </div>
-              <div className="cat-lista">
+              {c.id === 'marketing' && !marketing ? (
+                <Link className="btn btn-red" href="/marketing">Ver marketing <ArrowRight size={18} aria-hidden="true" /></Link>
+              ) : <div className="cat-lista">
                 {serviciosDe(c).map((s) => (
                   <div className="svc-row" key={s.id}>
                     <div className="svc-txt">
@@ -335,12 +341,13 @@ export default function Servicios({ as = 'h2' }: { as?: Level }) {
                     {addBtn(s)}
                   </div>
                 ))}
-              </div>
+              </div>}
             </div>
           ))}
         </div>
 
         {/* Packs: problema → solución, se eligen completos */}
+        {!marketing && <>
         <div id="soluciones" className="soluciones-head" data-reveal>
           <Categoria className="sub">¿Qué problema quieres resolver?</Categoria>
           <p className="muted" style={{ margin: 0 }}>Cada pack resuelve un problema completo e incluye todos sus servicios. ¿Necesitas solo uno? Agrégalo desde las categorías de arriba.</p>
@@ -350,6 +357,8 @@ export default function Servicios({ as = 'h2' }: { as?: Level }) {
             <PackCard key={p.id} pack={p} i={i} picked={picked} href={href} elegirPack={elegirPack} Titulo={Item} />
           ))}
         </div>
+
+        </>}
 
         {/* Tu selección: el botón cambia según lo que el visitante ya hizo */}
         <div className="quote" aria-live="polite" data-reveal>

@@ -1,6 +1,7 @@
 /* Páginas del sitio: las usan Header y Footer. */
 export const NAV = [
   { label: 'Servicios', href: '/servicios' },
+  { label: 'Marketing', href: '/marketing' },
   { label: 'Proceso', href: '/como-trabajamos' },
   { label: 'Proyectos', href: '/proyectos' },
   { label: 'Contacto', href: '/contacto' },

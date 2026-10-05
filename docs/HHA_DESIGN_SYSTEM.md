@@ -33,8 +33,10 @@ These are **functional UI colors only**, not HHA brand colors.
 - Body: Inter
 - Labels / technical metadata: JetBrains Mono
 
-## Light mode (cream)
-Approved by the founders: pure white was too bright, so light mode uses a warm cream.
+## Light mode (cream) — SUPERSEDED 2026-10-05 by the bluish light tone per page
+The light/dark toggle was removed (see HHA_CHANGELOG.md). Pages are fixed to a tone (`src/lib/tema.ts`): Servicios, Prueba gratis, Contacto and legal pages use a bluish light (`#E6EDF7` / `#D9E3F1`); the others stay dark. The notes below describe the earlier cream values and remain as history for the surface roles.
+
+Approved by the founders earlier: pure white was too bright, so light mode used a warm cream.
 - Background: Cream `#F1ECE2`
 - Sections / elevated surfaces: Sand `#E9E2D5`
 - Primary text: `#05070A`
@@ -93,7 +95,7 @@ Use motion only when it clarifies hierarchy or improves perceived quality. Avoid
 - Order, back to front: page background → video/image → orbits, nodes and center logo. The text column (H1, lead, buttons) always sits above and the layer never enters it.
 - The layer fades into the page on the left, top and bottom. The overlay uses the page colors (`--bg`, `--bg2`): Deep Black and Midnight Navy in dark mode, Cream and Sand in light mode, so it follows the theme on its own. Dark: dark, low contrast (55 % opacity).
 - Light mode uses its own files (2026-10-02, supersedes the filtered dark video, which looked like a dark stain): the same scene in two warm tones (sand to warm white) with the brand red only on the laptop screen, at 85 % opacity.
-- The laptop screen reads “Digitaliza. / Automatiza. / Escala.” (Escala in red). A small “Escena generada con IA” note sits under the layer, bottom right.
+- The laptop screen reads “Digitaliza. / Automatiza. / Escala.” (Escala in red). The “Escena generada con IA” note was removed on 2026-10-05 (founders' decision).
 - The laptop screen sits beside the center logo, not under it. Do not add other content on the laptop screen.
 - The video's top-left corner (where the generator places its mark) is outside the frame and under a shadow.
 

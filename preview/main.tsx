@@ -1,12 +1,14 @@
 /* Vista previa en un solo HTML (sin Next): mismas páginas y componentes,
-   con un router por hash (#servicios, #como-trabajamos, #proyectos, #contacto…). */
+   con un router por hash (#servicios, #como-trabajamos, #contacto…). */
 import { StrictMode, Suspense, useEffect, type ComponentType } from 'react'
 import { createRoot } from 'react-dom/client'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import TemaRuta from '@/components/TemaRuta'
+import MarketingPage from '@/app/marketing/page'
+import PruebaGratisPage from '@/app/prueba-gratis/page'
 import Inicio from '@/app/page'
 import ServiciosPage from '@/app/servicios/page'
-import ProyectosPage from '@/app/proyectos/page'
 import ComoTrabajamosPage from '@/app/como-trabajamos/page'
 import ContactoPage from '@/app/contacto/page'
 import PrivacidadPage from '@/app/privacidad/page'
@@ -21,8 +23,9 @@ import '@/app/globals.css'
 const PAGES: Record<string, ComponentType> = {
   '/': Inicio,
   '/servicios': ServiciosPage,
+  '/marketing': MarketingPage,
+  '/prueba-gratis': PruebaGratisPage,
   '/como-trabajamos': ComoTrabajamosPage,
-  '/proyectos': ProyectosPage,
   '/contacto': ContactoPage,
   '/privacidad': PrivacidadPage,
   '/terminos': TerminosPage,
@@ -49,6 +52,7 @@ function App() {
         </Suspense>
       </main>
       <Footer />
+      <TemaRuta />
     </>
   )
 }

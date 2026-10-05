@@ -1,5 +1,6 @@
-/* Diagnóstico de 3 preguntas (portada y Servicios). Recomienda un plan web (Start, Business o Pro)
-   o cualquier otra línea de servicio, priorizando la web cuando el negocio no tiene una que le sirva.
+/* Diagnóstico de 3 preguntas (portada y Servicios). Recomienda un plan web (Start, Business o Pro),
+   HHA Systems (aplicación web de reservas y ventas) o cualquier otra línea de servicio, priorizando la web
+   cuando el negocio no tiene una que le sirva.
    Las respuestas viajan a /contacto como ?prioridad=&web=&etapa= para incluirlas en el mensaje. */
 
 export type Clave = 'prioridad' | 'web' | 'etapa'
@@ -10,7 +11,8 @@ export const PREGUNTAS: { clave: Clave; titulo: string; corta: string; opciones:
     titulo: '¿Qué es lo más importante para tu negocio hoy?',
     corta: 'Prioridad:',
     opciones: [
-      ['web', 'Tener una web o mejorar la que tengo'],
+      ['web', 'Tener una página web o mejorar la que tengo'],
+      ['sistemas', 'Que mis clientes reserven y compren online (aplicación web)'],
       ['automatizacion', 'Ahorrar tiempo automatizando tareas'],
       ['marketing', 'Conseguir más clientes'],
       ['contenido', 'Tener contenido para mis redes'],
@@ -42,11 +44,16 @@ export const PREGUNTAS: { clave: Clave; titulo: string; corta: string; opciones:
 
 const PLAN_POR_ETAPA: Record<string, string> = { empezando: 'web-start', creciendo: 'web-business', online: 'web-pro' }
 
-/** Ids de servicio recomendados, el principal primero. */
+/** Respuesta de la primera pregunta que no es el id de un servicio */
+const SERVICIO_POR_PRIORIDAD: Record<string, string> = { sistemas: 'hha-systems' }
+
+/** Ids de servicio recomendados, el principal primero. HHA Systems ya incluye su propia web: va solo. */
 export function recomendar([prioridad, web, etapa]: string[]): string[] {
   const plan = PLAN_POR_ETAPA[etapa] ?? 'web-business'
   if (prioridad === 'web') return [plan]
-  return web === 'ok' ? [prioridad] : [prioridad, plan]
+  const servicio = SERVICIO_POR_PRIORIDAD[prioridad] ?? prioridad
+  if (servicio === 'hha-systems') return [servicio]
+  return web === 'ok' ? [servicio] : [servicio, plan]
 }
 
 /** Respuestas en texto legible, para el mensaje de contacto. Ignora valores desconocidos. */

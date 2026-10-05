@@ -1,0 +1,52 @@
+/* Nosotros: texto + esquema de dos círculos que se cruzan (negocio y tecnología) con el logo HH en el cruce.
+   Colores fijos de marca dentro del esquema, para que se lea igual en cualquier tono de página. */
+.caja { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 80px); align-items: center; }
+.texto { display: flex; flex-direction: column; gap: 22px; min-width: 0; }
+
+.esquema { position: relative; width: min(100%, 440px); aspect-ratio: 1.45; margin: 0 auto; }
+.mitad {
+  position: absolute;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  width: 62%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  font-size: 12.5px;
+  color: #f8fafc;
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.mitad b { font-family: var(--f-head); font-size: 15px; letter-spacing: 0.3px; }
+.mitad span { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.4px; opacity: 0.92; }
+.negocio { left: 0; padding-left: 9%; align-items: flex-start; background: radial-gradient(circle at 30% 30%, #e23a50, #b81d32); box-shadow: 0 30px 50px -28px rgba(215, 38, 61, 0.7); }
+.tecno { right: 0; padding-right: 9%; align-items: flex-end; text-align: right; background: radial-gradient(circle at 70% 30%, #1a2750, #0b1020); border: 1px solid rgba(148, 163, 184, 0.35); box-shadow: 0 30px 50px -28px rgba(0, 0, 0, 0.8); }
+.esquema:hover .negocio { transform: translateX(-10px); }
+.esquema:hover .tecno { transform: translateX(10px); }
+.centro {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  top: 31%;
+  translate: -50% -50%;
+  display: grid;
+  place-items: center;
+  width: 25%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #05070a;
+  border: 2px solid #f8fafc;
+  box-shadow: 0 0 0 6px rgba(248, 250, 252, 0.08);
+  animation: nosPulso 3.6s ease-in-out infinite;
+}
+.centro img { width: 64%; height: auto; }
+@keyframes nosPulso { 0%, 100% { box-shadow: 0 0 0 6px rgba(248, 250, 252, 0.08); } 50% { box-shadow: 0 0 0 14px rgba(215, 38, 61, 0.22); } }
+@media (max-width: 900px) {
+  .caja { grid-template-columns: minmax(0, 1fr); }
+  .esquema { width: min(100%, 360px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .centro { animation: none; }
+  .mitad { transition: none; }
+}

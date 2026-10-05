@@ -71,7 +71,7 @@ export type Pack = { id: string; nombre: string; problema: string; detalle: stri
 
 /** Banda de cierre de cada página: frase chica de arriba, frase grande, texto del botón y destino. */
 export type Cierre = { kicker: string; titulo: string; boton: string; href: string }
-export type Hooks = { inicio: Cierre; servicios: Cierre; proyectos: Cierre; proceso: Cierre }
+export type Hooks = { inicio: Cierre; servicios: Cierre; marketing: Cierre; proceso: Cierre }
 
 export type Config = {
   /** Plazo que se promete en el mensaje de gracias después de enviar un formulario. */
@@ -102,7 +102,7 @@ export const CONFIG: Config = {
 
   // Demo gratuita de los planes web (fundadores, 2026-10-02): al cotizar, una demo para probar la web antes de decidir.
   // demoPlazo: cuánto dura la prueba (ej. '7 días'). Vacío = "durante un plazo que acordamos al cotizar".
-  demoPlazo: '',
+  demoPlazo: '7 días', // fundadores, 2026-10-05
 
   // Precios: no se publican hasta aprobar costos y márgenes (docs/HHA_BUSINESS_MODEL.md).
   // "incluye": BORRADOR para que los fundadores lo ajusten (docs/HHA_SERVICES.md aún no define el alcance de cada plan).
@@ -145,6 +145,8 @@ export const CONFIG: Config = {
         'Automatizaciones iniciales',
       ],
     },
+    // HHA Systems (docs/HHA_SYSTEMS_PRODUCT.md): el sistema de reservas y ventas con la identidad de cada negocio. Sin precios públicos.
+    { id: 'hha-systems', grupo: 'linea', nombre: 'HHA Systems', desc: 'Un sistema propio de reservas y ventas, con el diseño y la identidad de tu negocio: tus clientes reservan y compran online, y tú ves todo en tu panel.' },
     { id: 'automatizacion', grupo: 'linea', nombre: 'Automatización', desc: 'Captación de clientes, formularios, CRM, email marketing y tareas internas que hoy te quitan tiempo.' },
     // Integraciones: conectar herramientas que el cliente ya usa; sin desarrollo de APIs a medida (docs/HHA_TECH_STACK.md → API status)
     { id: 'integraciones', grupo: 'linea', nombre: 'Integraciones', desc: 'Conectamos las herramientas que ya usas (web, formularios, email marketing o CRM) para que la información pase sola de una a otra.' },
@@ -160,7 +162,8 @@ export const CONFIG: Config = {
   // Sin precios públicos: cuando estén definidos, aquí se puede agregar el ahorro del pack.
   // Servicios agrupados por categoría (jerarquía visual en /servicios; el catálogo no cambia)
   categorias: [
-    { id: 'web', nombre: 'Desarrollo web', necesidad: 'Pagas una vez el desarrollo de tu web. El mantenimiento mensual va aparte, con un plazo mínimo según el plan.', servicios: ['web-start', 'web-business', 'web-pro'] },
+    { id: 'web', nombre: 'Desarrollo web', necesidad: 'El desarrollo de tu página web: pagas una vez el desarrollo, y el mantenimiento mensual va aparte, con un plazo mínimo según el plan.', servicios: ['web-start', 'web-business', 'web-pro'] },
+    { id: 'sistemas', nombre: 'HHA Systems', necesidad: 'Un sistema propio de reservas y ventas, con la identidad de tu negocio.', servicios: ['hha-systems'] },
     { id: 'marketing', nombre: 'Marketing y captación', necesidad: 'Para que más personas te encuentren, confíen en ti y te escriban.', servicios: ['marketing', 'captacion', 'contenido'] },
     { id: 'automatizacion', nombre: 'Automatización', necesidad: 'Para ahorrar tiempo en tareas repetitivas y que tus herramientas trabajen juntas.', servicios: ['automatizacion', 'integraciones', 'procesos'] },
     { id: 'ia', nombre: 'IA y consultoría', necesidad: 'Para entender qué puedes mejorar con IA y aplicarlo en tu negocio con acompañamiento.', servicios: ['ia', 'acompanamiento'] },
@@ -185,6 +188,11 @@ export const CONFIG: Config = {
       id: 'herramientas', nombre: 'Conexión', problema: '¿Tienes herramientas, pero ninguna trabaja junta?',
       detalle: 'Conectamos tus herramientas, automatizamos lo que se repite y te acompañamos en la implementación.',
       servicios: ['integraciones', 'automatizacion', 'acompanamiento'],
+    },
+    {
+      id: 'reservas', nombre: 'Negocio online', problema: '¿Quieres que tus clientes reserven y compren online?',
+      detalle: 'Un sistema propio con tu marca para reservas y ventas, más contenido y marketing para que lleguen clientes nuevos.',
+      servicios: ['hha-systems', 'marketing', 'contenido'],
     },
   ],
 
@@ -242,10 +250,12 @@ export const CONFIG: Config = {
 
   // Banda de cierre de cada página, según lo que el visitante quiere en ese punto (docs/HHA_SERVICES.md → botones por intención)
   hooks: {
-    inicio: { kicker: '¿EMPEZAMOS?', titulo: 'Conversemos de tu negocio y te decimos por dónde partir.', boton: 'Agenda una reunión', href: '/contacto' },
-    servicios: { kicker: '¿TODAVÍA CON DUDAS?', titulo: 'Lo vemos juntos y elegimos lo que de verdad necesitas.', boton: 'Agenda una reunión', href: '/contacto' },
-    proyectos: { kicker: '¿TE IMAGINAS EL TUYO?', titulo: 'Entendemos tu negocio y te proponemos la solución que de verdad necesita.', boton: 'Agenda una reunión', href: '/contacto' },
-    proceso: { kicker: '¿TE HACE SENTIDO?', titulo: 'El primer paso es una conversación sobre tu negocio.', boton: 'Agenda una reunión', href: '/contacto' },
+    // La prueba gratis dura lo mismo que demoPlazo ('7 días'): si cambia, cambiar también estos textos.
+    inicio: { kicker: '¿LISTO PARA PROBAR?', titulo: 'Prueba tu sistema gratis 7 días y decide después.', boton: 'Crea tu prueba gratis', href: '/prueba-gratis' },
+    servicios: { kicker: '¿TODAVÍA CON DUDAS?', titulo: 'Pruébalo primero: 7 días gratis para ver cómo funciona.', boton: 'Crea tu prueba gratis', href: '/prueba-gratis' },
+    // Marketing no se prueba (fundadores, 2026-10-05): se agenda una reunión para hablar del servicio y se pone en práctica enseguida.
+    marketing: { kicker: '¿TU MARCA ES LA SIGUIENTE?', titulo: 'Hablemos de tu marketing y lo ponemos en práctica enseguida.', boton: 'Agenda una reunión', href: '/contacto?servicios=marketing' },
+    proceso: { kicker: '¿TE HACE SENTIDO?', titulo: 'Cuéntanos qué necesitas y te preparamos una propuesta por escrito.', boton: 'Solicita cotización', href: '/contacto' },
   },
 }
 

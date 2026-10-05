@@ -4,6 +4,7 @@ import Footer from '@/components/Footer'
 import { CONFIG } from '@/lib/config'
 import TemaScript from '@/components/TemaScript'
 import Revelar from '@/components/Revelar'
+import TemaRuta from '@/components/TemaRuta'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
@@ -54,7 +55,7 @@ const ORGANIZACION = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#F1ECE2' },
+    { media: '(prefers-color-scheme: light)', color: '#E6EDF7' },
     { media: '(prefers-color-scheme: dark)', color: '#05070A' },
   ],
 }
@@ -76,6 +77,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
         <main>{children}</main>
         <Footer />
         <Revelar />
+        <TemaRuta />
         {/* Vercel Web Analytics: sin cookies y anónimo; eventos en src/lib/medir.ts.
             Solo cuando el sitio se arma en Vercel (VERCEL=1): fuera de Vercel su archivo no existe
             y el navegador mostraría un error 404 en cada página. */}

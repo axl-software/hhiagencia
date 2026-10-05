@@ -173,6 +173,13 @@ export default function GuiaPlan({
                   ))}
                 </div>
 
+                {/* HHA Systems se prueba antes de decidir: lleva directo a crear la prueba gratis */}
+                {recomendados.some((r) => r.id === 'hha-systems') && (
+                  <Link href="/prueba-gratis" onClick={cerrar} className="btn-vivo" style={{ alignSelf: 'flex-start' }}>
+                    Crear mi prueba gratis <ArrowRight size={18} strokeWidth={2.25} aria-hidden="true" />
+                  </Link>
+                )}
+
                 {/* Contacto en la misma ventana: las respuestas van incluidas en el mensaje */}
                 <form
                   ref={formRef}
@@ -203,7 +210,7 @@ export default function GuiaPlan({
                   </div>
                   {error && <AvisoFalta falta={error} form={formRef} id={avisoId} />}
                   <button className="btn btn-red" type="submit" disabled={enviando} aria-busy={enviando || undefined}>
-                    {enviando ? 'Enviando…' : 'Agenda una reunión →'}
+                    {enviando ? 'Enviando…' : 'Enviar mensaje →'}
                   </button>
                   <p className="note form-legal">
                     Al enviar, guardamos tus datos para poder contactarte. Más detalles en <Link href="/privacidad" onClick={cerrar}>Privacidad</Link>.

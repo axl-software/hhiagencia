@@ -3,14 +3,17 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import Link from 'next/link'
 import {
-  ArrowRight, Building2, CalendarClock, Check, Clock, Gift, GraduationCap, LifeBuoy, ListChecks, Magnet, Megaphone, PenTool,
-  Plug, Puzzle, Rocket, ShoppingCart, Sparkles, Users, Wallet, Workflow, X, type LucideIcon,
+  ArrowRight, Building2, CalendarCheck, CalendarClock, Check, Clock, Gift, GraduationCap, Heart, LayoutDashboard, LifeBuoy, ListChecks, Magnet, Megaphone, MessageCircle, PenTool,
+  Plug, Puzzle, Rocket, ShoppingCart, Sparkles, TrendingUp, Users, Wallet, Workflow, X, type LucideIcon,
 } from 'lucide-react'
 import { CONFIG, type Categoria, type Pack, type Servicio } from '@/lib/config'
 import { medir } from '@/lib/medir'
 import { Kicker, Title, type Level } from './Heading'
 import Orbitas from '../Orbitas'
 import GuiaPlan from '../GuiaPlan'
+import MuestraWeb from './MuestraWeb'
+import { Escena, VENTANAS, rubroDe } from '../portada/sistemasData'
+import m from './Servicios.module.css'
 
 const pad = (n: number) => String(n).padStart(2, '0')
 /* Demo gratuita de los planes web; el plazo se edita en src/lib/config.ts → demoPlazo */
@@ -23,6 +26,7 @@ const ICONOS: Record<string, LucideIcon> = {
   'web-start': Rocket,
   'web-business': Building2,
   'web-pro': ShoppingCart,
+  'hha-systems': LayoutDashboard,
   automatizacion: Workflow,
   integraciones: Plug,
   procesos: ListChecks,
@@ -33,85 +37,28 @@ const ICONOS: Record<string, LucideIcon> = {
   acompanamiento: LifeBuoy,
 }
 
+/* Foto de cada servicio (Unsplash, licencia libre para uso comercial; autores en docs/HHA_TECH_STACK.md).
+   HHA Systems no lleva: sus vistas previas por rubro van debajo. */
+const FOTOS: Record<string, string> = {
+  marketing: '/img/servicios/marketing.webp',
+  captacion: '/img/servicios/captacion.webp',
+  contenido: '/img/servicios/contenido.webp',
+  automatizacion: '/img/servicios/automatizacion.webp',
+  integraciones: '/img/servicios/integraciones.webp',
+  procesos: '/img/servicios/procesos.webp',
+  ia: '/img/servicios/ia.webp',
+  acompanamiento: '/img/servicios/acompanamiento.webp',
+}
+
 /* Ícono de cada problema de los packs */
-const ICONOS_PACK: Record<string, LucideIcon> = { clientes: Users, tiempo: Clock, imagen: Sparkles, herramientas: Puzzle }
+const ICONOS_PACK: Record<string, LucideIcon> = { clientes: Users, tiempo: Clock, imagen: Sparkles, herramientas: Puzzle, reservas: CalendarCheck }
 
 function Icono({ id, size = 22 }: { id: string; size?: number }) {
   const I = ICONOS[id]
   return I ? <I size={size} strokeWidth={1.75} aria-hidden="true" /> : null
 }
 
-/* Dibujo del sitio que se construye en cada plan: crece de Start (una página) a Business (varias
-   secciones y contactos que llegan) y a Pro (tienda conectada con otras herramientas).
-   Colores desde globals.css (.plan-ilus), así cambia con el tema. */
-function PlanIlustracion({ nivel }: { nivel: number }) {
-  const ancho = nivel === 3 ? 214 : 288
-  return (
-    <svg viewBox="0 0 320 150" role="presentation" focusable="false">
-      <rect className="pi-ventana" x="16" y="14" width={ancho} height="124" rx="12" />
-      <circle className="pi-punto" cx="32" cy="30" r="3" />
-      <circle className="pi-punto" cx="42" cy="30" r="3" />
-      <circle className="pi-punto" cx="52" cy="30" r="3" />
-      <rect className="pi-suave" x="64" y="25" width={nivel === 3 ? 70 : 92} height="10" rx="5" />
-      {nivel === 1 && (
-        <>
-          <rect className="pi-texto" x="36" y="56" width="118" height="10" rx="5" />
-          <rect className="pi-suave" x="36" y="74" width="92" height="7" rx="3.5" />
-          <rect className="pi-suave" x="36" y="86" width="70" height="7" rx="3.5" />
-          <rect className="pi-rojo pi-latido" x="36" y="104" width="64" height="18" rx="9" />
-          <rect className="pi-bloque" x="184" y="52" width="104" height="70" rx="9" />
-          <circle className="pi-suave" cx="208" cy="74" r="7" />
-          <path className="pi-suave" d="M196 112l24-22 16 14 12-9 26 17z" />
-        </>
-      )}
-      {nivel === 2 && (
-        <>
-          <rect className="pi-suave" x="196" y="27" width="18" height="6" rx="3" />
-          <rect className="pi-suave" x="220" y="27" width="18" height="6" rx="3" />
-          <rect className="pi-suave" x="244" y="27" width="18" height="6" rx="3" />
-          <rect className="pi-texto" x="36" y="50" width="112" height="9" rx="4.5" />
-          <rect className="pi-suave" x="36" y="65" width="84" height="6" rx="3" />
-          <rect className="pi-rojo" x="36" y="78" width="54" height="14" rx="7" />
-          <rect className="pi-bloque" x="36" y="102" width="74" height="26" rx="6" />
-          <rect className="pi-bloque" x="120" y="102" width="74" height="26" rx="6" />
-          <rect className="pi-bloque" x="204" y="102" width="84" height="26" rx="6" />
-          {/* un contacto nuevo que llega desde la web */}
-          <g className="pi-flota">
-            <rect className="pi-burbuja" x="206" y="46" width="98" height="36" rx="11" />
-            <circle className="pi-rojo" cx="224" cy="64" r="9" />
-            <path className="pi-check" d="M219.5 64.2l3 3 6-6.2" />
-            <rect className="pi-texto-osc" x="240" y="56" width="50" height="6" rx="3" />
-            <rect className="pi-suave-osc" x="240" y="67" width="34" height="5" rx="2.5" />
-          </g>
-        </>
-      )}
-      {nivel === 3 && (
-        <>
-          <circle className="pi-rojo" cx="210" cy="30" r="7" />
-          {[32, 92, 152].map((x, i) => (
-            <g key={x}>
-              <rect className="pi-bloque" x={x} y="48" width="52" height="40" rx="7" />
-              <rect className="pi-suave" x={x} y="95" width="40" height="6" rx="3" />
-              <rect className={i === 1 ? 'pi-rojo' : 'pi-texto'} x={x} y="107" width="24" height="7" rx="3.5" />
-            </g>
-          ))}
-          {/* la tienda conectada con otras herramientas (correo, CRM, pagos) */}
-          {[40, 76, 112].map((y) => (
-            <path key={y} className="pi-flujo" d={`M230 76 C 252 76, 256 ${y}, 278 ${y}`} />
-          ))}
-          <circle className="pi-nodo" cx="290" cy="40" r="12" />
-          <circle className="pi-nodo pi-nodo-rojo" cx="290" cy="76" r="12" />
-          <circle className="pi-nodo" cx="290" cy="112" r="12" />
-          <rect className="pi-suave" x="284" y="36" width="12" height="8" rx="2" />
-          <rect className="pi-blanco" x="284" y="72" width="12" height="8" rx="4" />
-          <circle className="pi-suave" cx="290" cy="112" r="4" />
-        </>
-      )}
-    </svg>
-  )
-}
-
-/* Plan web: dibujo del sitio, para quién es y un botón principal. Al elegirlo, el botón pasa a
+/* Plan web: muestra de la página que se construye, para quién es y un botón principal. Al elegirlo, el botón pasa a
    "Solicita cotización" con la selección (igual que los packs). El recomendado lleva el botón rojo.
    Titulo: el nivel de encabezado que corresponde bajo el de su categoría (sin saltos). */
 function PlanCard({ plan, nivel, elegido, href, toggle, verDetalle, Titulo }: {
@@ -142,7 +89,7 @@ function PlanCard({ plan, nivel, elegido, href, toggle, verDetalle, Titulo }: {
       style={{ '--d': `${(nivel - 1) * 0.08}s` } as CSSProperties}
     >
       {plan.destacado && <span className="plan-badge">RECOMENDADO</span>}
-      <div className="plan-ilus" aria-hidden="true"><PlanIlustracion nivel={nivel} /></div>
+      <div className="plan-ilus" aria-hidden="true"><MuestraWeb id={plan.id} nivel={nivel} /></div>
       <div className="plan-cabeza">
         <Titulo className="plan-nombre">{plan.nombre}</Titulo>
         <span className="plan-nivel" aria-hidden="true">
@@ -194,7 +141,7 @@ function PackCard({ pack, i, picked, href, elegirPack, Titulo }: {
   const completo = pack.servicios.every((id) => picked.has(id))
   const IconoPack = ICONOS_PACK[pack.id]
   return (
-    <article className={`pack brillo${completo ? ' pack-completo' : ''}`} data-reveal style={{ '--d': `${(i % 2) * 0.08}s` } as CSSProperties}>
+    <article className={`pack brillo${completo ? ' pack-completo' : ''}${pack.id === 'reservas' ? ' pack-ancho' : ''}`} data-reveal style={{ '--d': `${(i % 2) * 0.08}s` } as CSSProperties}>
       <div className="pack-cabeza">
         {IconoPack && <span className="pack-ico"><IconoPack size={22} strokeWidth={1.75} aria-hidden="true" /></span>}
         <span className="pack-nombre">PACK {pack.nombre.toUpperCase()}</span>
@@ -289,17 +236,24 @@ export default function Servicios({ as = 'h2', marketing = false }: { as?: Level
 
   return (
     <section className="alt con-deco">
-      <Orbitas lado="derecha" />
+      {!marketing && <Orbitas lado="derecha" />}
       <div className="wrap sec">
         <div className="head-row" data-reveal>
           <div>
             <Kicker>{marketing ? 'MARKETING' : 'SERVICIOS'}</Kicker>
-            <Title as={as}>{marketing ? 'Marketing y captación' : 'Elige por dónde empezar'}</Title>
+            <Title as={as}>{marketing ? 'Servicios de marketing' : 'Elige por dónde empezar'}</Title>
           </div>
           <p className="muted" style={{ maxWidth: 420, margin: 0 }}>
-            Marca lo que te interesa y solicita tu cotización. El valor y los plazos dependen del alcance de tu proyecto: los definimos contigo en la reunión.
+            Marca lo que te interesa y solicita tu cotización. El valor y los plazos dependen del alcance de tu proyecto: los definimos contigo al cotizar.
           </p>
         </div>
+
+        {/* Prueba gratis: visible desde el inicio de la página */}
+        {!marketing && (
+          <Link className={m.demo} href="/prueba-gratis" data-reveal>
+            <i aria-hidden="true" />Prueba gratis {CONFIG.demoPlazo}: primero lo pruebas, si te sirve te quedas <ArrowRight size={15} strokeWidth={2.5} aria-hidden="true" />
+          </Link>
+        )}
 
         {/* 1. Desarrollo web: la tarjeta dice para quién es, con un dibujo del sitio que se construye;
             la explicación va en "Ver qué incluye" */}
@@ -327,21 +281,62 @@ export default function Servicios({ as = 'h2', marketing = false }: { as?: Level
                 <p className="muted" style={{ margin: 0 }}>{c.necesidad}</p>
               </div>
               {c.id === 'marketing' && !marketing ? (
-                <Link className="btn btn-red" href="/marketing">Ver marketing <ArrowRight size={18} aria-hidden="true" /></Link>
+                <Link className={m.mkBanner} href="/marketing" aria-label="Ver marketing y casos reales">
+                  {/* eslint-disable-next-line @next/next/no-img-element -- next/image rompe la vista previa en HTML */}
+                  <img src="/img/ejemplos/marketing.webp" alt="" loading="lazy" decoding="async" width={1000} height={667} />
+                  <span className={m.mkFlota} aria-hidden="true">
+                    <span style={{ '--i': 0 } as CSSProperties}><Heart size={20} strokeWidth={2.25} /></span>
+                    <span style={{ '--i': 1 } as CSSProperties}><TrendingUp size={20} strokeWidth={2.25} /></span>
+                    <span style={{ '--i': 2 } as CSSProperties}><MessageCircle size={20} strokeWidth={2.25} /></span>
+                  </span>
+                  <span className={m.mkTxt}>
+                    <small>MARKETING Y CAPTACIÓN</small>
+                    <strong>Mira el marketing en acción</strong>
+                    <p>Casos reales de contenido y marketing, y los servicios para que más personas te encuentren y te escriban.</p>
+                    <span className={m.mkBoton}>Ver marketing <ArrowRight size={18} strokeWidth={2.25} aria-hidden="true" /></span>
+                  </span>
+                </Link>
               ) : <div className="cat-lista">
                 {serviciosDe(c).map((s) => (
                   <div className="svc-row" key={s.id}>
                     <div className="svc-txt">
-                      <span className="svc-ico"><Icono id={s.id} size={20} /></span>
+                      {FOTOS[s.id] ? (
+                        <span className={m.svcFoto}>
+                          {/* eslint-disable-next-line @next/next/no-img-element -- next/image rompe la vista previa en HTML */}
+                          <img src={FOTOS[s.id]} alt="" loading="lazy" decoding="async" width={800} height={533} />
+                          <i><Icono id={s.id} size={16} /></i>
+                        </span>
+                      ) : (
+                        <span className="svc-ico"><Icono id={s.id} size={20} /></span>
+                      )}
                       <div>
                         <Item className="t">{s.nombre}</Item>
                         <div className="d">{s.desc}</div>
                       </div>
                     </div>
-                    {addBtn(s)}
+                    {/* HHA Systems no se agrega: se prueba gratis o se cotiza desde sus vistas previas */}
+                    {s.id !== 'hha-systems' && addBtn(s)}
                   </div>
                 ))}
               </div>}
+              {c.id === 'sistemas' && (
+                <>
+                  <div className={m.sisPrev}>
+                    {VENTANAS.map((v, n) => (
+                      <Link key={v.id} className={m.mini} href={`/prueba-gratis?rubro=${v.id}`} aria-label={`Probar gratis HHA Systems: ${rubroDe(v.id)?.chip}`}>
+                        <span className={m.miniCara}>
+                          <Escena v={v} retraso={n} compacta />
+                          <span className={m.miniPie}>{rubroDe(v.id)?.chip}<span>Probar gratis <ArrowRight size={14} strokeWidth={2.5} aria-hidden="true" /></span></span>
+                        </span>
+                      </Link>
+                    ))}
+                  </div>
+                  <div className={m.sisCta}>
+                    <p>Vistas de ejemplo con textos de muestra. Tu sistema se diseña con tu marca, tus fotos y tus servicios. Primero lo pruebas {CONFIG.demoPlazo}; si te sirve, te quedas.</p>
+                    <Link className="btn-vivo" href="/prueba-gratis">Crea tu prueba gratis <ArrowRight size={18} strokeWidth={2.25} aria-hidden="true" /></Link>
+                  </div>
+                </>
+              )}
             </div>
           ))}
         </div>
@@ -411,7 +406,7 @@ export default function Servicios({ as = 'h2', marketing = false }: { as?: Level
                 </ul>
               </>
             )}
-            <p className="note"><strong>Plazo de entrega:</strong> se define en la reunión según el alcance de tu proyecto, igual que el valor.</p>
+            <p className="note"><strong>Plazo de entrega:</strong> se define contigo al cotizar, según el alcance de tu proyecto, igual que el valor.</p>
             <div className="modal-acciones">
               <button type="button" className="btn btn-red" onClick={() => toggle(detalle.id)} aria-pressed={picked.has(detalle.id)}>
                 {picked.has(detalle.id) ? '✓ Plan elegido' : 'Elegir este plan'}

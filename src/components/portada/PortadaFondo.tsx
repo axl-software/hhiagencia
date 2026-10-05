@@ -2,17 +2,16 @@
 
 import { useEffect, useRef, useState, useSyncExternalStore, type CSSProperties } from 'react'
 import { leerTema, suscribirTema } from '@/lib/tema'
-import s from './HeroOrbita.module.css'
+import s from './Portada.module.css'
 
-/* Fondo del lado derecho de la portada, debajo de las órbitas: el video del notebook (6 s en bucle,
-   sin audio) en pantallas grandes, y su primer cuadro como imagen fija mientras carga, si falla,
-   en tablet/celular o con "reducir movimiento". Es una sola capa: el video aparece encima de la
-   imagen (que es idéntica a su primer cuadro) y la cubre por completo.
-   Hay una versión para cada tema: la oscura (escena nocturna) y la clara (la misma escena en tonos
-   crema, con el rojo de marca solo en la pantalla). La imagen fija la elige el CSS según el tema, así se
-   descarga solo la que corresponde y no hay parpadeo; el video lo elige este componente.
+/* Fondo de la portada, a todo el ancho: el video del teclado (6 s en bucle, sin audio) en pantallas
+   grandes, y su primer cuadro como imagen fija mientras carga, si falla, en tablet/celular o con
+   "reducir movimiento". Es una sola capa: el video aparece encima de la imagen (idéntica a su primer
+   cuadro) y la cubre por completo.
+   Hay una versión para cada tema (oscura, y clara en tonos crema). La imagen fija la elige el CSS según
+   el tema, así se descarga solo la que corresponde; el video lo elige este componente.
    El video se pide recién cuando la página terminó de cargar, para no retrasar el texto ni los botones,
-   y se pausa cuando la portada sale de la pantalla. Tratamiento en HeroOrbita.module.css. */
+   y se pausa cuando la portada sale de la pantalla. Tratamiento en Portada.module.css. */
 
 const IMAGENES = {
   '--fondo-oscuro': 'url("/img/hero/fondo.webp")',
@@ -31,7 +30,7 @@ const suscribir = (aviso: () => void) => {
 }
 const quiereVideo = () => window.matchMedia(CON_VIDEO).matches && !ahorroDeDatos()
 
-export default function HeroFondo() {
+export default function PortadaFondo() {
   const permitido = useSyncExternalStore(suscribir, quiereVideo, () => false)
   const tema = useSyncExternalStore(suscribirTema, leerTema, () => null)
   const [cargada, setCargada] = useState(false)
@@ -65,30 +64,26 @@ export default function HeroFondo() {
   }, [mostrar, tema])
 
   return (
-    <>
-      <div className={s.fondo} aria-hidden="true" style={IMAGENES}>
-        <div className={`${s.fondoMedio} ${s.fondoFoto}`} />
-        {mostrar && (
-          <video
-            key={tema}
-            ref={video}
-            className={`${s.fondoMedio} ${s.fondoVideo}`}
-            src={VIDEO[tema]}
-            muted
-            autoPlay
-            loop
-            playsInline
-            preload="auto"
-            disablePictureInPicture
-            disableRemotePlayback
-            tabIndex={-1}
-            /* aparece cuando ya se está reproduciendo; si falla, queda la imagen */
-            onPlaying={(e) => { e.currentTarget.dataset.listo = '' }}
-          />
-        )}
-      </div>
-      {/* Transparencia: la escena es generada con IA (no es un cliente ni una foto real del equipo) */}
-      <span className={s.fondoNota}>Escena generada con IA</span>
-    </>
+    <div className={s.fondo} aria-hidden="true" style={IMAGENES}>
+      <div className={`${s.fondoMedio} ${s.fondoFoto}`} />
+      {mostrar && (
+        <video
+          key={tema}
+          ref={video}
+          className={`${s.fondoMedio} ${s.fondoVideo}`}
+          src={VIDEO[tema]}
+          muted
+          autoPlay
+          loop
+          playsInline
+          preload="auto"
+          disablePictureInPicture
+          disableRemotePlayback
+          tabIndex={-1}
+          /* aparece cuando ya se está reproduciendo; si falla, queda la imagen */
+          onPlaying={(e) => { e.currentTarget.dataset.listo = '' }}
+        />
+      )}
+    </div>
   )
 }

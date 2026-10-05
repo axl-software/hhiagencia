@@ -44,7 +44,7 @@ function Portada({ caso }: { caso: Caso }) {
   )
 }
 
-export default function Casos({ as = 'h2' }: { as?: Level }) {
+export default function Casos({ as = 'h2', kicker = 'TRABAJO REAL', encabezado = 'Proyectos' }: { as?: Level; kicker?: string; encabezado?: string }) {
   /* El nombre de cada proyecto es un encabezado, un nivel bajo el título de la sección: así se puede
      saltar de un proyecto a otro con lector de pantalla. La clase .card-t mantiene el mismo aspecto. */
   const Nombre = as === 'h1' ? 'h2' : 'h3'
@@ -101,8 +101,8 @@ export default function Casos({ as = 'h2' }: { as?: Level }) {
       <div className="wrap sec">
         <div className="head-row" data-reveal>
           <div>
-            <Kicker>TRABAJO REAL</Kicker>
-            <Title as={as}>Proyectos</Title>
+            <Kicker>{kicker}</Kicker>
+            <Title as={as}>{encabezado}</Title>
           </div>
           {CONFIG.casos.length > 3 && (
             <div className="chips" role="group" aria-label="Filtrar casos">

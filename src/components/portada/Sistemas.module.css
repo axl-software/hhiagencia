@@ -1,0 +1,165 @@
+/* =========================================================
+   HHA SYSTEMS — sección azul noche con brillo rojo (colores fijos de marca, iguales en los dos temas, para
+   que todo el texto se lea siempre). Cinco tarjetas: foto del rubro y, encima, una ventanita de ejemplo
+   que sube desde abajo. Los colores, formas y tipografía de cada ventana viven en las variables --v-* de su
+   rubro (v_barberia, etc.); la ventana es una ilustración, por eso su color no cambia con el tema.
+   Al bajar: la cabecera y las tarjetas aparecen con escala y desenfoque, las filas de cada ventana entran
+   una tras otra y la foto se desplaza con el scroll (efecto de profundidad).
+   ========================================================= */
+.sistemas {
+  --s-tx: #f8fafc;
+  --s-tx2: #aeb8cb;
+  --s-rojo: #eb4b5f;
+  --s-linea: rgba(148, 163, 184, 0.24);
+  scroll-margin-top: 80px;
+  position: relative;
+  overflow: hidden;
+  color: var(--s-tx);
+  background:
+    radial-gradient(70% 55% at 92% 0%, rgba(215, 38, 61, 0.32), transparent 65%),
+    radial-gradient(60% 50% at 0% 100%, rgba(215, 38, 61, 0.16), transparent 70%),
+    linear-gradient(180deg, #0b1020 0%, #070a14 100%);
+}
+.interior { padding-top: clamp(72px, 9vw, 130px); padding-bottom: clamp(72px, 9vw, 130px); }
+
+/* ---------- cabecera ---------- */
+.cabecera { max-width: 860px; margin-bottom: clamp(40px, 5vw, 64px); }
+.marca { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; margin-bottom: 20px; }
+.kicker {
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--s-rojo);
+}
+.kicker::before { content: ''; display: inline-block; width: 20px; height: 2px; margin-right: 10px; vertical-align: middle; background: var(--red); }
+.por { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.8px; color: var(--s-tx2); }
+.titulo {
+  margin: 0 0 18px;
+  font-family: var(--f-impact);
+  font-weight: 400;
+  font-size: clamp(32px, 4.8vw, 62px);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  color: var(--s-tx);
+  text-wrap: balance;
+}
+.titulo em { font-style: normal; color: var(--s-rojo); }
+.lead { margin: 0 0 24px; max-width: 700px; font-size: 18px; line-height: 1.65; color: var(--s-tx2); }
+.pilares { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+.pilares li {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 16px;
+  border: 1px solid var(--s-linea);
+  border-radius: 999px;
+  background: rgba(248, 250, 252, 0.05);
+  font-family: var(--f-head);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--s-tx);
+}
+.pilares li::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--red); }
+.pilares li.gratis { border-color: var(--red); background: var(--red); }
+.pilares li.gratis::before { background: #f8fafc; }
+
+/* ---------- tarjetas ---------- */
+.rejilla { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+.tarjeta {
+  min-width: 0;
+  perspective: 1100px;
+  /* aparición propia (más marcada que la general): sube, crece y se enfoca */
+  transition: opacity 0.9s ease var(--d, 0s), transform 1.1s cubic-bezier(0.16, 1, 0.3, 1) var(--d, 0s),
+    filter 0.9s ease var(--d, 0s);
+}
+.tarjeta:global(.reveal-pending) { opacity: 0; translate: none; scale: none; transform: translateY(90px) scale(0.92); filter: blur(14px); }
+/* la cara se levanta y se inclina en 3D al pasar el cursor o al enfocarla con el teclado */
+.cara {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  border: 1px solid var(--s-linea);
+  background: #0b1020;
+  transform: translateY(var(--ty, 0px)) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transform-style: preserve-3d;
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s ease, border-color 0.25s ease;
+  will-change: transform;
+}
+.cara:hover, .cara:focus-within {
+  --ty: -14px;
+  border-color: rgba(248, 250, 252, 0.5);
+  box-shadow: 0 46px 70px -30px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(215, 38, 61, 0.55), 0 30px 60px -34px rgba(215, 38, 61, 0.5);
+}
+
+.texto { display: flex; flex-direction: column; gap: 12px; padding: 22px 22px 24px; flex: 1; }
+.tituloTarjeta { margin: 0; font-family: var(--f-head); font-weight: 600; font-size: 21px; line-height: 1.25; letter-spacing: -0.01em; color: var(--s-tx); }
+.texto p { margin: 0; font-size: 14.5px; line-height: 1.6; color: var(--s-tx2); flex: 1; }
+.tags { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.tags li {
+  padding: 4px 10px;
+  border: 1px solid var(--s-linea);
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.4px;
+  color: var(--s-tx2);
+}
+.incluye {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  margin-top: 2px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--s-tx);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: var(--red);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+}
+.incluye svg { transition: translate 0.25s ease; }
+.incluye:hover svg { translate: 5px 0; }
+.incluye:focus-visible { outline: 2px solid var(--s-tx); outline-offset: 4px; }
+
+.acciones { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 16px; }
+.probar {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 0 14px;
+  background: var(--red);
+  color: #f8fafc;
+  font-size: 13.5px;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 3px 0 var(--rojo-hondo);
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+}
+.probar:hover { color: #f8fafc; transform: translateY(-3px); box-shadow: 0 6px 0 var(--rojo-hondo); }
+.probar:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--rojo-hondo); }
+.probar:focus-visible { outline: 2px solid var(--s-tx); outline-offset: 4px; }
+
+/* ---------- pie ---------- */
+.pie { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px 32px; margin-top: clamp(32px, 4vw, 52px); }
+.pie p { margin: 0; max-width: 520px; font-size: 14px; line-height: 1.6; color: var(--s-tx2); }
+
+@media (max-width: 1000px) {
+  .rejilla { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
+  .rejilla { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tarjeta, .cara, .probar { transition: none; }
+  .cara:hover, .cara:focus-within { --ty: 0px; }
+  .tarjeta:global(.reveal-pending) { transform: none; filter: none; opacity: 1; }
+}

@@ -236,17 +236,17 @@ function Conversion() {
 }
 
 function Tiempo() {
-  const marcas = Array.from({ length: 12 }, (_, i) => {
-    const a = (i * Math.PI) / 6
-    return <line key={i} className="mt-marca" x1={62 + 24 * Math.cos(a)} y1={40 + 24 * Math.sin(a)} x2={62 + 28 * Math.cos(a)} y2={40 + 28 * Math.sin(a)} />
-  })
+  /* Reloj de arena: la arena cae de arriba hacia abajo y, al terminar, se da vuelta y vuelve a empezar */
   return (
     <>
-      <circle className="pi-ventana" cx="62" cy="40" r="32" />
-      {marcas}
-      <line className="mt-aguja mt-aguja-larga" x1="62" y1="40" x2="62" y2="18" />
-      <line className="mt-aguja mt-aguja-corta" x1="62" y1="40" x2="76" y2="40" />
-      <circle className="pi-rojo" cx="62" cy="40" r="3.2" />
+      <g className="hg-todo">
+        <path className="hg-vidrio" d="M47 13h30c0 12-6 20-13 26v2c7 6 13 14 13 26H47c0-12 6-20 13-26v-2c-7-6-13-14-13-26z" />
+        <path className="hg-arena hg-arena-arriba" d="M50 15h24c-1 8-5 14-10 19h-4c-5-5-9-11-10-19z" />
+        <path className="hg-arena hg-arena-abajo" d="M58 46h8l10 20H48z" />
+        <line className="hg-hilo" x1="62" y1="38" x2="62" y2="66" />
+        <rect className="hg-tapa" x="42" y="8" width="40" height="5" rx="2.5" />
+        <rect className="hg-tapa" x="42" y="67" width="40" height="5" rx="2.5" />
+      </g>
       <path className="pi-suave mt-engrane" d={engrane(132, 40, 20, 9)} />
       <circle className="pi-ventana" cx="132" cy="40" r="7" />
       <path className="pi-rojo mt-rayo" d="M168 18l-12 24h9l-5 20 14-27h-9l6-17z" />

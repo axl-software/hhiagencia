@@ -1,0 +1,217 @@
+/* =========================================================
+   PORTADA — paleta y tipografías de docs/HHA_DESIGN_SYSTEM.md (variables de globals.css).
+   El video ocupa todo el ancho; un velo con los colores de la página (--bg) lo funde por la izquierda
+   (donde va el texto) y por abajo (donde empieza la franja), así cambia solo con el tema.
+   ========================================================= */
+
+.hero {
+  position: relative;
+  min-height: calc(100vh - 80px);
+  min-height: calc(100svh - 80px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  color: var(--tx);
+  font-family: var(--f-body);
+  background: var(--bg);
+}
+
+/* ---------- fondo (PortadaFondo.tsx) ---------- */
+.fondo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.fondoMedio {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 68% 50%;
+}
+/* imagen fija: el tema elige el archivo (solo se descarga el que corresponde) */
+.fondoFoto { background: var(--fondo-oscuro) 68% 50% / cover no-repeat; }
+:global(:root[data-theme='light']) .fondoFoto { background-image: var(--fondo-claro); }
+/* el video aparece sobre la imagen recién cuando ya se reproduce (son el mismo cuadro) */
+.fondoVideo { opacity: 0; transition: opacity 0.8s ease; }
+.fondoVideo[data-listo] { opacity: 1; }
+/* velo: más cerrado a la izquierda (texto) y se abre hacia el notebook; abajo se funde con la página */
+.fondo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, transparent 74%, var(--bg) 100%),
+    linear-gradient(90deg,
+      color-mix(in srgb, var(--bg) 96%, transparent) 0%,
+      color-mix(in srgb, var(--bg) 84%, transparent) 30%,
+      color-mix(in srgb, var(--bg) 30%, transparent) 58%,
+      transparent 82%);
+}
+
+/* ---------- cuerpo ---------- */
+.main {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 40px 64px;
+  max-width: 1920px;
+  width: 100%;
+  margin: 0 auto;
+}
+.contenido {
+  flex: 0 1 780px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 26px;
+}
+
+/* etiqueta con el hook de marca */
+.pastilla {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px;
+  border: 1px solid var(--line3);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--bg2) 70%, transparent);
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--tx);
+}
+.punto { width: 7px; height: 7px; border-radius: 50%; background: var(--red); }
+.pastillaRoja { color: var(--rojo-txt); font-weight: 500; }
+
+/* Todas las variantes ocupan la misma celda: la altura es la de la más alta y nada se mueve al rotar */
+.pila { display: grid; }
+.variante {
+  grid-area: 1 / 1;
+  visibility: hidden;
+  opacity: 0;
+}
+.variante.on {
+  visibility: visible;
+  opacity: 1;
+  animation: entra 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes entra {
+  from { opacity: 0; translate: 0 12px; }
+  to { opacity: 1; translate: 0 0; }
+}
+
+.h1 {
+  margin: 0;
+  font-family: var(--f-impact);
+  font-weight: 400;
+  font-size: clamp(34px, 5.4vw, 80px);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.h1 em { font-style: normal; color: var(--red); }
+
+/* botones de rubro */
+.rubros { display: flex; flex-wrap: wrap; gap: 10px; }
+.rubro {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1.5px solid var(--line3);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--bg) 60%, transparent);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  color: var(--tx);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+.rubro:hover { border-color: var(--tx); }
+.rubro[aria-pressed='true'] { background: var(--red); border-color: var(--red); color: var(--on-red); }
+.rubro:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
+
+.lead {
+  max-width: 560px;
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--tx2);
+}
+.lead p { margin: 0; }
+
+.ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
+
+/* ---------- franja inferior (estática) ---------- */
+.strip {
+  position: relative;
+  z-index: 3;
+  background: var(--bg);
+  list-style: none;
+  margin: 0;
+  padding: 22px 64px 32px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 24px;
+  border-top: 1px solid var(--line);
+}
+.strip li {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--f-head);
+  font-weight: 500;
+  font-size: 15px;
+  color: var(--tx2);
+  white-space: nowrap;
+}
+.strip li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--red); }
+
+/* ---------- al bajar: el fondo se aleja y el texto sube y se desvanece (solo navegadores que lo permiten) ---------- */
+@supports (animation-timeline: view()) {
+  .fondo { animation: fondoSale linear both; animation-timeline: view(); animation-range: exit 0% exit 100%; }
+  .contenido { animation: textoSale linear both; animation-timeline: view(); animation-range: exit 0% exit 65%; }
+  @keyframes fondoSale { to { transform: translateY(10%) scale(1.07); opacity: 0.4; } }
+  @keyframes textoSale { to { transform: translateY(-48px); opacity: 0; } }
+}
+
+/* ---------- tablet y celular: solo la imagen fija, con el texto encima ---------- */
+@media (max-width: 1024px) {
+  .fondoFoto { background-image: var(--fondo-oscuro-chico); background-position: 66% 50%; }
+  :global(:root[data-theme='light']) .fondoFoto { background-image: var(--fondo-claro-chico); }
+  .fondo::after {
+    background: linear-gradient(180deg,
+      color-mix(in srgb, var(--bg) 88%, transparent) 0%,
+      color-mix(in srgb, var(--bg) 62%, transparent) 42%,
+      color-mix(in srgb, var(--bg) 78%, transparent) 76%,
+      var(--bg) 100%);
+  }
+  .main { padding: 48px 32px 40px; }
+  .contenido { flex: 1 1 auto; }
+  .strip { padding: 20px 32px 28px; }
+}
+@media (max-width: 640px) {
+  .main { padding: 36px 20px 32px; }
+  .contenido { gap: 22px; }
+  .lead { font-size: 16px; }
+  .rubro { padding: 0 14px; min-height: 42px; }
+  .strip { padding: 18px 20px 24px; gap: 8px 20px; }
+  .strip li { font-size: 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero, .hero *, .hero *::before, .hero *::after { animation: none !important; transition: none !important; }
+}

@@ -1,0 +1,246 @@
+/* =========================================================
+   Escena de un rubro de HHA Systems: foto del negocio de fondo (bien visible) y encima la "ventanita" de
+   ejemplo del sistema, que sube desde abajo. La usan el inicio (Sistemas.tsx) y la página Servicios.
+   Los colores, formas y tipografía de cada ventana viven en las variables --v-* de su rubro (v_barberia, etc.);
+   la ventana es una ilustración, por eso su color no cambia con el tono de la página.
+   Al bajar: las filas de cada ventana entran una tras otra y la foto se desplaza con el scroll.
+   ========================================================= */
+.escenario {
+  --e-min: 500px;
+  --e-top: 210px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: var(--e-min);
+  padding: 0 18px;
+  overflow: hidden;
+  background: #05070a;
+  color: #f8fafc;
+}
+/* la foto va arriba, entera y bien visible (casi sin recorte); la ventana la tapa solo en los últimos píxeles */
+.foto {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(var(--e-top) + 56px);
+  object-fit: cover;
+  filter: saturate(1.08) contrast(1.04) brightness(1.06);
+}
+/* varias fotos (óptica y dentista): se turnan con un fundido cada 6 segundos */
+.rota { animation: rotaFoto 12s ease-in-out infinite; }
+@keyframes rotaFoto { 0%, 40% { opacity: 1; } 50%, 90% { opacity: 0; } 100% { opacity: 1; } }
+/* velo suave solo arriba, para leer la etiqueta */
+.velo {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(5, 7, 10, 0.55) 0%, rgba(5, 7, 10, 0) 28%);
+}
+.cabeza {
+  position: absolute;
+  z-index: 3;
+  top: 14px;
+  left: 16px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.etiqueta {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 11px;
+  background: var(--red);
+  color: #f8fafc;
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+.ejemplo {
+  padding: 4px 9px;
+  background: rgba(5, 7, 10, 0.6);
+  font-family: var(--f-mono);
+  font-size: 10.5px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #f8fafc;
+}
+
+/* aviso que aparece y se va, como una notificación del sistema (le da vida a la escena) */
+.aviso {
+  position: absolute;
+  z-index: 3;
+  top: 54px;
+  right: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: calc(100% - 32px);
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(248, 250, 252, 0.96);
+  color: #0b1020;
+  font-size: 11.5px;
+  font-weight: 700;
+  box-shadow: 0 10px 28px -8px rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  animation: avisoVa 9s ease-in-out infinite;
+  animation-delay: var(--aviso-delay, 2s);
+  pointer-events: none;
+}
+.aviso i { flex: none; width: 8px; height: 8px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6); animation: latido 1.6s ease-out infinite; }
+@keyframes avisoVa {
+  0%, 6% { opacity: 0; transform: translateY(-14px) scale(0.92); }
+  12%, 40% { opacity: 1; transform: none; }
+  48%, 100% { opacity: 0; transform: translateY(-8px) scale(0.96); }
+}
+@keyframes latido {
+  0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6); }
+  70%, 100% { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
+}
+
+/* ---------- ventana ---------- */
+.ventana {
+  --v-bg: #0b1020;
+  --v-bar: #05070a;
+  --v-tx: #f8fafc;
+  --v-mut: #94a3b8;
+  --v-card: #141c33;
+  --v-line: rgba(148, 163, 184, 0.3);
+  --v-ac: #d7263d;
+  --v-on: #f8fafc;
+  --v-r: 6px;
+  --v-r2: 2px;
+  --v-font: var(--f-body);
+  position: relative;
+  z-index: 2;
+  margin-top: var(--e-top);
+  overflow: hidden;
+  border-radius: var(--v-r) var(--v-r) 0 0;
+  background: var(--v-bg);
+  color: var(--v-tx);
+  font-family: var(--v-font);
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.45);
+  pointer-events: none;
+  user-select: none;
+}
+.barra { display: flex; align-items: center; gap: 5px; height: 30px; padding: 0 12px; background: var(--v-bar); }
+.barra i { width: 7px; height: 7px; border-radius: 50%; background: var(--v-mut); opacity: 0.45; }
+.barra span { margin-left: auto; font-size: 11px; font-weight: 600; letter-spacing: 0.3px; color: var(--v-tx); }
+.cuerpo { display: grid; gap: 10px; padding: 14px 14px 18px; }
+/* cada fila de la ventana entra una tras otra cuando la tarjeta aparece */
+.fila {
+  transition: opacity 0.6s ease calc(0.5s + var(--k, 0) * 0.11s), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) calc(0.5s + var(--k, 0) * 0.11s);
+}
+:global(.reveal-pending) .fila { opacity: 0; transform: translateY(22px); }
+
+.servicios { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.servicios li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 10px;
+  border: 1px solid transparent;
+  border-radius: var(--v-r2);
+  background: var(--v-card);
+  font-size: 12px;
+  font-weight: 600;
+}
+.servicios li[data-sel] { border-color: var(--v-ac); }
+.servicios small { display: block; margin-top: 1px; font-size: 10.5px; font-weight: 400; color: var(--v-mut); }
+.servicios svg { flex: none; color: var(--v-ac); }
+
+.dias { display: flex; gap: 6px; }
+.dias span { flex: 1; padding: 6px 0; border-radius: var(--v-r2); background: var(--v-card); text-align: center; font-size: 11px; font-weight: 600; }
+.dias span[data-sel] { background: var(--v-ac); color: var(--v-on); }
+
+.horas { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+.hora {
+  padding: 6px 0;
+  border: 1px solid var(--v-line);
+  border-radius: var(--v-r2);
+  text-align: center;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  animation: horaSel 8s linear infinite;
+  animation-delay: calc(var(--i) * 2s);
+}
+@keyframes horaSel {
+  0%, 24% { background: var(--v-ac); color: var(--v-on); border-color: var(--v-ac); }
+  25%, 100% { background: transparent; color: var(--v-tx); border-color: var(--v-line); }
+}
+
+.boton { display: block; padding: 9px 0; border-radius: var(--v-r2); background: var(--v-ac); color: var(--v-on); text-align: center; font-size: 12px; font-weight: 700; letter-spacing: 0.2px; animation: botonLate 4s ease-in-out infinite; }
+@keyframes botonLate { 0%, 70%, 100% { filter: none; } 80% { filter: brightness(1.18); } }
+
+.staff { display: flex; gap: 12px; }
+.persona { display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11px; font-weight: 600; }
+.persona i { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--v-card); font-style: normal; font-size: 14px; }
+.persona[data-sel] i { background: var(--v-ac); color: var(--v-on); }
+
+.galeria { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 5px; }
+.galeria span { height: 40px; background: repeating-linear-gradient(135deg, transparent 0 6px, var(--v-line) 6px 7px), var(--v-card); }
+.galeria span:nth-child(2n) { background: var(--v-card); border: 1px solid var(--v-line); }
+.galeria span:nth-child(3) { background: var(--v-ac); }
+
+.productos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.productos span { display: flex; flex-direction: column; align-items: center; gap: 5px; font-size: 10.5px; font-weight: 600; text-align: center; }
+.productos i { display: block; width: 100%; height: 46px; border: 1px solid var(--v-line); border-radius: var(--v-r2); background: var(--v-card); }
+
+/* ---------- una cara distinta para cada rubro ---------- */
+/* barbería y peluquería: azul noche y rojo, esquinas casi rectas (los valores de base de .ventana) */
+.v_barberia .ventana { --v-r: 6px; --v-r2: 2px; }
+.v_estetica .ventana {
+  --v-bg: #f5efe6; --v-bar: #e9e2d5; --v-tx: #0b1020; --v-mut: #5c5d64; --v-card: #ffffff;
+  --v-line: rgba(11, 16, 32, 0.16); --v-ac: #d7263d; --v-on: #ffffff;
+  --v-r: 22px; --v-r2: 999px; --v-font: var(--f-head);
+}
+.v_tatuajes .ventana {
+  --v-bg: #05070a; --v-bar: #000000; --v-tx: #f8fafc; --v-mut: #94a3b8; --v-card: #12161f;
+  --v-line: rgba(248, 250, 252, 0.3); --v-ac: #f8fafc; --v-on: #05070a;
+  --v-r: 0; --v-r2: 0; --v-font: var(--f-mono);
+}
+.v_tatuajes .barra span, .v_tatuajes .boton, .v_tatuajes .servicios li { text-transform: uppercase; letter-spacing: 0.8px; }
+.v_optica .ventana {
+  --v-bg: #eef4f8; --v-bar: #dbe6ee; --v-tx: #0b1020; --v-mut: #64748b; --v-card: #ffffff;
+  --v-line: rgba(11, 16, 32, 0.18); --v-ac: #0f766e; --v-on: #f8fafc;
+  --v-r: 10px; --v-r2: 6px; --v-font: var(--f-head);
+}
+.v_wellness .ventana {
+  --v-bg: #e9e2d5; --v-bar: #ddd5c5; --v-tx: #0b1020; --v-mut: #5c5d64; --v-card: #f1ece2;
+  --v-line: rgba(11, 16, 32, 0.18); --v-ac: #0b1020; --v-on: #f8fafc;
+  --v-r: 28px; --v-r2: 16px;
+}
+
+/* ---------- profundidad con el scroll (solo navegadores que lo permiten) ---------- */
+@supports (animation-timeline: view()) {
+  .foto:not(.rota) {
+    animation: paralaje linear both;
+    animation-timeline: view();
+    animation-range: entry 0% exit 100%;
+  }
+  @keyframes paralaje {
+    from { transform: scale(1.14); }
+    to { transform: scale(1); }
+  }
+}
+
+@media (max-width: 640px) {
+  .escenario { --e-min: 470px; --e-top: 200px; }
+}
+
+/* mientras la tarjeta no se ha revelado, la animación espera; con "reducir movimiento" todo queda quieto */
+:global(.reveal-pending) .hora { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  .hora, .boton, .aviso, .aviso i { animation: none; }
+  .aviso { opacity: 1; }
+  .hora:nth-child(2) { background: var(--v-ac); color: var(--v-on); border-color: var(--v-ac); }
+  .foto { animation: none; }
+  .rota + .rota { display: none; }
+  .fila { transition: none; }
+  :global(.reveal-pending) .fila { opacity: 1; transform: none; }
+}

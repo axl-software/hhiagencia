@@ -3,7 +3,7 @@ export const NAV = [
   { label: 'Servicios', href: '/servicios' },
   { label: 'Marketing', href: '/marketing' },
   { label: 'Proceso', href: '/como-trabajamos' },
-  { label: 'Proyectos', href: '/proyectos' },
+  { label: 'Prueba gratis', href: '/prueba-gratis' },
   { label: 'Contacto', href: '/contacto' },
 ] as const
 

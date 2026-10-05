@@ -3,13 +3,16 @@ import { ArrowRight } from 'lucide-react'
 import { CONFIG, type Cierre } from '@/lib/config'
 import Orbitas from '../Orbitas'
 
-/* Banda de cierre (roja en oscuro, azul noche en claro). Frase, botón y destino de cada página
-   en src/lib/config.ts → hooks. */
-export default function CtaBanda({ cierre = CONFIG.hooks.inicio }: { cierre?: Cierre }) {
+/* Banda de cierre (roja en las páginas oscuras, azul noche en las claras). Frase, botón y destino de cada página
+   en src/lib/config.ts → hooks. El botón es blanco en relieve (3D). */
+export default function CtaBanda({ cierre = CONFIG.hooks.inicio, logo = 'derecha' }: { cierre?: Cierre; logo?: 'derecha' | 'izquierda' | 'centro' | 'arriba' }) {
   const { kicker, titulo, boton, href } = cierre
   return (
     <section className="cta con-deco">
       <Orbitas lado="derecha" clara />
+      {/* HH grande y translúcido de fondo; cada página lo pone en un lugar distinto */}
+      {/* eslint-disable-next-line @next/next/no-img-element -- decorativo; next/image rompe la vista previa en HTML */}
+      <img className={`cta-logo cta-logo-${logo}`} src="/brand/hh-logo-blanco.png" alt="" aria-hidden="true" width={480} height={299} />
       <div className="wrap" data-reveal>
         <div className="cta-txt">
           <span className="cta-kicker">{kicker}</span>

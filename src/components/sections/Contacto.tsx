@@ -168,9 +168,9 @@ export default function Contacto({ as = 'h2' }: { as?: Level }) {
           <label>Sitio web<input name="sitio" tabIndex={-1} autoComplete="off" /></label>
         </div>
         {error && <AvisoFalta falta={error} form={formRef} id={AVISO} />}
-        {/* El botón sigue la intención: con servicios elegidos pide cotización; sin ellos, una reunión */}
+        {/* El botón sigue la intención: con servicios elegidos pide cotización; sin ellos, un mensaje general */}
         <button className="btn-vivo contacto-enviar" type="submit" disabled={enviando} aria-busy={enviando || undefined}>
-          {enviando ? 'Enviando…' : sel.length ? 'Solicita cotización →' : 'Agenda una reunión →'}
+          {enviando ? 'Enviando…' : sel.length ? 'Solicita cotización →' : 'Enviar mensaje →'}
         </button>
         <p className="note form-legal">
           Al enviar, guardamos tus datos para poder contactarte. Más detalles en <Link href="/privacidad">Privacidad</Link>.

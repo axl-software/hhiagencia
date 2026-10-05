@@ -1,0 +1,77 @@
+/* "Elige lo que necesitas": cuatro tarjetas, una por categoría de servicios. */
+.rejilla {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+.tarjeta {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0 24px 22px;
+  border: 1px solid var(--line2);
+  background: var(--bg2);
+  color: var(--tx);
+  transition: border-color 0.25s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.tarjeta:hover, .tarjeta:focus-within { border-color: var(--red); }
+.tarjeta:hover { transform: translateY(-4px); }
+/* el enlace del título cubre toda la tarjeta */
+.enlace { color: inherit; text-decoration: none; }
+.enlace::after { content: ''; position: absolute; inset: 0; }
+.enlace:focus-visible { outline: none; }
+.tarjeta:has(.enlace:focus-visible) { outline: 2px solid var(--red); outline-offset: 3px; }
+
+.foto { position: relative; margin: 0 -24px 14px; aspect-ratio: 16 / 10; }
+.recorte { position: absolute; inset: 0; overflow: hidden; background: var(--bg); }
+.foto img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+.tarjeta:hover .foto img { transform: scale(1.05); }
+.foto .icono { position: absolute; left: 24px; bottom: -23px; }
+.tarjeta .nombre { margin-top: 18px; }
+.icono {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  background: var(--red);
+  color: var(--on-red);
+}
+.nombre { margin: 0; font-family: var(--f-head); font-weight: 600; font-size: 22px; line-height: 1.2; letter-spacing: -0.01em; color: var(--tx); }
+.texto { margin: 0; color: var(--tx2); font-size: 15px; line-height: 1.6; flex: 1; }
+.tags { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.tags li {
+  padding: 4px 10px;
+  border: 1px solid var(--line3);
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.4px;
+  color: var(--tx2);
+}
+/* HHA Systems dentro de Desarrollo web: etiqueta roja y enlace propio (por encima del enlace de la tarjeta) */
+.tags li.tagSistema { position: relative; z-index: 1; padding: 0; border-color: var(--red); background: var(--red); }
+.tags li.tagSistema a { display: block; padding: 4px 10px; color: var(--on-red); text-decoration: none; }
+.tags li.tagSistema:hover { background: transparent; }
+.tags li.tagSistema:hover a { color: var(--tx); }
+.ver {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--tx);
+}
+.ver svg { transition: translate 0.25s ease; }
+.tarjeta:hover .ver svg { translate: 5px 0; }
+
+@media (max-width: 1100px) {
+  .rejilla { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 600px) {
+  .rejilla { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tarjeta, .ver svg { transition: none; }
+  .tarjeta:hover { transform: none; }
+}

@@ -1,7 +1,9 @@
 import type { Metadata } from 'next'
-import HeroOrbita from '@/components/HeroOrbita'
-import Postura from '@/components/sections/Postura'
-import Metodo from '@/components/sections/Metodo'
+import Portada from '@/components/portada/Portada'
+import Soluciones from '@/components/portada/Soluciones'
+import Sistemas from '@/components/portada/Sistemas'
+import Diferencia from '@/components/portada/Diferencia'
+import Acompanamiento from '@/components/portada/Acompanamiento'
 import Nosotros from '@/components/sections/Nosotros'
 import Equipo from '@/components/sections/Equipo'
 import CtaBanda from '@/components/sections/CtaBanda'
@@ -11,16 +13,19 @@ export const metadata: Metadata = {
   alternates: { canonical: '/' },
 }
 
-/* Inicio: portada, por qué HHA, método, nosotros, equipo y CTA. */
+/* Inicio: portada con video, servicios, HHA Systems, por qué HHA, acompañamiento, equipo, nosotros y CTA.
+   (El método ya no va aquí: está en /como-trabajamos.) */
 export default function Inicio() {
   return (
     <>
-      <HeroOrbita />
-      <Postura />
-      <Metodo alt />
-      <Nosotros />
+      <Portada />
+      <Soluciones />
+      <Sistemas />
+      <Diferencia />
+      <Acompanamiento />
       <Equipo />
-      <CtaBanda cierre={CONFIG.hooks.inicio} />
+      <Nosotros />
+      <CtaBanda cierre={CONFIG.hooks.inicio} logo="derecha" />
     </>
   )
 }

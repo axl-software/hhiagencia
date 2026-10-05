@@ -2,6 +2,38 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-10-05 — Third round: service photos, marketing without trial, small fixes (branch `rediseno-estructura`)
+- **Servicios**: every service row now has its own photo (marketing, captación, contenido, automatización, integraciones, procesos, IA, acompañamiento); HHA Systems keeps its per-business previews. The “Agregar” button next to HHA Systems was removed (it did nothing useful there).
+- **Marketing has no free trial** (founders, 2026-10-05; supersedes the “Prueba gratis” pill on that page): marketing is not tested; a meeting is scheduled to talk about the service and it starts right away. The Marketing closing band says “Hablemos de tu marketing…” with “Agenda una reunión”. The trial applies to HHA Systems (and the web demo on quoting), not to marketing.
+- **Óptica / Dentista** now rotates two photos (glasses and dentist) with a fade.
+- **Home**: the chat avatar in “Te acompañamos en cada paso” is the real HH logo; “Nosotros” gained a small Business + Technology diagram with the HH logo.
+- **Prueba gratis**: layout mirrored (preview on the left, options and form on the right); the preview text now sits in a card overlapping the preview and the three steps run horizontally.
+
+## 2026-10-05 — Second round: free trial page, tone per page, richer previews (branch `rediseno-estructura`, pending founders' approval)
+- **Light/dark toggle removed** (supersedes “Light mode (cream)” in the Design System and the toggle in the header). Each page has its own tone, set in `src/lib/tema.ts`: Inicio, Marketing and Proceso are dark; Servicios, Prueba gratis, Contacto and the legal pages are a **bluish light** (`#E6EDF7` page, `#D9E3F1` sections) instead of cream. Interpretation of the founders' voice note; to be confirmed.
+- **New page `/prueba-gratis`** (HHA Systems free trial, 7 days via `demoPlazo`): form on the left (business type, business name, your name, email, WhatsApp) and, on the right, a live example preview of the system that changes with the business type and shows the business name typed. It saves like any other request (Supabase) and shows a thank-you window; it does not quote. Every HHA Systems call to action (home, Servicios, diagnostic result, modals, closing band) now leads here, and “Prueba gratis” is in the menu.
+- **HHA Systems cards**: photos now fill the top of each card and are fully visible (new, clearer photos for barbería, tatuajes and óptica); “Óptica” is now “Óptica / Dentista”; cards lift and tilt in 3D on hover/focus; a small example notification appears on each photo.
+- **Servicios**: each web plan shows an animated example page with a photo (examples, not client sites); HHA Systems shows a preview miniature per business type; the marketing button became an animated banner with a marketing photo; new pack “Negocio online” (HHA Systems + Marketing + Contenido); plans and packs rise on hover and when chosen; a “Prueba gratis 7 días” pill sits at the top.
+- **Closing red bands**: texts rewritten with no “reunión” calls to action (home and Servicios → create the free trial; Marketing has its own text → “Cuéntanos de tu marca”; Proceso → “Solicita cotización”); buttons are 3D; the HH logo now shows large and more visible, in a different place on each page.
+- **Cómo trabajamos**: the step and metric drawings are now light and simple instead of dark; the metric clock was replaced by an animated hourglass.
+- **Bug fixed**: heading text could render black on the navy band in the light tone (a style outside the layers overrode the band color). The rule now sits in the base layer.
+
+## 2026-10-05 — Home redesign (branch `rediseno-estructura`, pending founders' approval by pull request)
+- **Home structure** (replaces: orbit hero, Postura, Método and the 3-question tiles): full-width video hero with a headline that changes by business type; “Elige lo que necesitas” (4 category cards, each linking to its own part of /servicios; marketing goes to /marketing; Desarrollo web also points to HHA Systems); **HHA Systems** section; “Por qué HHA” band with the HH monogram; “Te acompañamos en cada paso” (4 stages + example chat, replaces the 3-question tiles); Equipo, then Nosotros (“negocio y tecnología”) under it; closing band.
+- **HHA Systems** (draft in HHA_SYSTEMS_PRODUCT.md): shown as “HHA Systems by HHA Digital Solutions SpA”, five example windows with a photo each (barbería/peluquería together, estética, tatuajes, óptica, wellness), each with “Ver qué incluye”; the CTA goes to /contacto with HHA Systems preselected. Not labelled “en desarrollo” (founders' decision); no usage figures, clients or real screenshots. Example windows are labelled “Ejemplo”.
+- **Servicios** (replaces the 4-category order): 01 Desarrollo web (Web Start/Business/Pro), 02 HHA Systems (new service `hha-systems`), 03 Marketing, 04 Automatización, 05 IA y consultoría; then packs, Método and the closing band.
+- **Proyectos page removed** (supersedes “/proyectos” in Master Context): permanent redirect /proyectos → /marketing; Aaron and Bar de Blas now open the Marketing page, followed by marketing services only (no orbit background). Removed from menu and sitemap.
+- **Diagnóstico** (3 questions) now can recommend HHA Systems; first question adds “Que mis clientes reserven y compren online”.
+- **Demo gratuita: 7 días** (founders, 2026-10-05; `demoPlazo`). Used in the new accompaniment section. The plan cards/maintenance notes removed by Alexander are NOT restored.
+- **Cómo trabajamos**: 8 steps reduced to 5 (Conversamos, Propuesta, Construimos contigo, Entrega y publicación, Acompañamiento y mejora). Metric clock now ticks like a real clock.
+- **Motion**: reveals on scroll are stronger (rise, scale, de-blur, staggered); scroll-linked depth in the hero, the Systems photos and the HH monogram; reduced-motion respected.
+- (The open decision about the light/dark toggle was resolved in the entry above of the same day.)
+
+## 2026-10-05 — Hero video without the generator mark and without the AI note
+- **Supersedes** the small “Escena generada con IA” note under the hero background (2026-10-02): founders asked to remove it. The note is gone from the code and styles.
+- The generator's “Ai” mark in the top-left corner of both hero videos (dark and light) and their poster images was removed, so the full frame can be shown. No other logo remains in the frame.
+- Founders decided not to buy the paid CapCut plan for now. The open question about commercial use of free-plan output (HHA_TECH_STACK.md → Media) stays with the founders.
+
 ## 2026-10-02 — Alexander Bello's team photo approved
 - **Supersedes** “Alexander Bello — Photo: pending” in Master Context → Website team copy: the photo exists, is approved and is already used in the Equipo section (`public/img/equipo/alexander-bello.jpg`, referenced from `src/lib/config.ts`). Approved by the founders.
 - The rule “never publish a placeholder photo box; if a photo is missing, render the card without a photo” is unchanged.

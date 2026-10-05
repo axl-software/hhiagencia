@@ -15,6 +15,8 @@ export type Resultado = {
   /** Mensaje armado, por si hay que enviarlo por WhatsApp o correo (solo si falló el guardado). */
   texto: string
   origen: 'formulario' | 'diagnostico'
+  /** Solicitud de la prueba gratis de HHA Systems (cambia el texto de agradecimiento) */
+  prueba?: boolean
 }
 
 /* Respuesta después de enviar: agradece y dice por dónde y cuándo lo contacta el asesor comercial.
@@ -29,9 +31,12 @@ export default function RespuestaSolicitud({ r, onListo, tituloId }: { r: Result
     return (
       <div className="respuesta">
         <span className="respuesta-ico"><Check size={30} strokeWidth={2.5} aria-hidden="true" /></span>
-        <h3 id={tituloId} className="card-t" style={{ margin: 0 }}>¡Gracias por contarnos tu proyecto, {nombre}!</h3>
+        <h3 id={tituloId} className="card-t" style={{ margin: 0 }}>
+          {r.prueba ? `¡Recibimos tu solicitud, ${nombre}!` : `¡Gracias por contarnos tu proyecto, ${nombre}!`}
+        </h3>
         <p className="muted" style={{ margin: 0 }}>
-          Nuestro asesor comercial te contactará <strong>{via}</strong> {CONFIG.tiempoRespuesta}.
+          Nuestro asesor comercial te contactará <strong>{via}</strong> {CONFIG.tiempoRespuesta}
+          {r.prueba ? `, para dejar lista tu prueba gratis${CONFIG.demoPlazo ? ` de ${CONFIG.demoPlazo}` : ''}.` : '.'}
         </p>
         <button type="button" className="btn btn-red" onClick={onListo}>Listo</button>
       </div>

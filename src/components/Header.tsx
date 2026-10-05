@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Menu, X } from 'lucide-react'
 import { NAV } from '@/lib/nav'
-import TemaToggle from './TemaToggle'
 import Redes from './Redes'
 import GuiaPlan from './GuiaPlan'
 import s from './Header.module.css'
@@ -86,7 +85,6 @@ export default function Header() {
         </div>
 
         <div className={s.right}>
-          <TemaToggle className={s.tema} />
           {/* El botón principal abre el diagnóstico de 3 preguntas (docs/HHA_BRAND_FOUNDATION.md).
               Mismo diseño que el botón rojo de la portada (.btn-vivo), en tamaño compacto. */}
           <span className={s.ctaDesk}>

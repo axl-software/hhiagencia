@@ -130,7 +130,7 @@ export default function PruebaGratis() {
               </label>
               <label>
                 Tu nombre
-                <input name="nombre" placeholder="Ej: Carla" autoComplete="name" required aria-invalid={marcar('nombre')} aria-describedby={describe('nombre')} />
+                <input name="nombre" placeholder="Ej: Catalina" autoComplete="name" required aria-invalid={marcar('nombre')} aria-describedby={describe('nombre')} />
               </label>
             </div>
             <label>

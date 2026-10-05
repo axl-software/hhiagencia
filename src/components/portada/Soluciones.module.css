@@ -9,7 +9,7 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding: 26px 24px 22px;
+  padding: 0 24px 22px;
   border: 1px solid var(--line2);
   background: var(--bg2);
   color: var(--tx);
@@ -23,6 +23,12 @@
 .enlace:focus-visible { outline: none; }
 .tarjeta:has(.enlace:focus-visible) { outline: 2px solid var(--red); outline-offset: 3px; }
 
+.foto { position: relative; margin: 0 -24px 14px; aspect-ratio: 16 / 10; }
+.recorte { position: absolute; inset: 0; overflow: hidden; background: var(--bg); }
+.foto img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+.tarjeta:hover .foto img { transform: scale(1.05); }
+.foto .icono { position: absolute; left: 24px; bottom: -23px; }
+.tarjeta .nombre { margin-top: 18px; }
 .icono {
   display: grid;
   place-items: center;

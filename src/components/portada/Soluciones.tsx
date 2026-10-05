@@ -24,6 +24,14 @@ const DESTINO: Record<string, string> = {
   ia: '/servicios#cat-ia',
 }
 
+/* foto de cada categoría (licencias en docs/HHA_TECH_STACK.md) */
+const FOTO: Record<string, string> = {
+  web: '/img/ejemplos/web-business.webp',
+  marketing: '/img/servicios/marketing.webp',
+  automatizacion: '/img/servicios/automatizacion.webp',
+  ia: '/img/servicios/ia.webp',
+}
+
 export default function Soluciones() {
   const categorias = CONFIG.categorias.filter((c) => c.id !== 'sistemas')
   return (
@@ -51,7 +59,13 @@ export default function Soluciones() {
               data-reveal
               style={{ '--d': `${i * 0.08}s` } as CSSProperties}
             >
-              <span className={s.icono}><Icono size={22} strokeWidth={1.75} aria-hidden="true" /></span>
+              <div className={s.foto}>
+                <div className={s.recorte}>
+                  {/* eslint-disable-next-line @next/next/no-img-element -- foto decorativa; next/image rompe la vista previa en HTML */}
+                  <img src={FOTO[c.id]} alt="" width={800} height={500} loading="lazy" />
+                </div>
+                <span className={s.icono}><Icono size={22} strokeWidth={1.75} aria-hidden="true" /></span>
+              </div>
               <h3 className={s.nombre}>
                 {/* el enlace cubre toda la tarjeta (::after); los enlaces de adentro quedan por encima */}
                 <Link href={DESTINO[c.id] ?? '/servicios'} className={s.enlace}>{c.nombre}</Link>

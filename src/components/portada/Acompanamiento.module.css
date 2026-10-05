@@ -82,8 +82,8 @@
 .cabeza strong { display: block; font-size: 14px; color: #f8fafc; }
 .cabeza small { display: flex; align-items: center; gap: 6px; font-size: 11.5px; color: #aeb8cb; }
 .cabeza small i { width: 7px; height: 7px; border-radius: 50%; background: #34d399; }
-.avatar { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; background: #d7263d; box-shadow: 0 0 0 3px rgba(215, 38, 61, 0.28); }
-.avatar img { width: 26px; height: auto; }
+.avatar { display: block; width: 42px; height: 42px; border-radius: 50%; overflow: hidden; background: #0b1020; box-shadow: 0 0 0 3px rgba(215, 38, 61, 0.28); }
+.avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .dia { margin-left: auto; font-size: 11.5px; color: #aeb8cb; }
 .chat { list-style: none; margin: 0; padding: 18px 14px; display: flex; flex-direction: column; gap: 10px; min-height: 330px; }
 .burbuja {

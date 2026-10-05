@@ -15,12 +15,14 @@ import s from './Acompanamiento.module.css'
    ========================================================= */
 
 type Mensaje = { de: 'cliente' | 'hha'; texto: string; hora: string }
-type Etapa = { cuando: string; titulo: string; texto: string; dia: string; mensajes: Mensaje[] }
+type Etapa = { quien: string; foto: string; cuando: string; titulo: string; texto: string; dia: string; mensajes: Mensaje[] }
 
 const demo = CONFIG.demoPlazo ? `gratuita de ${CONFIG.demoPlazo}` : 'gratuita'
 
 const ETAPAS: Etapa[] = [
   {
+    quien: 'HHA Digital Solutions',
+    foto: '/img/chat/hha.webp',
     cuando: 'AL INICIO',
     titulo: 'Conversamos',
     texto: 'Entendemos tu negocio y dónde está el problema antes de ofrecerte cualquier solución.',
@@ -32,6 +34,8 @@ const ETAPAS: Etapa[] = [
     ],
   },
   {
+    quien: 'Herberth · HHA',
+    foto: '/img/chat/herberth.webp',
     cuando: 'ANTES DE DECIDIR',
     titulo: 'Lo pruebas',
     texto: `Te preparamos una demo ${demo} para que lo veas funcionando antes de decidir.`,
@@ -43,6 +47,8 @@ const ETAPAS: Etapa[] = [
     ],
   },
   {
+    quien: 'Alexander · HHA',
+    foto: '/img/chat/alexander.webp',
     cuando: 'AL PUBLICAR',
     titulo: 'Construimos y publicamos',
     texto: 'Armamos tu solución, la probamos en celular y computador, y la publicamos.',
@@ -54,6 +60,8 @@ const ETAPAS: Etapa[] = [
     ],
   },
   {
+    quien: 'HHA Digital Solutions',
+    foto: '/img/chat/hha.webp',
     cuando: 'DESPUÉS',
     titulo: 'Te acompañamos',
     texto: 'Mantenemos, medimos y mejoramos lo construido a medida que tu negocio crece.',
@@ -120,12 +128,12 @@ export default function Acompanamiento() {
             <div className={s.celular}>
               <div className={s.cabeza}>
                 <span className={s.avatar} aria-hidden="true">
-                  {/* logo real de HHA (versión blanca) sobre el rojo de marca */}
-                  {/* eslint-disable-next-line @next/next/no-img-element -- logo chico; next/image rompe la vista previa en HTML */}
-                  <img src="/brand/hh-logo-blanco.png" alt="" width={480} height={299} />
+                  {/* quien atiende en esa etapa: logo de HHA o una de las dos personas del equipo */}
+                  {/* eslint-disable-next-line @next/next/no-img-element -- imagen chica; next/image rompe la vista previa en HTML */}
+                  <img key={etapa.foto + i} src={etapa.foto} alt="" width={128} height={128} />
                 </span>
                 <div>
-                  <strong>HHA Digital Solutions</strong>
+                  <strong>{etapa.quien}</strong>
                   <small><i aria-hidden="true" /> en línea</small>
                 </div>
                 <span className={s.dia}>{etapa.dia}</span>

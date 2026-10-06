@@ -7,13 +7,13 @@ import {
   Plug, Puzzle, Rocket, ShoppingCart, Sparkles, TrendingUp, Users, Wallet, Workflow, X, type LucideIcon,
 } from 'lucide-react'
 import { CONFIG, type Categoria, type Pack, type Servicio } from '@/lib/config'
-import { PACKS_PRECIO, precioDe } from '@/lib/precios'
+import { PACKS_PRECIO, clp, implementacionDe, precioDe } from '@/lib/precios'
 import { medir } from '@/lib/medir'
 import { Kicker, Title, type Level } from './Heading'
 import Orbitas from '../Orbitas'
 import GuiaPlan from '../GuiaPlan'
 import MuestraWeb from './MuestraWeb'
-import { Periodo, PrecioLinea, PrecioPack, PrecioPlan, PrecioSimple, NOTA_IMPL, NOTA_IMPL_DETALLE, NOTA_PAUTA } from './Precios'
+import { Iva, Periodo, PrecioLinea, PrecioPack, PrecioPlan, PrecioSimple, NOTA_IMPL, NOTA_IMPL_DETALLE, NOTA_PAUTA } from './Precios'
 import { Escena, VENTANAS, rubroDe } from '../portada/sistemasData'
 import m from './Servicios.module.css'
 
@@ -527,6 +527,7 @@ function ContenidoDetalle({ detalle, anual, picked, toggle, elegirPack, cerrar }
   const precioId = s?.id
   const p = precioId ? precioDe(precioId) : undefined
   const packPrecio = pack ? PACKS_PRECIO[pack.id] : undefined
+  const montoImpl = precioId ? implementacionDe(precioId) : undefined
   const llevaImpl = Boolean(p?.implementacion || packPrecio?.implementacion)
   const elegido = s ? picked.has(s.id) : pack ? pack.servicios.every((id) => picked.has(id)) : false
   const alElegir = () => (s ? toggle(s.id) : pack ? elegirPack(pack, !elegido) : undefined)
@@ -589,7 +590,15 @@ function ContenidoDetalle({ detalle, anual, picked, toggle, elegirPack, cerrar }
           <div className="kicker" style={{ margin: '8px 0 0' }}>CÓMO SE PAGA</div>
           <ul className="incluye">
             {p?.anual && <li><Wallet size={18} strokeWidth={2} aria-hidden="true" /><span>Suscripción mensual, o anual con 20% de descuento sobre el precio lanzamiento. El plan anual se paga completo por adelantado.</span></li>}
-            {llevaImpl && <li><Wallet size={18} strokeWidth={2} aria-hidden="true" /><span><strong>{NOTA_IMPL}.</strong> {NOTA_IMPL_DETALLE}</span></li>}
+            {montoImpl ? (
+              <li>
+                <Wallet size={18} strokeWidth={2} aria-hidden="true" />
+                <span>
+                  <strong>Implementación: {clp(montoImpl)} (pago único)</strong> <Iva />
+                  <small className={m.implDetalle}>{s?.id.startsWith('system-') ? 'Incluye configuración inicial, personalización del negocio y puesta en marcha del sistema según el alcance del plan.' : 'Incluye configuración inicial, diseño y puesta en marcha según el alcance del plan.'}</small>
+                </span>
+              </li>
+            ) : llevaImpl && <li><Wallet size={18} strokeWidth={2} aria-hidden="true" /><span><strong>{NOTA_IMPL}.</strong> {NOTA_IMPL_DETALLE}</span></li>}
             {s?.prueba === 'web' && <li><Gift size={18} strokeWidth={2} aria-hidden="true" /><span><strong>Demo gratuita:</strong> {DEMO}</span></li>}
           </ul>
         </>

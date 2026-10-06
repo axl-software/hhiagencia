@@ -6,8 +6,9 @@
 
    Reglas comerciales (docs/HHA_BUSINESS_MODEL.md):
    - Planes web y HHA Systems: precio regular y precio lanzamiento, mensual o anual (-20% sobre el precio lanzamiento).
-   - El costo de implementación existe, se cobra aparte y NO se publica: el monto exacto se informa en la
-     cotización, antes de contratar. Por eso NINGÚN monto de implementación vive en este archivo ni en el sitio.
+   - El costo de implementación (pago único) se cobra aparte. Los 7 planes web y HHA Systems tienen monto definido
+     (`implementacionMonto`), que se muestra SOLO dentro de "Ver todo lo incluido", nunca en la tarjeta. Los demás
+     servicios con implementación siguen diciendo que el monto se informa en la cotización.
    - La inversión publicitaria (Meta, Google, TikTok…) nunca va incluida: se paga aparte, en cada plataforma.
    - Valores en pesos chilenos (CLP).
    ========================================================= */
@@ -26,22 +27,24 @@ export type Precio = {
   desde?: boolean
   /** Tiene opción anual con -20% (planes web y HHA Systems). */
   anual?: boolean
-  /** Lleva costo de implementación (pago único), que solo se menciona, sin monto. */
+  /** Lleva costo de implementación (pago único). Si no trae `implementacionMonto`, solo se menciona, sin monto. */
   implementacion?: boolean
+  /** Monto de implementación (pago único) ya definido: solo se muestra dentro de "Ver todo lo incluido". */
+  implementacionMonto?: number
 }
 
 export const DESCUENTO_ANUAL = 0.2
 
 export const PRECIOS: Record<string, Precio> = {
   // Web
-  'web-presentation': { regular: 14990, lanzamiento: 9990, unidad: 'mes', anual: true, implementacion: true },
-  'web-starter': { regular: 39990, lanzamiento: 29990, unidad: 'mes', anual: true, implementacion: true },
-  'web-business': { regular: 64990, lanzamiento: 49990, unidad: 'mes', anual: true, implementacion: true },
-  'web-pro': { regular: 89990, lanzamiento: 69990, unidad: 'mes', anual: true, implementacion: true },
+  'web-presentation': { regular: 14990, lanzamiento: 9990, unidad: 'mes', anual: true, implementacion: true, implementacionMonto: 29990 },
+  'web-starter': { regular: 39990, lanzamiento: 29990, unidad: 'mes', anual: true, implementacion: true, implementacionMonto: 129990 },
+  'web-business': { regular: 64990, lanzamiento: 49990, unidad: 'mes', anual: true, implementacion: true, implementacionMonto: 390000 },
+  'web-pro': { regular: 89990, lanzamiento: 69990, unidad: 'mes', anual: true, implementacion: true, implementacionMonto: 590000 },
   // HHA Systems
-  'system-starter': { regular: 39990, lanzamiento: 29990, unidad: 'mes', anual: true, implementacion: true },
-  'system-business': { regular: 64990, lanzamiento: 49990, unidad: 'mes', anual: true, implementacion: true },
-  'system-pro': { regular: 89990, lanzamiento: 69990, unidad: 'mes', anual: true, implementacion: true },
+  'system-starter': { regular: 39990, lanzamiento: 29990, unidad: 'mes', anual: true, implementacion: true, implementacionMonto: 49990 },
+  'system-business': { regular: 64990, lanzamiento: 49990, unidad: 'mes', anual: true, implementacion: true, implementacionMonto: 69990 },
+  'system-pro': { regular: 89990, lanzamiento: 69990, unidad: 'mes', anual: true, implementacion: true, implementacionMonto: 99990 },
   // Marketing digital
   'marketing-starter': { monto: 119990, unidad: 'mes' },
   'marketing-business': { monto: 199990, unidad: 'mes' },
@@ -60,6 +63,9 @@ export const PRECIOS: Record<string, Precio> = {
   capacitacion: { monto: 149990, unidad: 'pago único', desde: true },
   acompanamiento: { monto: 79990, unidad: 'mes', desde: true },
 }
+
+/** Monto de implementación (pago único) de un plan, si ya está definido. */
+export const implementacionDe = (id: string): number | undefined => PRECIOS[id]?.implementacionMonto
 
 /** Precio de un plan o servicio. */
 export const precioDe = (id: string): Precio | undefined => PRECIOS[id]

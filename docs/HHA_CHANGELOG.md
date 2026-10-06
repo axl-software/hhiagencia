@@ -2,6 +2,9 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-10-06 — Implementation amounts for the 7 Web and HHA Systems plans (branch `precios-y-legal`)
+- Founders defined the one-time implementation fee: Web Presentation $29,990, Starter $129,990, Business $390,000, Pro $590,000; System Starter $49,990, Business $69,990, Pro $99,990. Supersedes “implementation amounts are never published” for these 7 plans only. Shown inside “Ver todo lo incluido” (Cómo se paga) as “Implementación: $X (pago único)” + IVA, with a secondary description; main cards unchanged. Stored in `implementacionMonto` (`src/lib/precios.ts`). No other price, discount, launch price or scope changed. Terms §4 updated.
+
 ## 2026-10-06 — Public pricing, packs, legal pages and nationwide coverage (branch `precios-y-legal`, pending founders' review)
 - **Pricing is public** (founders, 2026-10-06; supersedes “Do not display public package prices until costs, margins and delivery scope are approved”). One source: `src/lib/precios.ts`. Web has 4 plans (Presentation, Starter, Business, Pro; supersedes Web Start/Business/Pro), HHA Systems has 3 (Starter, Business, Pro). Web and Systems show regular price (struck) + launch price, with a Mensual | Anual -20% selector; annual = 12 months of launch price with 20% off, rounded to the hundred. Marketing digital and Creación de contenido have 3 plans each; Captación, Email marketing, Automatización, Integraciones, Procesos, Consultoría IA, Capacitación de equipos and Acompañamiento show “Desde …”. Packs show price, value apart and saving; “Negocio online” stays without price.
 - **Implementation**: only the note “+ costo de implementación (pago único)”; no amount is published or stored in the code (supersedes the model “initial payment for development + separate monthly maintenance”).

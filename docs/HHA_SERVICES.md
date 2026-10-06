@@ -11,10 +11,13 @@ Includes:
 - domain/hosting configuration,
 - reusable templates where appropriate.
 
-Packages:
-- **Web Start**
-- **Web Business**
+Packages (4 levels since 2026-10-06; supersedes Web Start / Business / Pro):
+- **Web Presentation**
+- **Web Starter**
+- **Web Business** (recommended)
 - **Web Pro**
+
+Prices, domains, change rounds and the exact scope of each plan: HHA_BUSINESS_MODEL.md → Public pricing, and `src/lib/precios.ts` / `src/lib/config.ts` in the code.
 
 Goal: Web Business should be the natural best-value option for most clients.
 
@@ -29,7 +32,7 @@ How web plans are sold (founders, 2026-10-02; supersedes “each plan includes t
 - Free demo: when quoting, HHA prepares a demo so the client can try the website before deciding, for a defined period (`demoPlazo` in `src/lib/config.ts`; still to be set by the founders).
 - On the website this is shown discreetly: a line on each plan card (“+ Mantenimiento mensual …”), the category intro, a demo note under it, and a “Cómo se paga” section in “Ver qué incluye”. No prices.
 
-Pricing is not public yet and must not be invented.
+Pricing is public since 2026-10-06 (see HHA_BUSINESS_MODEL.md). Do not invent prices that are not in that document.
 
 Approved CTA while pricing is being defined. Each button matches what the visitor wants at that point (founders, 2026-10-01; replaces the earlier list):
 - Does not know what they need yet → **Haz tu diagnóstico** (header, mobile menu, Servicios with nothing selected) and **Te orientamos en 3 preguntas** (home main button). Both open the 3-question diagnostic.
@@ -78,7 +81,7 @@ Not to be presented as mature offers unless approved:
 
 ## Website presentation: categories, then problem → solution
 Approved by the founders (2026-10-01; replaces “web plans, then packs, then Ver todos los servicios”). The catalog does not change: services are grouped visually so visitors who know what they want find it, and visitors who don't can start from their problem without knowing technical names. Order on the Servicios page:
-1. **Desarrollo web**: Web Start, Web Business, Web Pro.
+1. **Desarrollo web**: Web Presentation, Web Starter, Web Business, Web Pro. 1b. **HHA Systems**: System Starter, Business, Pro.
 2. **Marketing y captación**: Marketing digital, Captación de clientes, Creación de contenido.
 3. **Automatización**: Automatización, Integraciones, Procesos digitales.
 4. **IA y consultoría**: Consultoría y capacitación en IA, Acompañamiento digital.
@@ -93,7 +96,7 @@ Packs (reviewed with the new services), each with a one-word name shown small ab
 - **Pack Presencia** — ¿Tu negocio no transmite profesionalismo online? → Web Business + Creación de contenido.
 - **Pack Conexión** — ¿Tienes herramientas, pero ninguna trabaja junta? → Integraciones + Automatización + Acompañamiento digital.
 
-Packs are sold complete: the button is “Elegir pack” (adds all its services at once; replaces “Elegir pack completo”, which suggested an incomplete pack was possible). There is no “Elegir un servicio” in the packs: single services are added from the categories above. Once a pack is chosen, its button becomes “Solicita cotización”. No discount is shown until prices are approved.
+Packs are sold complete: the button is “Elegir pack” (adds all its services at once; replaces “Elegir pack completo”, which suggested an incomplete pack was possible). There is no “Elegir un servicio” in the packs: single services are added from the categories above. Once a pack is chosen, its button becomes “Solicita cotización”. Each pack shows its price and saving (2026-10-06; see HHA_BUSINESS_MODEL.md). “Negocio online” has no public price.
 **Integraciones** is offered as a service under Automatización (founders, 2026-10-01; replaces “not offered as a separate service”). Scope: connecting tools the client already uses (web, forms, email marketing, CRM). Custom API development is still not a proven capability (Tech Stack → API status) and must not be promised.
 **Procesos digitales** (new line, founders 2026-10-01): ordering and digitizing how the business works (forms, records, clear workflows).
 “Captación de clientes” is shown as its own line; it is the lead-capture part of Automation.

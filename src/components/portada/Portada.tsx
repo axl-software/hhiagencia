@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import { MapPin } from 'lucide-react'
 import GuiaPlan from '../GuiaPlan'
 import PortadaFondo from './PortadaFondo'
 import { CONFIG } from '@/lib/config'
@@ -56,10 +57,18 @@ export default function Portada() {
 
       <div className={s.main}>
         <div className={s.contenido}>
+          <div className={s.fila}>
           <p className={s.pastilla}>
             <span className={s.punto} aria-hidden="true" />
             Digitaliza <span aria-hidden="true">·</span> <span className={s.pastillaRoja}>Automatiza</span> <span aria-hidden="true">·</span> Escala
           </p>
+            {/* Cobertura: se trabaja en todo Chile, de forma remota (base en Casablanca, Región de Valparaíso) */}
+            <p className={s.cobertura}>
+              <MapPin size={15} strokeWidth={2.25} aria-hidden="true" />
+              <strong>Trabajamos en todo Chile</strong>
+              <span className="sr-only">. Base en Casablanca, Región de Valparaíso.</span>
+            </p>
+          </div>
 
           <h1 className={s.h1}>
             <span className="sr-only">HHA Digital Solutions: desarrollo web, automatizaciones y marketing para llegar a más clientes.</span>

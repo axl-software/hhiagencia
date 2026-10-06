@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Legal from '@/components/sections/Legal'
-import { CONFIG } from '@/lib/config'
+import { CONFIG, EMPRESA } from '@/lib/config'
 
 export const metadata: Metadata = {
   title: 'Política de privacidad',
-  description: 'Datos tratados por HHiAgencia, finalidades, proveedores y formas de ejercer tus derechos.',
+  description: 'Datos tratados por HHA Digital Solutions SpA, finalidades, proveedores y formas de ejercer tus derechos.',
   alternates: { canonical: '/privacidad' },
 }
 
@@ -15,9 +15,9 @@ export default function PrivacidadPage() {
       <p>Esta política explica el tratamiento de datos de quienes visitan hhiagencia.cl, completan el diagnóstico o nos contactan para consultar por nuestros servicios.</p>
 
       <h2>1. Responsable y contacto</h2>
-      <p>HHiAgencia es la marca comercial del proyecto HHA Digital Solutions, operado por Herberth Garay y Alexander Bello, con atención principal a clientes en Chile.</p>
-      {/* PENDIENTE ANTES DE PUBLICAR (no visible para el visitante): confirmar quién o quiénes deciden
-          sobre el tratamiento de los datos y completar su identificación y domicilio de contacto. */}
+      <p>El responsable del tratamiento es <strong>{EMPRESA.nombre}</strong>, sociedad por acciones chilena con domicilio en {EMPRESA.base}, Chile, que opera este sitio bajo la marca HHiAgencia. Trabajamos con clientes de todo Chile.</p>
+      {/* PENDIENTE ANTES DE PUBLICAR (no visible para el visitante): agregar el RUT y la dirección completa del
+          domicilio de la sociedad cuando los fundadores los entreguen, y que un abogado revise este texto. */}
       <p>Puedes dirigir tus consultas de privacidad a <a href={`mailto:${CONFIG.email}`}>{CONFIG.email}</a>.</p>
 
       <h2>2. Qué información tratamos</h2>
@@ -32,6 +32,7 @@ export default function PrivacidadPage() {
 
       <h2>3. Para qué se utilizan</h2>
       <p>Utilizamos los datos de la solicitud para responderte, comprender tus necesidades, preparar una propuesta y coordinar una reunión. Si contratas, los datos necesarios se utilizarán también para gestionar el servicio y cumplir las obligaciones aplicables.</p>
+      <p>Al enviar una solicitud recibirás un correo de confirmación automático, y nuestro equipo recibe un aviso interno con los datos que entregaste para contactarte en el plazo indicado. Estos correos no son publicidad.</p>
       <p>Si facilitas un teléfono, el flujo de contacto prioriza WhatsApp; si dejas solo un correo, utilizamos ese medio. Puedes indicarnos otro canal de preferencia.</p>
       <p>Una consulta no equivale a suscribirse a campañas de marketing. Cualquier uso adicional debe contar con la información y habilitación que correspondan.</p>
 
@@ -45,10 +46,7 @@ export default function PrivacidadPage() {
       <h2>5. Almacenamiento, proveedores y comunicaciones</h2>
       <p>Las solicitudes se almacenan en Supabase. Según la configuración documentada del proyecto, la base de datos está ubicada en Virginia del Norte, Estados Unidos. El sitio utiliza Vercel para alojamiento y analítica.</p>
       <p>Estos proveedores intervienen en el tratamiento necesario para prestar sus servicios. Si nos escribes a nuestra dirección de Gmail o por WhatsApp, Google o el proveedor de WhatsApp también procesan información conforme a sus condiciones y políticas.</p>
-      {/* PENDIENTE ANTES DE PUBLICAR (no visible para el visitante): confirmar si está activa la
-          automatización de respuestas y detallar su proveedor, alojamiento y destinatarios. El sistema
-          permite remitir los datos de la solicitud a ese flujo (SOLICITUDES_WEBHOOK_URL); no debe
-          describirse como un tratamiento exclusivamente interno. */}
+      <p>Para responderte con rapidez usamos una automatización en n8n, un servicio de automatización en la nube: recibe los datos de tu solicitud y envía los correos de confirmación y el aviso interno desde nuestra cuenta de Gmail. Esos proveedores intervienen solo en ese tratamiento.</p>
       <p>El uso de estos servicios puede implicar tratamiento fuera de Chile. Puedes consultar por los proveedores y las condiciones aplicables a tus datos mediante el correo de contacto.</p>
 
       <h2>6. Conservación y eliminación</h2>

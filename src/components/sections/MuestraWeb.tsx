@@ -13,14 +13,17 @@ import s from './Servicios.module.css'
 type Muestra = { foto: string; marca: string; titulo: string; boton: string; url: string }
 
 const MUESTRAS: Record<string, Muestra> = {
-  'web-start': { foto: '/img/ejemplos/web-start.webp', marca: 'Café Aurora', titulo: 'Café de especialidad en el centro', boton: 'Escríbenos', url: 'cafeaurora.cl' },
+  'web-presentation': { foto: '/img/ejemplos/web-presentation.webp', marca: 'Estudio Rivas', titulo: 'Arquitectura y diseño de interiores', boton: 'Agenda una reunión', url: 'estudiorivas.cl' },
+  'web-starter': { foto: '/img/ejemplos/web-start.webp', marca: 'Café Aurora', titulo: 'Café de especialidad en el centro', boton: 'Escríbenos', url: 'cafeaurora.cl' },
   'web-business': { foto: '/img/ejemplos/web-business.webp', marca: 'Consultora Norte', titulo: 'Ordenamos tu empresa para crecer', boton: 'Solicitar contacto', url: 'consultoranorte.cl' },
   'web-pro': { foto: '/img/ejemplos/web-pro.webp', marca: 'Casa Sombrero', titulo: 'Sombreros y accesorios hechos a mano', boton: 'Ver tienda', url: 'casasombrero.cl' },
 }
 
-export default function MuestraWeb({ id, nivel }: { id: string; nivel: number }) {
+export default function MuestraWeb({ id, nivel: nivelPlan }: { id: string; nivel: number }) {
   const m = MUESTRAS[id]
   if (!m) return null
+  /* Cuatro planes, tres estructuras de muestra: Presentation (una sección), Starter y Business (varias secciones), Pro (con tienda) */
+  const nivel = ({ 1: 1, 2: 2, 3: 2, 4: 3 } as Record<number, number>)[nivelPlan] ?? 1
   return (
     <div className={`${s.muestra} ${s[`n${nivel}`]}`}>
       <div className={s.mBarra}>

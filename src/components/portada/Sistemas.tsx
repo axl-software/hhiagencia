@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, type CSSProperties, type PointerEvent } fr
 import Link from 'next/link'
 import { ArrowRight, Check, X } from 'lucide-react'
 import { CONFIG } from '@/lib/config'
+import { PRECIOS, anualDe, clp } from '@/lib/precios'
 import { Escena, VENTANAS, rubroDe, type Ventana } from './sistemasData'
 import s from './Sistemas.module.css'
 
@@ -15,6 +16,11 @@ import s from './Sistemas.module.css'
    ni capturas reales. Cada tarjeta tiene "Ver qué incluye" y lleva a crear la prueba gratis (no a cotizar).
    El nombre interno del producto no se muestra.
    ========================================================= */
+
+/* Desde cuánto parte HHA Systems: el equivalente mensual del plan anual de System Starter (src/lib/precios.ts) */
+const STARTER = PRECIOS['system-starter']
+const DESDE_ANUAL = clp(anualDe(STARTER)?.mensual ?? 0)
+const DESDE_MENSUAL = clp(STARTER.lanzamiento ?? 0)
 
 /* Inclinación 3D según dónde está el cursor (no en pantallas táctiles) */
 const inclinar = (ev: PointerEvent<HTMLDivElement>) => {
@@ -56,6 +62,13 @@ export default function Sistemas() {
             {['Reservas', 'Ventas', 'Panel', 'Clientes'].map((p) => <li key={p}>{p}</li>)}
             <li className={s.gratis}>Pruébalo gratis {CONFIG.demoPlazo}</li>
           </ul>
+          {/* Precio de partida a la vista: no todos entran a Servicios a buscarlo */}
+          <Link className={s.partePrecio} href="/servicios#cat-sistemas" data-reveal style={{ '--d': '0.3s' } as CSSProperties}>
+            <span>Desde</span>
+            <strong>{DESDE_ANUAL}</strong>
+            <small>/ mes + IVA · pagando anual</small>
+            <ArrowRight size={16} strokeWidth={2.5} aria-hidden="true" />
+          </Link>
         </div>
 
         <div className={s.rejilla}>
@@ -67,6 +80,7 @@ export default function Sistemas() {
                   <h3 className={s.tituloTarjeta}>{v.titulo}</h3>
                   <p>{v.texto}</p>
                   <ul className={s.tags}>{v.tags.map((t) => <li key={t}>{t}</li>)}</ul>
+                  <p className={s.desdeTarjeta}>Desde <strong>{DESDE_ANUAL}</strong>/mes + IVA <em>plan anual</em></p>
                   <div className={s.acciones}>
                     <button type="button" className={s.incluye} onClick={() => setAbierta(v)}>
                       Ver qué incluye <ArrowRight size={16} strokeWidth={2.25} aria-hidden="true" />
@@ -112,11 +126,18 @@ export default function Sistemas() {
                 <li key={it}><Check size={18} strokeWidth={2.25} aria-hidden="true" />{it}</li>
               ))}
             </ul>
-            <p className="note"><strong>Prueba gratis de {CONFIG.demoPlazo}:</strong> primero lo pruebas y, si te sirve, te quedas. El alcance y el valor definitivos se acuerdan contigo.</p>
+            <div className="kicker" style={{ margin: '8px 0 0' }}>LOS PLANES</div>
+            <ul className="incluye">
+              <li><Check size={18} strokeWidth={2.25} aria-hidden="true" /><span><strong>System Starter</strong> trae todo lo de arriba. Desde {DESDE_MENSUAL}/mes + IVA, o {DESDE_ANUAL}/mes + IVA pagando anual.</span></li>
+              <li><Check size={18} strokeWidth={2.25} aria-hidden="true" /><span><strong>System Business</strong> suma tu tienda para vender junto a las reservas y un panel para ver cómo va tu negocio.</span></li>
+              <li><Check size={18} strokeWidth={2.25} aria-hidden="true" /><span><strong>System Pro</strong> suma correos de confirmación y recordatorios, y promociones para volver a conectar con tus clientes.</span></li>
+            </ul>
+            <p className="note"><strong>Prueba gratis de {CONFIG.demoPlazo}:</strong> primero lo pruebas y, si te sirve, te quedas. + costo de implementación (pago único); el monto exacto te lo informamos en la cotización, antes de contratar.</p>
             <div className="modal-acciones">
               <Link className="btn-vivo" href={`/prueba-gratis?rubro=${abierta.id}`}>
                 Crear mi prueba gratis <ArrowRight size={18} strokeWidth={2.25} aria-hidden="true" />
               </Link>
+              <Link className="btn btn-out" href="/servicios#cat-sistemas">Ver planes y precios</Link>
               <button type="button" className="btn btn-out" onClick={cerrar}>Cerrar</button>
             </div>
           </div>

@@ -47,17 +47,26 @@ Services confirmed by the founders for these references (2026-10-01):
 - Bar de Blas: automation for editing reels and generating carousel ideas, plus content and marketing.
 
 ## Offer strategy
-Web packages:
-- Web Start
-- Web Business
-- Web Pro
+Web plans (4 levels; supersedes the 3-plan Web Start / Business / Pro offer, 2026-10-06): **Web Presentation, Web Starter, Web Business, Web Pro**. Web Business is the recommended plan and should be positioned as the strongest value-to-price option.
 
-Web Business should be positioned as the strongest value-to-price option.
+HHA Systems plans: **System Starter, System Business (recommended), System Pro**.
 
-Web plans are sold as an initial payment for the development only, plus monthly maintenance paid separately with a minimum term: Web Start 3 months minimum; Web Business 3, 6 or 12 months; Web Pro 6 months minimum. A free demo is offered when quoting (founders, 2026-10-02; details in HHA_SERVICES.md).
+Web plans and HHA Systems are subscriptions (monthly, or annual with 20% off the launch price) plus a one-time implementation cost that is charged separately. This supersedes the model “initial payment for the development only + monthly maintenance with a minimum term” (2026-10-02). The free demo (7 days) is kept for web and HHA Systems; marketing is not tested.
 
-## Pricing rule
-Do not display public package prices until costs, margins and delivery scope are approved.
+## Public pricing (approved by the founders, 2026-10-06)
+Single source in the code: `src/lib/precios.ts`. CLP, always shown **+ IVA** (founders, 2026-10-06: a small “+ IVA” next to every price). Supersedes “Do not display public package prices until costs, margins and delivery scope are approved”.
+
+Web / HHA Systems (monthly): regular price → launch price. Presentation 14.990 → 9.990; Starter 39.990 → 29.990; Business 64.990 → 49.990; Pro 89.990 → 69.990. System Starter 39.990 → 29.990; System Business 64.990 → 49.990; System Pro 89.990 → 69.990.
+Annual: 12 months of the launch price with 20% off, shown rounded to the hundred (e.g. Business 479.900/year, ≈ 39.990/month, saves 119.980). Paid in full in advance. Labels: “Precio regular”, “Precio lanzamiento”, “Ahorras X al año” (do not use “antes” or “precio anterior”).
+Domains: Presentation HHA subdomain (own domain is an add-on); Starter 1 year; Business 1 year monthly / 2 years annual; Pro at least 2 years. Premium domains may carry an extra cost.
+Implementation: exists, charged separately, never shown as an amount on the website (only “+ costo de implementación (pago único)”). The exact amount is given in the quote before the client commits. The internal amounts are kept out of the repository on purpose.
+Monthly change rounds (minor changes, not accumulated): Starter 2, Business 3, Pro 4; Presentation only technical maintenance and minimal adjustments.
+SEO is moderate and never promises rankings. Analytics and Search Console: initial setup only.
+
+Marketing digital: Starter 119.990/mes; Business 199.990/mes (recommended); Pro 299.990/mes. Content: Start 89.990/mes; Business 149.990/mes (recommended); Pro from 249.990/mes. Captación de clientes from 49.990/mes (+ implementation). Email marketing from 39.990/mes. Automatización from 99.990/proyecto; Integraciones from 79.990/proyecto; Procesos digitales from 99.990/proyecto. Consultoría IA from 49.990/sesión; Capacitación de equipos from 149.990; Acompañamiento digital from 79.990/mes. Ad spend is never included.
+Packs: Crecimiento 229.990/mes (separate 299.970, saves 69.980/month, 839.760/year; Marketing Business + Web Business + Captación); Presencia 159.990/mes (separate 199.980, saves 39.990/month, 479.880/year; Web Business + Content Business); Eficiencia 199.990 one-time (separate 249.970, saves 49.980; Automatización + Procesos + 1 Consultoría IA session); Conexión from 59.990/mes (acompañamiento normally 79.990, saves 20.000/month, 240.000/year; Integraciones + Automatización + Acompañamiento). Crecimiento and Presencia savings use the launch price of Web Business: recalculate if the launch ends.
+HHA Systems plans: “Elegir plan” goes to /prueba-gratis?plan=… (choose the business type, then name and contact); the plan travels with the request. The Home shows “Desde” the lowest annual-equivalent price of HHA Systems (System Starter).
+The pack “Negocio online” (HHA Systems + marketing + content) has no public price (quoted by the System plan chosen).
 
 Use:
 - **Solicita cotización**

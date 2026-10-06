@@ -38,21 +38,21 @@ export type Ventana = {
 const DIAS = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie']
 const HORAS = ['11:00', '11:45', '12:30', '16:00']
 
-/* Lo que comparten todos los rubros (el sistema es el mismo) */
+/* Lo que comparten todos los rubros: es lo que trae System Starter (el plan de entrada). Commerce y Dashboard Lite llegan con
+   System Business; correos y promociones, con System Pro (src/lib/config.ts → servicios). */
 const COMUN = [
-  'Reserva online: tus clientes eligen servicio, día y hora.',
-  'Agenda con la disponibilidad de tu negocio.',
-  'Tienda para tus productos, con carrito y pedidos.',
-  'Panel con tus ventas, reservas y próximas citas.',
-  'Registro simple de tus clientes y su historial.',
-  'Diseño con tu marca: fotos, colores, tipografía y animaciones propias.',
+  'Tus clientes reservan online, a cualquier hora: eligen servicio, profesional, día y hora.',
+  'Tu agenda siempre al día: horarios y disponibilidad claros, sin cruces.',
+  'Cada reserva se confirma sola y queda registrada.',
+  'Un panel para administrar tu agenda, tus reservas y tus clientes.',
+  'Con la cara de tu negocio: tus fotos, tus colores y tu estilo.',
 ]
 
 export const VENTANAS: Ventana[] = [
   {
     id: 'barberia', foto: '/img/sistemas/barberia.webp', marca: 'Tu barbería',
-    titulo: 'Tus clientes reservan solos. Tú atiendes.',
-    texto: 'Eligen servicio, profesional y hora, y tú ves todo en tu agenda, con la identidad de tu barbería o peluquería.',
+    titulo: 'Que tus clientes reserven solos, y tú a lo tuyo.',
+    texto: 'Eligen su servicio, su barbero o estilista y su hora en un par de toques, y tú lo ves todo en tu agenda. Con la cara de tu barbería o peluquería.',
     tags: ['Reservas', 'Productos', 'Panel'],
     aviso: 'Nueva reserva · 11:45',
     bloques: [
@@ -61,12 +61,12 @@ export const VENTANAS: Ventana[] = [
       { t: 'horas', items: HORAS },
       { t: 'boton', texto: 'Reservar' },
     ],
-    incluye: ['Servicios con su duración, y profesionales con su propia agenda.', ...COMUN],
+    incluye: ['Cada barbero o estilista con su propia agenda: tus clientes eligen con quién atenderse.', 'Tus servicios con su duración: corte, barba, corte y barba, y lo que ofrezcas.', ...COMUN],
   },
   {
     id: 'estetica', foto: '/img/sistemas/estetica.webp', marca: 'Tu estudio',
-    titulo: 'Cada tratamiento, con su tiempo y su horario libre.',
-    texto: 'Servicios con su duración y disponibilidad, para que cada cliente reserve el horario que sí está libre.',
+    titulo: 'Cada tratamiento con su tiempo, y tu agenda sin cruces.',
+    texto: 'Tus clientes reservan el horario que de verdad está libre, y tú te olvidas de los mensajes de ida y vuelta.',
     tags: ['Reservas', 'Clientes', 'Panel'],
     aviso: 'Hora confirmada · Martes',
     bloques: [
@@ -75,12 +75,12 @@ export const VENTANAS: Ventana[] = [
       { t: 'horas', items: HORAS },
       { t: 'boton', texto: 'Agendar' },
     ],
-    incluye: ['Tratamientos con su duración y horarios disponibles.', ...COMUN],
+    incluye: ['Cada tratamiento con su duración y sus horarios libres.', 'Eligen profesional o equipo y reservan sin mensajes de ida y vuelta.', ...COMUN],
   },
   {
     id: 'tatuajes', foto: '/img/sistemas/tatuajes.webp', marca: 'Tu estudio',
-    titulo: 'Tu trabajo primero, la reserva después.',
-    texto: 'Una portada que muestra tu estilo y una reserva simple para consultas y sesiones.',
+    titulo: 'Tu arte primero. La reserva, después.',
+    texto: 'Una portada que muestra tu estilo y una reserva simple para consultas y sesiones, sin cruzar mensajes.',
     tags: ['Reservas', 'Clientes', 'Pedidos'],
     aviso: 'Consulta pedida · Sábado',
     bloques: [
@@ -88,12 +88,12 @@ export const VENTANAS: Ventana[] = [
       { t: 'servicios', items: [['Consulta de diseño', '30 min'], ['Sesión', '3 h']] },
       { t: 'boton', texto: 'Pedir hora' },
     ],
-    incluye: ['Portafolio de tu trabajo y reserva de consultas y sesiones.', ...COMUN],
+    incluye: ['Una portada que muestra tu estilo y tu portafolio.', 'Reservas para consultas de diseño y sesiones, cada una con su propio tiempo.', ...COMUN],
   },
   {
     id: 'optica', foto: '/img/sistemas/optica-ojos.webp', fotos: ['/img/sistemas/optica-ojos.webp', '/img/sistemas/optica-dentista.webp'], marca: 'Tu consulta',
-    titulo: 'Hora para tu examen o tu control, y tienda en línea.',
-    texto: 'Para ópticas, dentistas y cualquier consulta con hora: tus pacientes reservan online y también compran productos con carrito.',
+    titulo: 'Hora para tu examen o tu control, sin llamadas.',
+    texto: 'Para ópticas, dentistas y cualquier consulta con hora: tus pacientes reservan online y tú ves tu día de un vistazo.',
     tags: ['Reservas', 'Productos', 'Panel'],
     aviso: 'Nueva hora · 16:00',
     bloques: [
@@ -101,12 +101,12 @@ export const VENTANAS: Ventana[] = [
       { t: 'productos', items: ['Armazones', 'Kits de cuidado', 'Accesorios'] },
       { t: 'boton', texto: 'Reservar hora' },
     ],
-    incluye: ['Reserva de horas para exámenes, controles y atenciones de salud.', 'Catálogo de productos (armazones, kits de cuidado y más).', ...COMUN],
+    incluye: ['Horas para exámenes, controles y atenciones, cada una con su duración.', 'Tus pacientes reservan solos y reciben su confirmación.', ...COMUN],
   },
   {
     id: 'wellness', foto: '/img/sistemas/wellness.webp', marca: 'Tu centro',
-    titulo: 'Sesiones para reservar, con horarios claros.',
-    texto: 'Clases y sesiones con horarios claros, y productos para vender junto a ellas.',
+    titulo: 'Sesiones y clases, con horarios y cupos claros.',
+    texto: 'Tu comunidad reserva su lugar en segundos, y tú llevas el control de cada sesión sin planillas.',
     tags: ['Reservas', 'Productos', 'Panel'],
     aviso: 'Cupo reservado · Yoga',
     bloques: [
@@ -114,7 +114,7 @@ export const VENTANAS: Ventana[] = [
       { t: 'horas', items: HORAS },
       { t: 'boton', texto: 'Reservar sesión' },
     ],
-    incluye: ['Clases y sesiones con horarios claros, y productos para vender junto a ellas.', ...COMUN],
+    incluye: ['Clases y sesiones con horarios y cupos claros.', 'Tu comunidad reserva su lugar en segundos.', ...COMUN],
   },
 ]
 

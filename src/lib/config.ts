@@ -2,22 +2,34 @@
    EDITA AQUÍ TUS DATOS. El sitio se actualiza solo.
    Fuente de verdad: CLAUDE.md y docs/. No inventes precios, clientes,
    resultados ni reseñas: lo que esté vacío simplemente no se muestra.
+   Los MONTOS no van aquí: están todos en src/lib/precios.ts (única fuente de precios).
    ========================================================= */
 
 export type Servicio = {
   id: string
   nombre: string
+  /** Frase de valor: lo que se ve en la tarjeta o fila. */
   desc: string
-  /** 'web' = planes de desarrollo web; 'linea' = otras líneas de servicio */
-  grupo: 'web' | 'linea'
-  /** Plan recomendado (Web Business, según docs/HHA_SERVICES.md) */
+  /** 'linea' = línea de servicio (puede tener planes); 'plan' = nivel de una línea. */
+  grupo: 'linea' | 'plan'
+  /** Líneas con niveles: ids de sus planes, de menor a mayor. */
+  planes?: string[]
+  /** Plan recomendado de su línea. */
   destacado?: boolean
-  /** Lo que se ve en "Ver qué incluye" (solo planes web). */
+  /** Hasta 7 beneficios principales (tarjeta). */
+  beneficios?: string[]
+  /** Todo lo incluido, completo (ventana "Ver todo lo incluido"). */
   incluye?: string[]
-  /** Planes web: la necesidad que cubre, en la tarjeta. La explicación (desc) va en "Ver qué incluye". */
-  necesidad?: string
-  /** Planes web: plazo del mantenimiento mensual, que se paga aparte del desarrollo (docs/HHA_SERVICES.md). */
-  mantencion?: string
+  /** Lo que no está incluido. */
+  noIncluye?: string[]
+  /** Aclaraciones del plan (dominio, adicionales, costos externos…). */
+  notas?: string[]
+  /** Ejemplo comercial de una línea, para entender el beneficio. */
+  ejemplo?: string
+  /** Dominio propio según cómo se paga (solo planes web). */
+  dominio?: { mensual: string; anual: string; anualDestacado?: string }
+  /** Demo o prueba gratis: el plan se puede probar antes de contratar. */
+  prueba?: 'web' | 'sistemas'
 }
 
 /** Categoría visual de Servicios: agrupa servicios sin cambiar el catálogo. */
@@ -66,16 +78,35 @@ export type Integrante = {
 }
 
 /** Problema del cliente → servicios que lo resuelven (Servicios → "¿Qué problema quieres resolver?").
-    nombre: una palabra que resume el pack (se ve arriba, en chico: "PACK CRECIMIENTO"). */
-export type Pack = { id: string; nombre: string; problema: string; detalle: string; servicios: string[] }
+    nombre: una palabra que resume el pack (se ve arriba, en chico: "PACK CRECIMIENTO").
+    El precio y el ahorro de cada pack están en src/lib/precios.ts → PACKS_PRECIO (mismo id). */
+export type Pack = {
+  id: string
+  nombre: string
+  problema: string
+  /** Frase de valor del pack. */
+  detalle: string
+  /** Ids de servicios que se agregan a la selección al elegir el pack. */
+  servicios: string[]
+  /** Qué trae el pack, en palabras del cliente. */
+  incluye: string[]
+  noIncluye?: string[]
+  destacado?: boolean
+}
+
+/** Servicios adicionales (sin precio publicado): se cotizan según el alcance. */
+export type Adicional = { titulo: string; items: string[] }
+export type Pregunta = { q: string; a: string }
 
 /** Banda de cierre de cada página: frase chica de arriba, frase grande, texto del botón y destino. */
 export type Cierre = { kicker: string; titulo: string; boton: string; href: string }
 export type Hooks = { inicio: Cierre; servicios: Cierre; marketing: Cierre; proceso: Cierre }
 
 export type Config = {
-  /** Plazo que se promete en el mensaje de gracias después de enviar un formulario. */
+  /** Plazo que se promete al enviar una cotización (igual que en el correo de confirmación). */
   tiempoRespuesta: string
+  /** Plazo que se promete al pedir la prueba gratis (igual que en el correo de confirmación). */
+  tiempoPrueba: string
   /** Cuánto dura la demo gratuita de los planes web (ej. '7 días'). Vacío = se acuerda al cotizar. */
   demoPlazo: string
   whatsapp: string
@@ -86,14 +117,27 @@ export type Config = {
   servicios: Servicio[]
   categorias: Categoria[]
   packs: Pack[]
+  adicionales: Adicional[]
+  faq: Pregunta[]
   casos: Caso[]
   resenas: Resena[]
   equipo: Integrante[]
   hooks: Hooks
 }
 
+/** Empresa: datos que se usan en pie de página, legales y datos estructurados. */
+export const EMPRESA = {
+  nombre: 'HHA Digital Solutions SpA',
+  marca: 'HHA Digital Solutions',
+  /** Base de operación. */
+  base: 'Casablanca, Región de Valparaíso',
+  /** Lo más importante: se trabaja en todo el país, de forma remota. */
+  cobertura: 'Trabajamos en todo Chile',
+}
+
 export const CONFIG: Config = {
-  tiempoRespuesta: 'en la próxima hora', // "Nuestro asesor comercial te contactará por WhatsApp al … en la próxima hora"
+  tiempoRespuesta: 'dentro de las próximas 24 horas', // igual que el correo de confirmación de cotización
+  tiempoPrueba: 'en menos de 48 horas', // igual que el correo de confirmación de la prueba gratis
   whatsapp: '56939253239', // +56 9 3925 3239 (sin + ni espacios)
   instagram: 'hhiagencia.cl', // cuenta propia de HHA (docs/HHA_BRAND_FOUNDATION.md)
   facebook: '', // enlace completo, ej: "https://facebook.com/..." (vacío = no se muestra)
@@ -104,95 +148,616 @@ export const CONFIG: Config = {
   // demoPlazo: cuánto dura la prueba (ej. '7 días'). Vacío = "durante un plazo que acordamos al cotizar".
   demoPlazo: '7 días', // fundadores, 2026-10-05
 
-  // Precios: no se publican hasta aprobar costos y márgenes (docs/HHA_BUSINESS_MODEL.md).
-  // "incluye": BORRADOR para que los fundadores lo ajusten (docs/HHA_SERVICES.md aún no define el alcance de cada plan).
-  // Planes web: el pago inicial cubre solo el desarrollo; el mantenimiento mensual se paga aparte, con plazo
-  // mínimo por plan ("mantencion"). Por eso el mantenimiento no va en "incluye" (fundadores, 2026-10-02).
+  // Precios aprobados el 2026-10-06 (docs/HHA_BUSINESS_MODEL.md). Los montos están en src/lib/precios.ts.
+  // La implementación se cobra aparte: aquí solo se menciona, nunca con monto.
   servicios: [
+    // ---------- Desarrollo web ----------
     {
-      id: 'web-start', grupo: 'web', nombre: 'Web Start',
-      necesidad: 'Para comenzar con una presencia digital profesional.',
-      mantencion: 'mínimo 3 meses',
-      desc: 'Para partir: una presencia web profesional y simple, lista para recibir contactos.',
-      incluye: [
-        'Landing page de una sola página',
-        'Diseño adaptado a celular',
-        'Botón de WhatsApp y formulario de contacto',
-        'Configuración de dominio y hosting',
-      ],
+      id: 'web', grupo: 'linea', nombre: 'Desarrollo web',
+      desc: 'Sitios web profesionales con mantenimiento mensual: tu web siempre al día, con dominio y soporte según el plan.',
+      planes: ['web-presentation', 'web-starter', 'web-business', 'web-pro'],
     },
     {
-      id: 'web-business', grupo: 'web', destacado: true, nombre: 'Web Business',
-      necesidad: 'Recomendado para negocios que quieren usar su web para captar clientes y crecer.',
-      mantencion: 'a 3, 6 o 12 meses',
-      desc: 'La opción recomendada: un sitio completo para mostrar tus servicios y convertir visitas en clientes.',
-      incluye: [
-        'Todo lo de Web Start',
-        'Sitio con varias secciones: inicio, servicios, nosotros y contacto',
-        'Textos y estructura pensados para convertir visitas en clientes',
-        'Optimización básica para aparecer en Google',
+      id: 'web-presentation', grupo: 'plan', nombre: 'Web Presentation', prueba: 'web',
+      desc: 'Todo lo esencial para tener una presencia profesional en internet.',
+      beneficios: [
+        'Página de una sola sección, adaptada a celular',
+        'Presentación de tu negocio y tus servicios principales',
+        'Contacto, WhatsApp y redes sociales',
+        'Hasta 3 imágenes',
+        'Adaptada a tu identidad visual',
       ],
+      incluye: [
+        'Página de una sola sección (one-page), adaptada a celular',
+        'Presentación del profesional o negocio',
+        'Servicios principales',
+        'Contacto, WhatsApp y redes sociales',
+        'Máximo 3 imágenes',
+        'Estructura HHA optimizada',
+        'Adaptación visual a la identidad del cliente',
+        'Subdominio HHA',
+        '1 ronda inicial de revisión',
+        'Buenas prácticas técnicas mínimas',
+      ],
+      notas: [
+        'Dominio propio: no está incluido por defecto; se puede agregar como adicional.',
+        'Mantenimiento técnico y ajustes mínimos, según el alcance.',
+      ],
+      dominio: { mensual: 'Subdominio HHA. El dominio propio es un adicional.', anual: 'Subdominio HHA. El dominio propio es un adicional.' },
     },
     {
-      id: 'web-pro', grupo: 'web', nombre: 'Web Pro',
-      necesidad: 'Para negocios que necesitan vender online, integrar herramientas o desarrollar funciones más avanzadas.',
-      mantencion: 'mínimo 6 meses',
-      desc: 'Para proyectos más grandes: más secciones, funciones o una tienda online básica.',
+      id: 'web-starter', grupo: 'plan', nombre: 'Web Starter', prueba: 'web',
+      desc: 'Una web profesional para presentar tu negocio y convertir visitas en oportunidades.',
+      beneficios: [
+        'Hasta aproximadamente 4 páginas',
+        'Hero personalizado y hasta 10–12 imágenes',
+        'Formulario, WhatsApp, redes sociales y mapa',
+        'Google Analytics y Search Console configurados',
+        'Preparación SEO inicial',
+        '2 rondas mensuales de ajustes menores',
+      ],
+      incluye: [
+        'Hasta aproximadamente 4 páginas, o una estructura equivalente',
+        'Hero personalizado',
+        'Hasta 10–12 imágenes',
+        'Diseño adaptado a tu marca, adaptado a celular',
+        'Formulario de contacto y WhatsApp',
+        'Redes sociales y mapa cuando corresponda',
+        'Configuración inicial de Google Analytics',
+        'Configuración de Google Search Console',
+        'Preparación SEO inicial',
+        '2 rondas mensuales de ajustes menores',
+        'Dominio propio incluido durante 1 año',
+      ],
+      dominio: { mensual: 'Dominio propio incluido durante 1 año.', anual: 'Dominio propio incluido durante 1 año.' },
+    },
+    {
+      id: 'web-business', grupo: 'plan', nombre: 'Web Business', destacado: true, prueba: 'web',
+      desc: 'Una presencia digital diseñada para diferenciarte, convertir y crecer.',
+      beneficios: [
+        'Todo lo de Web Starter',
+        'Aproximadamente 7–8 páginas',
+        'Diseño más personalizado y UX estratégica',
+        'Hero y llamados a la acción pensados para convertir',
+        'SEO técnico y optimización on-page inicial',
+        'Optimización de rendimiento',
+        'Hasta 3 rondas mensuales de ajustes menores',
+      ],
+      incluye: [
+        'Todo lo de Web Starter',
+        'Aproximadamente 7–8 páginas razonables',
+        'Diseño más personalizado y UX estratégica',
+        'Hero personalizado',
+        'Llamados a la acción (CTA) orientados a conversión',
+        'Formularios',
+        'Animaciones moderadas',
+        'Configuración de Google Analytics y Search Console',
+        'SEO técnico y optimización on-page inicial',
+        'Optimización de rendimiento',
+        'Hasta 3 rondas mensuales de ajustes menores',
+      ],
+      dominio: {
+        mensual: 'Dominio propio incluido durante 1 año.',
+        anual: 'Dominio propio incluido durante 2 años.',
+        anualDestacado: '2 años de dominio incluidos',
+      },
+    },
+    {
+      id: 'web-pro', grupo: 'plan', nombre: 'Web Pro', prueba: 'web',
+      desc: 'Una experiencia digital premium para marcas que quieren destacar de verdad.',
+      beneficios: [
+        'Todo lo de Web Business',
+        'Aproximadamente 10–12 páginas',
+        'Experiencia altamente personalizada y hero avanzado',
+        'Dirección visual superior, animaciones e interacciones',
+        'Formularios avanzados e integraciones simples',
+        'Preparación SEO más completa',
+        'Soporte prioritario y hasta 4 rondas mensuales',
+      ],
       incluye: [
         'Todo lo de Web Business',
-        'Tienda online básica o funciones a medida',
-        'Integraciones con formularios, email marketing o CRM',
-        'Automatizaciones iniciales',
+        'Aproximadamente 10–12 páginas razonables',
+        'Experiencia altamente personalizada',
+        'Hero avanzado y dirección visual superior',
+        'Animaciones e interacciones',
+        'Formularios avanzados',
+        'Integraciones simples',
+        'Optimización orientada a conversión',
+        'Configuración de Google Analytics y Search Console',
+        'Preparación SEO más completa',
+        'Soporte prioritario',
+        'Hasta 4 rondas mensuales de ajustes menores',
+        'Mínimo 2 años de dominio propio incluidos',
+      ],
+      notas: [
+        'Email marketing (campañas hechas por HHA) y flujos de automatización con n8n no están incluidos: se ofrecen como adicionales.',
+      ],
+      dominio: { mensual: 'Mínimo 2 años de dominio propio incluidos.', anual: 'Mínimo 2 años de dominio propio incluidos.' },
+    },
+
+    // ---------- HHA Systems ----------
+    // HHA Systems (docs/HHA_SYSTEMS_PRODUCT.md): el sistema de reservas y ventas con la identidad de cada negocio.
+    {
+      id: 'hha-systems', grupo: 'linea', nombre: 'HHA Systems',
+      desc: 'Un sistema propio de reservas y ventas, con el diseño y la identidad de tu negocio: tus clientes reservan y compran online, y tú ves todo en tu panel.',
+      planes: ['system-starter', 'system-business', 'system-pro'],
+    },
+    {
+      id: 'system-starter', grupo: 'plan', nombre: 'System Starter', prueba: 'sistemas',
+      desc: 'Digitaliza tus reservas y administra tu negocio desde un solo lugar.',
+      beneficios: [
+        'Experiencia adaptada a tu negocio',
+        'Servicios, profesionales y selección de profesional',
+        'Horarios, disponibilidad y elección de fecha y hora',
+        'Reservas con confirmación',
+        'Administración de agenda, reservas y clientes',
+      ],
+      incluye: [
+        'Experiencia pública adaptada a tu negocio',
+        'Servicios',
+        'Staff o profesionales, y selección de profesional',
+        'Horarios y disponibilidad',
+        'Selección de fecha y hora',
+        'Datos del cliente',
+        'Reservas y confirmación',
+        'Administración: agenda y gestión de reservas',
+        'Clientes',
       ],
     },
-    // HHA Systems (docs/HHA_SYSTEMS_PRODUCT.md): el sistema de reservas y ventas con la identidad de cada negocio. Sin precios públicos.
-    { id: 'hha-systems', grupo: 'linea', nombre: 'HHA Systems', desc: 'Un sistema propio de reservas y ventas, con el diseño y la identidad de tu negocio: tus clientes reservan y compran online, y tú ves todo en tu panel.' },
-    { id: 'automatizacion', grupo: 'linea', nombre: 'Automatización', desc: 'Captación de clientes, formularios, CRM, email marketing y tareas internas que hoy te quitan tiempo.' },
-    // Integraciones: conectar herramientas que el cliente ya usa; sin desarrollo de APIs a medida (docs/HHA_TECH_STACK.md → API status)
-    { id: 'integraciones', grupo: 'linea', nombre: 'Integraciones', desc: 'Conectamos las herramientas que ya usas (web, formularios, email marketing o CRM) para que la información pase sola de una a otra.' },
-    { id: 'procesos', grupo: 'linea', nombre: 'Procesos digitales', desc: 'Ordenamos y pasamos a digital cómo trabaja tu negocio: formularios, registros y flujos claros, sin papeles ni planillas sueltas.' },
-    { id: 'marketing', grupo: 'linea', nombre: 'Marketing digital', desc: 'Estrategia, contenido, email marketing y embudos para generar clientes.' },
-    { id: 'captacion', grupo: 'linea', nombre: 'Captación de clientes', desc: 'Formularios, páginas de captura y seguimiento automático para que ningún interesado se pierda.' },
-    { id: 'contenido', grupo: 'linea', nombre: 'Creación de contenido', desc: 'Publicaciones, carruseles, reels y piezas para tus redes, alineadas a tu estrategia.' },
-    { id: 'ia', grupo: 'linea', nombre: 'Consultoría y capacitación en IA', desc: 'Te mostramos qué se puede automatizar y qué impacto puede tener, y capacitamos a tu equipo.' },
-    { id: 'acompanamiento', grupo: 'linea', nombre: 'Acompañamiento digital', desc: 'Te ayudamos a implementar herramientas, plantillas y procesos digitales en tu negocio.' },
-  ],
-
-  // Los packs se arman con ids de "servicios". El pack completo es el recomendado.
-  // Sin precios públicos: cuando estén definidos, aquí se puede agregar el ahorro del pack.
-  // Servicios agrupados por categoría (jerarquía visual en /servicios; el catálogo no cambia)
-  categorias: [
-    { id: 'web', nombre: 'Desarrollo web', necesidad: 'El desarrollo de tu página web: pagas una vez el desarrollo, y el mantenimiento mensual va aparte, con un plazo mínimo según el plan.', servicios: ['web-start', 'web-business', 'web-pro'] },
-    { id: 'sistemas', nombre: 'HHA Systems', necesidad: 'Un sistema propio de reservas y ventas, con la identidad de tu negocio.', servicios: ['hha-systems'] },
-    { id: 'marketing', nombre: 'Marketing y captación', necesidad: 'Para que más personas te encuentren, confíen en ti y te escriban.', servicios: ['marketing', 'captacion', 'contenido'] },
-    { id: 'automatizacion', nombre: 'Automatización', necesidad: 'Para ahorrar tiempo en tareas repetitivas y que tus herramientas trabajen juntas.', servicios: ['automatizacion', 'integraciones', 'procesos'] },
-    { id: 'ia', nombre: 'IA y consultoría', necesidad: 'Para entender qué puedes mejorar con IA y aplicarlo en tu negocio con acompañamiento.', servicios: ['ia', 'acompanamiento'] },
-  ],
-  packs: [
     {
-      id: 'clientes', nombre: 'Crecimiento', problema: '¿Necesitas conseguir más clientes?',
-      detalle: 'Hacemos que más personas te encuentren, confíen en ti y te escriban.',
-      servicios: ['marketing', 'web-business', 'captacion'],
+      id: 'system-business', grupo: 'plan', nombre: 'System Business', destacado: true, prueba: 'sistemas',
+      desc: 'Gestiona reservas, clientes y ventas desde una misma experiencia.',
+      ejemplo: 'Tu cliente puede reservar su servicio y agregar productos antes de finalizar.',
+      beneficios: [
+        'Todo lo de System Starter',
+        'Mayor personalización visual',
+        'Dashboard Lite para ver cómo va tu negocio',
+        'Historial y gestión de clientes, cuando corresponda',
+        'Commerce: tus clientes agregan productos a su reserva',
+        'Retiro o pago en local, o transferencia según tu configuración',
+      ],
+      incluye: [
+        'Todo lo de System Starter',
+        'Mayor personalización visual',
+        'Dashboard Lite',
+        'Historial y gestión de clientes, cuando corresponda',
+        'Commerce: catálogo, selección y recomendación de productos',
+        'Agregar productos durante una reserva o junto a un servicio',
+        'Carrito o pedido, con retiro en local',
+        'Pago en local, o instrucciones de transferencia según la configuración',
+        'Gestión de productos y de pedidos',
+      ],
     },
     {
-      id: 'tiempo', nombre: 'Eficiencia', problema: '¿Pierdes tiempo en tareas manuales?',
-      detalle: 'Automatizamos lo repetitivo, ordenamos tus procesos y te enseñamos a usar IA en tu día a día.',
-      servicios: ['automatizacion', 'procesos', 'ia'],
+      id: 'system-pro', grupo: 'plan', nombre: 'System Pro', prueba: 'sistemas',
+      desc: 'Convierte tu sistema en una herramienta para operar, vender y volver a conectar con tus clientes.',
+      beneficios: [
+        'Todo lo de System Business',
+        'Mayor nivel de personalización y hero más personalizado',
+        'Soporte prioritario y mayor capacidad de integración',
+        'Correos de confirmación, recordatorios y comunicaciones',
+        'Promociones por email',
+        'Herramientas promocionales para volver a conectar con tus clientes',
+      ],
+      incluye: [
+        'Todo lo de System Business',
+        'Mayor nivel de personalización y hero más personalizado',
+        'Soporte prioritario',
+        'Mayor capacidad de integración',
+        'Email operativo estándar: correos de confirmación, recordatorios y comunicaciones',
+        'Promociones por email',
+        'Módulo de promociones: conecta nuevamente con tus clientes mediante recordatorios y promociones',
+      ],
+      noIncluye: [
+        'n8n personalizado',
+        'WhatsApp API',
+        'Automatizaciones completamente nuevas',
+        'Integraciones externas complejas',
+        'Desarrollos exclusivos',
+        'Creación de contenido',
+        'Campañas manuales completas hechas por HHA',
+      ],
+      notas: ['Todo lo que no está incluido se ofrece como adicional, cotizado según el alcance.'],
+    },
+
+    // ---------- Marketing digital ----------
+    {
+      id: 'marketing', grupo: 'linea', nombre: 'Marketing digital',
+      desc: 'Estrategia, contenido y seguimiento mensual para que más personas te encuentren, confíen en ti y te escriban.',
+      planes: ['marketing-starter', 'marketing-business', 'marketing-pro'],
+    },
+    {
+      id: 'marketing-starter', grupo: 'plan', nombre: 'Marketing Starter',
+      desc: 'Activa tu presencia digital con una estrategia clara y contenido constante.',
+      beneficios: [
+        'Planificación mensual y estrategia de contenido inicial',
+        'Hasta 8 piezas al mes (publicaciones y carruseles)',
+        'Copy para cada publicación',
+        'Programación y publicación, cuando corresponda',
+        'Revisión general mensual y recomendaciones de mejora',
+      ],
+      incluye: [
+        'Planificación mensual',
+        'Estrategia de contenido inicial',
+        'Hasta 8 piezas mensuales',
+        'Combinación de publicaciones gráficas y carruseles, según necesidad',
+        'Copy para las publicaciones',
+        'Programación o publicación, cuando corresponda',
+        'Revisión general mensual',
+        'Recomendaciones de mejora',
+        'Soporte dentro del alcance contratado',
+      ],
+      noIncluye: [
+        'Inversión publicitaria',
+        'Producción audiovisual compleja',
+        'Grabaciones presenciales frecuentes',
+        'Campañas avanzadas',
+        'Creación ilimitada de contenido',
+        'Community management intensivo',
+      ],
+    },
+    {
+      id: 'marketing-business', grupo: 'plan', nombre: 'Marketing Business', destacado: true,
+      desc: 'Una estrategia continua para mantener tu marca activa, medir resultados y generar oportunidades.',
+      beneficios: [
+        'Todo lo de Marketing Starter',
+        'Hasta 12 piezas al mes y calendario de contenido',
+        'Mayor trabajo estratégico, con posts, carruseles y otros formatos',
+        'Programación y revisión de métricas',
+        'Optimización mensual',
+        'Una acción de captación simple, cuando corresponda',
+      ],
+      incluye: [
+        'Todo lo de Marketing Starter',
+        'Hasta 12 piezas mensuales',
+        'Calendario de contenido',
+        'Mayor trabajo estratégico',
+        'Mezcla de posts, carruseles y otros formatos visuales, según el material disponible',
+        'Copies y programación',
+        'Revisión de métricas y optimización mensual',
+        'Una acción o campaña simple de captación, cuando corresponda',
+        'Coordinación con landing o formulario, si ya dispones de una infraestructura compatible',
+      ],
+      noIncluye: [
+        'Inversión publicitaria',
+        'Producción audiovisual compleja',
+        'Campañas ilimitadas',
+        'Grabaciones semanales presenciales',
+        'Automatizaciones complejas',
+      ],
+    },
+    {
+      id: 'marketing-pro', grupo: 'plan', nombre: 'Marketing Pro',
+      desc: 'Marketing más completo para negocios que quieren crecer con una estrategia sostenida.',
+      beneficios: [
+        'Todo lo de Marketing Business',
+        'Estrategia más completa y mayor frecuencia de contenido',
+        'Campañas promocionales y apoyo en captación',
+        'Email marketing simple y embudos, cuando aplique',
+        'Análisis mensual más profundo y optimización continua',
+        'Prioridad de soporte',
+      ],
+      incluye: [
+        'Todo lo de Marketing Business',
+        'Estrategia más completa',
+        'Mayor frecuencia y profundidad de contenido',
+        'Campañas promocionales',
+        'Apoyo en captación',
+        'Email marketing simple, cuando aplique',
+        'Embudos',
+        'Análisis mensual más profundo y optimización continua',
+        'Prioridad de soporte',
+      ],
+      noIncluye: [
+        'Inversión publicitaria',
+        'Producción audiovisual ilimitada',
+        'Grandes sesiones de grabación o fotografía',
+        'Campañas complejas sin límite',
+        'Desarrollos especiales',
+      ],
+    },
+
+    // ---------- Creación de contenido ----------
+    {
+      id: 'contenido', grupo: 'linea', nombre: 'Creación de contenido',
+      desc: 'Publicaciones, carruseles y piezas para tus redes, alineadas a tu estrategia y a tu identidad visual.',
+      planes: ['content-start', 'content-business', 'content-pro'],
+    },
+    {
+      id: 'content-start', grupo: 'plan', nombre: 'Content Start',
+      desc: 'Contenido visual constante para mantener activa tu marca.',
+      beneficios: [
+        'Hasta 8 piezas al mes',
+        'Piezas gráficas y carruseles',
+        'Adaptación a tu identidad visual',
+        'Copy breve asociado',
+        'Formatos preparados para redes',
+        'Una línea visual consistente',
+      ],
+      incluye: [
+        'Hasta 8 piezas mensuales',
+        'Piezas gráficas y carruseles',
+        'Adaptación a tu identidad visual',
+        'Copy breve asociado',
+        'Formatos preparados para redes',
+        'Una línea visual consistente',
+      ],
+      noIncluye: ['Fotografía profesional', 'Grabación presencial', 'Edición audiovisual compleja', 'Reels complejos ilimitados'],
+    },
+    {
+      id: 'content-business', grupo: 'plan', nombre: 'Content Business', destacado: true,
+      desc: 'Más contenido, más variedad y una presencia visual coherente durante todo el mes.',
+      beneficios: [
+        'Hasta 12 piezas al mes',
+        'Mayor variedad de formatos y carruseles',
+        'Piezas promocionales',
+        'Diseño más trabajado y copy',
+        'Adaptación de campañas',
+        'Organización visual mensual',
+      ],
+      incluye: [
+        'Hasta 12 piezas mensuales',
+        'Mayor variedad de formatos',
+        'Carruseles',
+        'Piezas promocionales',
+        'Diseño más trabajado',
+        'Copy',
+        'Adaptación de campañas',
+        'Organización visual mensual',
+      ],
+      noIncluye: ['Producción audiovisual compleja', 'Grabaciones presenciales frecuentes', 'Fotografía profesional', 'Creación ilimitada'],
+    },
+    {
+      id: 'content-pro', grupo: 'plan', nombre: 'Content Pro',
+      desc: 'Producción de contenido para marcas que necesitan una presencia visual más exigente.',
+      beneficios: [
+        'Mayor volumen de contenido',
+        'Mayor complejidad visual',
+        'Campañas creativas y piezas especiales',
+        'Contenido coordinado por objetivos',
+        'Formatos más avanzados, cuando el material esté disponible',
+        'Prioridad de producción',
+      ],
+      incluye: [
+        'Mayor volumen de contenido',
+        'Mayor complejidad visual',
+        'Campañas creativas',
+        'Piezas especiales',
+        'Coordinación de contenido por objetivos',
+        'Formatos más avanzados, cuando el material esté disponible',
+        'Prioridad de producción',
+      ],
+      notas: [
+        'Los detalles exactos se cotizan según volumen y formato.',
+        'Fotografía, modelos, locaciones, grabaciones y producción audiovisual compleja pueden cotizarse aparte.',
+      ],
+    },
+
+    // ---------- Captación y email marketing ----------
+    {
+      id: 'captacion', grupo: 'linea', nombre: 'Captación de clientes',
+      desc: 'Convierte visitas en oportunidades y organiza mejor tus nuevos contactos.',
+      incluye: [
+        'Landing o formulario de captación',
+        'Registro del lead',
+        'Configuración del flujo inicial',
+        'Seguimiento sencillo',
+        'Medición de conversiones',
+        'Organización de contactos',
+        'Conexión con canales compatibles',
+        'Optimización del proceso',
+      ],
+      noIncluye: [
+        'Presupuesto de publicidad',
+        'Campañas de Meta Ads o Google Ads pagadas con dinero de HHA',
+        'Integraciones complejas',
+        'CRM empresarial',
+        'Automatizaciones avanzadas fuera del alcance',
+      ],
+      notas: ['La inversión publicitaria, cuando exista, se paga por separado directamente en la plataforma correspondiente.'],
+    },
+    {
+      id: 'email-marketing', grupo: 'linea', nombre: 'Email marketing',
+      desc: 'Mantén el contacto con tus clientes mediante campañas, recordatorios y promociones.',
+      incluye: [
+        'Campañas simples',
+        'Promociones por correo',
+        'Newsletters',
+        'Recordatorios',
+        'Automatizaciones sencillas',
+        'Diseño o adaptación de plantillas',
+        'Listas y segmentación simple',
+        'Métricas de apertura y clics, cuando la plataforma lo permita',
+      ],
+      noIncluye: [
+        'Gestión diaria de la bandeja de entrada',
+        'Responder manualmente correos de clientes',
+        'Automatizaciones complejas',
+        'Grandes bases de datos',
+        'Costos de plataformas premium, si aplican',
+      ],
+      notas: ['Los costos de MailerLite, Resend u otra plataforma, si los hubiera, se cobran aparte cuando corresponda.'],
+    },
+
+    // ---------- Automatización ----------
+    {
+      id: 'automatizacion', grupo: 'linea', nombre: 'Automatización',
+      desc: 'Reduce tareas manuales y conecta procesos que hoy te hacen perder tiempo.',
+      incluye: [
+        'Automatización de tareas repetitivas',
+        'Flujos internos',
+        'Conexión entre herramientas compatibles',
+        'Alertas',
+        'Procesamiento automático de información',
+        'Automatizaciones con n8n u otras herramientas, cuando corresponda',
+      ],
+      notas: ['+ posibles costos externos de plataformas o APIs, según el proyecto.', 'El valor final depende del alcance: no ofrecemos un precio cerrado para cualquier automatización.'],
+    },
+    {
+      id: 'integraciones', grupo: 'linea', nombre: 'Integraciones',
+      desc: 'Haz que tus herramientas trabajen juntas.',
+      incluye: [
+        'Conexión entre herramientas',
+        'APIs compatibles',
+        'Formularios conectados con sistemas externos',
+        'Sincronización simple de datos',
+        'Integración con servicios existentes',
+      ],
+      noIncluye: ['ERP complejos', 'Integraciones empresariales grandes', 'APIs con desarrollo intensivo', 'Migraciones masivas'],
+    },
+    {
+      id: 'procesos', grupo: 'linea', nombre: 'Procesos digitales',
+      desc: 'Transforma procesos manuales en flujos digitales más simples y ordenados.',
+      incluye: [
+        'Revisión del proceso actual',
+        'Propuesta de mejora',
+        'Digitalización de pasos manuales',
+        'Formularios o flujos',
+        'Organización de datos',
+        'Implementación según el alcance',
+      ],
+    },
+
+    // ---------- IA y acompañamiento ----------
+    {
+      id: 'ia', grupo: 'linea', nombre: 'Consultoría IA',
+      desc: 'Aprende dónde la IA puede ayudarte de verdad y cómo aplicarla de forma práctica.',
+      incluye: [
+        'Diagnóstico de necesidades',
+        'Identificación de oportunidades de uso de IA',
+        'Recomendaciones prácticas',
+        'Herramientas sugeridas',
+        'Orientación de implementación',
+        'Próximos pasos',
+      ],
+      notas: ['No prometemos resultados: te mostramos qué se puede mejorar y cómo aplicarlo.'],
+    },
+    {
+      id: 'capacitacion', grupo: 'linea', nombre: 'Capacitación de equipos',
+      desc: 'Una sesión práctica para que tu equipo empiece a usar IA en su trabajo diario.',
+      incluye: [
+        'Sesión para tu equipo',
+        'Introducción práctica',
+        'Herramientas relevantes',
+        'Casos de uso',
+        'Buenas prácticas',
+        'Ejemplos aplicados',
+      ],
+      notas: ['El valor final depende del alcance y del tamaño del equipo.'],
+    },
+    {
+      id: 'acompanamiento', grupo: 'linea', nombre: 'Acompañamiento digital',
+      desc: 'No estás solo después de implementar: seguimos ayudándote a mejorar.',
+      incluye: [
+        'Seguimiento periódico',
+        'Revisión de herramientas',
+        'Recomendaciones de mejora',
+        'Apoyo en decisiones digitales',
+        'Acompañamiento en la evolución de tus procesos',
+        'Priorización de los siguientes pasos',
+      ],
+    },
+  ],
+
+  // Servicios agrupados por categoría (jerarquía visual en /servicios; el catálogo no cambia)
+  categorias: [
+    { id: 'web', nombre: 'Desarrollo web', necesidad: 'Tu página web con mantenimiento mensual incluido en el plan: pagas una suscripción y tu web se mantiene al día. Elige el nivel que necesita tu negocio.', servicios: ['web'] },
+    { id: 'sistemas', nombre: 'HHA Systems', necesidad: 'Un sistema propio de reservas y ventas, con la identidad de tu negocio. Pruébalo gratis antes de decidir.', servicios: ['hha-systems'] },
+    { id: 'marketing', nombre: 'Marketing y captación', necesidad: 'Para que más personas te encuentren, confíen en ti y te escriban.', servicios: ['marketing', 'contenido', 'captacion', 'email-marketing'] },
+    { id: 'automatizacion', nombre: 'Automatización', necesidad: 'Para ahorrar tiempo en tareas repetitivas y que tus herramientas trabajen juntas.', servicios: ['automatizacion', 'integraciones', 'procesos'] },
+    { id: 'ia', nombre: 'IA y consultoría', necesidad: 'Para entender qué puedes mejorar con IA y aplicarlo en tu negocio con acompañamiento.', servicios: ['ia', 'capacitacion', 'acompanamiento'] },
+  ],
+
+  // Los packs se arman con ids de "servicios". El precio y el ahorro salen de src/lib/precios.ts (mismo id).
+  packs: [
+    {
+      id: 'clientes', nombre: 'Crecimiento', destacado: true, problema: '¿Necesitas conseguir más clientes?',
+      detalle: 'Web, marketing y captación trabajando juntos para generar nuevas oportunidades.',
+      servicios: ['marketing-business', 'web-business', 'captacion'],
+      incluye: ['Marketing Business', 'Web Business', 'Captación de clientes'],
+      noIncluye: ['Inversión publicitaria: se paga aparte, directamente en la plataforma'],
     },
     {
       id: 'imagen', nombre: 'Presencia', problema: '¿Tu negocio no transmite profesionalismo online?',
-      detalle: 'Una web y contenido que muestren lo que vales.',
-      servicios: ['web-business', 'contenido'],
+      detalle: 'Una web profesional y contenido constante para mantener activa tu marca.',
+      servicios: ['web-business', 'content-business'],
+      incluye: ['Web Business', 'Content Business'],
+    },
+    {
+      id: 'tiempo', nombre: 'Eficiencia', problema: '¿Pierdes tiempo en tareas manuales?',
+      detalle: 'Detecta pérdidas de tiempo, automatiza un proceso y empieza a trabajar con IA de forma práctica.',
+      servicios: ['automatizacion', 'procesos', 'ia'],
+      incluye: ['Diagnóstico inicial', 'Una automatización, dentro del alcance', 'Mejora de un proceso digital', 'Una sesión de Consultoría IA', 'Recomendaciones para la siguiente etapa'],
+      noIncluye: ['Mantenimiento continuo', 'Automatizaciones ilimitadas', 'APIs premium', 'Costos externos'],
     },
     {
       id: 'herramientas', nombre: 'Conexión', problema: '¿Tienes herramientas, pero ninguna trabaja junta?',
-      detalle: 'Conectamos tus herramientas, automatizamos lo que se repite y te acompañamos en la implementación.',
+      detalle: 'Conecta tus herramientas, automatiza tareas y recibe acompañamiento para seguir mejorando.',
       servicios: ['integraciones', 'automatizacion', 'acompanamiento'],
+      incluye: ['Integraciones', 'Automatización', 'Acompañamiento digital'],
     },
     {
+      // Sin precio publicado: se cotiza según el plan de HHA Systems que elijan (no está en la lista de packs aprobada con precio).
       id: 'reservas', nombre: 'Negocio online', problema: '¿Quieres que tus clientes reserven y compren online?',
       detalle: 'Un sistema propio con tu marca para reservas y ventas, más contenido y marketing para que lleguen clientes nuevos.',
       servicios: ['hha-systems', 'marketing', 'contenido'],
+      incluye: ['HHA Systems', 'Marketing digital', 'Creación de contenido'],
+    },
+  ],
+
+  // Adicionales: sin precio publicado; se cotizan según el alcance.
+  adicionales: [
+    { titulo: 'HHA Automation', items: ['Flujos n8n', 'Automatizaciones personalizadas', 'Procesos internos', 'Integraciones de trabajo'] },
+    { titulo: 'WhatsApp', items: ['Confirmaciones', 'Recordatorios', 'Campañas', 'Sujeto a API o proveedor y a costos externos'] },
+    { titulo: 'Email marketing avanzado', items: ['Campañas gestionadas por HHA', 'Newsletters', 'Estrategia y segmentación', 'Diseño de correos'] },
+    { titulo: 'Contenido', items: ['Piezas gráficas y contenido para redes', 'Fotografía y video', 'Copy', 'Creación de contenido recurrente'] },
+    { titulo: 'Integraciones especiales', items: ['APIs externas', 'Integraciones a medida', 'Desarrollo particular'] },
+  ],
+
+  faq: [
+    {
+      q: '¿Qué es el precio lanzamiento?',
+      a: 'Es el precio promocional vigente de nuestros planes web y de HHA Systems. El precio regular se muestra tachado para que veas la diferencia. Cuando la promoción termine, aplica el precio regular; el precio que quede acordado al contratar se detalla en tu cotización.',
+    },
+    {
+      q: '¿Cómo funciona el pago anual?',
+      a: 'Eliges "Anual -20%" y pagas los 12 meses por adelantado, con un 20% de descuento sobre el precio lanzamiento vigente. Verás el total y cuánto ahorras antes de contratar. En Web Business, el plan anual además incluye 2 años de dominio propio.',
+    },
+    {
+      q: '¿Qué es el costo de implementación?',
+      a: 'Es un pago único por dejar tu web o tu sistema configurado y funcionando. Es independiente de la suscripción mensual. El monto exacto te lo informamos en la cotización, antes de que te comprometas.',
+    },
+    {
+      q: '¿Cuántos cambios puedo pedir al mes en mi web?',
+      a: 'Web Starter incluye hasta 2 rondas mensuales de cambios menores; Web Business, hasta 3; Web Pro, hasta 4. Web Presentation incluye mantenimiento técnico y ajustes mínimos. Son cambios menores: textos, imágenes, enlaces, teléfonos, horarios, llamados a la acción y ajustes visuales pequeños. No incluyen una página nueva, un rediseño general, nuevas funcionalidades, una tienda online nueva ni integraciones complejas. Las rondas que no uses no se acumulan para el mes siguiente.',
+    },
+    {
+      q: '¿Qué incluye el SEO?',
+      a: 'El SEO incluido corresponde a configuración técnica y optimización inicial. No incluye campañas SEO mensuales, generación continua de contenido ni garantía de posiciones en buscadores.',
+    },
+    {
+      q: '¿Incluyen Google Analytics y Search Console?',
+      a: 'Web Starter, Business y Pro incluyen la configuración inicial de Google Analytics y de Google Search Console, y su conexión técnica cuando corresponda. No es un servicio de análisis mensual: los reportes frecuentes o la consultoría analítica pueden contratarse como adicional.',
+    },
+    {
+      q: '¿El dominio está incluido?',
+      a: 'Web Presentation incluye un subdominio HHA; el dominio propio es adicional. Web Starter incluye 1 año de dominio propio. Web Business incluye 1 año pagando mensual y 2 años pagando anual. Web Pro incluye mínimo 2 años. Si eliges un dominio premium o con un costo extraordinario, puede haber una diferencia adicional.',
+    },
+    {
+      q: '¿La inversión en anuncios está incluida?',
+      a: 'No. Si usas Meta Ads, Google Ads, TikTok Ads u otra plataforma, la inversión publicitaria se paga aparte, directamente en esa plataforma. Nuestros planes cubren la gestión, no el presupuesto de anuncios.',
+    },
+    {
+      q: '¿Qué pasa con WhatsApp, automatizaciones o email marketing avanzado?',
+      a: 'Son servicios adicionales. Los planes no incluyen n8n personalizado, WhatsApp API, campañas de email gestionadas por HHA ni integraciones complejas. Los cotizamos según el alcance; la API de WhatsApp además puede tener costos del proveedor.',
+    },
+    {
+      q: '¿Los valores incluyen IVA?',
+      a: 'No: todos los valores están en pesos chilenos (CLP) y se muestran más IVA. Tu cotización detalla el total con impuestos, la forma de pago y los plazos.',
+    },
+    {
+      q: '¿Trabajan solo en la Región de Valparaíso?',
+      a: 'No: trabajamos en todo Chile. Nuestra base está en Casablanca, Región de Valparaíso, y atendemos a clientes de todo el país de forma remota.',
     },
   ],
 

@@ -1,7 +1,7 @@
 # HHA Brand Foundation V1.2
 
 ## Naming
-- Tentative legal name: **HHA Digital Solutions SpA**
+- Legal name (the company is now real, confirmed by the founders): **HHA Digital Solutions SpA**
 - Mother brand: **HHA Digital Solutions**
 - Short forms: **HHA Digital / HHiAgencia**
 - Preferred commercial name: **HHiAgencia**

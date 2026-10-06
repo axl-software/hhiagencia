@@ -31,12 +31,14 @@ const ORGANIZACION = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'HHA Digital Solutions',
+  legalName: 'HHA Digital Solutions SpA',
   alternateName: 'HHiAgencia',
   url: 'https://www.hhiagencia.cl',
   logo: 'https://www.hhiagencia.cl/brand/hh-logo-azul.png',
   slogan: 'Digitaliza. Automatiza. Escala.',
   description:
-    'Ayudamos a marcas, creadores y empresas con contenido, estrategias, automatizaciones y soluciones digitales.',
+    'Ayudamos a marcas, creadores y empresas con contenido, estrategias, automatizaciones y soluciones digitales. Base en Casablanca, Región de Valparaíso; trabajamos en todo Chile.',
+  address: { '@type': 'PostalAddress', addressLocality: 'Casablanca', addressRegion: 'Región de Valparaíso', addressCountry: 'CL' },
   areaServed: [
     { '@type': 'Country', name: 'Chile' },
     { '@type': 'AdministrativeArea', name: 'Región de Valparaíso' },

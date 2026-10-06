@@ -186,3 +186,89 @@
   .mPagina, .carrito em, .mkFlota span, .demo i { animation: none; }
   .mHero img, .miniCara, .mkBanner, .mkBanner img, .mkBoton, .demo { transition: none; }
 }
+
+/* ---------- precios, selector mensual/anual, packs con ahorro, adicionales y preguntas frecuentes ---------- */
+.periodo { display: inline-flex; gap: 4px; padding: 4px; border: 1.5px solid var(--line3); background: var(--bg); }
+.periodo button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 0 22px; border: 0; background: transparent; color: var(--tx2); font: inherit; font-size: 15px; font-weight: 700; cursor: pointer; transition: background 0.2s ease, color 0.2s ease; }
+.periodo button[aria-pressed='true'] { background: var(--tx); color: var(--bg); }
+.periodo button:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+.periodo b { padding: 2px 8px; border-radius: 999px; background: var(--red); color: var(--on-red); font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.5px; }
+
+.grupo { margin: 18px 0 8px; }
+.grupoCabeza { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; margin-bottom: 24px; }
+.periodoNota { margin: 0; max-width: 46ch; font-size: 13px; line-height: 1.5; color: var(--tx2); }
+.planes { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 262px), 1fr)); align-items: stretch; }
+
+.precio { display: flex; flex-direction: column; gap: 3px; padding: 0 8px; }
+.regular { margin: 0; font-size: 14px; color: var(--tx2); }
+.regular s { font-weight: 600; text-decoration-thickness: 1.5px; }
+.regular span { margin-left: 6px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.8px; text-transform: uppercase; }
+.principal { margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 6px; color: var(--tx); }
+.principal strong { font-family: var(--f-head); font-size: clamp(34px, 3.4vw, 42px); font-weight: 700; line-height: 1.02; letter-spacing: -0.02em; }
+.principal span { font-size: 14px; color: var(--tx2); }
+.principal small { font-size: 15px; font-weight: 600; color: var(--tx2); }
+.etiqueta { align-self: flex-start; margin: 2px 0 0; font-family: var(--f-mono); font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--rojo-txt); }
+.total { margin: 2px 0 0; font-size: 14px; font-weight: 600; color: var(--tx); }
+.total em { margin-left: 6px; padding: 2px 8px; border-radius: 999px; background: color-mix(in srgb, var(--red) 14%, transparent); color: var(--rojo-txt); font-family: var(--f-mono); font-size: 11px; font-style: normal; letter-spacing: 0.8px; text-transform: uppercase; }
+.ahorro { align-self: flex-start; margin: 8px 0 0; padding: 6px 14px; border-radius: 999px; background: var(--red); color: var(--on-red); font-size: 15px; font-weight: 700; }
+.ahorroAnual { margin: 4px 0 0; font-size: 13px; font-weight: 600; color: var(--rojo-txt); }
+.sinPrecio { margin: 0; padding: 0 8px; font-weight: 600; color: var(--tx); }
+.desde { font-family: var(--f-head); font-size: 19px; font-weight: 700; color: var(--tx); }
+
+.bens { list-style: none; margin: 0; padding: 0 8px; display: flex; flex-direction: column; gap: 9px; }
+.bens li { display: flex; align-items: flex-start; gap: 9px; font-size: 14.5px; line-height: 1.45; color: var(--tx); }
+.bens svg { flex: none; margin-top: 3px; color: var(--rojo-txt); }
+.bens .domDestacado { padding: 7px 10px; border-radius: 8px; background: color-mix(in srgb, var(--red) 12%, transparent); }
+.domDestacado strong { color: var(--rojo-txt); }
+.impl { margin: 4px 0 0; text-align: center; font-size: 12.5px; color: var(--tx2); }
+
+/* categorías con planes: el encabezado arriba y todo el ancho para las tarjetas */
+.catAncho:global(.cat) { grid-template-columns: minmax(0, 1fr); }
+.catCuerpo { min-width: 0; display: flex; flex-direction: column; gap: 32px; }
+.catCuerpo:global(.cat-lista) { gap: 0; }
+.linea { display: flex; flex-direction: column; gap: 6px; }
+.lineaCabeza { display: flex; align-items: center; gap: 16px; }
+.lineaNombre { margin: 0; font-family: var(--f-head); font-size: 24px; font-weight: 700; letter-spacing: -0.01em; color: var(--tx); }
+.catAncho .fila { border-top: 1px solid var(--line); }
+.filaPrecio { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 18px; margin-top: 10px; }
+.filaPrecio :global(.ver-mas) { min-height: 36px; }
+.pauta { margin: 0; padding: 12px 16px; border: 1px solid color-mix(in srgb, var(--red) 30%, transparent); border-radius: 12px; background: color-mix(in srgb, var(--tx) 5%, transparent); font-size: 14px; line-height: 1.5; color: var(--tx2); }
+
+/* pack recomendado */
+.packTop { position: relative; border: 1.5px solid var(--red) !important; }
+.packBadge { position: absolute; top: 14px; right: 16px; padding: 4px 10px; border-radius: 999px; background: var(--red); color: var(--on-red); font-family: var(--f-mono); font-size: 11px; letter-spacing: 1.5px; }
+
+/* ventana de detalle */
+.modalPrecio { padding: 14px 16px; border: 1px solid var(--line2); background: color-mix(in srgb, var(--tx) 4%, transparent); }
+.modalPrecio .precio { padding: 0; }
+.ejemplo { margin: 0; padding: 10px 14px; border: 1px solid color-mix(in srgb, var(--red) 30%, transparent); border-radius: 12px; font-style: italic; color: var(--tx2); }
+
+/* servicios adicionales y preguntas frecuentes */
+.bloque { margin-top: 56px; display: flex; flex-direction: column; gap: 12px; }
+.adic { display: grid; gap: 14px; margin-top: 10px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); }
+.adicCard { padding: 20px; border: 1px solid var(--line2); background: var(--bg); }
+.adicTitulo { margin: 0 0 10px; font-family: var(--f-head); font-size: 18px; font-weight: 700; color: var(--tx); }
+.adicCard ul { margin: 0; padding-left: 18px; font-size: 14px; line-height: 1.6; color: var(--tx2); }
+.faq { display: flex; flex-direction: column; margin-top: 10px; border-top: 1px solid var(--line2); }
+.faq details { border-bottom: 1px solid var(--line2); }
+.faq summary { position: relative; min-height: 44px; padding: 18px 44px 18px 0; list-style: none; cursor: pointer; font-size: 16px; font-weight: 600; color: var(--tx); }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: '+'; position: absolute; right: 6px; top: 50%; translate: 0 -50%; font-size: 24px; line-height: 1; color: var(--rojo-txt); }
+.faq details[open] summary::after { content: '–'; }
+.faq summary:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+.faq p { margin: 0 0 20px; max-width: 75ch; font-size: 15px; line-height: 1.65; color: var(--tx2); }
+
+@media (max-width: 520px) {
+  .periodo { width: 100%; }
+  .periodo button { flex: 1; padding: 0 12px; }
+  .lineaNombre { font-size: 21px; }
+  .bloque { margin-top: 44px; }
+}
+
+.iva { align-self: center; font-family: var(--f-mono); font-size: 11px; font-weight: 600; letter-spacing: 0.4px; text-transform: uppercase; color: var(--tx2); }
+.planSistema { text-decoration: none; }
+
+.unidad { display: inline-flex; flex-direction: column; align-items: flex-start; gap: 1px; line-height: 1.15; }
+.unidad > span { font-size: 14px; color: var(--tx2); }
+.principal .nota { flex-basis: 100%; font-size: 13px; color: var(--tx2); }
+.principal .iva { align-self: flex-start; }

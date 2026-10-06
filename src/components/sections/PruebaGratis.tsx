@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { ArrowRight, Check } from 'lucide-react'
 import { CONFIG } from '@/lib/config'
+import { anualDe, clp, precioDe } from '@/lib/precios'
 import { completaFalta, contactarPor, enviarSolicitud, armarMensaje, validar, type Falta } from '@/lib/contacto'
 import { RUBROS } from '../portada/rubros'
 import { Escena, VENTANAS } from '../portada/sistemasData'
@@ -33,6 +34,10 @@ const EJEMPLO_NOMBRE: Record<string, string> = {
 export default function PruebaGratis() {
   const params = useSearchParams()
   const inicialRubro = OPCIONES.find((r) => r.id === params.get('rubro'))?.id ?? OPCIONES[0].id
+  /* Si llegas desde "Elegir plan" de HHA Systems (?plan=system-business): ese plan viaja con la solicitud */
+  const plan = CONFIG.servicios.find((x) => x.id === params.get('plan') && x.prueba === 'sistemas')
+  const precioPlan = plan ? precioDe(plan.id) : undefined
+  const anualPlan = precioPlan ? anualDe(precioPlan) : null
   const [rubro, setRubro] = useState(inicialRubro)
   const [negocio, setNegocio] = useState('')
   const [error, setError] = useState<Falta | null>(null)
@@ -64,7 +69,7 @@ export default function PruebaGratis() {
       return
     }
     setError(null)
-    const completo = { ...datos, negocio: `${val('negocio')} (${opcion.chip})`.trim(), servicios: ['HHA Systems · Prueba gratis'] }
+    const completo = { ...datos, negocio: `${val('negocio')} (${opcion.chip})`.trim(), servicios: ['HHA Systems · Prueba gratis', ...(plan ? [plan.nombre] : [])] }
     const canal = contactarPor(datos)
     setEnviando(true)
     const ok = await enviarSolicitud({ ...completo, origen: 'formulario', canal, sitio: val('sitio'), inicio: inicio.current })
@@ -93,6 +98,12 @@ export default function PruebaGratis() {
           <h1 className={s.titulo}>
             Tu sistema, <em>listo para probar.</em>
           </h1>
+          {plan && precioPlan?.lanzamiento && (
+            <p className={s.plan}>
+              <strong>Elegiste {plan.nombre}.</strong>{' '}
+              Desde {clp(precioPlan.lanzamiento)}/mes + IVA{anualPlan ? `, o ${clp(anualPlan.mensual)}/mes + IVA pagando anual` : ''}. Ahora elige tu tipo de negocio y pide tu prueba gratis.
+            </p>
+          )}
           <p className={s.lead}>
             Elige tu tipo de negocio y cuéntanos cómo se llama. Preparamos tu sistema de reservas y ventas con tu marca y lo pruebas durante {dias}. Primero lo pruebas; si te sirve, te quedas.
           </p>

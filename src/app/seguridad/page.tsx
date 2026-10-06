@@ -5,7 +5,7 @@ import { CONFIG, telVisible } from '@/lib/config'
 
 export const metadata: Metadata = {
   title: 'Seguridad',
-  description: 'Canales oficiales de HHiAgencia, precauciones al contactarnos y reporte de problemas de seguridad.',
+  description: 'Canales oficiales de HHA Digital Solutions SpA (HHiAgencia), precauciones al contactarnos y reporte de problemas de seguridad.',
   alternates: { canonical: '/seguridad' },
 }
 

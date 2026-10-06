@@ -1,9 +1,9 @@
 import type { ReactNode } from 'react'
 import { Kicker } from './Heading'
 
-/* Borradores para revisión: completar los pendientes de privacidad y contratación
-   y verificar las prácticas reales antes de publicar. */
-export const ACTUALIZADO = '2 de octubre de 2026'
+/* Textos legales de HHA Digital Solutions SpA. Antes de publicar: agregar RUT y dirección de la sociedad y que un abogado
+   los revise (ver comentarios PENDIENTE en terminos y privacidad). */
+export const ACTUALIZADO = '6 de octubre de 2026'
 
 export default function Legal({ titulo, children }: { titulo: string; children: ReactNode }) {
   return (

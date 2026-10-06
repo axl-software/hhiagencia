@@ -215,3 +215,10 @@
 @media (prefers-reduced-motion: reduce) {
   .hero, .hero *, .hero *::before, .hero *::after { animation: none !important; transition: none !important; }
 }
+
+/* cobertura nacional: lo más importante del lugar de trabajo, junto a la pastilla del inicio */
+.fila { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.fila > p { margin: 0; }
+.cobertura { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; border: 1px solid rgba(235, 75, 95, 0.55); border-radius: 999px; background: rgba(215, 38, 61, 0.16); color: #f8fafc; font-size: 13px; }
+.cobertura svg { color: #eb4b5f; flex: none; }
+.cobertura strong { font-weight: 700; }

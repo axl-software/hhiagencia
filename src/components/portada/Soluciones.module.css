@@ -75,3 +75,5 @@
   .tarjeta, .ver svg { transition: none; }
   .tarjeta:hover { transform: none; }
 }
+
+.desde { margin: 0; font-family: var(--f-head); font-size: 18px; font-weight: 700; color: var(--tx); }

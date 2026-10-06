@@ -845,3 +845,9 @@ input[aria-invalid="true"]{border-color:var(--red);box-shadow:0 0 0 1px var(--re
 @media (max-width:760px){.cta-logo{width:84%;opacity:.16}.cta-logo-izquierda{left:-30%}.cta-logo-derecha{right:-30%}.cta-logo-arriba{right:-10%}}
 @media (prefers-reduced-motion:reduce){.cta-logo{animation:none}.btn-red,.btn-white,.plan,.pack{transition:none}.plan:hover,.plan:focus-within,.pack:hover,.pack:focus-within{transform:none}}
 }
+
+/* Proceso → Métricas: foto de gráficos de fondo, bien visible pero detrás de todo; el velo cuida la lectura */
+.fondo-metricas{position:relative;isolation:isolate;overflow:hidden}
+.fondo-metricas::before{content:'';position:absolute;inset:0;z-index:-2;background:url('/img/ejemplos/metricas.webp') center/cover no-repeat;opacity:.85}
+.fondo-metricas::after{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,color-mix(in srgb,var(--bg) 78%,transparent) 0%,color-mix(in srgb,var(--bg) 42%,transparent) 45%,color-mix(in srgb,var(--bg) 62%,transparent) 100%)}
+.fondo-metricas .metrica{background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(8px)}

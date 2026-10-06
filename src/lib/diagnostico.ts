@@ -1,4 +1,4 @@
-/* Diagnóstico de 3 preguntas (portada y Servicios). Recomienda un plan web (Start, Business o Pro),
+/* Diagnóstico de 3 preguntas (portada y Servicios). Recomienda un plan web (Presentation, Starter, Business o Pro),
    HHA Systems (aplicación web de reservas y ventas) o cualquier otra línea de servicio, priorizando la web
    cuando el negocio no tiene una que le sirva.
    Las respuestas viajan a /contacto como ?prioridad=&web=&etapa= para incluirlas en el mensaje. */
@@ -42,7 +42,7 @@ export const PREGUNTAS: { clave: Clave; titulo: string; corta: string; opciones:
   },
 ]
 
-const PLAN_POR_ETAPA: Record<string, string> = { empezando: 'web-start', creciendo: 'web-business', online: 'web-pro' }
+const PLAN_POR_ETAPA: Record<string, string> = { empezando: 'web-starter', creciendo: 'web-business', online: 'web-pro' }
 
 /** Respuesta de la primera pregunta que no es el id de un servicio */
 const SERVICIO_POR_PRIORIDAD: Record<string, string> = { sistemas: 'hha-systems' }

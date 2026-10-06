@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: 'Servicios',
   alternates: { canonical: '/servicios' },
   description:
-    'Desarrollo web (Web Start, Web Business y Web Pro), marketing y captación de clientes, automatización e integraciones, e IA y consultoría. Elige lo que necesitas y solicita tu cotización.',
+    'Planes web desde $9.990/mes, HHA Systems, marketing y captación de clientes, automatización, integraciones e IA, con packs y opción anual -20%. Trabajamos en todo Chile. Elige lo que necesitas y solicita tu cotización.',
 }
 
 export default function ServiciosPage() {

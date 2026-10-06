@@ -21,7 +21,7 @@ export type Resultado = {
 
 /* Respuesta después de enviar: agradece y dice por dónde y cuándo lo contacta el asesor comercial.
    Si no se pudo guardar, ofrece enviar la solicitud por WhatsApp o correo para que no se pierda.
-   El plazo está en src/lib/config.ts → tiempoRespuesta. */
+   Los plazos están en src/lib/config.ts (tiempoRespuesta y tiempoPrueba) y son los mismos que prometen los correos de n8n. */
 export default function RespuestaSolicitud({ r, onListo, tituloId }: { r: Resultado; onListo: () => void; tituloId: string }) {
   const [aviso, setAviso] = useState('')
   const nombre = r.nombre.split(/\s+/)[0]
@@ -35,9 +35,21 @@ export default function RespuestaSolicitud({ r, onListo, tituloId }: { r: Result
           {r.prueba ? `¡Recibimos tu solicitud, ${nombre}!` : `¡Gracias por contarnos tu proyecto, ${nombre}!`}
         </h3>
         <p className="muted" style={{ margin: 0 }}>
-          Nuestro asesor comercial te contactará <strong>{via}</strong> {CONFIG.tiempoRespuesta}
-          {r.prueba ? `, para dejar lista tu prueba gratis${CONFIG.demoPlazo ? ` de ${CONFIG.demoPlazo}` : ''}.` : '.'}
+          {r.prueba ? (
+            <>
+              Nuestro equipo te escribirá <strong>{via}</strong> {CONFIG.tiempoPrueba} con el enlace para que uses tu prueba gratis{CONFIG.demoPlazo ? ` de ${CONFIG.demoPlazo}` : ''}.
+            </>
+          ) : (
+            <>
+              Nuestro equipo se comunicará contigo <strong>{via}</strong> {CONFIG.tiempoRespuesta} para conversar los detalles de tu proyecto.
+            </>
+          )}
         </p>
+        {r.canal === 'email' && (
+          <p className="note" style={{ margin: 0 }}>
+            Te escribiremos desde <strong>{CONFIG.email}</strong>. Si no lo ves en unos minutos, revisa la carpeta de spam o correo no deseado y márcalo como &quot;No es spam&quot;.
+          </p>
+        )}
         <button type="button" className="btn btn-red" onClick={onListo}>Listo</button>
       </div>
     )

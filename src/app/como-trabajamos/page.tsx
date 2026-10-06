@@ -88,7 +88,8 @@ export default function ComoTrabajamosPage() {
         </div>
       </section>
 
-      <section className="alt">
+      {/* Métricas: una foto de gráficos de fondo (Unsplash; autor en docs/HHA_TECH_STACK.md), con un velo para que el texto se lea */}
+      <section className="alt fondo-metricas">
         <div className="wrap sec">
           <div data-reveal>
             <Kicker>MÉTRICAS</Kicker>

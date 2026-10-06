@@ -122,7 +122,7 @@ export default function Contacto({ as = 'h2' }: { as?: Level }) {
         </div>
         <div className="canal">
           <span className="canal-ico"><MapPin size={18} strokeWidth={2} aria-hidden="true" /></span>
-          <span className="canal-txt"><span className="mono">BASE</span><strong>Valparaíso · Trabajamos en todo Chile</strong></span>
+          <span className="canal-txt"><span className="mono">BASE</span><strong>Trabajamos en todo Chile · Base en Casablanca</strong></span>
         </div>
       </div>
 
@@ -151,7 +151,7 @@ export default function Contacto({ as = 'h2' }: { as?: Level }) {
         <fieldset>
           <legend>¿Qué necesitas?</legend>
           <div className="chips">
-            {CONFIG.servicios.map((s) => (
+            {CONFIG.servicios.filter((s) => s.grupo === 'linea' || picked.has(s.id)).map((s) => (
               <button key={s.id} type="button" className="chip" aria-pressed={picked.has(s.id)} onClick={() => toggle(s.id)}>{s.nombre}</button>
             ))}
           </div>

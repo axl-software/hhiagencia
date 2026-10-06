@@ -168,7 +168,7 @@ export default function GuiaPlan({
                     <div key={s.id} className={`guia-rec${i === 0 ? ' principal' : ''}`}>
                       <span className="mono guia-etiqueta">{i === 0 ? 'TE RECOMENDAMOS' : 'PARA COMPLEMENTAR'}</span>
                       <strong>{s.nombre}</strong>
-                      <span className="muted">{s.necesidad ?? s.desc}</span>
+                      <span className="muted">{s.desc}</span>
                     </div>
                   ))}
                 </div>

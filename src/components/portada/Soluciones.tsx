@@ -2,6 +2,7 @@ import type { CSSProperties } from 'react'
 import Link from 'next/link'
 import { ArrowRight, Bot, Globe, Megaphone, Workflow, type LucideIcon } from 'lucide-react'
 import { CONFIG } from '@/lib/config'
+import { PRECIOS, clp } from '@/lib/precios'
 import { Kicker, Title } from '../sections/Heading'
 import s from './Soluciones.module.css'
 
@@ -16,6 +17,27 @@ const CORTO: Record<string, string> = {
   automatizacion: 'Para ahorrar tiempo en tareas repetitivas y que tus herramientas trabajen juntas.',
   ia: 'Para entender qué puedes mejorar con IA y aplicarlo con acompañamiento.',
 }
+/* Qué ofrece cada categoría (etiquetas de la tarjeta): las líneas, no cada plan */
+const ETIQUETAS: Record<string, string[]> = {
+  web: ['Web Presentation', 'Web Starter', 'Web Business', 'Web Pro'],
+  marketing: ['Marketing digital', 'Creación de contenido', 'Captación de clientes', 'Email marketing'],
+  automatizacion: ['Automatización', 'Integraciones', 'Procesos digitales'],
+  ia: ['Consultoría IA', 'Capacitación de equipos', 'Acompañamiento digital'],
+}
+/* Desde cuánto parte cada categoría: el valor más bajo de sus servicios (src/lib/precios.ts) */
+const PARTE: Record<string, { ids: string[]; unidad: string }> = {
+  web: { ids: ['web-presentation'], unidad: 'mes' },
+  marketing: { ids: ['email-marketing', 'captacion', 'content-start', 'marketing-starter'], unidad: 'mes' },
+  automatizacion: { ids: ['integraciones', 'automatizacion', 'procesos'], unidad: 'proyecto' },
+  ia: { ids: ['ia', 'acompanamiento', 'capacitacion'], unidad: 'sesión' },
+}
+const desdeDe = (cat: string) => {
+  const p = PARTE[cat]
+  if (!p) return null
+  const montos = p.ids.map((id) => PRECIOS[id]).filter(Boolean).map((x) => x.lanzamiento ?? x.monto ?? Infinity)
+  return montos.length ? `Desde ${clp(Math.min(...montos))}/${p.unidad} + IVA` : null
+}
+
 /* A dónde lleva cada tarjeta: su categoría en /servicios, o la página propia de Marketing */
 const DESTINO: Record<string, string> = {
   web: '/servicios#cat-web',
@@ -49,9 +71,8 @@ export default function Soluciones() {
       <div className={s.rejilla}>
         {categorias.map((c, i) => {
           const Icono = ICONOS[c.id] ?? Globe
-          const nombres = c.servicios
-            .map((id) => CONFIG.servicios.find((x) => x.id === id)?.nombre)
-            .filter((n): n is string => Boolean(n))
+          const nombres = ETIQUETAS[c.id] ?? []
+          const desde = desdeDe(c.id)
           return (
             <article
               key={c.id}
@@ -71,6 +92,7 @@ export default function Soluciones() {
                 <Link href={DESTINO[c.id] ?? '/servicios'} className={s.enlace}>{c.nombre}</Link>
               </h3>
               <p className={s.texto}>{CORTO[c.id] ?? c.necesidad}</p>
+              {desde && <p className={s.desde}>{desde}</p>}
               <ul className={s.tags}>
                 {nombres.map((n) => <li key={n}>{n}</li>)}
                 {c.id === 'web' && (

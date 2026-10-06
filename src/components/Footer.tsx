@@ -19,7 +19,7 @@ export default function Footer() {
           </Link>
           <span className="pie-lema">
             Web, automatización y marketing
-            <span>Base en Valparaíso · Trabajamos en todo Chile</span>
+            <span><strong>Trabajamos en todo Chile</strong> · Base en Casablanca, Región de Valparaíso</span>
           </span>
         </div>
 
@@ -37,7 +37,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="wrap pie-base">
-        <span className="mono">© {new Date().getFullYear()} HHA Digital Solutions</span>
+        <span className="mono">© {new Date().getFullYear()} HHA Digital Solutions SpA · Casablanca, Chile</span>
         <nav aria-label="Legal" className="pie-legal">
           {LEGAL.map((l) => <Link key={l.href} href={l.href}>{l.label}</Link>)}
         </nav>

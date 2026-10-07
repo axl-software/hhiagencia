@@ -45,12 +45,25 @@ export async function POST(req: Request) {
   const ms = Number(b.ms)
   if (Number.isFinite(ms) && ms >= 0 && ms < 2500) return respuesta(true)
 
+  /* Pedido hecho en /pedido: cómo quiere pagar y el resumen. Va en el aviso al flujo (n8n); en la base queda
+     como texto dentro de "servicios", sin cambiar la tabla. */
+  const p = b.pedido && typeof b.pedido === 'object' ? (b.pedido as Record<string, unknown>) : null
+  const pedido = p
+    ? {
+        metodo_pago: p.metodo === 'transferencia' ? 'transferencia' : 'contacto',
+        periodo: p.periodo === 'anual' ? 'anual' : 'mensual',
+        total_neto: Number.isFinite(Number(p.totalNeto)) ? Math.max(0, Math.round(Number(p.totalNeto))) : 0,
+        por_cotizar: p.porCotizar === true,
+        lineas: lista(p.lineas, 20, 80),
+      }
+    : null
+
   const datos = {
     nombre: texto(b.nombre, 120),
     negocio: texto(b.negocio, 200) || null,
     email: texto(b.email, 160) || null,
     telefono: texto(b.telefono, 40) || null,
-    servicios: lista(b.servicios, 12, 80),
+    servicios: lista(b.servicios, 20, 80),
     diagnostico: Array.isArray(b.diagnostico)
       ? b.diagnostico.slice(0, 5).map((r) => ({
           pregunta: texto((r as Record<string, unknown>)?.pregunta, 80),
@@ -58,8 +71,9 @@ export async function POST(req: Request) {
         }))
       : null,
     origen: b.origen === 'diagnostico' ? 'diagnostico' : 'formulario',
-    /* por dónde contactarlo: WhatsApp si dejó teléfono; si no, correo */
-    canal: texto(b.telefono, 40) ? 'whatsapp' : 'email',
+    /* por dónde contactarlo: WhatsApp si dejó teléfono; si no, correo. En un pedido, por correo cuando lo dejó
+       (el pago se coordina por correo). */
+    canal: pedido && texto(b.email, 160) ? 'email' : texto(b.telefono, 40) ? 'whatsapp' : 'email',
     pagina: texto(b.pagina, 200) || null,
   }
   /* Mismas reglas que en la página: nombre, y correo o WhatsApp */
@@ -82,7 +96,7 @@ export async function POST(req: Request) {
             'Content-Type': 'application/json',
             ...(process.env.SOLICITUDES_WEBHOOK_SECRETO ? { 'x-hha-secreto': process.env.SOLICITUDES_WEBHOOK_SECRETO } : {}),
           },
-          body: JSON.stringify({ evento: 'nueva_solicitud', fecha: new Date().toISOString(), ...datos, contactar_por: datos.canal }),
+          body: JSON.stringify({ evento: 'nueva_solicitud', tipo: pedido ? 'pedido' : 'solicitud', fecha: new Date().toISOString(), ...datos, contactar_por: datos.canal, ...(pedido ? { pedido } : {}) }),
           signal: AbortSignal.timeout(8000),
         })
         if (!r.ok) console.error('[solicitudes] el flujo de respuesta respondió', r.status)

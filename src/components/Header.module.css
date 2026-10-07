@@ -69,6 +69,27 @@
 }
 .tema:hover { border-color: var(--tx); }
 
+/* ícono del pedido (carrito) */
+.carrito {
+  position: relative;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px;
+  color: var(--tx);
+  border: 1.5px solid var(--line3);
+  text-decoration: none;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.carrito:hover { border-color: var(--red); color: var(--tx); }
+.carrito:focus-visible { outline: 2px solid var(--redtx); outline-offset: 4px; }
+.carritoN {
+  position: absolute; top: -8px; right: -8px;
+  min-width: 20px; height: 20px; padding: 0 5px;
+  display: grid; place-items: center;
+  background: var(--red); color: var(--on-red);
+  font-family: var(--f-mono); font-size: 11px; font-weight: 700; line-height: 1;
+  border-radius: 999px;
+}
+
 .burger {
   display: none;
   width: 44px; height: 44px;

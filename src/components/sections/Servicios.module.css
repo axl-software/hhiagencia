@@ -220,6 +220,7 @@
 .bens svg { flex: none; margin-top: 3px; color: var(--rojo-txt); }
 .bens .domDestacado { padding: 7px 10px; border-radius: 8px; background: color-mix(in srgb, var(--red) 12%, transparent); }
 .domDestacado strong { color: var(--rojo-txt); }
+.implDetalle { display: block; margin-top: 2px; font-size: 13px; font-weight: 400; color: var(--tx2); }
 .impl { margin: 4px 0 0; text-align: center; font-size: 12.5px; color: var(--tx2); }
 
 /* categorías con planes: el encabezado arriba y todo el ancho para las tarjetas */

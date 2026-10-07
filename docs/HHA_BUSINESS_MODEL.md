@@ -58,8 +58,8 @@ Single source in the code: `src/lib/precios.ts`. CLP, always shown **+ IVA** (fo
 
 Web / HHA Systems (monthly): regular price → launch price. Presentation 14.990 → 9.990; Starter 39.990 → 29.990; Business 64.990 → 49.990; Pro 89.990 → 69.990. System Starter 39.990 → 29.990; System Business 64.990 → 49.990; System Pro 89.990 → 69.990.
 Annual: 12 months of the launch price with 20% off, shown rounded to the hundred (e.g. Business 479.900/year, ≈ 39.990/month, saves 119.980). Paid in full in advance. Labels: “Precio regular”, “Precio lanzamiento”, “Ahorras X al año” (do not use “antes” or “precio anterior”).
-Domains: Presentation HHA subdomain (own domain is an add-on); Starter 1 year; Business 1 year monthly / 2 years annual; Pro at least 2 years. Premium domains may carry an extra cost.
-Implementation: exists, charged separately, never shown as an amount on the website (only “+ costo de implementación (pago único)”). The exact amount is given in the quote before the client commits. The internal amounts are kept out of the repository on purpose.
+Domains: Presentation HHA subdomain paying monthly and own domain included paying annual (founders, 2026-10-07; supersedes “own domain is an add-on”); Starter 1 year; Business 1 year monthly / 2 years annual; Pro at least 2 years. Premium domains may carry an extra cost.
+Implementation (one-time payment), approved 2026-10-06: Web Presentation $29,990 · Web Starter $129,990 · Web Business $390,000 · Web Pro $590,000 · System Starter $49,990 · System Business $69,990 · System Pro $99,990 (CLP, + IVA). Shown inside “Ver todo lo incluido” → “Valores y condiciones” (renamed from “Cómo se paga”, 2026-10-07) and in the order page /pedido, never on the main card (the card keeps “+ costo de implementación (pago único)”). Stored in `implementacionMonto` in `src/lib/precios.ts`. Other services with implementation (Captación, packs) still say the exact amount is given in the quote.
 Monthly change rounds (minor changes, not accumulated): Starter 2, Business 3, Pro 4; Presentation only technical maintenance and minimal adjustments.
 SEO is moderate and never promises rankings. Analytics and Search Console: initial setup only.
 
@@ -78,3 +78,5 @@ Close the first web-development client with implementation fee, recurring monthl
 
 ## Long term
 Move toward recurring revenue, reusable components, productized services, automation and SaaS.
+
+Order flow (founders, 2026-10-07): “Elegir plan” / “Elegir pack” on /servicios adds the item to the order (cart, saved in the browser) and opens `/pedido`, where the visitor sees the exact value (monthly or annual, implementation when defined, + IVA), can switch plan of the same line or the period, and chooses how to pay: **bank transfer** (HHA emails the transfer details) or **HHA contacts them by email** to facilitate payment. No online payment gateway and nothing is charged on confirmation. The order is sent through the existing requests flow (`/api/solicitudes` → Supabase → n8n webhook with `tipo: 'pedido'`). The transfer bank details are not stored in the repository.

@@ -2,6 +2,12 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-10-07 — Order page (cart), domain of Web Presentation and “Valores y condiciones” (branch `precios-y-legal`)
+- **Order flow (new)**: “Elegir plan” and “Elegir pack” now add the item to the order and open `/pedido` (new page + cart icon in the header). The page shows the exact value (+ IVA, implementation amount for the 7 plans), lets the visitor change plan or period, and offers two ways to pay: bank transfer (details sent by email) or “que HHA me contacte por correo”. No online payment; nothing is charged on confirmation. Sent through `/api/solicitudes` (Supabase + n8n webhook, field `tipo: 'pedido'` and `pedido`). Supersedes the “Elegir plan → Solicita cotización” two-step on plan and pack cards; single services (“desde”) still use “+ Agregar” and the “Tu pedido” bar.
+- **Web Presentation domain** (founders): subdomain HHA paying monthly, own domain included paying annual. Supersedes “own domain is an add-on”. FAQ updated.
+- **Rename**: “Cómo se paga” → “Valores y condiciones” inside “Ver todo lo incluido” (it holds subscription, implementation and free demo).
+- Terms: new paragraph on the order and the payment methods. FAQ: “¿Cómo pago mi pedido?”.
+
 ## 2026-10-06 — Implementation amounts for the 7 Web and HHA Systems plans (branch `precios-y-legal`)
 - Founders defined the one-time implementation fee: Web Presentation $29,990, Starter $129,990, Business $390,000, Pro $590,000; System Starter $49,990, Business $69,990, Pro $99,990. Supersedes “implementation amounts are never published” for these 7 plans only. Shown inside “Ver todo lo incluido” (Cómo se paga) as “Implementación: $X (pago único)” + IVA, with a secondary description; main cards unchanged. Stored in `implementacionMonto` (`src/lib/precios.ts`). No other price, discount, launch price or scope changed. Terms §4 updated.
 

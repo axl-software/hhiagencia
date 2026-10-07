@@ -149,7 +149,7 @@ export const CONFIG: Config = {
   demoPlazo: '7 días', // fundadores, 2026-10-05
 
   // Precios aprobados el 2026-10-06 (docs/HHA_BUSINESS_MODEL.md). Los montos están en src/lib/precios.ts.
-  // La implementación se cobra aparte: aquí solo se menciona, nunca con monto.
+  // La implementación se cobra aparte: los montos de los 7 planes web y HHA Systems están en precios.ts (implementacionMonto).
   servicios: [
     // ---------- Desarrollo web ----------
     {
@@ -175,15 +175,15 @@ export const CONFIG: Config = {
         'Máximo 3 imágenes',
         'Estructura HHA optimizada',
         'Adaptación visual a la identidad del cliente',
-        'Subdominio HHA',
+        'Subdominio HHA pagando mensual',
+        'Dominio propio incluido pagando anual',
         '1 ronda inicial de revisión',
         'Buenas prácticas técnicas mínimas',
       ],
       notas: [
-        'Dominio propio: no está incluido por defecto; se puede agregar como adicional.',
         'Mantenimiento técnico y ajustes mínimos, según el alcance.',
       ],
-      dominio: { mensual: 'Subdominio HHA. El dominio propio es un adicional.', anual: 'Subdominio HHA. El dominio propio es un adicional.' },
+      dominio: { mensual: 'Subdominio HHA.', anual: 'Dominio propio incluido.', anualDestacado: 'Dominio propio incluido' },
     },
     {
       id: 'web-starter', grupo: 'plan', nombre: 'Web Starter', prueba: 'web',
@@ -724,8 +724,12 @@ export const CONFIG: Config = {
       a: 'Eliges "Anual -20%" y pagas los 12 meses por adelantado, con un 20% de descuento sobre el precio lanzamiento vigente. Verás el total y cuánto ahorras antes de contratar. En Web Business, el plan anual además incluye 2 años de dominio propio.',
     },
     {
+      q: '¿Cómo pago mi pedido?',
+      a: 'Al elegir un plan o un pack llegas a tu pedido, donde ves el valor exacto. Para confirmarlo eliges entre pagar por transferencia (te enviamos los datos por correo) o que te contactemos por correo para facilitarte el pago. Por ahora no hay pago en línea y no se cobra nada al confirmar.',
+    },
+    {
       q: '¿Qué es el costo de implementación?',
-      a: 'Es un pago único por dejar tu web o tu sistema configurado y funcionando. Es independiente de la suscripción mensual. El monto exacto te lo informamos en la cotización, antes de que te comprometas.',
+      a: 'Es un pago único por dejar tu web o tu sistema configurado y funcionando. Es independiente de la suscripción mensual. En los planes web y de HHA Systems el monto figura en el detalle de cada plan (“Ver todo lo incluido”); en los demás servicios te lo informamos en la cotización, antes de que te comprometas.',
     },
     {
       q: '¿Cuántos cambios puedo pedir al mes en mi web?',
@@ -741,7 +745,7 @@ export const CONFIG: Config = {
     },
     {
       q: '¿El dominio está incluido?',
-      a: 'Web Presentation incluye un subdominio HHA; el dominio propio es adicional. Web Starter incluye 1 año de dominio propio. Web Business incluye 1 año pagando mensual y 2 años pagando anual. Web Pro incluye mínimo 2 años. Si eliges un dominio premium o con un costo extraordinario, puede haber una diferencia adicional.',
+      a: 'Web Presentation incluye un subdominio HHA pagando mensual y dominio propio pagando anual. Web Starter incluye 1 año de dominio propio. Web Business incluye 1 año pagando mensual y 2 años pagando anual. Web Pro incluye mínimo 2 años. Si eliges un dominio premium o con un costo extraordinario, puede haber una diferencia adicional.',
     },
     {
       q: '¿La inversión en anuncios está incluida?',

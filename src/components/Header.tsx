@@ -7,6 +7,7 @@ import { Menu, X } from 'lucide-react'
 import { NAV } from '@/lib/nav'
 import Redes from './Redes'
 import GuiaPlan from './GuiaPlan'
+import CarritoBtn from './CarritoBtn'
 import s from './Header.module.css'
 
 function Logo({ onClick }: { onClick?: () => void }) {
@@ -85,6 +86,7 @@ export default function Header() {
         </div>
 
         <div className={s.right}>
+          <CarritoBtn />
           {/* El botón principal abre el diagnóstico de 3 preguntas (docs/HHA_BRAND_FOUNDATION.md).
               Mismo diseño que el botón rojo de la portada (.btn-vivo), en tamaño compacto. */}
           <span className={s.ctaDesk}>

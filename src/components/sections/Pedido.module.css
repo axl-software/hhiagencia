@@ -1,0 +1,74 @@
+/* =========================================================
+   Pedido (/pedido): carrito de la web. Izquierda: lo que elegiste, con su plan y su período.
+   Derecha: resumen de valores y los datos para confirmar. Usa los tokens del sitio (tono claro).
+   ========================================================= */
+
+.pedido { display: grid; gap: 36px 48px; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); align-items: start; }
+.col { display: grid; gap: 18px; min-width: 0; }
+.cabeza { display: grid; gap: 14px; max-width: 760px; margin-bottom: 8px; }
+
+.periodo { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; padding: 14px 16px; border: 1px solid var(--line2); background: var(--bg2); }
+.periodo p { margin: 0; font-size: 14px; color: var(--tx2); }
+
+.item { display: grid; gap: 14px; padding: 20px; border: 1.5px solid var(--line2); background: var(--bg); position: relative; }
+.itemTop { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+.nombre { margin: 0; font-family: var(--f-head); font-size: 22px; line-height: 1.15; color: var(--tx); }
+.tipo { display: block; margin-bottom: 4px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 1.4px; text-transform: uppercase; color: var(--mut); }
+.quitar { flex: none; min-height: 44px; padding: 0 6px; background: none; border: 0; color: var(--tx2); font: inherit; font-size: 14px; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.quitar:hover { color: var(--red); }
+
+.cambiar { display: grid; gap: 8px; }
+.cambiar > span { font-size: 13px; color: var(--mut); }
+.opcs { display: flex; flex-wrap: wrap; gap: 8px; }
+.opc { display: grid; gap: 2px; min-width: 120px; min-height: 52px; padding: 8px 14px; text-align: left; background: var(--bg2); border: 1.5px solid var(--line2); color: var(--tx); font: inherit; cursor: pointer; transition: border-color 0.2s, background-color 0.2s; }
+.opc b { font-size: 14px; }
+.opc small { font-size: 12.5px; color: var(--mut); }
+.opc:hover { border-color: var(--line3); }
+.opc[aria-checked='true'] { border-color: var(--red); background: color-mix(in srgb, var(--red) 8%, var(--bg)); }
+
+.valores { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; font-size: 15px; }
+.valores li { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; color: var(--tx2); }
+.valores b { color: var(--tx); font-weight: 600; }
+.valores small { font-size: 12.5px; color: var(--mut); }
+.ahorro { color: var(--red); font-weight: 600; font-size: 14px; margin: 0; }
+.aparte { font-size: 13.5px; color: var(--mut); margin: 0; }
+.aviso { margin: 0; padding: 10px 12px; font-size: 14px; line-height: 1.5; color: var(--tx); border: 1px solid color-mix(in srgb, var(--red) 55%, transparent); background: color-mix(in srgb, var(--red) 10%, transparent); }
+
+.campo { display: grid; gap: 6px; font-size: 14px; color: var(--tx2); }
+.campo select { min-height: 48px; padding: 10px 12px; border: 1px solid var(--field, var(--line3)); background: var(--bg); color: var(--tx); font: inherit; font-size: 16px; width: 100%; border-radius: 8px; }
+.enlaces { display: flex; flex-wrap: wrap; gap: 10px 22px; }
+.enlaces a { color: var(--tx); font-size: 14px; text-underline-offset: 3px; }
+
+.vacio { display: grid; gap: 16px; padding: 36px 24px; text-align: center; border: 1.5px dashed var(--line3); justify-items: center; }
+.vacio p { margin: 0; max-width: 46ch; }
+.vacioAcc { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+
+/* Resumen */
+.resumen { display: grid; gap: 10px; padding: 22px; border: 1.5px solid var(--red); background: var(--bg); }
+.resumen h2 { margin: 0; font-family: var(--f-head); font-size: 20px; }
+.fila { display: flex; justify-content: space-between; gap: 14px; font-size: 15px; color: var(--tx2); }
+.fila b { color: var(--tx); font-weight: 600; }
+.total { padding-top: 12px; margin-top: 4px; border-top: 1px solid var(--line2); font-family: var(--f-head); font-size: 24px; color: var(--tx); }
+.total b { font-size: 26px; }
+.nota { margin: 0; font-size: 13px; line-height: 1.5; color: var(--mut); }
+
+/* Forma de pago (dentro de la tarjeta oscura del formulario) */
+.pago { display: grid; gap: 10px; border: 0; padding: 0; margin: 0; min-width: 0; }
+.pago legend { padding: 0; margin-bottom: 8px; font-weight: 600; }
+.pagoOp { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; align-items: start; text-align: left; padding: 14px 16px; background: rgba(5, 7, 10, 0.45); border: 1.5px solid rgba(248, 250, 252, 0.28); color: var(--tx); font: inherit; cursor: pointer; transition: border-color 0.2s, background-color 0.2s; }
+.pagoOp:hover { border-color: rgba(248, 250, 252, 0.6); }
+.pagoOp[aria-checked='true'] { border-color: var(--red); background: rgba(215, 38, 61, 0.16); }
+.punto { grid-row: span 2; width: 20px; height: 20px; margin-top: 2px; border: 2px solid rgba(248, 250, 252, 0.6); border-radius: 50%; display: grid; place-items: center; }
+.pagoOp[aria-checked='true'] .punto { border-color: var(--red); }
+.pagoOp[aria-checked='true'] .punto::after { content: ''; width: 10px; height: 10px; border-radius: 50%; background: var(--red); }
+.pagoOp b { font-size: 15px; }
+.pagoOp span.tx { font-size: 13.5px; line-height: 1.45; color: var(--tx2); }
+.sinCobro { display: flex; gap: 8px; align-items: flex-start; margin: 0; font-size: 13.5px; color: var(--tx2); }
+
+@media (max-width: 900px) {
+  .pedido { grid-template-columns: minmax(0, 1fr); }
+  .opc { flex: 1 1 140px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .opc, .pagoOp { transition: none; }
+}

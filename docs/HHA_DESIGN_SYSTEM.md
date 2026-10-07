@@ -114,4 +114,4 @@ Use motion only when it clarifies hierarchy or improves perceived quality. Avoid
 - Midnight Navy gradient cards (not black) in dark mode; ivory cards with a warm shadow in light mode.
 - Each card shows a small drawing of the site the plan builds, which grows from Start (one page) to Business (several sections and a new lead arriving) to Pro (store connected to other tools); the plan name with a 1–3 bar level; who it is for; a full-width main button (“Elegir plan”); and “Ver qué incluye”.
 - Web Business (recommended): red glow, rotating red border, “RECOMENDADO” badge and the red `.btn-vivo` button.
-- After choosing a plan, its button becomes “Solicita cotización →” (with the current selection) plus “Quitar”, the same pattern as the packs.
+- “Elegir plan” / “Elegir pack” adds the item to the order and opens `/pedido` (2026-10-07; supersedes “Solicita cotización →”). If the item is already in the order the button reads “Ver mi pedido” plus “Quitar”.

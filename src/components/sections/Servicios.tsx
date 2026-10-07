@@ -1,7 +1,8 @@
 'use client'
 
-import { useEffect, useRef, useState, type CSSProperties } from 'react'
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import {
   ArrowRight, Building2, CalendarCheck, Check, Clock, Gift, Globe, GraduationCap, Heart, LayoutDashboard, LifeBuoy, ListChecks, Magnet, Mail, Megaphone, MessageCircle, PenTool,
   Plug, Puzzle, Rocket, ShoppingCart, Sparkles, TrendingUp, Users, Wallet, Workflow, X, type LucideIcon,
@@ -9,6 +10,7 @@ import {
 import { CONFIG, type Categoria, type Pack, type Servicio } from '@/lib/config'
 import { PACKS_PRECIO, clp, implementacionDe, precioDe } from '@/lib/precios'
 import { medir } from '@/lib/medir'
+import { PACK, agregar, quitar, usePedido } from '@/lib/pedido'
 import { Kicker, Title, type Level } from './Heading'
 import Orbitas from '../Orbitas'
 import GuiaPlan from '../GuiaPlan'
@@ -19,7 +21,7 @@ import m from './Servicios.module.css'
 
 const pad = (n: number) => String(n).padStart(2, '0')
 /* Demo gratuita de los planes web; el plazo se edita en src/lib/config.ts → demoPlazo */
-const DEMO = `al cotizar te preparamos una demo para que pruebes tu web antes de decidir`
+const DEMO = `al hacer tu pedido te preparamos una demo para que pruebes tu web antes de decidir`
 const porId = (id: string) => CONFIG.servicios.find((s) => s.id === id)
 const serviciosDe = (c: Categoria) => c.servicios.map(porId).filter((s) => s !== undefined)
 const planesDe = (linea: Servicio) => (linea.planes ?? []).map(porId).filter((s) => s !== undefined)
@@ -70,32 +72,20 @@ function Icono({ id, size = 22 }: { id: string; size?: number }) {
 type Detalle = { tipo: 'servicio'; s: Servicio } | { tipo: 'pack'; p: Pack }
 
 /* Plan: el nombre, su frase de valor, el precio (regular tachado + lanzamiento, o anual), los beneficios principales
-   y un botón. Al elegirlo, el botón pasa a "Solicita cotización" con la selección (igual que los packs). El recomendado
-   lleva el botón rojo. En web se ve una muestra de la página que se construye.
+   y un botón. "Elegir plan" lo agrega al pedido y lleva a /pedido, donde se ve el valor exacto, se cambia de plan o de
+   período y se elige cómo pagar. El recomendado lleva el botón rojo. En web se ve una muestra de la página que se construye.
    Titulo: el nivel de encabezado que corresponde bajo el de su categoría (sin saltos). */
-function PlanCard({ plan, linea, nivel, total, anual, elegido, href, toggle, verDetalle, Titulo }: {
+function PlanCard({ plan, linea, nivel, total, anual, elegido, elegir, verDetalle, Titulo }: {
   plan: Servicio
   linea: string
   nivel: number
   total: number
   anual: boolean
   elegido: boolean
-  href: string
-  toggle: (id: string) => void
+  elegir: (id: string) => void
   verDetalle: (d: Detalle) => void
   Titulo: 'h3' | 'h4'
 }) {
-  /* Al elegir el plan con su botón, el foco pasa a "Solicita cotización" para seguir con el teclado */
-  const cotizar = useRef<HTMLAnchorElement>(null)
-  const recienElegido = useRef(false)
-  useEffect(() => {
-    if (elegido && recienElegido.current) cotizar.current?.focus({ preventScroll: true })
-    recienElegido.current = false
-  }, [elegido])
-  const elegir = () => {
-    recienElegido.current = true
-    toggle(plan.id)
-  }
   const p = precioDe(plan.id)
   const dominio = plan.dominio ? (anual ? plan.dominio.anual : plan.dominio.mensual) : null
   const destacarDominio = anual && plan.dominio?.anualDestacado
@@ -132,30 +122,20 @@ function PlanCard({ plan, linea, nivel, total, anual, elegido, href, toggle, ver
       <div className="plan-acciones">
         {elegido ? (
           <>
-            <Link ref={cotizar} className="btn-vivo plan-btn" href={href}>
-              Solicita cotización <ArrowRight size={18} strokeWidth={2.25} aria-hidden="true" />
+            <Link className="btn-vivo plan-btn" href="/pedido">
+              Ver mi pedido <ArrowRight size={18} strokeWidth={2.25} aria-hidden="true" />
             </Link>
             <div className="plan-elegido-fila">
-              <span className="plan-check"><Check size={15} strokeWidth={2.5} aria-hidden="true" /> En tu selección</span>
-              <button type="button" className="link-btn" onClick={() => toggle(plan.id)} aria-label={`Quitar ${plan.nombre}`}>Quitar</button>
+              <span className="plan-check"><Check size={15} strokeWidth={2.5} aria-hidden="true" /> En tu pedido</span>
+              <button type="button" className="link-btn" onClick={() => quitar(plan.id)} aria-label={`Quitar ${plan.nombre} del pedido`}>Quitar</button>
             </div>
           </>
-        ) : plan.prueba === 'sistemas' ? (
-          /* HHA Systems: elegir plan lleva a elegir el rubro (barbería, estética…) y pedir la prueba con tu nombre y contacto */
-          <Link
-            className={`${plan.destacado ? 'btn-vivo' : 'btn-plan'} plan-btn ${m.planSistema}`}
-            href={`/prueba-gratis?plan=${plan.id}`}
-            onClick={() => medir('servicio_agregado', { servicio: plan.id })}
-            aria-label={`Elegir ${plan.nombre} y escoger tu tipo de negocio`}
-          >
-            Elegir plan <ArrowRight size={18} strokeWidth={2.25} aria-hidden="true" />
-          </Link>
         ) : (
           <button
             type="button"
             className={`${plan.destacado ? 'btn-vivo' : 'btn-plan'} plan-btn`}
-            onClick={elegir}
-            aria-label={`Elegir ${plan.nombre}`}
+            onClick={() => elegir(plan.id)}
+            aria-label={`Elegir ${plan.nombre} y ver el valor en tu pedido`}
           >
             Elegir plan <ArrowRight size={18} strokeWidth={2.25} aria-hidden="true" />
           </button>
@@ -171,16 +151,14 @@ function PlanCard({ plan, linea, nivel, total, anual, elegido, href, toggle, ver
 
 /* Pack: se vende completo ("Elegir pack" agrega todos sus servicios). Quien quiera solo uno lo
    agrega desde las categorías de arriba. El ahorro va destacado, justo bajo el precio. */
-function PackCard({ pack, i, picked, href, elegirPack, verDetalle, Titulo }: {
+function PackCard({ pack, i, completo, elegirPack, verDetalle, Titulo }: {
   pack: Pack
   i: number
-  picked: Set<string>
-  href: string
-  elegirPack: (pack: Pack, agregar: boolean) => void
+  completo: boolean
+  elegirPack: (pack: Pack) => void
   verDetalle: (d: Detalle) => void
   Titulo: 'h3' | 'h4'
 }) {
-  const completo = pack.servicios.every((id) => picked.has(id))
   const IconoPack = ICONOS_PACK[pack.id]
   return (
     <article className={`pack brillo${completo ? ' pack-completo' : ''}${pack.id === 'reservas' ? ' pack-ancho' : ''}${pack.destacado ? ` ${m.packTop}` : ''}`} data-reveal style={{ '--d': `${(i % 2) * 0.08}s` } as CSSProperties}>
@@ -200,12 +178,12 @@ function PackCard({ pack, i, picked, href, elegirPack, verDetalle, Titulo }: {
       <div className="pack-pie">
         {completo ? (
           <>
-            <Link className="btn btn-red pack-btn" href={href}>Solicita cotización →</Link>
-            <button type="button" className="link-btn" onClick={() => elegirPack(pack, false)}>Quitar pack</button>
-            <span className="pack-badge">✓ Pack en tu selección</span>
+            <Link className="btn btn-red pack-btn" href="/pedido">Ver mi pedido →</Link>
+            <button type="button" className="link-btn" onClick={() => quitar(PACK + pack.id)}>Quitar pack</button>
+            <span className="pack-badge">✓ Pack en tu pedido</span>
           </>
         ) : (
-          <button type="button" className="btn btn-red pack-btn" onClick={() => elegirPack(pack, true)}>Elegir pack</button>
+          <button type="button" className="btn btn-red pack-btn" onClick={() => elegirPack(pack)}>Elegir pack</button>
         )}
         <button type="button" className="ver-mas" onClick={() => verDetalle({ tipo: 'pack', p: pack })}>
           Ver qué incluye <ArrowRight size={16} strokeWidth={2} aria-hidden="true" />
@@ -219,36 +197,39 @@ function PackCard({ pack, i, picked, href, elegirPack, verDetalle, Titulo }: {
    1. Categorías: Desarrollo web y HHA Systems (planes con precio regular, lanzamiento y opción anual), Marketing y
       captación, Automatización, e IA y consultoría. Cada categoría tiene ancla: /servicios#cat-marketing.
    2. "¿Qué problema quieres resolver?": packs con nombre y ahorro, que se eligen completos.
-   3. "Tu selección": sin nada elegido invita al diagnóstico; con algo elegido, a la cotización.
+   3. "Tu pedido": sin nada elegido invita al diagnóstico; con algo elegido, lleva a /pedido.
    4. Servicios adicionales y preguntas frecuentes.
-   Los montos salen de src/lib/precios.ts (única fuente). La implementación nunca muestra monto: solo "+ costo de
-   implementación (pago único)". La selección viaja a /contacto?servicios=a,b. */
+   Los montos salen de src/lib/precios.ts (única fuente). En las tarjetas la implementación nunca muestra monto: solo
+   "+ costo de implementación (pago único)"; el monto de los 7 planes va en el detalle y en /pedido. Lo que se elige queda
+   en el pedido (src/lib/pedido.ts); "Elegir plan" y "Elegir pack" llevan a /pedido. */
 export default function Servicios({ as = 'h2', marketing = false }: { as?: Level; marketing?: boolean }) {
   /* Encabezados sin saltos: las categorías van un nivel bajo el título de la sección, y los planes,
      servicios y packs un nivel bajo su categoría. El diseño lo dan las clases, no el elemento. */
   const Categoria = as === 'h1' ? 'h2' : 'h3'
   const Item = as === 'h1' ? 'h3' : 'h4'
-  const [picked, setPicked] = useState<Set<string>>(() => new Set())
-  /* Mensual | Anual: una sola elección para los planes web y los de HHA Systems */
+  const router = useRouter()
+  /* Lo elegido vive en el pedido (se guarda en el navegador): ids de planes y servicios, y "pack:<id>" para los packs */
+  const pedido = usePedido()
+  const picked = useMemo(() => new Set(pedido.items), [pedido.items])
+  /* Mensual | Anual: una sola elección para los planes web y los de HHA Systems (el pedido la recuerda) */
   const [anual, setAnual] = useState(false)
-  const cambiar = (ids: string[], agregar: boolean) =>
-    setPicked((prev) => {
-      const next = new Set(prev)
-      for (const id of ids) {
-        if (agregar) next.add(id)
-        else next.delete(id)
-      }
-      return next
-    })
   const toggle = (id: string) => {
-    const agregar = !picked.has(id)
-    if (agregar) medir('servicio_agregado', { servicio: id })
-    cambiar([id], agregar)
+    if (picked.has(id)) quitar(id)
+    else {
+      medir('servicio_agregado', { servicio: id })
+      agregar(id)
+    }
   }
-
-  const elegirPack = (pack: Pack, agregar: boolean) => {
-    if (agregar) medir('servicio_agregado', { pack: pack.id })
-    cambiar(pack.servicios, agregar)
+  /* Planes y packs: se agregan al pedido y se va directo a /pedido, donde se ve el valor exacto y se elige cómo pagar */
+  const elegirPlan = (id: string) => {
+    medir('servicio_agregado', { servicio: id })
+    agregar(id)
+    router.push('/pedido')
+  }
+  const elegirPack = (pack: Pack) => {
+    medir('servicio_agregado', { pack: pack.id })
+    agregar(PACK + pack.id)
+    router.push('/pedido')
   }
 
   /* Ventana "Ver todo lo incluido": detalle del plan, servicio o pack. <dialog> nativo: se cierra con Esc, con la X o tocando fuera. */
@@ -259,8 +240,7 @@ export default function Servicios({ as = 'h2', marketing = false }: { as?: Level
   }, [detalle])
   const cerrar = () => dialogo.current?.close()
 
-  const sel = CONFIG.servicios.filter((s) => picked.has(s.id))
-  const href = `/contacto?servicios=${sel.map((s) => s.id).join(',')}`
+  const nombres = pedido.items.map((id) => (id.startsWith(PACK) ? `Pack ${CONFIG.packs.find((p) => p.id === id.slice(PACK.length))?.nombre ?? ''}` : porId(id)?.nombre ?? ''))
 
   const addBtn = (s: Servicio) => {
     const on = picked.has(s.id)
@@ -284,7 +264,7 @@ export default function Servicios({ as = 'h2', marketing = false }: { as?: Level
         ) : null}
         <div className={m.planes}>
           {planes.map((pl, n) => (
-            <PlanCard key={pl.id} plan={pl} linea={linea.id} nivel={n + 1} total={planes.length} anual={anual} elegido={picked.has(pl.id)} href={href} toggle={toggle} verDetalle={setDetalle} Titulo={Item} />
+            <PlanCard key={pl.id} plan={pl} linea={linea.id} nivel={n + 1} total={planes.length} anual={anual} elegido={picked.has(pl.id)} elegir={elegirPlan} verDetalle={setDetalle} Titulo={Item} />
           ))}
         </div>
       </div>
@@ -305,7 +285,7 @@ export default function Servicios({ as = 'h2', marketing = false }: { as?: Level
             <Title as={as}>{marketing ? 'Servicios de marketing' : 'Elige por dónde empezar'}</Title>
           </div>
           <p className="muted" style={{ maxWidth: 420, margin: 0 }}>
-            Marca lo que te interesa y solicita tu cotización. Valores en pesos chilenos, más IVA. El detalle de pago y plazos va en tu cotización.
+            Elige tu plan y ve el valor exacto en tu pedido, antes de confirmar. Valores en pesos chilenos, más IVA. Pagas por transferencia o te contactamos por correo.
           </p>
         </div>
 
@@ -443,7 +423,7 @@ export default function Servicios({ as = 'h2', marketing = false }: { as?: Level
         </div>
         <div className="packs">
           {CONFIG.packs.map((p, i) => (
-            <PackCard key={p.id} pack={p} i={i} picked={picked} href={href} elegirPack={elegirPack} verDetalle={setDetalle} Titulo={Item} />
+            <PackCard key={p.id} pack={p} i={i} completo={picked.has(PACK + p.id)} elegirPack={elegirPack} verDetalle={setDetalle} Titulo={Item} />
           ))}
         </div>
 
@@ -452,13 +432,13 @@ export default function Servicios({ as = 'h2', marketing = false }: { as?: Level
         {/* Tu selección: el botón cambia según lo que el visitante ya hizo */}
         <div className="quote" aria-live="polite" data-reveal>
           <div>
-            <div className="mono" style={{ fontSize: 12, letterSpacing: 1.5, color: 'var(--mut)' }}>TU SELECCIÓN</div>
+            <div className="mono" style={{ fontSize: 12, letterSpacing: 1.5, color: 'var(--mut)' }}>TU PEDIDO</div>
             <div style={{ fontSize: 15, marginTop: 6, color: 'var(--tx)' }}>
-              {sel.length ? sel.map((s) => s.nombre).join(' · ') : '¿No sabes qué elegir? Responde 3 preguntas y te recomendamos.'}
+              {nombres.length ? nombres.join(' · ') : '¿No sabes qué elegir? Responde 3 preguntas y te recomendamos.'}
             </div>
           </div>
-          {sel.length ? (
-            <Link className="btn btn-red" href={href}>Solicita cotización →</Link>
+          {nombres.length ? (
+            <Link className="btn btn-red" href="/pedido">Ir a mi pedido →</Link>
           ) : (
             <GuiaPlan etiqueta="Haz tu diagnóstico" className="btn btn-red" giro={false} origen="servicios" />
           )}
@@ -501,19 +481,20 @@ export default function Servicios({ as = 'h2', marketing = false }: { as?: Level
         onClose={() => setDetalle(null)}
         onClick={(e) => e.target === e.currentTarget && cerrar()}
       >
-        {detalle && <ContenidoDetalle detalle={detalle} anual={anual} picked={picked} toggle={toggle} elegirPack={elegirPack} cerrar={cerrar} />}
+        {detalle && <ContenidoDetalle detalle={detalle} anual={anual} picked={picked} toggle={toggle} elegirPlan={elegirPlan} elegirPack={elegirPack} cerrar={cerrar} />}
       </dialog>
 
     </section>
   )
 }
 
-function ContenidoDetalle({ detalle, anual, picked, toggle, elegirPack, cerrar }: {
+function ContenidoDetalle({ detalle, anual, picked, toggle, elegirPlan, elegirPack, cerrar }: {
   detalle: Detalle
   anual: boolean
   picked: Set<string>
   toggle: (id: string) => void
-  elegirPack: (p: Pack, agregar: boolean) => void
+  elegirPlan: (id: string) => void
+  elegirPack: (p: Pack) => void
   cerrar: () => void
 }) {
   const esPack = detalle.tipo === 'pack'
@@ -529,8 +510,13 @@ function ContenidoDetalle({ detalle, anual, picked, toggle, elegirPack, cerrar }
   const packPrecio = pack ? PACKS_PRECIO[pack.id] : undefined
   const montoImpl = precioId ? implementacionDe(precioId) : undefined
   const llevaImpl = Boolean(p?.implementacion || packPrecio?.implementacion)
-  const elegido = s ? picked.has(s.id) : pack ? pack.servicios.every((id) => picked.has(id)) : false
-  const alElegir = () => (s ? toggle(s.id) : pack ? elegirPack(pack, !elegido) : undefined)
+  const elegido = s ? picked.has(s.id) : pack ? picked.has(PACK + pack.id) : false
+  /* Planes y packs: al elegirlos se va a /pedido; los servicios sueltos se agregan o se quitan del pedido */
+  const alElegir = () => {
+    if (s?.grupo === 'plan') elegirPlan(s.id)
+    else if (s) toggle(s.id)
+    else if (pack) elegirPack(pack)
+  }
 
   return (
     <div className="modal-caja">
@@ -587,7 +573,7 @@ function ContenidoDetalle({ detalle, anual, picked, toggle, elegirPack, cerrar }
 
       {(p?.anual || llevaImpl || s?.prueba === 'web') && (
         <>
-          <div className="kicker" style={{ margin: '8px 0 0' }}>CÓMO SE PAGA</div>
+          <div className="kicker" style={{ margin: '8px 0 0' }}>VALORES Y CONDICIONES</div>
           <ul className="incluye">
             {p?.anual && <li><Wallet size={18} strokeWidth={2} aria-hidden="true" /><span>Suscripción mensual, o anual con 20% de descuento sobre el precio lanzamiento. El plan anual se paga completo por adelantado.</span></li>}
             {montoImpl ? (
@@ -608,10 +594,10 @@ function ContenidoDetalle({ detalle, anual, picked, toggle, elegirPack, cerrar }
         <p className="note">{NOTA_PAUTA}</p>
       )}
 
-      <p className="note">Valores en pesos chilenos (CLP), más IVA. El plazo de entrega y la forma de pago se detallan en tu cotización.</p>
+      <p className="note">Valores en pesos chilenos (CLP), más IVA. Al elegir verás el valor exacto en tu pedido y escoges cómo pagar: transferencia o que te contactemos por correo.</p>
       <div className="modal-acciones">
         <button type="button" className="btn btn-red" onClick={alElegir} aria-pressed={elegido}>
-          {elegido ? (esPack ? '✓ Pack elegido' : '✓ Elegido') : esPack ? 'Elegir este pack' : s?.grupo === 'plan' ? 'Elegir este plan' : 'Agregar a mi selección'}
+          {elegido ? (esPack ? '✓ Pack en tu pedido' : '✓ En tu pedido') : esPack ? 'Elegir este pack' : s?.grupo === 'plan' ? 'Elegir este plan' : 'Agregar a mi pedido'}
         </button>
         <button type="button" className="btn btn-out" onClick={cerrar}>Cerrar</button>
       </div>

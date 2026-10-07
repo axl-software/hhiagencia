@@ -3,7 +3,7 @@
    páginas legales van en un tono claro azulado. Para cambiar el tono de una página, editar esta lista.
    El script de abajo corre antes de pintar la página (en el <head> de layout.tsx y de preview/index.html),
    para que no se vea un parpadeo del tono equivocado; TemaRuta lo vuelve a aplicar al cambiar de página. */
-export const RUTAS_CLARAS = ['/servicios', '/prueba-gratis', '/contacto', '/privacidad', '/terminos', '/seguridad']
+export const RUTAS_CLARAS = ['/servicios', '/prueba-gratis', '/pedido', '/contacto', '/privacidad', '/terminos', '/seguridad']
 
 export type Tema = 'light' | 'dark'
 

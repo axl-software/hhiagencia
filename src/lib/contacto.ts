@@ -82,6 +82,8 @@ export type Solicitud = DatosContacto & {
   sitio: string
   /** Momento en que la persona empezó a escribir (Date.now()), o null si no se sabe. */
   inicio: number | null
+  /** Pedido hecho en /pedido (src/lib/pedido.ts): cómo quiere pagar y el resumen. */
+  pedido?: { metodo: 'transferencia' | 'contacto'; periodo: 'mensual' | 'anual'; totalNeto: number; porCotizar: boolean; lineas: string[] }
 }
 
 /** Cómo contactamos a la persona: WhatsApp si dejó teléfono; si no, el correo. */

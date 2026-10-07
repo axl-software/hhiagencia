@@ -17,6 +17,8 @@ export type Resultado = {
   origen: 'formulario' | 'diagnostico'
   /** Solicitud de la prueba gratis de HHA Systems (cambia el texto de agradecimiento) */
   prueba?: boolean
+  /** Pedido de /pedido: cómo pagará (cambia el texto de agradecimiento) */
+  pedido?: 'transferencia' | 'contacto'
 }
 
 /* Respuesta después de enviar: agradece y dice por dónde y cuándo lo contacta el asesor comercial.
@@ -32,10 +34,14 @@ export default function RespuestaSolicitud({ r, onListo, tituloId }: { r: Result
       <div className="respuesta">
         <span className="respuesta-ico"><Check size={30} strokeWidth={2.5} aria-hidden="true" /></span>
         <h3 id={tituloId} className="card-t" style={{ margin: 0 }}>
-          {r.prueba ? `¡Recibimos tu solicitud, ${nombre}!` : `¡Gracias por contarnos tu proyecto, ${nombre}!`}
+          {r.pedido ? `¡Recibimos tu pedido, ${nombre}!` : r.prueba ? `¡Recibimos tu solicitud, ${nombre}!` : `¡Gracias por contarnos tu proyecto, ${nombre}!`}
         </h3>
         <p className="muted" style={{ margin: 0 }}>
-          {r.prueba ? (
+          {r.pedido ? (
+            <>
+              Te escribiremos <strong>{via}</strong> {CONFIG.tiempoRespuesta} {r.pedido === 'transferencia' ? 'con los datos para pagar por transferencia' : 'para ayudarte con el pago'}. No se cobró nada: tu pedido queda confirmado cuando lo conversemos.
+            </>
+          ) : r.prueba ? (
             <>
               Nuestro equipo te escribirá <strong>{via}</strong> {CONFIG.tiempoPrueba} con el enlace para que uses tu prueba gratis{CONFIG.demoPlazo ? ` de ${CONFIG.demoPlazo}` : ''}.
             </>

@@ -7,6 +7,7 @@ import Footer from '@/components/Footer'
 import TemaRuta from '@/components/TemaRuta'
 import MarketingPage from '@/app/marketing/page'
 import PruebaGratisPage from '@/app/prueba-gratis/page'
+import PedidoPage from '@/app/pedido/page'
 import Inicio from '@/app/page'
 import ServiciosPage from '@/app/servicios/page'
 import ComoTrabajamosPage from '@/app/como-trabajamos/page'
@@ -25,6 +26,7 @@ const PAGES: Record<string, ComponentType> = {
   '/servicios': ServiciosPage,
   '/marketing': MarketingPage,
   '/prueba-gratis': PruebaGratisPage,
+  '/pedido': PedidoPage,
   '/como-trabajamos': ComoTrabajamosPage,
   '/contacto': ContactoPage,
   '/privacidad': PrivacidadPage,

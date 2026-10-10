@@ -632,6 +632,7 @@ export const CONFIG: Config = {
         'Ajustes según rendimiento',
         '2 asesorías mensuales',
         'Reporte mensual con recomendaciones',
+        'Atención prioritaria por WhatsApp',
       ],
       incluye: [
         '1 campaña activa',
@@ -643,6 +644,8 @@ export const CONFIG: Config = {
         'Ajustes según rendimiento',
         '2 asesorías mensuales',
         'Reporte mensual con recomendaciones',
+        'Atención prioritaria por WhatsApp para consultas y ajustes',
+        'Revisión de resultados y próximos pasos en cada asesoría',
       ],
       noIncluye: ['Inversión publicitaria'],
       notas: [NOTA_PAUTA_CAPTACION],

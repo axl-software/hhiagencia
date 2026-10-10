@@ -264,7 +264,7 @@ export default function Servicios({ as = 'h2', marketing = false }: { as?: Level
             <p className={m.periodoNota}>Precio lanzamiento vigente. En anual pagas los 12 meses por adelantado, con 20% de descuento.</p>
           </div>
         ) : null}
-        <div className={m.planes}>
+        <div className={`${m.planes}${planes.length === 4 && linea.familia ? ` ${m.planesDos}` : ''}`}>
           {planes.map((pl, n) => (
             <PlanCard key={pl.id} plan={pl} linea={linea.id} nivel={n + 1} total={planes.length} anual={anual} elegido={picked.has(pl.id)} elegir={elegirPlan} verDetalle={setDetalle} Titulo={Item} />
           ))}
@@ -343,7 +343,9 @@ export default function Servicios({ as = 'h2', marketing = false }: { as?: Level
                     if (s.planes?.length) {
                       return (
                         <div key={s.id} className={m.linea}>
-                          <div className={m.lineaCabeza}>
+                          {s.familia ? (
+                            <p className={m.producto}><strong>{s.familia} · {s.nombre}</strong> {s.desc}</p>
+                          ) : <div className={m.lineaCabeza}>
                             {FOTOS[s.id] ? (
                               <span className={m.svcFoto}>
                                 {/* eslint-disable-next-line @next/next/no-img-element -- next/image rompe la vista previa en HTML */}
@@ -357,7 +359,7 @@ export default function Servicios({ as = 'h2', marketing = false }: { as?: Level
                               <Item className={m.lineaNombre}>{s.familia ? `${s.familia} · ${s.nombre}` : s.nombre}</Item>
                               <p className="muted" style={{ margin: '4px 0 0' }}>{s.desc}</p>
                             </div>
-                          </div>
+                          </div>}
                           {grupoPlanes(s, s.id === 'hha-systems')}
                         </div>
                       )

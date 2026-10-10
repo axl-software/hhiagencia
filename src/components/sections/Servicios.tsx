@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import {
   ArrowRight, Building2, CalendarCheck, Check, Clock, Gift, Globe, GraduationCap, Heart, LayoutDashboard, LifeBuoy, ListChecks, Magnet, Mail, Megaphone, MessageCircle, PenTool,
-  Plug, Puzzle, Rocket, ShoppingCart, Sparkles, TrendingUp, Users, Wallet, Workflow, X, type LucideIcon,
+  Plug, Puzzle, Rocket, ShoppingCart, Sparkles, TrendingUp, Users, Video, Wallet, Workflow, X, type LucideIcon,
 } from 'lucide-react'
 import { CONFIG, type Categoria, type Pack, type Servicio } from '@/lib/config'
 import { PACKS_PRECIO, clp, implementacionDe, precioDe } from '@/lib/precios'
@@ -41,6 +41,7 @@ const ICONOS: Record<string, LucideIcon> = {
   captacion: Magnet,
   'email-marketing': Mail,
   contenido: PenTool,
+  'produccion-audiovisual': Video,
   ia: GraduationCap,
   capacitacion: Users,
   acompanamiento: LifeBuoy,
@@ -141,6 +142,7 @@ function PlanCard({ plan, linea, nivel, total, anual, elegido, elegir, verDetall
           </button>
         )}
         {p?.implementacion && <p className={m.impl}>{NOTA_IMPL}</p>}
+        {linea === 'captacion' && <p className={m.impl}>{NOTA_PAUTA}</p>}
         <button type="button" className="ver-mas" onClick={() => verDetalle({ tipo: 'servicio', s: plan })}>
           Ver todo lo incluido <ArrowRight size={16} strokeWidth={2} aria-hidden="true" />
         </button>
@@ -341,7 +343,7 @@ export default function Servicios({ as = 'h2', marketing = false }: { as?: Level
                     if (s.planes?.length) {
                       return (
                         <div key={s.id} className={m.linea}>
-                          {s.id !== 'hha-systems' && <div className={m.lineaCabeza}>
+                          <div className={m.lineaCabeza}>
                             {FOTOS[s.id] ? (
                               <span className={m.svcFoto}>
                                 {/* eslint-disable-next-line @next/next/no-img-element -- next/image rompe la vista previa en HTML */}
@@ -352,10 +354,10 @@ export default function Servicios({ as = 'h2', marketing = false }: { as?: Level
                               <span className="svc-ico"><Icono id={s.id} size={20} /></span>
                             )}
                             <div>
-                              <Item className={m.lineaNombre}>{s.nombre}</Item>
+                              <Item className={m.lineaNombre}>{s.familia ? `${s.familia} · ${s.nombre}` : s.nombre}</Item>
                               <p className="muted" style={{ margin: '4px 0 0' }}>{s.desc}</p>
                             </div>
-                          </div>}
+                          </div>
                           {grupoPlanes(s, s.id === 'hha-systems')}
                         </div>
                       )
@@ -590,7 +592,7 @@ function ContenidoDetalle({ detalle, anual, picked, toggle, elegirPlan, elegirPa
         </>
       )}
 
-      {(pack?.id === 'clientes' || s?.id === 'marketing-starter' || s?.id === 'marketing-business' || s?.id === 'marketing-pro' || s?.id === 'captacion') && (
+      {(pack?.id === 'clientes' || s?.id === 'marketing-starter' || s?.id === 'marketing-business' || s?.id === 'marketing-pro' || s?.id === 'captacion-start' || s?.id === 'captacion-business') && (
         <p className="note">{NOTA_PAUTA}</p>
       )}
 

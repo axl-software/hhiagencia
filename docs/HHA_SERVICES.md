@@ -81,8 +81,8 @@ Not to be presented as mature offers unless approved:
 
 ## Website presentation: categories, then problem → solution
 Approved by the founders (2026-10-01; replaces “web plans, then packs, then Ver todos los servicios”). The catalog does not change: services are grouped visually so visitors who know what they want find it, and visitors who don't can start from their problem without knowing technical names. Order on the Servicios page:
-1. **Desarrollo web**: Web Presentation, Web Starter, Web Business, Web Pro. 1b. **HHA Systems**: System Starter, Business, Pro.
-2. **Marketing y captación**: Marketing digital, Captación de clientes, Creación de contenido.
+1. **Desarrollo web**: Web Presentation, Web Starter, Web Business, Web Pro. 1b. **HHA Systems** (family of SaaS) · agendAHH: Solo, Starter, Business, Pro.
+2. **Marketing y captación**: Marketing digital, Creación de contenido, Producción Audiovisual, Captación de clientes (Start, Business), Email marketing.
 3. **Automatización**: Automatización, Integraciones, Procesos digitales.
 4. **IA y consultoría**: Consultoría y capacitación en IA, Acompañamiento digital.
 5. **Packs** (“¿Qué problema quieres resolver?”).

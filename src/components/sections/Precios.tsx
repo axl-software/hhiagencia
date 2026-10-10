@@ -6,7 +6,7 @@ import m from './Servicios.module.css'
 /** Nota discreta bajo los planes (y dentro del detalle de los demás): el monto no se publica. */
 export const NOTA_IMPL = '+ costo de implementación (pago único)'
 export const NOTA_IMPL_DETALLE = 'El monto exacto se informa en tu cotización, antes de contratar.'
-export const NOTA_PAUTA = 'La inversión publicitaria, cuando exista, se paga por separado directamente en la plataforma correspondiente.'
+export const NOTA_PAUTA = 'La inversión publicitaria no está incluida y es pagada directamente por el cliente a la plataforma correspondiente.'
 
 /** "+ IVA" chico junto a cada precio (los valores se publican sin IVA). */
 export function Iva() {
@@ -81,7 +81,8 @@ export function PrecioSimple({ id }: { id: string }) {
 /** Texto corto de precio de una línea ("Desde $49.990/mes"). */
 export function PrecioLinea({ id }: { id: string }) {
   const p = precioDe(id)
-  if (!p) return null
+  /* Sin precio publicado (ej. Producción Audiovisual): se cotiza según el proyecto */
+  if (!p) return <span className={m.desde}>Cotización según proyecto</span>
   return <span className={m.desde}>{textoPrecio(p)} <Iva /></span>
 }
 

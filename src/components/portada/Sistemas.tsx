@@ -17,10 +17,11 @@ import s from './Sistemas.module.css'
    El nombre interno del producto no se muestra.
    ========================================================= */
 
-/* Desde cuánto parte HHA Systems: el equivalente mensual del plan anual de System Starter (src/lib/precios.ts) */
+/* Desde cuánto parte HHA Systems: el equivalente mensual del plan anual de agendAHH Starter (src/lib/precios.ts) */
 const STARTER = PRECIOS['system-starter']
 const DESDE_ANUAL = clp(anualDe(STARTER)?.mensual ?? 0)
 const DESDE_MENSUAL = clp(STARTER.lanzamiento ?? 0)
+const SOLO = clp(PRECIOS['system-agenda-solo'].monto ?? 0)
 
 /* Inclinación 3D según dónde está el cursor (no en pantallas táctiles) */
 const inclinar = (ev: PointerEvent<HTMLDivElement>) => {
@@ -128,9 +129,10 @@ export default function Sistemas() {
             </ul>
             <div className="kicker" style={{ margin: '8px 0 0' }}>LOS PLANES</div>
             <ul className="incluye">
-              <li><Check size={18} strokeWidth={2.25} aria-hidden="true" /><span><strong>System Starter</strong> trae todo lo de arriba. Desde {DESDE_MENSUAL}/mes + IVA, o {DESDE_ANUAL}/mes + IVA pagando anual.</span></li>
-              <li><Check size={18} strokeWidth={2.25} aria-hidden="true" /><span><strong>System Business</strong> suma tu tienda para vender junto a las reservas y un panel para ver cómo va tu negocio.</span></li>
-              <li><Check size={18} strokeWidth={2.25} aria-hidden="true" /><span><strong>System Pro</strong> suma correos de confirmación y recordatorios, y promociones para volver a conectar con tus clientes.</span></li>
+              <li><Check size={18} strokeWidth={2.25} aria-hidden="true" /><span><strong>agendAHH Solo</strong> es el plan individual: agenda, clientes y panel, desde {SOLO}/mes + IVA.</span></li>
+              <li><Check size={18} strokeWidth={2.25} aria-hidden="true" /><span><strong>agendAHH Starter</strong> trae todo lo de arriba. Desde {DESDE_MENSUAL}/mes + IVA, o {DESDE_ANUAL}/mes + IVA pagando anual.</span></li>
+              <li><Check size={18} strokeWidth={2.25} aria-hidden="true" /><span><strong>agendAHH Business</strong> suma tu tienda para vender junto a las reservas y un panel para ver cómo va tu negocio.</span></li>
+              <li><Check size={18} strokeWidth={2.25} aria-hidden="true" /><span><strong>agendAHH Pro</strong> suma correos de confirmación y recordatorios, y promociones para volver a conectar con tus clientes.</span></li>
             </ul>
             <p className="note"><strong>Prueba gratis de {CONFIG.demoPlazo}:</strong> primero lo pruebas y, si te sirve, te quedas. + costo de implementación (pago único); el monto exacto te lo informamos en la cotización, antes de contratar.</p>
             <div className="modal-acciones">

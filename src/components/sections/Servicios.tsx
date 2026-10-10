@@ -338,7 +338,8 @@ export default function Servicios({ as = 'h2', marketing = false }: { as?: Level
                     </Link>
                   )}
 
-                  {serviciosDe(c).map((s) => {
+                  {/* En /servicios, Marketing y captación es solo el recuadro "Ver marketing": sus servicios viven en la página /marketing */}
+                  {(c.id === 'marketing' && !marketing ? [] : serviciosDe(c)).map((s) => {
                     /* Línea con niveles: sus planes en tarjetas */
                     if (s.planes?.length) {
                       return (
@@ -412,7 +413,7 @@ export default function Servicios({ as = 'h2', marketing = false }: { as?: Level
                     </>
                   )}
 
-                  {c.id === 'marketing' && <p className={m.pauta}>{NOTA_PAUTA}</p>}
+                  {c.id === 'marketing' && marketing && <p className={m.pauta}>{NOTA_PAUTA}</p>}
                 </div>
               </div>
             )

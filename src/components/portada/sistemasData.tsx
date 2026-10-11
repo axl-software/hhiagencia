@@ -38,8 +38,8 @@ export type Ventana = {
 const DIAS = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie']
 const HORAS = ['11:00', '11:45', '12:30', '16:00']
 
-/* Lo que comparten todos los rubros: es lo que trae System Starter (el plan de entrada). Commerce y Dashboard Lite llegan con
-   System Business; correos y promociones, con System Pro (src/lib/config.ts → servicios). */
+/* Lo que comparten todos los rubros: es lo que trae agendAHH Starter (el plan de entrada). Commerce y Dashboard Lite llegan con
+   agendAHH Business; correos y promociones, con agendAHH Pro (src/lib/config.ts → servicios). */
 const COMUN = [
   'Tus clientes reservan online, a cualquier hora: eligen servicio, profesional, día y hora.',
   'Tu agenda siempre al día: horarios y disponibilidad claros, sin cruces.',

@@ -6,7 +6,7 @@
 
    Reglas comerciales (docs/HHA_BUSINESS_MODEL.md):
    - Planes web y HHA Systems: precio regular y precio lanzamiento, mensual o anual (-20% sobre el precio lanzamiento).
-   - El costo de implementación (pago único) se cobra aparte. Los 7 planes web y HHA Systems tienen monto definido
+   - El costo de implementación (pago único) se cobra aparte. Los 7 planes web y HHA Systems tienen monto definido, y agendAHH Solo también
      (`implementacionMonto`), que se muestra SOLO dentro de "Ver todo lo incluido", nunca en la tarjeta. Los demás
      servicios con implementación siguen diciendo que el monto se informa en la cotización.
    - La inversión publicitaria (Meta, Google, TikTok…) nunca va incluida: se paga aparte, en cada plataforma.
@@ -41,7 +41,8 @@ export const PRECIOS: Record<string, Precio> = {
   'web-starter': { regular: 39990, lanzamiento: 29990, unidad: 'mes', anual: true, implementacion: true, implementacionMonto: 129990 },
   'web-business': { regular: 64990, lanzamiento: 49990, unidad: 'mes', anual: true, implementacion: true, implementacionMonto: 390000 },
   'web-pro': { regular: 89990, lanzamiento: 69990, unidad: 'mes', anual: true, implementacion: true, implementacionMonto: 590000 },
-  // HHA Systems
+  // HHA Systems · agendAHH (agendAHH Solo: $14.990/mes, instalación $24.990, sin precio lanzamiento ni opción anual)
+  'system-agenda-solo': { monto: 14990, unidad: 'mes', implementacion: true, implementacionMonto: 24990 },
   'system-starter': { regular: 39990, lanzamiento: 29990, unidad: 'mes', anual: true, implementacion: true, implementacionMonto: 49990 },
   'system-business': { regular: 64990, lanzamiento: 49990, unidad: 'mes', anual: true, implementacion: true, implementacionMonto: 69990 },
   'system-pro': { regular: 89990, lanzamiento: 69990, unidad: 'mes', anual: true, implementacion: true, implementacionMonto: 99990 },
@@ -54,7 +55,9 @@ export const PRECIOS: Record<string, Precio> = {
   'content-business': { monto: 149990, unidad: 'mes' },
   'content-pro': { monto: 249990, unidad: 'mes', desde: true },
   // Otras líneas
-  captacion: { monto: 49990, unidad: 'mes', desde: true, implementacion: true },
+  // Captación: solo existen Start y Business (no hay Captación Pro)
+  'captacion-start': { monto: 49990, unidad: 'mes' },
+  'captacion-business': { monto: 79990, unidad: 'mes' },
   'email-marketing': { monto: 39990, unidad: 'mes', desde: true },
   automatizacion: { monto: 99990, unidad: 'proyecto', desde: true },
   integraciones: { monto: 79990, unidad: 'proyecto', desde: true },
@@ -135,8 +138,8 @@ function armarPack(precio: number, unidad: PrecioPack['unidad'], separado: numbe
 }
 
 export const PACKS_PRECIO: Record<string, PrecioPack> = {
-  // Marketing Business + Web Business + Captación
-  clientes: armarPack(229990, 'mes', mon('marketing-business') + lan('web-business') + mon('captacion'), {
+  // Marketing Business + Web Business + Captación Start
+  clientes: armarPack(229990, 'mes', mon('marketing-business') + lan('web-business') + mon('captacion-start'), {
     implementacion: true,
     nota: 'Valor por separado calculado con el precio lanzamiento de Web Business.',
   }),

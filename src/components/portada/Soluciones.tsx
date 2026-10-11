@@ -27,7 +27,7 @@ const ETIQUETAS: Record<string, string[]> = {
 /* Desde cuánto parte cada categoría: el valor más bajo de sus servicios (src/lib/precios.ts) */
 const PARTE: Record<string, { ids: string[]; unidad: string }> = {
   web: { ids: ['web-presentation'], unidad: 'mes' },
-  marketing: { ids: ['email-marketing', 'captacion', 'content-start', 'marketing-starter'], unidad: 'mes' },
+  marketing: { ids: ['email-marketing', 'captacion-start', 'content-start', 'marketing-starter'], unidad: 'mes' },
   automatizacion: { ids: ['integraciones', 'automatizacion', 'procesos'], unidad: 'proyecto' },
   ia: { ids: ['ia', 'acompanamiento', 'capacitacion'], unidad: 'sesión' },
 }

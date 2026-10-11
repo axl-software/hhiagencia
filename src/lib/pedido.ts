@@ -147,7 +147,14 @@ export function lineaDe(id: string, periodo: Periodo, items: string[] = []): Lin
   }
   const s = CONFIG.servicios.find((x) => x.id === id)
   const p = precioDe(id)
-  if (!s || !p) return null
+  if (!s) return null
+  /* Servicio sin precio publicado (ej. Producción Audiovisual): se cotiza según el proyecto */
+  if (!p) {
+    return {
+      id, tipo: 'servicio', nombre: s.nombre, hermanos: [], hoy: null, recurrente: null, unidadRecurrente: '', implementacion: null,
+      implementacionPorCotizar: false, desde: true, montoDesde: null, periodoTexto: 'cotización según proyecto', ahorroAnual: null, esAnual: false, incluye: [], repetidos: [],
+    }
+  }
   const sibs = s.grupo === 'plan' ? hermanos(id) : []
   const hermanosLista = sibs
     .map((h) => {

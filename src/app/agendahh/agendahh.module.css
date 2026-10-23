@@ -1,0 +1,29 @@
+/* Página /agendahh: contenido para Google y para quien llega buscando una agenda online. Usa los tokens del sitio. */
+.lead { margin: 18px 0 0; max-width: 60ch; font-size: clamp(17px, 2vw, 20px); line-height: 1.55; color: var(--tx2); }
+.acciones { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 26px; }
+.nota { margin: 12px 0 0; max-width: 70ch; font-size: 14px; line-height: 1.55; color: var(--tx2); }
+.sub { margin: 0; font-size: 15px; line-height: 1.5; color: var(--tx2); }
+.precio { margin: 18px 0 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px; color: var(--tx); }
+.precio strong { font-family: var(--f-precio); font-size: clamp(34px, 3.4vw, 44px); font-weight: 700; line-height: 1.02; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+.precio span { font-size: 15px; color: var(--tx2); }
+
+.dos { display: grid; gap: 28px; grid-template-columns: 1fr; margin-top: 26px; }
+@media (min-width: 820px) { .dos { grid-template-columns: 1.3fr 1fr; gap: 48px; } }
+
+.rubros { list-style: none; margin: 26px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 12px; }
+.rubros li { display: inline-flex; align-items: center; gap: 10px; padding: 0 16px; min-height: 48px; border: 1.5px solid var(--line3); background: var(--bg); }
+.rubros a { color: var(--tx); font-weight: 600; text-decoration: none; }
+.rubros a:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+.planes { display: grid; gap: 18px; grid-template-columns: 1fr; margin-top: 26px; }
+@media (min-width: 720px) { .planes { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1100px) { .planes { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.plan { position: relative; display: flex; flex-direction: column; gap: 6px; padding: 22px 20px; border: 1px solid var(--line2); background: var(--bg); min-width: 0; }
+.plan h3 { margin: 0; font-family: var(--f-head); font-size: 22px; line-height: 1.15; letter-spacing: -0.02em; }
+.top { border-color: var(--red); }
+.badge { position: absolute; top: -11px; left: 20px; padding: 4px 10px; border-radius: 999px; background: var(--red); color: var(--on-red); font-family: var(--f-mono); font-size: 11px; letter-spacing: 1.5px; }
+
+.faq { margin-top: 26px; max-width: 820px; }
+.faq details { border-bottom: 1px solid var(--line2); }
+.faq summary { cursor: pointer; display: flex; align-items: center; min-height: 52px; padding: 6px 0; font-weight: 600; font-size: 17px; }
+.faq p { margin: 0 0 16px; max-width: 70ch; font-size: 15.5px; line-height: 1.6; color: var(--tx2); }

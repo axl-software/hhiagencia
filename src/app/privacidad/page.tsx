@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Legal from '@/components/sections/Legal'
 import { CONFIG, EMPRESA } from '@/lib/config'
+import { GA_ID } from '@/lib/google'
 
 export const metadata: Metadata = {
   title: 'Política de privacidad',
@@ -62,6 +63,9 @@ export default function PrivacidadPage() {
       <h2>8. Almacenamiento local y analítica</h2>
       <p>Tu preferencia de tema claro u oscuro se guarda en el almacenamiento local del navegador. Puedes eliminarla desde la configuración del navegador; entonces el sitio dejará de recordar esa elección.</p>
       <p>La integración actual utiliza Vercel Web Analytics para estadísticas de visitas y acciones, como completar el diagnóstico o enviar una solicitud. Según su documentación, funciona sin cookies de terceros y ofrece estadísticas agregadas; puede tratar información como página visitada, referencia, navegador, dispositivo y ubicación aproximada.</p>
+      {GA_ID && (
+        <p>También usamos Google Analytics 4 para entender cómo se usa el sitio (páginas visitadas, origen del tráfico y acciones como enviar una solicitud). Por defecto no guarda cookies de analítica en tu navegador: Google recibe señales básicas de la visita, como página, dispositivo y ubicación aproximada. Consulta la <a href="https://policies.google.com/technologies/partner-sites">información de Google sobre el uso de datos</a>.</p>
+      )}
       <p>Los eventos configurados no incluyen los campos de nombre, correo, teléfono ni descripción del negocio. Esto no significa que los servicios de alojamiento dejen de procesar datos de conexión. Consulta la <a href="https://vercel.com/docs/analytics/privacy-policy">información de privacidad de Vercel Web Analytics</a>.</p>
 
       <h2>9. Seguridad y actualizaciones</h2>

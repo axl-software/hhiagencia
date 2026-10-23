@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { ACTUALIZADO } from '@/components/sections/Legal'
-import styles from './terminos.module.css'
+import Legal, { type Seccion } from '@/components/sections/Legal'
 import { CONFIG, EMPRESA, telVisible } from '@/lib/config'
 
 export const metadata: Metadata = {
@@ -10,19 +9,36 @@ export const metadata: Metadata = {
   alternates: { canonical: '/terminos' },
 }
 
+/* Índice de la página: el id de cada <h2> y cómo se llama en el índice lateral. */
+const SECCIONES: Seccion[] = [
+  { id: 'responsable', label: 'Quién opera este sitio' },
+  { id: 'cobertura', label: 'Dónde trabajamos' },
+  { id: 'cotizaciones', label: 'Información y cotizaciones' },
+  { id: 'planes', label: 'Planes, precios y pagos' },
+  { id: 'contratacion', label: 'Contratación y mantenimiento' },
+  { id: 'cancelaciones', label: 'Cancelaciones y derechos' },
+  { id: 'uso', label: 'Uso del sitio' },
+  { id: 'propiedad-intelectual', label: 'Propiedad intelectual' },
+  { id: 'disponibilidad', label: 'Disponibilidad y servicios externos' },
+  { id: 'privacidad-seguridad', label: 'Privacidad y seguridad' },
+  { id: 'legislacion', label: 'Cambios y legislación' },
+]
+
 /* Términos de una empresa real: HHA Digital Solutions SpA, con base en Casablanca (Región de Valparaíso), que trabaja en
    todo Chile. Los montos de los planes NO se repiten aquí (cambian): están en /servicios, desde src/lib/precios.ts.
    PENDIENTE ANTES DE PUBLICAR (no visible para el visitante): agregar el RUT de la sociedad y la dirección completa de
    su domicilio cuando los fundadores los entreguen, y que un abogado revise este texto. */
 export default function TerminosPage() {
   return (
-    <section className={`wrap sec ${styles.layout}`} aria-labelledby="terminos-titulo">
-      <article className={styles.article}>
-        <header className={styles.header}>
-          <p className={styles.eyebrow}>INFORMACIÓN LEGAL</p>
-          <h1 id="terminos-titulo" tabIndex={-1}>Términos y condiciones de {EMPRESA.nombre}</h1>
-          <p className={styles.updated}>Última actualización: {ACTUALIZADO}</p>
-        </header>
+    <Legal
+      titulo={`Términos y condiciones de ${EMPRESA.nombre}`}
+      kicker="INFORMACIÓN LEGAL"
+      secciones={SECCIONES}
+      consulta={{
+        titulo: '¿Tienes alguna consulta?',
+        texto: 'Escríbenos para aclarar las condiciones antes de solicitar o contratar un servicio.',
+      }}
+    >
       <p>Estas condiciones explican el uso de hhiagencia.cl y cómo solicitar y contratar los servicios de desarrollo web, HHA Systems, marketing, automatización y consultoría de {EMPRESA.nombre}.</p>
 
       <h2 id="responsable" tabIndex={-1}>1. Quién opera este sitio</h2>
@@ -75,31 +91,6 @@ export default function TerminosPage() {
       <h2 id="legislacion" tabIndex={-1}>11. Cambios y legislación aplicable</h2>
       <p>Las actualizaciones se publican con su fecha de revisión. Un cambio en esta página no modifica por sí solo las condiciones de un contrato ya celebrado ni autoriza nuevos usos de datos personales.</p>
       <p>Se aplica la legislación de la República de Chile, sin perjuicio de las normas imperativas y vías de reclamación que correspondan al cliente. Cualquier controversia que no se resuelva de común acuerdo se somete a los tribunales ordinarios de justicia de Chile, salvo que la ley disponga otra cosa.</p>
-    </article>
-      <aside className={styles.sidebar}>
-        <nav aria-label="Índice de términos y condiciones">
-          <p className={styles.eyebrow}>EN ESTA PÁGINA</p>
-          <ul className={styles.index}>
-            <li><a href="#terminos-titulo">Términos y condiciones</a></li>
-            <li><a href="#responsable">Quién opera este sitio</a></li>
-            <li><a href="#cobertura">Dónde trabajamos</a></li>
-            <li><a href="#cotizaciones">Información y cotizaciones</a></li>
-            <li><a href="#planes">Planes, precios y pagos</a></li>
-            <li><a href="#contratacion">Contratación y mantenimiento</a></li>
-            <li><a href="#cancelaciones">Cancelaciones y derechos</a></li>
-            <li><a href="#uso">Uso del sitio</a></li>
-            <li><a href="#propiedad-intelectual">Propiedad intelectual</a></li>
-            <li><a href="#disponibilidad">Disponibilidad y servicios externos</a></li>
-            <li><a href="#privacidad-seguridad">Privacidad y seguridad</a></li>
-            <li><a href="#legislacion">Cambios y legislación</a></li>
-          </ul>
-        </nav>
-        <div className={styles.contact}>
-          <h2>¿Tienes alguna consulta?</h2>
-          <p>Escríbenos para aclarar las condiciones antes de solicitar o contratar un servicio.</p>
-          <a href={`mailto:${CONFIG.email}`}>{CONFIG.email}</a>
-        </div>
-      </aside>
-    </section>
+    </Legal>
   )
 }

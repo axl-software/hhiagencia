@@ -27,7 +27,24 @@ export default function Revelar() {
       el.classList.add('reveal-pending')
       io.observe(el)
     })
-    return () => io.disconnect()
+
+    /* Las escenas animadas (Ilustraciones.tsx) y el fondo de Proyectos (FondoProyectos.tsx) se
+       animan en bucle. Se pausan cuando salen de la pantalla y se reanudan al volver, para no
+       gastar batería animando lo que nadie ve. El margen hace que reanuden un poco antes de
+       asomarse, así nunca se ve el arranque. Solo se pausa: el estado de cada animación se
+       conserva, por lo que el ritmo y el aspecto no cambian. */
+    const pausa = new IntersectionObserver(
+      (entradas) => {
+        for (const e of entradas) e.target.classList.toggle('pausada', !e.isIntersecting)
+      },
+      { rootMargin: '200px' }
+    )
+    document.querySelectorAll<HTMLElement>('.ilus, .fondo-proy').forEach((el) => pausa.observe(el))
+
+    return () => {
+      io.disconnect()
+      pausa.disconnect()
+    }
   }, [pathname])
 
   return null

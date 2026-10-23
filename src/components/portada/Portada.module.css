@@ -52,6 +52,30 @@
       transparent 82%);
 }
 
+/* Control de pausa del video (PortadaFondo.tsx): arriba a la derecha, sobre la parte visual. Círculo chico con
+   fondo y borde propios, para que se lea sobre cualquier cuadro del video en los dos temas: borde con --line3
+   (3:1, WCAG 1.4.11) e ícono con --tx. 32 px: sobre el mínimo de 24 px de destino (WCAG 2.5.8). */
+.pausa {
+  position: absolute;
+  z-index: 3;
+  top: 18px;
+  right: 24px;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--line3);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--bg) 62%, transparent);
+  color: var(--tx);
+  cursor: pointer;
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+.pausa:hover { background: color-mix(in srgb, var(--bg) 88%, transparent); border-color: var(--tx2); }
+.pausa:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { .pausa { transition: none; } }
+
 /* ---------- cuerpo ---------- */
 .main {
   position: relative;

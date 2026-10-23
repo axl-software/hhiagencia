@@ -285,13 +285,7 @@ input[aria-invalid="true"]{border-color:var(--red);box-shadow:0 0 0 1px var(--re
 .team-tags{display:flex;flex-wrap:wrap;gap:6px 14px;font-family:var(--f-mono);font-size:12px;color:var(--mut)}
 .team-tags span::before{content:"● ";color:var(--red);font-size:9px;vertical-align:2px}
 @media (max-width:480px){.team-card{flex-direction:column}.team-ph{width:100%;max-width:280px}}
-/* páginas legales */
-.legal{max-width:800px}
-.legal h1{margin-bottom:8px}
-.legal h2{font-family:var(--f-head);font-weight:600;font-size:22px;letter-spacing:-.01em;margin:36px 0 10px}
-.legal p,.legal li{color:var(--tx2);font-size:16px;line-height:1.7;margin:0 0 10px}
-.legal ul{margin:0 0 10px;padding-left:20px}
-.legal a{color:var(--tx);text-decoration:underline;text-decoration-color:var(--red);text-underline-offset:4px}
+/* páginas legales: ahora en src/components/sections/Legal.module.css */
 
 /* problema → solución (packs) */
 .soluciones-head{display:flex;flex-direction:column;gap:6px}
@@ -639,6 +633,8 @@ input[aria-invalid="true"]{border-color:var(--red);box-shadow:0 0 0 1px var(--re
 .pi-medio{opacity:.7}
 .ilus .pi-burbuja{filter:drop-shadow(0 6px 12px rgba(20,40,90,.14))}
 .reveal-pending .ilus *{animation-play-state:paused}
+/* fuera de la pantalla no se anima nada (Revelar.tsx); al volver, sigue donde quedó */
+.ilus.pausada *,.fondo-proy.pausada *{animation-play-state:paused}
 .proceso-paso:hover .ilus,.metrica:hover .ilus{border-color:color-mix(in srgb,var(--red) 45%,transparent)}
 .ilus{transition:border-color .3s ease}
 

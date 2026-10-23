@@ -1,3 +1,7 @@
+/* Plantilla de las páginas legales (privacidad, términos, seguridad).
+   Dos columnas en escritorio: el texto a la izquierda y el índice pegajoso a la derecha.
+   El encabezado (kicker, título y fecha) cruza las dos columnas, para que en celular el visitante
+   lea primero en qué página está y recién después el índice. */
 .layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 290px;
@@ -5,17 +9,9 @@
   gap: clamp(32px, 5vw, 72px);
   max-width: 1200px;
 }
+.header { grid-column: 1 / -1; margin-bottom: 4px; }
 .article { min-width: 0; color: var(--tx2); }
-.header { margin-bottom: 26px; }
-.eyebrow {
-  color: var(--mut);
-  font-family: var(--f-mono);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: .08em;
-  margin: 0 0 16px;
-}
-.article h1 {
+.header h1 {
   color: var(--tx);
   font-family: var(--f-head);
   font-size: clamp(30px, 3.4vw, 44px);
@@ -25,8 +21,9 @@
   margin: 0 0 18px;
   text-wrap: balance;
 }
+.updated { font-size: 13px; color: var(--mut); margin: 0; }
 .article p, .article li { font-size: 16px; line-height: 1.85; margin: 0 0 20px; }
-.article .updated { font-size: 13px; color: var(--mut); margin: 0; }
+.article ul { margin: 0 0 20px; padding-left: 20px; }
 .article h2 {
   color: var(--tx);
   font-family: var(--f-head);
@@ -36,21 +33,38 @@
   letter-spacing: -.02em;
   margin: 40px 0 14px;
 }
-.article h1, .article h2 { scroll-margin-top: 110px; }
+/* el encabezado al que lleva un ancla no queda tapado por la barra superior */
+.header h1, .article h2 { scroll-margin-top: 110px; }
+/* el foco va al encabezado al seguir un ancla; no es un control y no lleva recuadro */
+.header h1:focus, .article h2:focus { outline: none; }
 .article a, .contact a { color: var(--tx); text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--red); overflow-wrap: anywhere; }
 .layout a:focus-visible { outline: 2px solid var(--tx); outline-offset: 4px; border-radius: 2px; }
+
 .sidebar { position: sticky; top: 100px; border-left: 1px solid var(--line2); padding-left: 20px; max-height: calc(100dvh - 120px); overflow-y: auto; }
+.indiceTitulo {
+  color: var(--mut);
+  font-family: var(--f-mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  margin: 0 0 16px;
+}
 .index { list-style: none; margin: 0; padding: 0; }
 .index li { margin: 0 0 3px; }
 .index a { display: block; padding: 10px 12px; border-left: 2px solid transparent; color: var(--tx2); font-size: 14px; line-height: 1.5; text-decoration: none; }
 .index a:hover, .index a:focus-visible { color: var(--tx); background: var(--bg2); border-left-color: var(--red); }
 .contact { margin-top: 24px; padding: 18px; border: 1px solid var(--line2); border-radius: 4px; background: var(--bg2); }
-.contact h2 { color: var(--tx); font-family: var(--f-head); font-size: 16px; line-height: 1.4; margin: 0 0 10px; }
+/* no es un encabezado de la página: no debe entrar en el índice de encabezados junto a las cláusulas */
+.contactTitulo { color: var(--tx); font-family: var(--f-head); font-size: 16px; font-weight: 600; line-height: 1.4; margin: 0 0 10px; }
 .contact p { color: var(--tx2); font-size: 14px; line-height: 1.7; margin: 0 0 14px; }
 .contact a { font-size: 13px; }
+
+/* Celular: una columna, y el orden es título → índice → texto. */
 @media (max-width: 900px) {
   .layout { grid-template-columns: minmax(0, 1fr); gap: 30px; }
-  .sidebar { position: static; grid-row: 1; max-height: none; overflow: visible; padding: 20px; border: 1px solid var(--line2); border-radius: 4px; }
+  .header { grid-row: 1; }
+  .sidebar { grid-row: 2; position: static; max-height: none; overflow: visible; padding: 20px; border: 1px solid var(--line2); border-radius: 4px; }
+  .article { grid-row: 3; }
   .index { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px 12px; }
   .contact { display: none; }
 }

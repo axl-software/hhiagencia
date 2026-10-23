@@ -11,10 +11,6 @@
 }
 
 /* Fuentes de HHA (docs/HHA_DESIGN_SYSTEM.md), autoalojadas con Fontsource */
-@import "@fontsource/archivo-black/latin-400.css";
-@import "@fontsource/space-grotesk/latin-500.css";
-@import "@fontsource/space-grotesk/latin-600.css";
-@import "@fontsource/space-grotesk/latin-700.css";
 @import "@fontsource/inter/latin-400.css";
 @import "@fontsource/inter/latin-500.css";
 @import "@fontsource/inter/latin-600.css";
@@ -31,9 +27,9 @@
   --color-hha-gray: #64748B;       /* UI Gray Dark: texto secundario en modo claro */
   --color-hha-gray-light: #94A3B8; /* UI Gray Light: texto secundario en modo oscuro */
 
-  --font-display: "Archivo Black", sans-serif;
-  --font-heading: "Space Grotesk", sans-serif;
-  --font-sans: Inter, sans-serif;
+  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", system-ui, sans-serif;
+  --font-heading: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", system-ui, sans-serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", monospace;
 }
 
@@ -57,7 +53,7 @@
   --tx:#F8FAFC;--tx2:#94A3B8;--mut:#94A3B8;
   --red:#D7263D;--dot:#D7263D;--redtx:var(--tx2);--rojo-txt:#EB4B5F;--rojo-hondo:#9E1528;--on-red:#F8FAFC;
   --header-bg:rgba(5,7,10,.82);--shadow:none;--cta-bg:var(--red);
-  --f-impact:"Archivo Black",sans-serif;--f-head:"Space Grotesk",sans-serif;--f-body:Inter,sans-serif;--f-mono:"JetBrains Mono",monospace;
+  --f-impact:var(--f-apple-display);--f-head:var(--f-apple-display);--f-body:var(--f-apple-text);--f-precio:Inter,sans-serif;--f-apple-display:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",system-ui,sans-serif;--f-apple-text:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",system-ui,sans-serif;--f-mono:"JetBrains Mono",monospace;
 }
 
 /* Tono claro azulado (lo usan las páginas Servicios, Contacto y legales; ver src/lib/tema.ts): fondo #E6EDF7 y secciones #D9E3F1.
@@ -115,7 +111,7 @@ footer .pie-lema span{font-family:var(--f-mono);font-size:12px;letter-spacing:.5
    secciones pasan a arena para seguir destacando sobre el crema. */
 :root[data-theme="light"] .alt{background:var(--bg)}
 :root[data-theme="light"] .alt .card,:root[data-theme="light"] .pack,:root[data-theme="light"] .quote,:root[data-theme="light"] .metrica{background:var(--bg2)}
-.impact{font-family:var(--f-impact);font-weight:400;letter-spacing:-.01em}
+.impact{font-family:var(--f-impact);font-weight:800;letter-spacing:-.035em}
 .display{font-family:var(--f-head);font-weight:700;line-height:1.05;margin:0;letter-spacing:-.02em}
 .h1{font-size:clamp(40px,6vw,80px);line-height:1}
 .h2{font-size:clamp(32px,4.2vw,56px)}
@@ -204,7 +200,7 @@ footer .pie-lema span{font-family:var(--f-mono);font-size:12px;letter-spacing:.5
 .reviews{position:relative}
 .rv-track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;scrollbar-width:thin}
 .rv{flex:0 0 min(420px,86%);scroll-snap-align:start;margin:0;background:var(--bg2);border:1px solid var(--line);border-radius:0;padding:32px;display:flex;flex-direction:column;gap:20px}
-.rv .q{font-family:var(--f-impact);font-size:56px;line-height:.8;color:var(--red)}
+.rv .q{font-family:var(--f-impact);font-weight:800;font-size:56px;line-height:.8;color:var(--red)}
 .rv blockquote{margin:0;font-size:17px;line-height:1.65}
 .rv figcaption{margin-top:auto;display:flex;flex-direction:column;gap:4px}
 .rv-nav{display:flex;gap:10px}
@@ -604,7 +600,7 @@ input[aria-invalid="true"]{border-color:var(--red);box-shadow:0 0 0 1px var(--re
 .pack:hover .pack-ico{transform:rotate(-8deg) scale(1.08)}
 
 /* Pasos (portada y Cómo trabajamos): número grande de fondo */
-.step-num{position:absolute;right:12px;top:6px;z-index:-1;font-family:var(--f-impact);font-size:84px;line-height:1;color:transparent;-webkit-text-stroke:1px var(--line3);opacity:.7;pointer-events:none;transition:-webkit-text-stroke-color .3s ease,transform .5s cubic-bezier(.22,1,.36,1)}
+.step-num{position:absolute;right:12px;top:6px;z-index:-1;font-family:var(--f-impact);font-weight:800;font-size:84px;line-height:1;color:transparent;-webkit-text-stroke:1px var(--line3);opacity:.7;pointer-events:none;transition:-webkit-text-stroke-color .3s ease,transform .5s cubic-bezier(.22,1,.36,1)}
 .step{isolation:isolate}
 .step:hover .step-num,.proceso-paso:hover .step-num{-webkit-text-stroke-color:var(--red);transform:translateY(-4px)}
 .step .step-num{top:14px;font-size:68px;opacity:.5}

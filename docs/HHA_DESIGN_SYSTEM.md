@@ -21,16 +21,17 @@ Suggested semantic roles:
 
 These are **functional UI colors only**, not HHA brand colors.
 
-## Typography
-- **Archivo Black**: impact headlines
-- **Space Grotesk**: primary headings
-- **Inter**: body text and UI
-- **JetBrains Mono**: technical labels and metadata
+## Typography — SUPERSEDED 2026-10-12 (founders' request; see HHA_CHANGELOG.md)
+Previous set (Archivo Black, Space Grotesk, Inter) replaced because it looked too common on AI-built sites.
+- **System font stack ("Apple style")**: headings, hero/impact titles, body text and buttons. SF Pro Display / SF Pro Text on Apple devices, Segoe UI on Windows, `system-ui` elsewhere. Titles use weight 800 and tight tracking (-0.035em).
+- **Inter (bold, tight)**: prices only (`--f-precio`; plan cards, packs, order page, “Desde” lines).
+- **JetBrains Mono**: technical labels and metadata (unchanged).
 
 ## Hierarchy
-- Hero / Impact: Archivo Black
-- H1 / H2: Space Grotesk
-- Body: Inter
+- Hero / Impact: system font, weight 800, tracking -0.035em
+- H1 / H2: system font, weight 700
+- Body: system font
+- Prices: Inter 700, tracking -0.04em, tabular numerals
 - Labels / technical metadata: JetBrains Mono
 
 ## Light mode (cream) — SUPERSEDED 2026-10-05 by the bluish light tone per page

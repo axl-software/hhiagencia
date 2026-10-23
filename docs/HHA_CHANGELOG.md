@@ -2,6 +2,17 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-10-15 — SEO start: agendAHH landing and Google wiring (branch `precios-y-legal`)
+- New indexable page `/agendahh` (agendAHH · HHA Systems): H1, what Solo includes/excludes, rubros, the 4 plans with real prices, FAQ, CTA to the free trial. JSON-LD `SoftwareApplication` (4 offers in CLP) and `FAQPage`. Added to `sitemap.ts` and to the footer.
+- Google Analytics 4 and Search Console wiring (inactive until `NEXT_PUBLIC_GA_ID` / `NEXT_PUBLIC_GSC_VERIFICACION` exist). GA consent mode starts denied (no analytics cookies). The privacy page mentions GA only when it is active.
+- Finding: HHA Systems tenants are served by path (`/{slug}`), with no subdomains (DECISIONS.md). The `hha-systems` app is not deployed yet, so agendAHH SEO lives on hhiagencia.cl.
+
+## 2026-10-12 — Typography change (branch `precios-y-legal`, founders' request)
+- **SUPERSEDES the approved fonts** (Archivo Black, Space Grotesk, Inter, JetBrains Mono): the founders found them too common in AI-built sites and asked for a more Apple-like look.
+- Headings, impact titles, body and buttons now use the system font stack (SF Pro on Apple devices, Segoe UI on Windows). Impact titles: weight 800, tracking -0.035em. Archivo Black and Space Grotesk are no longer loaded.
+- Prices use Inter bold with tight tracking (variable `--f-precio` in `src/app/globals.css`), chosen by the founders from a comparison of 6 options.
+- JetBrains Mono stays for technical labels. Logo and colors unchanged.
+
 ## 2026-10-10 — Official commercial update: Web ranges, agendAHH, Content, Producción Audiovisual, Captación, Email (branch `precios-y-legal`, founders' instruction)
 - **Web (SUPERSEDES the page ranges of 2026-10-06):** Web Starter up to 3 pages; Web Business 4–6 pages (e-commerce básico; “Pasarela de pago disponible como adicional”, not included); Web Pro 7–10 pages (e-commerce completo, pasarela de pago included, “2 años de dominio incluidos”). Web Starter domain: “Dominio y despliegue según propuesta” (replaces 1 year included). Monthly/annual prices and implementation amounts unchanged.
 - **HHA Systems is now the family of SaaS developed by HHA** (“Soluciones digitales desarrolladas por HHA para automatizar y gestionar negocios”). First product: **HHA Systems · agendAHH** (always written “agendAHH”: AHH = HHA inverted). New plan **agendAHH Solo**: 14.990/mes, implementation 24.990, no launch price and no annual option; includes agenda, services, schedules, admin panel, clients, basic history, essential metrics, personalized booking experience; does NOT include automatic reminders/notifications. The three existing plans keep prices and content and are renamed agendAHH Starter / Business (recommended) / Pro (ids `system-*` unchanged). Future SaaS: add a line with `familia: 'HHA Systems'` in `src/lib/config.ts` and its id in the `sistemas` category.

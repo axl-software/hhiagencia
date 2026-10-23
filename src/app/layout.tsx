@@ -6,10 +6,13 @@ import TemaScript from '@/components/TemaScript'
 import Revelar from '@/components/Revelar'
 import TemaRuta from '@/components/TemaRuta'
 import { Analytics } from '@vercel/analytics/next'
+import GoogleAnalytics from '@/components/GoogleAnalytics'
+import { GSC_VERIFICACION } from '@/lib/google'
 import './globals.css'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.hhiagencia.cl'),
+  ...(GSC_VERIFICACION ? { verification: { google: GSC_VERIFICACION } } : {}),
   title: {
     default: 'HHA Digital Solutions | Web, Automatización y Marketing',
     template: '%s | HHA Digital Solutions',
@@ -84,6 +87,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
             Solo cuando el sitio se arma en Vercel (VERCEL=1): fuera de Vercel su archivo no existe
             y el navegador mostraría un error 404 en cada página. */}
         {process.env.VERCEL && <Analytics />}
+        <GoogleAnalytics />
       </body>
     </html>
   )

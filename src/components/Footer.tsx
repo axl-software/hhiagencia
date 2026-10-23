@@ -27,6 +27,7 @@ export default function Footer() {
           <span className="pie-titulo">Sitio</span>
           <Link href="/">Inicio</Link>
           {NAV.map((l) => <Link key={l.href} href={l.href}>{l.label}</Link>)}
+          <Link href="/agendahh">agendAHH</Link>
         </nav>
 
         <div className="pie-col">

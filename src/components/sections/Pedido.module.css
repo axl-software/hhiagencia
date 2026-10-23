@@ -22,7 +22,7 @@
 .tipo { display: block; margin-bottom: 2px; font-family: var(--f-mono); font-size: 11px; letter-spacing: 1.4px; text-transform: uppercase; color: var(--mut); }
 .quitar { flex: none; min-height: 44px; padding: 0 4px; background: none; border: 0; color: var(--tx2); font: inherit; font-size: 14px; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
 .quitar:hover { color: var(--red); }
-.precio { margin: 0; font-size: 20px; font-weight: 600; color: var(--tx); }
+.precio { margin: 0; font-size: 20px; font-weight: 700; font-family: var(--f-precio); font-variant-numeric: tabular-nums; letter-spacing: -0.03em; color: var(--tx); }
 .precio small { font-size: 13px; font-weight: 400; color: var(--mut); }
 .sub { margin: 0; font-size: 14px; color: var(--tx2); line-height: 1.5; }
 .ahorro { margin: 0; font-size: 14px; font-weight: 600; color: var(--red); }
@@ -37,7 +37,7 @@
 .total { display: grid; gap: 4px; padding: 16px 18px; border: 1.5px solid var(--red); background: var(--bg); }
 .totalFila { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
 .totalFila span { font-size: 15px; color: var(--tx2); }
-.totalFila strong { font-family: var(--f-head); font-size: 30px; line-height: 1; color: var(--tx); }
+.totalFila strong { font-family: var(--f-precio); font-variant-numeric: tabular-nums; letter-spacing: -0.04em; font-size: 30px; line-height: 1; color: var(--tx); }
 .total small { font-size: 13px; color: var(--mut); line-height: 1.5; }
 .total details { margin-top: 6px; }
 .total summary { cursor: pointer; font-size: 14px; color: var(--tx); text-underline-offset: 3px; min-height: 36px; display: flex; align-items: center; }

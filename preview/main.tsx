@@ -1,5 +1,5 @@
 /* Vista previa en un solo HTML (sin Next): mismas páginas y componentes,
-   con un router por hash (#servicios, #como-trabajamos, #contacto…). */
+   con un router por hash (#servicios, #marketing, #contacto…). */
 import { StrictMode, Suspense, useEffect, type ComponentType } from 'react'
 import { createRoot } from 'react-dom/client'
 import Header from '@/components/Header'
@@ -10,7 +10,6 @@ import PruebaGratisPage from '@/app/prueba-gratis/page'
 import PedidoPage from '@/app/pedido/page'
 import Inicio from '@/app/page'
 import ServiciosPage from '@/app/servicios/page'
-import ComoTrabajamosPage from '@/app/como-trabajamos/page'
 import ContactoPage from '@/app/contacto/page'
 import PrivacidadPage from '@/app/privacidad/page'
 import TerminosPage from '@/app/terminos/page'
@@ -27,7 +26,6 @@ const PAGES: Record<string, ComponentType> = {
   '/marketing': MarketingPage,
   '/prueba-gratis': PruebaGratisPage,
   '/pedido': PedidoPage,
-  '/como-trabajamos': ComoTrabajamosPage,
   '/contacto': ContactoPage,
   '/privacidad': PrivacidadPage,
   '/terminos': TerminosPage,

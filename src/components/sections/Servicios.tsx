@@ -321,7 +321,7 @@ export default function Servicios({ as = 'h2', marketing = false }: { as?: Level
                 </div>
                 <div className={`${m.catCuerpo}${conPlanes ? '' : ' cat-lista'}`}>
                   {c.id === 'marketing' && !marketing && (
-                    <Link className={m.mkBanner} href="/marketing" aria-label="Ver marketing y casos reales">
+                    <Link className={m.mkBanner} href="/marketing" aria-label="Ver marketing">
                       {/* eslint-disable-next-line @next/next/no-img-element -- next/image rompe la vista previa en HTML */}
                       <img src="/img/ejemplos/marketing.webp" alt="" loading="lazy" decoding="async" width={1000} height={667} />
                       <span className={m.mkFlota} aria-hidden="true">
@@ -331,8 +331,8 @@ export default function Servicios({ as = 'h2', marketing = false }: { as?: Level
                       </span>
                       <span className={m.mkTxt}>
                         <small>MARKETING Y CAPTACIÓN</small>
-                        <strong>Mira el marketing en acción</strong>
-                        <p>Casos reales de contenido y marketing, y los servicios para que más personas te encuentren y te escriban.</p>
+                        <strong>Mira nuestro marketing</strong>
+                        <p>Los servicios de marketing para que más personas te encuentren y te escriban.</p>
                         <span className={m.mkBoton}>Ver marketing <ArrowRight size={18} strokeWidth={2.25} aria-hidden="true" /></span>
                       </span>
                     </Link>

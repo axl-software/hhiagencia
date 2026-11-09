@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 }
 
 /* Inicio: portada con video, servicios, HHA Systems, por qué HHA, acompañamiento, equipo, nosotros y CTA.
-   (El método ya no va aquí: está en /como-trabajamos.) */
+   (El método ya no va aquí.) */
 export default function Inicio() {
   return (
     <>

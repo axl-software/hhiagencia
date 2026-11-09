@@ -12,7 +12,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/agendahh`, lastModified: hoy, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${BASE}/prueba-gratis`, lastModified: hoy, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${BASE}/contacto`, lastModified: hoy, changeFrequency: 'yearly', priority: 0.8 },
-    { url: `${BASE}/como-trabajamos`, lastModified: hoy, changeFrequency: 'monthly', priority: 0.7 },
     ...['privacidad', 'terminos', 'seguridad'].map((p) => ({
       url: `${BASE}/${p}`, lastModified: hoy, changeFrequency: 'yearly' as const, priority: 0.2,
     })),

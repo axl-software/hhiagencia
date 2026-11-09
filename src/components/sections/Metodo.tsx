@@ -1,5 +1,4 @@
 import type { CSSProperties } from 'react'
-import Link from 'next/link'
 import { Kicker, Title, type Level } from './Heading'
 
 const pad = (n: number) => String(n).padStart(2, '0')
@@ -29,9 +28,6 @@ export default function Metodo({ as = 'h2', alt = false }: { as?: Level; alt?: b
           </div>
         ))}
       </div>
-      <Link className="ver-mas" href="/como-trabajamos" style={{ marginTop: 28 }}>
-        Ver cómo trabajamos →
-      </Link>
     </div>
   )
   return alt ? <section className="alt">{body}</section> : <section>{body}</section>

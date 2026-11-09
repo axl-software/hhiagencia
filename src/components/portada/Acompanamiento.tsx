@@ -8,8 +8,7 @@ import s from './Acompanamiento.module.css'
 
 /* =========================================================
    "Te acompañamos en cada paso": cuatro etapas a la izquierda y, a la derecha, una conversación de EJEMPLO
-   por etapa, como en un celular. Reemplaza al método de ocho pasos en el inicio (el detalle sigue en
-   /como-trabajamos). Las conversaciones son de muestra (rotuladas): no son clientes reales. Sin plazos
+   por etapa, como en un celular. Reemplaza al método de ocho pasos en el inicio. Las conversaciones son de muestra (rotuladas): no son clientes reales. Sin plazos
    exactos, salvo la demo gratuita (CONFIG.demoPlazo). La etapa cambia sola hasta que la persona elige una;
    con "reducir movimiento" no cambia sola. El botón lleva al formulario de contacto, no a WhatsApp.
    ========================================================= */

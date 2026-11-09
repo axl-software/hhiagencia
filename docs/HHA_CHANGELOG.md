@@ -2,6 +2,12 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-11-09 — Removed the “Proceso” page and the real cases from Marketing (branch `quitar-ejemplos-y-proceso`, founders' instruction)
+- **/como-trabajamos (menu “Proceso”) removed completely.** Menu, footer, sitemap and the “Ver cómo trabajamos →” link under the home method block are gone. The old address redirects permanently to the home page (it does not return a 404). **SUPERSEDES** the 8-step process page of the earlier entry (“Cómo trabajamos”) and the link line of the approved home method block in HHA_BRAND_FOUNDATION.md. The four approved method texts “Así trabajamos contigo” stay.
+- **/marketing:** the two real examples (Aaron / aaronig12 and Bar de Blas) and the editing-interface background were removed. The page now opens with “Servicios de marketing” (the H1). The services below stay as they were; a bigger Services restructuring is coming.
+- In /servicios the “Marketing y captación” box no longer promises “casos reales”.
+- “Prueba gratis” stays for now. Kept in the code, unused: the Casos, FondoProyectos and Ilustraciones components and the `casos` data with its photos, in case the examples return.
+
 ## 2026-10-15 — SEO start: agendAHH landing and Google wiring (branch `precios-y-legal`)
 - New indexable page `/agendahh` (agendAHH · HHA Systems): H1, what Solo includes/excludes, rubros, the 4 plans with real prices, FAQ, CTA to the free trial. JSON-LD `SoftwareApplication` (4 offers in CLP) and `FAQPage`. Added to `sitemap.ts` and to the footer.
 - Google Analytics 4 and Search Console wiring (inactive until `NEXT_PUBLIC_GA_ID` / `NEXT_PUBLIC_GSC_VERIFICACION` exist). GA consent mode starts denied (no analytics cookies). The privacy page mentions GA only when it is active.

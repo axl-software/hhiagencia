@@ -27,7 +27,7 @@ Home method block “Así trabajamos contigo” (approved texts):
 2. **Te proponemos**: “Definimos qué conviene hacer primero, qué puede esperar y qué solución tiene sentido según tu realidad.”
 3. **Lo construimos contigo**: “Desarrollamos la solución y te mostramos avances durante el proceso para ajustar a tiempo.”
 4. **Te acompañamos**: “Después de implementar, podemos mantener, medir y mejorar lo construido a medida que tu negocio crece.”
-Link below: “Ver cómo trabajamos →” (/como-trabajamos).
+Link below: “Ver cómo trabajamos →” (/como-trabajamos). **SUPERSEDED 2026-11-09:** the link and the page were removed (founders' instruction; see HHA_CHANGELOG.md). The four approved texts above stay.
 
 ## Brand essence
 HHA connects strategy, technology, marketing, automation and digital execution.

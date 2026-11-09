@@ -1,15 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { ArrowRight, Check, X } from 'lucide-react'
-import { Kicker, Title } from '@/components/sections/Heading'
+import { ArrowRight, Eye, Leaf, PenTool, Scissors, Sparkles } from 'lucide-react'
 import CtaBanda from '@/components/sections/CtaBanda'
 import { CONFIG } from '@/lib/config'
 import { PRECIOS, clp } from '@/lib/precios'
-import { RUBROS } from '@/components/portada/rubros'
 import s from './agendahh.module.css'
 
 const URL_PAGINA = 'https://www.hhiagencia.cl/agendahh'
-const solo = CONFIG.servicios.find((x) => x.id === 'system-agenda-solo')
 const PLANES = ['system-agenda-solo', 'system-starter', 'system-business', 'system-pro']
   .map((id) => CONFIG.servicios.find((x) => x.id === id))
   .filter((x): x is NonNullable<typeof x> => Boolean(x))
@@ -90,6 +87,22 @@ const DATOS = [
   },
 ]
 
+const RUBROS_PAGINA = [
+  { id: 'barberia', nombre: 'Barbería y peluquería', Icono: Scissors },
+  { id: 'estetica', nombre: 'Estética', Icono: Sparkles },
+  { id: 'tatuajes', nombre: 'Estudios de tatuajes', Icono: PenTool },
+  { id: 'optica', nombre: 'Óptica y dentista', Icono: Eye },
+  { id: 'wellness', nombre: 'Wellness', Icono: Leaf },
+]
+
+/* Para quién es cada plan (la lógica comercial: Solo trabaja solo, Starter tiene equipo, Business vende y fideliza) */
+const ETIQUETA_PLAN: Record<string, string> = {
+  'system-agenda-solo': '01 / TRABAJAS SOLO',
+  'system-starter': '02 / TIENES EQUIPO',
+  'system-business': '03 / VENDES Y FIDELIZAS',
+  'system-pro': '04 / EN DEFINICIÓN',
+}
+
 export default function AgendahhPage() {
   return (
     <>
@@ -97,97 +110,137 @@ export default function AgendahhPage() {
         <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(d).replace(/</g, '\\u003c') }} />
       ))}
 
-      <section className="wrap sec">
-        <Kicker>HHA SYSTEMS</Kicker>
-        <h1 className="display h2" style={{ marginTop: 12 }}>agendAHH: agenda online para negocios de servicios</h1>
-        <p className={s.lead}>
-          Agenda, clientes y gestión para tu negocio. Tus clientes reservan online con tu marca y tú ves tu día, tus clientes y tus métricas desde un panel propio. HHA cobra 0% de comisión por tus reservas y ventas.
-        </p>
-        <div className={s.acciones}>
-          <Link className="btn-vivo" href="/prueba-gratis">
-            Probar agendAHH gratis <ArrowRight size={18} strokeWidth={2.25} aria-hidden="true" />
-          </Link>
-          <Link className="btn btn-out" href="#planes">Ver planes</Link>
-        </div>
-        <p className={s.nota}>HHA Systems es la familia de soluciones digitales desarrolladas por HHA para automatizar y gestionar negocios. agendAHH es su primer producto.</p>
-      </section>
+      <section className={s.hero} aria-labelledby="agendahh-titulo">
+        <div className={`wrap ${s.heroGrid}`}>
+          <div>
+            <p className="kicker" style={{ margin: 0 }}>HHA SYSTEMS · AGENDAHH</p>
+            <h1 id="agendahh-titulo">Tus reservas en orden. <em>Tu marca al frente.</em></h1>
+            <p className={s.lead}>
+              agendAHH es una agenda online con la identidad de tu negocio y un panel para organizar citas, clientes y métricas. Pensada para servicios que se atienden con hora. HHA cobra 0% de comisión por tus reservas y ventas.
+            </p>
+            <div className={s.acciones}>
+              <Link className="btn-vivo" href="/prueba-gratis">
+                Probar agendAHH gratis <ArrowRight size={18} strokeWidth={2.25} aria-hidden="true" />
+              </Link>
+              <Link className="btn btn-out" href="#planes">Ver planes</Link>
+            </div>
+            <p className={s.prueba}><span className={s.chispa} aria-hidden="true" />Pruébalo gratis {CONFIG.demoPlazo}. Desde {clp(PRECIOS['system-agenda-solo'].monto ?? 0)}/mes + IVA.</p>
+          </div>
 
-      <section className="alt">
-        <div className="wrap sec">
-          <Kicker>QUÉ INCLUYE</Kicker>
-          <Title as="h2">agendAHH Solo: lo esencial para agendar y gestionar</Title>
-          <div className={s.dos}>
-            <div>
-              <p className={s.precio}>
-                <strong>{clp(PRECIOS['system-agenda-solo'].monto ?? 0)}</strong> <span>/ mes + IVA</span>
-              </p>
-              <p className={s.nota}>Implementación inicial desde {clp(PRECIOS['system-agenda-solo'].implementacionMonto ?? 0)} + IVA, según plan.</p>
-              <ul className="incluye" aria-label="Incluye">
-                {solo?.incluye?.map((x) => (
-                  <li key={x}><Check size={18} strokeWidth={2.25} aria-hidden="true" />{x}</li>
-                ))}
-              </ul>
+          <div className={s.escena} role="group" aria-label="Vistas de ejemplo de dos barberías con agendAHH">
+            <div className={`${s.cel} ${s.celUno}`}>
+              {/* eslint-disable-next-line @next/next/no-img-element -- imagen de ejemplo; next/image rompe la vista previa en HTML */}
+              <img src="/img/agendahh/turno-uno.webp" alt="Ejemplo de reservas para la barbería ficticia Turno Uno" width={390} height={760} loading="eager" />
             </div>
-            <div>
-              <p className={s.sub}>Para más, mira Starter y Business</p>
-              <ul className="incluye" aria-label="No incluye">
-                {solo?.noIncluye?.map((x) => (
-                  <li key={x}><X size={18} strokeWidth={2.25} aria-hidden="true" style={{ color: 'var(--mut)' }} />{x}</li>
-                ))}
-              </ul>
+            <div className={`${s.cel} ${s.celDos}`} role="img" aria-label="Vista ilustrativa de Tamburrini Barber Studio con una fotografía real del local">
+              <div className={s.tbHead}><span className={s.tbLogo}>TAMBURRINI<small>BARBER STUDIO</small></span><span className={s.tbMenu} aria-hidden="true">☰</span></div>
+              <div className={s.tbFoto}>
+                {/* eslint-disable-next-line @next/next/no-img-element -- imagen de ejemplo; next/image rompe la vista previa en HTML */}
+                <img src="/img/agendahh/tamburrini-local.webp" alt="" width={1254} height={1254} loading="eager" />
+              </div>
+              <div className={s.tbTexto}><span className={s.tbKicker}>TAMBURRINI · BARBER STUDIO</span><strong>Tu próxima hora<br />empieza aquí.</strong><p>Barbería profesional en un ambiente único.</p><span className={s.tbBoton}>RESERVAR TU HORA&nbsp;→</span></div>
             </div>
+            <p className={s.etiqueta}>Turno Uno / Tamburrini<br />Dos identidades, un sistema de reservas</p>
           </div>
         </div>
       </section>
 
-      <section className="wrap sec">
-        <Kicker>PARA QUIÉN</Kicker>
-        <Title as="h2">Para negocios de servicios con reserva de hora</Title>
+      <div className={s.barra}>
+        <div className={`wrap ${s.barraGrid}`}>
+          <div><strong>Reserva desde tu página</strong><span>El cliente elige el servicio y una hora disponible.</span></div>
+          <div><strong>Organiza el día</strong><span>Consulta reservas, agenda y clientes desde tu panel.</span></div>
+          <div><strong>Se ve como tu marca</strong><span>La experiencia cambia según cada negocio.</span></div>
+        </div>
+      </div>
+
+      <section className="wrap sec" aria-labelledby="beneficios-titulo">
+        <div className={s.cabeza}>
+          <p className="kicker">QUÉ RESUELVE</p>
+          <h2 id="beneficios-titulo">Menos vueltas para reservar. Más claridad para atender.</h2>
+          <p>Una reserva sencilla para tus clientes y un lugar de trabajo ordenado para ti y tu equipo.</p>
+        </div>
+        <div className={s.beneficios}>
+          <article className={s.beneficio}><span className={s.numero}>01 / CLIENTES</span><h3>Una reserva clara desde el celular.</h3><p>Tus clientes eligen servicio, profesional, fecha y horario disponible desde una página con la cara de tu negocio.</p></article>
+          <article className={s.beneficio}><span className={s.numero}>02 / OPERACIÓN</span><h3>La agenda en un solo lugar.</h3><p>El panel reúne tus próximas citas, tus clientes y tus métricas para que tengas el día de trabajo a mano.</p></article>
+          <article className={s.beneficio}><span className={s.numero}>03 / IDENTIDAD</span><h3>Tu negocio sigue siendo protagonista.</h3><p>Tus fotos, tus colores y tu estilo: dos negocios pueden usar agendAHH y verse completamente distintos.</p></article>
+        </div>
+      </section>
+
+      <section className="alt" aria-labelledby="funciona-titulo">
+        <div className={`wrap sec ${s.flujo}`}>
+          <div className={s.cabeza}>
+            <p className="kicker">CÓMO FUNCIONA</p>
+            <h2 id="funciona-titulo">Del servicio a la reserva, en tres pasos.</h2>
+            <p>El recorrido es directo y se adapta a los servicios y profesionales de cada negocio.</p>
+          </div>
+          <ol className={s.pasos}>
+            <li><span>01</span><div><strong>Elige qué necesita</strong><p>Selecciona un servicio y, si corresponde, al profesional que la atenderá.</p></div></li>
+            <li><span>02</span><div><strong>Escoge una hora disponible</strong><p>Ve las fechas y horarios libres antes de completar sus datos.</p></div></li>
+            <li><span>03</span><div><strong>Confirma su reserva</strong><p>La reserva queda registrada y el negocio la ve en su panel.</p></div></li>
+          </ol>
+        </div>
+      </section>
+
+      <section className="wrap sec" aria-labelledby="rubros-titulo">
+        <div className={s.cabeza}>
+          <p className="kicker">PARA QUIÉN</p>
+          <h2 id="rubros-titulo">Para negocios que atienden con cita.</h2>
+          <p>Elige tu rubro y pruébalo con el nombre y el estilo de tu negocio.</p>
+        </div>
         <ul className={s.rubros}>
-          {RUBROS.filter((r) => r.id !== 'negocio').map((r) => {
-            const Icono = r.icono
-            return (
-              <li key={r.id}>
-                <Icono size={20} strokeWidth={1.75} aria-hidden="true" />
-                <Link href={`/prueba-gratis?rubro=${r.id}`}>{r.chip}</Link>
-              </li>
-            )
-          })}
+          {RUBROS_PAGINA.map(({ id, nombre, Icono }) => (
+            <li key={id}>
+              <Link href={`/prueba-gratis?rubro=${id}`}>
+                <Icono size={22} strokeWidth={1.75} aria-hidden="true" />
+                <strong>{nombre}</strong>
+              </Link>
+            </li>
+          ))}
         </ul>
       </section>
 
-      <section className="alt">
+      <section className="alt" id="planes" aria-labelledby="planes-titulo">
         <div className="wrap sec">
-          <Kicker>PLANES</Kicker>
-          <Title as="h2"><span id="planes">Elige el plan de agendAHH</span></Title>
-          <p className={s.sub}>Solo, para quien trabaja solo. Starter, para negocios con equipo. Business, para gestionar tu equipo, vender productos y fidelizar clientes.</p>
+          <div className={s.cabeza}>
+            <p className="kicker">PLANES AGENDAHH</p>
+            <h2 id="planes-titulo">Elige el plan que le corresponde a tu negocio.</h2>
+            <p>Solo es para quien trabaja solo. Starter, para negocios con equipo. Business, para gestionar tu equipo, vender productos y fidelizar clientes. Cada plan suma funciones sobre el anterior.</p>
+          </div>
           <div className={s.planes}>
             {PLANES.map((p) => {
               const precio = PRECIOS[p.id]
+              const corto = p.nombre.replace('agendAHH ', '')
               return (
                 <article key={p.id} className={`${s.plan}${p.destacado ? ` ${s.top}` : ''}`}>
-                  {p.destacado && <span className={s.badge}>RECOMENDADO</span>}
-                  <h3>{p.nombre}</h3>
-                  <p className={s.sub}>{p.desc}</p>
+                  {p.destacado && <span className={s.insignia}>RECOMENDADO</span>}
+                  <span className={s.planKicker}>{ETIQUETA_PLAN[p.id]}</span>
+                  <h3>{corto}</h3>
+                  <p className={s.planIntro}>{p.desc}</p>
                   <p className={s.precio}>
                     <strong>{clp(precioMes(p.id))}</strong> <span>/ mes + IVA</span>
                   </p>
-                  {precio.regular && <p className={s.nota}>Precio lanzamiento. Precio regular {clp(precio.regular)}.</p>}
-                  <p className={s.nota}>+ implementación inicial {clp(precio.implementacionMonto ?? 0)} + IVA (pago único)</p>
+                  {precio.regular && <p className={s.planNota}>Precio lanzamiento. Precio regular {clp(precio.regular)}.</p>}
+                  <p className={s.planNota}>+ implementación inicial {clp(precio.implementacionMonto ?? 0)} + IVA (pago único)</p>
+                  <span className={s.incluye}>Funciones incluidas</span>
                   <ul className={s.lista}>
                     {p.beneficios?.map((b) => <li key={b}>{b}</li>)}
                   </ul>
+                  <Link className={s.planBtn} href={`/prueba-gratis?plan=${p.id}`}>
+                    Probar {corto} gratis <ArrowRight size={16} strokeWidth={2.25} aria-hidden="true" />
+                  </Link>
                 </article>
               )
             })}
           </div>
-          <p className={s.nota}>Valores en pesos chilenos. Pago mensual o anual con 20% de descuento (Starter, Business y Pro).</p>
+          <p className={s.planesNota}>Valores en pesos chilenos. Pago mensual o anual con 20% de descuento (Starter, Business y Pro). HHA cobra 0% de comisión.</p>
         </div>
       </section>
 
-      <section className="wrap sec">
-        <Kicker>PREGUNTAS FRECUENTES</Kicker>
-        <Title as="h2">Lo que más nos preguntan sobre agendAHH</Title>
+      <section className="wrap sec" aria-labelledby="faq-titulo">
+        <div className={s.cabeza}>
+          <p className="kicker">PREGUNTAS FRECUENTES</p>
+          <h2 id="faq-titulo">Lo que más nos preguntan sobre agendAHH</h2>
+        </div>
         <div className={s.faq}>
           {PREGUNTAS.map((p) => (
             <details key={p.q}>

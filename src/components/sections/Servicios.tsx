@@ -535,7 +535,7 @@ function ContenidoDetalle({ detalle, anual, picked, toggle, elegirPlan, elegirPa
       </div>
       <p className="muted" style={{ margin: 0 }}>{s?.desc ?? pack?.detalle}</p>
 
-      {s?.grupo === 'plan' && p ? <div className={m.modalPrecio}>{p.regular ? <PrecioPlan id={s.id} anual={anual} /> : <PrecioSimple id={s.id} />}</div> : null}
+      {s?.grupo === 'plan' && p ? <div className={m.modalPrecio}>{p.lanzamiento ? <PrecioPlan id={s.id} anual={anual} /> : <PrecioSimple id={s.id} />}</div> : null}
       {s?.grupo === 'linea' && p ? <div className={m.modalPrecio}><PrecioLinea id={s.id} /></div> : null}
       {pack ? <div className={m.modalPrecio}><PrecioPack id={pack.id} /></div> : null}
 

@@ -29,12 +29,14 @@ export function PrecioPlan({ id, anual }: { id: string; anual: boolean }) {
   if (!p) return null
   const a = anual && p.anual ? anualDe(p) : null
 
-  if (p.regular && p.lanzamiento) {
+  if (p.lanzamiento) {
     return (
       <div className={m.precio} aria-live="polite">
-        <p className={m.regular}>
-          <s>{clp(p.regular)}{a ? '/mes' : ''}</s> <span>Precio regular</span>
-        </p>
+        {p.regular && (
+          <p className={m.regular}>
+            <s>{clp(p.regular)}{a ? '/mes' : ''}</s> <span>Precio regular</span>
+          </p>
+        )}
         {a ? (
           <>
             <p className={m.principal}>
@@ -53,7 +55,7 @@ export function PrecioPlan({ id, anual }: { id: string; anual: boolean }) {
               <strong>{clp(p.lanzamiento)}</strong>
               <span className={m.unidad}><span>/ mes</span><Iva /></span>
             </p>
-            <p className={m.etiqueta}>Precio lanzamiento</p>
+            {p.regular && <p className={m.etiqueta}>Precio lanzamiento</p>}
           </>
         )}
       </div>

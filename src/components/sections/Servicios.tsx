@@ -20,8 +20,8 @@ import { Escena, VENTANAS, rubroDe } from '../portada/sistemasData'
 import m from './Servicios.module.css'
 
 const pad = (n: number) => String(n).padStart(2, '0')
-/* Demo gratuita de los planes web; el plazo se edita en src/lib/config.ts → demoPlazo */
-const DEMO = `al hacer tu pedido te preparamos una demo para que pruebes tu web antes de decidir`
+/* Demo gratuita de los planes web; el plazo se edita en src/lib/config.ts → demoWeb */
+const DEMO = `antes de cerrar el proyecto preparamos una vista previa de tu futura página en un subdominio de HHA. Queda disponible ${CONFIG.demoWeb}; si el proyecto no continúa, se desactiva.`
 const porId = (id: string) => CONFIG.servicios.find((s) => s.id === id)
 const serviciosDe = (c: Categoria) => c.servicios.map(porId).filter((s) => s !== undefined)
 const planesDe = (linea: Servicio) => (linea.planes ?? []).map(porId).filter((s) => s !== undefined)
@@ -294,7 +294,7 @@ export default function Servicios({ as = 'h2', marketing = false }: { as?: Level
         {/* Prueba gratis: visible desde el inicio de la página */}
         {!marketing && (
           <Link className={m.demo} href="/prueba-gratis" data-reveal>
-            <i aria-hidden="true" />Prueba gratis {CONFIG.demoPlazo}: primero lo pruebas, si te sirve te quedas <ArrowRight size={15} strokeWidth={2.5} aria-hidden="true" />
+            <i aria-hidden="true" />Prueba agendAHH gratis {CONFIG.demoPlazo}: primero lo pruebas, si te sirve te quedas <ArrowRight size={15} strokeWidth={2.5} aria-hidden="true" />
           </Link>
         )}
 
@@ -398,7 +398,7 @@ export default function Servicios({ as = 'h2', marketing = false }: { as?: Level
                     <>
                       <div className={m.sisPrev}>
                         {VENTANAS.map((v, n) => (
-                          <Link key={v.id} className={m.mini} href={`/prueba-gratis?rubro=${v.id}`} aria-label={`Probar gratis HHA Systems: ${rubroDe(v.id)?.chip}`}>
+                          <Link key={v.id} className={m.mini} href={`/prueba-gratis?rubro=${v.id}`} aria-label={`Probar agendAHH gratis: ${rubroDe(v.id)?.chip}`}>
                             <span className={m.miniCara}>
                               <Escena v={v} retraso={n} compacta />
                               <span className={m.miniPie}>{rubroDe(v.id)?.chip}<span>Probar gratis <ArrowRight size={14} strokeWidth={2.5} aria-hidden="true" /></span></span>
@@ -408,7 +408,7 @@ export default function Servicios({ as = 'h2', marketing = false }: { as?: Level
                       </div>
                       <div className={m.sisCta}>
                         <p>Vistas de ejemplo con textos de muestra. Tu sistema se diseña con tu marca, tus fotos y tus servicios. Primero lo pruebas {CONFIG.demoPlazo}; si te sirve, te quedas.</p>
-                        <Link className="btn-vivo" href="/prueba-gratis">Crea tu prueba gratis <ArrowRight size={18} strokeWidth={2.25} aria-hidden="true" /></Link>
+                        <Link className="btn-vivo" href="/prueba-gratis">Probar agendAHH gratis <ArrowRight size={18} strokeWidth={2.25} aria-hidden="true" /></Link>
                       </div>
                     </>
                   )}
@@ -445,7 +445,7 @@ export default function Servicios({ as = 'h2', marketing = false }: { as?: Level
           {nombres.length ? (
             <Link className="btn btn-red" href="/pedido">Ir a mi pedido →</Link>
           ) : (
-            <GuiaPlan etiqueta="Haz tu diagnóstico" className="btn btn-red" giro={false} origen="servicios" />
+            <GuiaPlan etiqueta="Te orientamos en 3 preguntas" className="btn btn-red" giro={false} origen="servicios" />
           )}
         </div>
 

@@ -105,7 +105,7 @@ export default function PruebaGratis() {
             </p>
           )}
           <p className={s.lead}>
-            Elige tu tipo de negocio y cuéntanos cómo se llama. Preparamos tu sistema de reservas y ventas con tu marca y lo pruebas durante {dias}. Primero lo pruebas; si te sirve, te quedas.
+            Elige tu tipo de negocio y cuéntanos cómo se llama. Preparamos tu agenda de reservas con tu marca y la pruebas durante {dias}. Primero lo pruebas; si te sirve, te quedas.
           </p>
 
           <form

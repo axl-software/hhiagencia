@@ -4,7 +4,7 @@ import { useEffect, useRef, useState, type CSSProperties, type PointerEvent } fr
 import Link from 'next/link'
 import { ArrowRight, Check, X } from 'lucide-react'
 import { CONFIG } from '@/lib/config'
-import { PRECIOS, anualDe, clp } from '@/lib/precios'
+import { PRECIOS, clp } from '@/lib/precios'
 import { Escena, VENTANAS, rubroDe, type Ventana } from './sistemasData'
 import s from './Sistemas.module.css'
 
@@ -17,11 +17,13 @@ import s from './Sistemas.module.css'
    El nombre interno del producto no se muestra.
    ========================================================= */
 
-/* Desde cuánto parte HHA Systems: el equivalente mensual del plan anual de agendAHH Starter (src/lib/precios.ts) */
-const STARTER = PRECIOS['system-starter']
-const DESDE_ANUAL = clp(anualDe(STARTER)?.mensual ?? 0)
-const DESDE_MENSUAL = clp(STARTER.lanzamiento ?? 0)
+/* Desde cuánto parte HHA Systems: el plan más barato, agendAHH Solo (src/lib/precios.ts). La implementación va en texto
+   secundario: el precio protagonista es siempre la mensualidad. */
 const SOLO = clp(PRECIOS['system-agenda-solo'].monto ?? 0)
+const IMPL_DESDE = clp(Math.min(...['system-agenda-solo', 'system-starter', 'system-business', 'system-pro'].map((id) => PRECIOS[id].implementacionMonto ?? Infinity)))
+const STARTER_MES = clp(PRECIOS['system-starter'].lanzamiento ?? 0)
+const BUSINESS_MES = clp(PRECIOS['system-business'].lanzamiento ?? 0)
+const NOTA_IMPL = `Implementación inicial desde ${IMPL_DESDE} + IVA, según plan.`
 
 /* Inclinación 3D según dónde está el cursor (no en pantallas táctiles) */
 const inclinar = (ev: PointerEvent<HTMLDivElement>) => {
@@ -57,18 +59,19 @@ export default function Sistemas() {
             El sistema de tu negocio, <em>con tu marca.</em>
           </h2>
           <p className={s.lead} data-reveal style={{ '--d': '0.16s' } as CSSProperties}>
-            Tus clientes reservan y compran online. Tú ves tus reservas, ventas y clientes desde un panel propio. Todo con el diseño, las fotos y el estilo de tu negocio: dos negocios pueden usar HHA Systems y verse completamente distintos.
+            Tus clientes reservan online y tú ves tus reservas, tus clientes y tus métricas desde un panel propio. Todo con el diseño, las fotos y el estilo de tu negocio: dos negocios pueden usar agendAHH y verse completamente distintos.
           </p>
           <ul className={s.pilares} data-reveal style={{ '--d': '0.24s' } as CSSProperties}>
-            {['Reservas', 'Ventas', 'Panel', 'Clientes'].map((p) => <li key={p}>{p}</li>)}
+            {['Reservas', 'Clientes', 'Panel'].map((p) => <li key={p}>{p}</li>)}
             <li className={s.gratis}>Pruébalo gratis {CONFIG.demoPlazo}</li>
           </ul>
           {/* Precio de partida a la vista: no todos entran a Servicios a buscarlo */}
           <Link className={s.partePrecio} href="/servicios#cat-sistemas" data-reveal style={{ '--d': '0.3s' } as CSSProperties}>
             <span>Desde</span>
-            <strong>{DESDE_ANUAL}</strong>
-            <small>/ mes + IVA · pagando anual</small>
+            <strong>{SOLO}</strong>
+            <small>/ mes + IVA</small>
             <ArrowRight size={16} strokeWidth={2.5} aria-hidden="true" />
+            <span className={s.implNota}>{NOTA_IMPL}</span>
           </Link>
         </div>
 
@@ -81,13 +84,14 @@ export default function Sistemas() {
                   <h3 className={s.tituloTarjeta}>{v.titulo}</h3>
                   <p>{v.texto}</p>
                   <ul className={s.tags}>{v.tags.map((t) => <li key={t}>{t}</li>)}</ul>
-                  <p className={s.desdeTarjeta}>Desde <strong>{DESDE_ANUAL}</strong>/mes + IVA <em>plan anual</em></p>
+                  <p className={s.desdeTarjeta}>Desde <strong>{SOLO}</strong>/mes + IVA</p>
+                  <p className={s.implTarjeta}>{NOTA_IMPL}</p>
                   <div className={s.acciones}>
                     <button type="button" className={s.incluye} onClick={() => setAbierta(v)}>
                       Ver qué incluye <ArrowRight size={16} strokeWidth={2.25} aria-hidden="true" />
                     </button>
                     <Link className={s.probar} href={`/prueba-gratis?rubro=${v.id}`}>
-                      Probar gratis <ArrowRight size={15} strokeWidth={2.5} aria-hidden="true" />
+                      Probar agendAHH gratis <ArrowRight size={15} strokeWidth={2.5} aria-hidden="true" />
                     </Link>
                   </div>
                 </div>
@@ -100,7 +104,7 @@ export default function Sistemas() {
           <p>Vistas de ejemplo con textos de muestra. Tu sistema se diseña con tu marca, tus fotos y tus servicios. Primero lo pruebas {CONFIG.demoPlazo}; si te sirve, te quedas.</p>
           {/* Lleva a crear la prueba gratis (nombre del negocio, correo y WhatsApp) */}
           <Link className="btn-vivo" href="/prueba-gratis">
-            Crea tu prueba gratis <ArrowRight size={18} strokeWidth={2.25} aria-hidden="true" />
+            Probar agendAHH gratis <ArrowRight size={18} strokeWidth={2.25} aria-hidden="true" />
           </Link>
         </div>
       </div>
@@ -129,17 +133,16 @@ export default function Sistemas() {
             </ul>
             <div className="kicker" style={{ margin: '8px 0 0' }}>LOS PLANES</div>
             <ul className="incluye">
-              <li><Check size={18} strokeWidth={2.25} aria-hidden="true" /><span><strong>agendAHH Solo</strong> es el plan individual: agenda, clientes y panel, desde {SOLO}/mes + IVA.</span></li>
-              <li><Check size={18} strokeWidth={2.25} aria-hidden="true" /><span><strong>agendAHH Starter</strong> trae todo lo de arriba. Desde {DESDE_MENSUAL}/mes + IVA, o {DESDE_ANUAL}/mes + IVA pagando anual.</span></li>
-              <li><Check size={18} strokeWidth={2.25} aria-hidden="true" /><span><strong>agendAHH Business</strong> suma tu tienda para vender junto a las reservas y un panel para ver cómo va tu negocio.</span></li>
-              <li><Check size={18} strokeWidth={2.25} aria-hidden="true" /><span><strong>agendAHH Pro</strong> suma correos de confirmación y recordatorios, y promociones para volver a conectar con tus clientes.</span></li>
+              <li><Check size={18} strokeWidth={2.25} aria-hidden="true" /><span><strong>agendAHH Solo</strong>, para quien trabaja solo: agenda, clientes y panel, desde {SOLO}/mes + IVA.</span></li>
+              <li><Check size={18} strokeWidth={2.25} aria-hidden="true" /><span><strong>agendAHH Starter</strong>, para negocios con equipo: suma varios profesionales, transferencia y abonos. Desde {STARTER_MES}/mes + IVA.</span></li>
+              <li><Check size={18} strokeWidth={2.25} aria-hidden="true" /><span><strong>agendAHH Business</strong>, para gestionar tu equipo, vender productos y fidelizar clientes. Desde {BUSINESS_MES}/mes + IVA.</span></li>
             </ul>
-            <p className="note"><strong>Prueba gratis de {CONFIG.demoPlazo}:</strong> primero lo pruebas y, si te sirve, te quedas. + costo de implementación (pago único); el monto exacto te lo informamos en la cotización, antes de contratar.</p>
+            <p className="note"><strong>Prueba gratis de {CONFIG.demoPlazo}:</strong> primero lo pruebas y, si te sirve, te quedas. {NOTA_IMPL} HHA cobra 0% de comisión por tus reservas y ventas.</p>
             <div className="modal-acciones">
               <Link className="btn-vivo" href={`/prueba-gratis?rubro=${abierta.id}`}>
-                Crear mi prueba gratis <ArrowRight size={18} strokeWidth={2.25} aria-hidden="true" />
+                Probar agendAHH gratis <ArrowRight size={18} strokeWidth={2.25} aria-hidden="true" />
               </Link>
-              <Link className="btn btn-out" href="/servicios#cat-sistemas">Ver planes y precios</Link>
+              <Link className="btn btn-out" href="/servicios#cat-sistemas">Ver planes</Link>
               <button type="button" className="btn btn-out" onClick={cerrar}>Cerrar</button>
             </div>
           </div>

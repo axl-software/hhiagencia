@@ -2,7 +2,7 @@ import { Briefcase, Eye, Leaf, PenTool, Scissors, Sparkles, type LucideIcon } fr
 
 /* Rubros de la portada y de HHA Systems (docs/HHA_SYSTEMS_PRODUCT.md). El primero ("negocio") es el
    texto general de HHA: web, automatización y marketing para cualquier negocio. Los demás son los
-   negocios que venden servicios con reserva y también productos. Barbería y peluquería van juntas; óptica y dentista
+   negocios que venden servicios con reserva de hora. Barbería y peluquería van juntas; óptica y dentista
    también (cualquier consulta de salud con hora). */
 export type Rubro = {
   id: string
@@ -17,7 +17,7 @@ export type Rubro = {
 const LEAD_GENERAL =
   'Creamos sistemas digitales que ayudan a marcas, creadores y empresas de todo Chile a vender y operar mejor, con estrategia, contenido y tecnología.'
 const leadRubro = (x: string) =>
-  `Reservas online, venta de productos y un panel para ver tu día, con el diseño y la identidad de tu ${x}.`
+  `Reservas online, gestión de clientes y un panel para ver tu día, con el diseño y la identidad de tu ${x}.`
 
 export const RUBROS: Rubro[] = [
   { id: 'negocio', chip: 'Tu negocio', palabra: 'negocio', icono: Briefcase, lead: LEAD_GENERAL },

@@ -171,6 +171,8 @@
 .partePrecio strong { font-family: var(--f-precio); font-variant-numeric: tabular-nums; font-size: 26px; line-height: 1; letter-spacing: -0.04em; }
 .partePrecio small { font-size: 13px; color: var(--tx2); }
 .partePrecio svg { align-self: center; color: var(--rojo-txt); }
+.implNota { margin: 0; flex-basis: 100%; font-size: 12.5px; line-height: 1.4; color: var(--tx2); }
 .desdeTarjeta { margin: 2px 0 0; font-size: 14px; color: var(--s-tx2, var(--tx2)); }
 .desdeTarjeta strong { font-family: var(--f-precio); font-size: 18px; color: var(--s-tx, var(--tx)); }
+.implTarjeta { margin: 0; font-size: 12.5px; line-height: 1.4; color: var(--s-tx2, var(--tx2)); }
 .desdeTarjeta em { font-style: normal; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.6px; text-transform: uppercase; opacity: 0.8; }

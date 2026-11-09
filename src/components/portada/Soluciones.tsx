@@ -12,7 +12,7 @@ import s from './Soluciones.module.css'
    categoría completa está en /servicios. Textos cortos para la tarjeta; el detalle está en /servicios. */
 const ICONOS: Record<string, LucideIcon> = { web: Globe, marketing: Megaphone, automatizacion: Workflow, ia: Bot }
 const CORTO: Record<string, string> = {
-  web: 'Páginas web con desarrollo, y aplicaciones web con tu propio sistema de reservas y ventas.',
+  web: 'Planes web para cada etapa de tu negocio, y agendAHH para que tus clientes reserven online.',
   marketing: 'Para que más personas te encuentren, confíen en ti y te escriban.',
   automatizacion: 'Para ahorrar tiempo en tareas repetitivas y que tus herramientas trabajen juntas.',
   ia: 'Para entender qué puedes mejorar con IA y aplicarlo con acompañamiento.',
@@ -64,7 +64,7 @@ export default function Soluciones() {
           <span id="soluciones-titulo">Elige lo que necesitas</span>
         </Title>
         <p className="lead" style={{ maxWidth: 640, marginBottom: 44 }}>
-          Partimos por lo que tu negocio necesita para vender. Tres niveles de web para empezar y servicios para crecer.
+          Partimos por lo que tu negocio necesita para vender. Elige la web que necesita tu negocio y suma servicios para crecer.
         </p>
       </div>
 

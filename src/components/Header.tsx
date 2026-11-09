@@ -6,7 +6,6 @@ import { usePathname } from 'next/navigation'
 import { Menu, X } from 'lucide-react'
 import { NAV } from '@/lib/nav'
 import Redes from './Redes'
-import GuiaPlan from './GuiaPlan'
 import CarritoBtn from './CarritoBtn'
 import s from './Header.module.css'
 
@@ -78,7 +77,7 @@ export default function Header() {
             <ul className={s.nav}>
               {NAV.map((l) => (
                 <li key={l.href}>
-                  <Link className={s.link} href={l.href} aria-current={current(l.href)}>{l.label}</Link>
+                  <Link className={`${s.link}${l.label === 'agendAHH' ? ` ${s.marca}` : ''}`} href={l.href} aria-current={current(l.href)}>{l.label}</Link>
                 </li>
               ))}
             </ul>
@@ -87,10 +86,10 @@ export default function Header() {
 
         <div className={s.right}>
           <CarritoBtn />
-          {/* El botón principal abre el diagnóstico de 3 preguntas (docs/HHA_BRAND_FOUNDATION.md).
+          {/* El botón principal pide cotización; el diagnóstico queda como herramienta secundaria en la portada y en Servicios (2026-11-09).
               Mismo diseño que el botón rojo de la portada (.btn-vivo), en tamaño compacto. */}
           <span className={s.ctaDesk}>
-            <GuiaPlan etiqueta="Haz tu diagnóstico" className="btn-vivo btn-vivo-sm" giro={false} origen="encabezado" />
+            <Link className="btn-vivo btn-vivo-sm" href="/contacto">Solicitar cotización</Link>
           </span>
           <button ref={hamburguesa} type="button" className={s.burger} onClick={() => setAbiertoEn(pathname)} aria-label="Abrir menú" aria-expanded={open}>
             <Menu size={20} strokeWidth={2.5} aria-hidden="true" />
@@ -118,7 +117,7 @@ export default function Header() {
           </ul>
           <div className={s.menuFoot}>
             <Redes />
-            <GuiaPlan etiqueta="Haz tu diagnóstico" className="btn-vivo" giro={false} origen="menu" />
+            <Link className="btn-vivo" href="/contacto" onClick={close}>Solicitar cotización</Link>
           </div>
         </div>
       )}

@@ -38,8 +38,8 @@ export type Ventana = {
 const DIAS = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie']
 const HORAS = ['11:00', '11:45', '12:30', '16:00']
 
-/* Lo que comparten todos los rubros: es lo que trae agendAHH Starter (el plan de entrada). Commerce y Dashboard Lite llegan con
-   agendAHH Business; correos y promociones, con agendAHH Pro (src/lib/config.ts → servicios). */
+/* Lo que comparten todos los rubros: es lo que trae agendAHH desde el plan Solo (el de entrada). La tienda y venta de
+   productos y la fidelización llegan con agendAHH Business (src/lib/config.ts → servicios). */
 const COMUN = [
   'Tus clientes reservan online, a cualquier hora: eligen servicio, profesional, día y hora.',
   'Tu agenda siempre al día: horarios y disponibilidad claros, sin cruces.',
@@ -53,7 +53,7 @@ export const VENTANAS: Ventana[] = [
     id: 'barberia', foto: '/img/sistemas/barberia.webp', marca: 'Tu barbería',
     titulo: 'Que tus clientes reserven solos, y tú a lo tuyo.',
     texto: 'Eligen su servicio, su barbero o estilista y su hora en un par de toques, y tú lo ves todo en tu agenda. Con la cara de tu barbería o peluquería.',
-    tags: ['Reservas', 'Productos', 'Panel'],
+    tags: ['Reservas', 'Clientes', 'Panel'],
     aviso: 'Nueva reserva · 11:45',
     bloques: [
       { t: 'staff', items: ['Ana', 'Luis', 'Sofi'] },
@@ -81,7 +81,7 @@ export const VENTANAS: Ventana[] = [
     id: 'tatuajes', foto: '/img/sistemas/tatuajes.webp', marca: 'Tu estudio',
     titulo: 'Tu arte primero. La reserva, después.',
     texto: 'Una portada que muestra tu estilo y una reserva simple para consultas y sesiones, sin cruzar mensajes.',
-    tags: ['Reservas', 'Clientes', 'Pedidos'],
+    tags: ['Reservas', 'Clientes', 'Panel'],
     aviso: 'Consulta pedida · Sábado',
     bloques: [
       { t: 'galeria' },
@@ -94,11 +94,11 @@ export const VENTANAS: Ventana[] = [
     id: 'optica', foto: '/img/sistemas/optica-ojos.webp', fotos: ['/img/sistemas/optica-ojos.webp', '/img/sistemas/optica-dentista.webp'], marca: 'Tu consulta',
     titulo: 'Hora para tu examen o tu control, sin llamadas.',
     texto: 'Para ópticas, dentistas y cualquier consulta con hora: tus pacientes reservan online y tú ves tu día de un vistazo.',
-    tags: ['Reservas', 'Productos', 'Panel'],
+    tags: ['Reservas', 'Clientes', 'Panel'],
     aviso: 'Nueva hora · 16:00',
     bloques: [
       { t: 'servicios', items: [['Examen visual', '30 min'], ['Control dental', '40 min']] },
-      { t: 'productos', items: ['Armazones', 'Kits de cuidado', 'Accesorios'] },
+      { t: 'horas', items: HORAS },
       { t: 'boton', texto: 'Reservar hora' },
     ],
     incluye: ['Horas para exámenes, controles y atenciones, cada una con su duración.', 'Tus pacientes reservan solos y reciben su confirmación.', ...COMUN],
@@ -107,7 +107,7 @@ export const VENTANAS: Ventana[] = [
     id: 'wellness', foto: '/img/sistemas/wellness.webp', marca: 'Tu centro',
     titulo: 'Sesiones y clases, con horarios y cupos claros.',
     texto: 'Tu comunidad reserva su lugar en segundos, y tú llevas el control de cada sesión sin planillas.',
-    tags: ['Reservas', 'Productos', 'Panel'],
+    tags: ['Reservas', 'Clientes', 'Panel'],
     aviso: 'Cupo reservado · Yoga',
     bloques: [
       { t: 'servicios', items: [['Yoga grupal', '60 min'], ['Masaje', '50 min'], ['Meditación', '30 min']] },

@@ -50,6 +50,8 @@
   transform-origin: left;
   transition: transform 0.3s ease;
 }
+/* agendAHH se escribe siempre así (termina en AHH): no se pasa a mayúsculas */
+.marca { text-transform: none; letter-spacing: 0.02em; }
 .link:hover { color: var(--tx); }
 .link:hover::after, .link[aria-current='page']::after { transform: scaleX(1); }
 .mute { color: var(--mut); }

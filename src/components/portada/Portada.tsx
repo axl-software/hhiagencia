@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { MapPin } from 'lucide-react'
 import GuiaPlan from '../GuiaPlan'
 import PortadaFondo from './PortadaFondo'
-import { CONFIG } from '@/lib/config'
 import { RUBROS } from './rubros'
 import s from './Portada.module.css'
 
@@ -109,8 +108,8 @@ export default function Portada() {
             {/* Botón principal: abre las 3 preguntas del diagnóstico */}
             <GuiaPlan etiqueta="Te orientamos en 3 preguntas" className="btn-vivo" giro={false} />
             {general
-              ? <Link className="btn btn-out" href="/servicios">Ver servicios</Link>
-              : <Link className="btn btn-out" href={`/prueba-gratis?rubro=${activo.id}`}>Probar gratis {CONFIG.demoPlazo}</Link>}
+              ? <Link className="btn btn-out" href="/servicios">Ver planes</Link>
+              : <Link className="btn btn-out" href={`/prueba-gratis?rubro=${activo.id}`}>Probar agendAHH gratis</Link>}
           </div>
         </div>
       </div>

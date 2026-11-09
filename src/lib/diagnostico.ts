@@ -1,5 +1,5 @@
 /* Diagnóstico de 3 preguntas (portada y Servicios). Recomienda un plan web (Presentation, Starter, Business o Pro),
-   HHA Systems (aplicación web de reservas y ventas) o cualquier otra línea de servicio, priorizando la web
+   HHA Systems (agendAHH, agenda de reservas online) o cualquier otra línea de servicio, priorizando la web
    cuando el negocio no tiene una que le sirva.
    Las respuestas viajan a /contacto como ?prioridad=&web=&etapa= para incluirlas en el mensaje. */
 
@@ -12,7 +12,7 @@ export const PREGUNTAS: { clave: Clave; titulo: string; corta: string; opciones:
     corta: 'Prioridad:',
     opciones: [
       ['web', 'Tener una página web o mejorar la que tengo'],
-      ['sistemas', 'Que mis clientes reserven y compren online (aplicación web)'],
+      ['sistemas', 'Que mis clientes reserven online (agenda con panel)'],
       ['automatizacion', 'Ahorrar tiempo automatizando tareas'],
       ['marketing', 'Conseguir más clientes'],
       ['contenido', 'Tener contenido para mis redes'],

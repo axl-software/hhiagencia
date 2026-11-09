@@ -3,20 +3,19 @@
 import { useEffect, useState, type CSSProperties } from 'react'
 import Link from 'next/link'
 import { ArrowRight, Check, Send } from 'lucide-react'
-import { CONFIG } from '@/lib/config'
 import s from './Acompanamiento.module.css'
 
 /* =========================================================
    "Te acompañamos en cada paso": cuatro etapas a la izquierda y, a la derecha, una conversación de EJEMPLO
    por etapa, como en un celular. Reemplaza al método de ocho pasos en el inicio. Las conversaciones son de muestra (rotuladas): no son clientes reales. Sin plazos
-   exactos, salvo la demo gratuita (CONFIG.demoPlazo). La etapa cambia sola hasta que la persona elige una;
+   exactos. La etapa cambia sola hasta que la persona elige una;
    con "reducir movimiento" no cambia sola. El botón lleva al formulario de contacto, no a WhatsApp.
    ========================================================= */
 
 type Mensaje = { de: 'cliente' | 'hha'; texto: string; hora: string }
 type Etapa = { quien: string; foto: string; cuando: string; titulo: string; texto: string; dia: string; mensajes: Mensaje[] }
 
-const demo = CONFIG.demoPlazo ? `gratuita de ${CONFIG.demoPlazo}` : 'gratuita'
+const demo = 'gratuita'
 
 const ETAPAS: Etapa[] = [
   {
@@ -37,7 +36,7 @@ const ETAPAS: Etapa[] = [
     foto: '/img/chat/herberth.webp',
     cuando: 'ANTES DE DECIDIR',
     titulo: 'Lo pruebas',
-    texto: `Te preparamos una demo ${demo} para que lo veas funcionando antes de decidir.`,
+    texto: `Te preparamos una demo ${demo} para que veas cómo quedaría antes de decidir.`,
     dia: 'Jueves',
     mensajes: [
       { de: 'hha', texto: `Ya está lista tu demo ${demo}. Entra con este enlace y pruébala.`, hora: '11:00' },
@@ -118,7 +117,7 @@ export default function Acompanamiento() {
             </ol>
 
             <Link className="btn-vivo" href="/contacto">
-              Solicita cotización <ArrowRight size={18} strokeWidth={2.25} aria-hidden="true" />
+              Solicitar cotización <ArrowRight size={18} strokeWidth={2.25} aria-hidden="true" />
             </Link>
           </div>
 

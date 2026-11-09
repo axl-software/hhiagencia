@@ -13,7 +13,7 @@ import s from './Servicios.module.css'
 type Muestra = { foto: string; marca: string; titulo: string; boton: string; url: string }
 
 const MUESTRAS: Record<string, Muestra> = {
-  'web-presentation': { foto: '/img/ejemplos/web-presentation.webp', marca: 'Estudio Rivas', titulo: 'Arquitectura y diseño de interiores', boton: 'Agenda una reunión', url: 'estudiorivas.cl' },
+  'web-presentation': { foto: '/img/ejemplos/web-presentation.webp', marca: 'Estudio Rivas', titulo: 'Arquitectura y diseño de interiores', boton: 'Solicitar cotización', url: 'estudiorivas.cl' },
   'web-starter': { foto: '/img/ejemplos/web-start.webp', marca: 'Café Aurora', titulo: 'Café de especialidad en el centro', boton: 'Escríbenos', url: 'cafeaurora.cl' },
   'web-business': { foto: '/img/ejemplos/web-business.webp', marca: 'Consultora Norte', titulo: 'Ordenamos tu empresa para crecer', boton: 'Solicitar contacto', url: 'consultoranorte.cl' },
   'web-pro': { foto: '/img/ejemplos/web-pro.webp', marca: 'Casa Sombrero', titulo: 'Sombreros y accesorios hechos a mano', boton: 'Ver tienda', url: 'casasombrero.cl' },

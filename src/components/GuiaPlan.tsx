@@ -176,7 +176,7 @@ export default function GuiaPlan({
                 {/* HHA Systems se prueba antes de decidir: lleva directo a crear la prueba gratis */}
                 {recomendados.some((r) => r.id === 'hha-systems') && (
                   <Link href="/prueba-gratis" onClick={cerrar} className="btn-vivo" style={{ alignSelf: 'flex-start' }}>
-                    Crear mi prueba gratis <ArrowRight size={18} strokeWidth={2.25} aria-hidden="true" />
+                    Probar agendAHH gratis <ArrowRight size={18} strokeWidth={2.25} aria-hidden="true" />
                   </Link>
                 )}
 

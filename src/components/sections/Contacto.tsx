@@ -96,7 +96,7 @@ export default function Contacto({ as = 'h2' }: { as?: Level }) {
       <div className="contacto-intro">
         <Kicker style={{ margin: 0 }}>CONTACTO</Kicker>
         <Title as={as}>Te contactamos</Title>
-        <p className="lead">Cuéntanos qué necesitas y agendamos una conversación de diagnóstico. Primero entendemos tu negocio; después te enviamos una propuesta por escrito.</p>
+        <p className="lead">Cuéntanos qué necesitas. Primero entendemos tu negocio; después te enviamos una propuesta por escrito.</p>
         {diagnostico.length > 0 && (
           <p className="note">Ya tenemos tus respuestas del diagnóstico: van incluidas en tu mensaje.</p>
         )}
@@ -170,7 +170,7 @@ export default function Contacto({ as = 'h2' }: { as?: Level }) {
         {error && <AvisoFalta falta={error} form={formRef} id={AVISO} />}
         {/* El botón sigue la intención: con servicios elegidos pide cotización; sin ellos, un mensaje general */}
         <button className="btn-vivo contacto-enviar" type="submit" disabled={enviando} aria-busy={enviando || undefined}>
-          {enviando ? 'Enviando…' : sel.length ? 'Solicita cotización →' : 'Enviar mensaje →'}
+          {enviando ? 'Enviando…' : sel.length ? 'Solicitar cotización →' : 'Enviar mensaje →'}
         </button>
         <p className="note form-legal">
           Al enviar, guardamos tus datos para poder contactarte. Más detalles en <Link href="/privacidad">Privacidad</Link>.

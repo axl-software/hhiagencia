@@ -3,13 +3,13 @@ import s from './Diferencia.module.css'
 
 /* "Por qué HHA": la diferencia, en una banda (roja en oscuro, azul noche en claro, como la banda de cierre).
    El logo HH, solo el símbolo y muy tenue, ocupa la mitad derecha del fondo. Las frases son afirmaciones
-   de negocio: antes de publicarlas, los fundadores confirman que son ciertas para HHA Systems (en especial
-   "0 % de comisión"). Sin cifras de uso ni resultados. */
+   de negocio, confirmadas por los fundadores (2026-11-09): "0 % de comisión" = HHA no cobra porcentaje por cada
+   reserva o venta hecha con agendAHH. Sin cifras de uso ni resultados. */
 const FILAS: [string, string][] = [
   ['Tu marca', 'El sistema se adapta a tu identidad: diseño, fotos y animaciones propias.'],
-  ['0 %', 'de comisión por tus reservas y ventas.'],
+  ['0 %', 'de comisión: HHA no cobra porcentaje por tus reservas ni tus ventas.'],
   ['Tu sistema', 'propio, sin depender de plataformas ajenas.'],
-  ['Tu panel', 'tus ventas, reservas y clientes a la vista.'],
+  ['Tu panel', 'tus reservas, clientes y métricas a la vista.'],
   ['Marketing', 'estrategia incorporada para que tus clientes no te olviden.'],
 ]
 

@@ -38,15 +38,19 @@ const PREGUNTAS = [
   },
   {
     q: '¿Cuánto cuesta agendAHH?',
-    a: `agendAHH Solo cuesta ${clp(PRECIOS['system-agenda-solo'].monto ?? 0)} al mes más IVA, con una instalación de ${clp(PRECIOS['system-agenda-solo'].implementacionMonto ?? 0)} (pago único) más IVA. Los otros planes (Starter, Business y Pro) tienen precio de lanzamiento desde ${clp(precioMes('system-starter'))} al mes más IVA, con la opción de pagar anual con 20% de descuento.`,
+    a: `Desde ${clp(PRECIOS['system-agenda-solo'].monto ?? 0)} al mes más IVA (agendAHH Solo). Starter y Business, para negocios con equipo, tienen precio de lanzamiento desde ${clp(precioMes('system-starter'))} y ${clp(precioMes('system-business'))} al mes más IVA, con la opción de pagar anual con 20% de descuento. Además hay una implementación inicial, de pago único, desde ${clp(PRECIOS['system-agenda-solo'].implementacionMonto ?? 0)} más IVA según el plan.`,
   },
   {
     q: '¿Puedo probarlo antes de contratar?',
     a: `Sí. Pides tu prueba gratis, la preparamos con el nombre y el tipo de tu negocio y la usas durante ${CONFIG.demoPlazo}. Primero lo pruebas; si te sirve, te quedas.`,
   },
   {
-    q: '¿agendAHH Solo envía recordatorios automáticos?',
-    a: 'No. agendAHH Solo no incluye recordatorios ni notificaciones automáticas. Los correos de confirmación y recordatorios están en el plan agendAHH Pro.',
+    q: '¿Qué plan me corresponde?',
+    a: 'Solo es para quien trabaja solo: 1 profesional. Starter es para negocios que trabajan con un equipo: hasta 10 profesionales. Business es para negocios que además quieren vender productos y fidelizar clientes: hasta 15 profesionales, tienda y sistema de fidelización.',
+  },
+  {
+    q: '¿HHA cobra comisión por mis reservas o ventas?',
+    a: 'No. HHA cobra 0% de comisión: no cobramos un porcentaje por cada reserva o venta que hagas con agendAHH. Pagas tu plan y la implementación inicial.',
   },
   {
     q: '¿Para qué tipo de negocio sirve?',
@@ -97,13 +101,13 @@ export default function AgendahhPage() {
         <Kicker>HHA SYSTEMS</Kicker>
         <h1 className="display h2" style={{ marginTop: 12 }}>agendAHH: agenda online para negocios de servicios</h1>
         <p className={s.lead}>
-          Agenda, clientes y gestión para tu negocio. Tus clientes reservan online con tu marca y tú ves tu día, tus clientes y tus métricas desde un panel propio.
+          Agenda, clientes y gestión para tu negocio. Tus clientes reservan online con tu marca y tú ves tu día, tus clientes y tus métricas desde un panel propio. HHA cobra 0% de comisión por tus reservas y ventas.
         </p>
         <div className={s.acciones}>
           <Link className="btn-vivo" href="/prueba-gratis">
-            Crea tu prueba gratis <ArrowRight size={18} strokeWidth={2.25} aria-hidden="true" />
+            Probar agendAHH gratis <ArrowRight size={18} strokeWidth={2.25} aria-hidden="true" />
           </Link>
-          <Link className="btn btn-out" href="/servicios#cat-sistemas">Ver planes y precios</Link>
+          <Link className="btn btn-out" href="#planes">Ver planes</Link>
         </div>
         <p className={s.nota}>HHA Systems es la familia de soluciones digitales desarrolladas por HHA para automatizar y gestionar negocios. agendAHH es su primer producto.</p>
       </section>
@@ -117,7 +121,7 @@ export default function AgendahhPage() {
               <p className={s.precio}>
                 <strong>{clp(PRECIOS['system-agenda-solo'].monto ?? 0)}</strong> <span>/ mes + IVA</span>
               </p>
-              <p className={s.nota}>Instalación: {clp(PRECIOS['system-agenda-solo'].implementacionMonto ?? 0)} (pago único) + IVA.</p>
+              <p className={s.nota}>Implementación inicial desde {clp(PRECIOS['system-agenda-solo'].implementacionMonto ?? 0)} + IVA, según plan.</p>
               <ul className="incluye" aria-label="Incluye">
                 {solo?.incluye?.map((x) => (
                   <li key={x}><Check size={18} strokeWidth={2.25} aria-hidden="true" />{x}</li>
@@ -125,13 +129,12 @@ export default function AgendahhPage() {
               </ul>
             </div>
             <div>
-              <p className={s.sub}>No incluye</p>
+              <p className={s.sub}>Para más, mira Starter y Business</p>
               <ul className="incluye" aria-label="No incluye">
                 {solo?.noIncluye?.map((x) => (
                   <li key={x}><X size={18} strokeWidth={2.25} aria-hidden="true" style={{ color: 'var(--mut)' }} />{x}</li>
                 ))}
               </ul>
-              <p className={s.nota}>Los recordatorios y correos de confirmación llegan con agendAHH Pro.</p>
             </div>
           </div>
         </div>
@@ -156,7 +159,8 @@ export default function AgendahhPage() {
       <section className="alt">
         <div className="wrap sec">
           <Kicker>PLANES</Kicker>
-          <Title as="h2">Elige el plan de agendAHH</Title>
+          <Title as="h2"><span id="planes">Elige el plan de agendAHH</span></Title>
+          <p className={s.sub}>Solo, para quien trabaja solo. Starter, para negocios con equipo. Business, para gestionar tu equipo, vender productos y fidelizar clientes.</p>
           <div className={s.planes}>
             {PLANES.map((p) => {
               const precio = PRECIOS[p.id]
@@ -169,7 +173,10 @@ export default function AgendahhPage() {
                     <strong>{clp(precioMes(p.id))}</strong> <span>/ mes + IVA</span>
                   </p>
                   {precio.regular && <p className={s.nota}>Precio lanzamiento. Precio regular {clp(precio.regular)}.</p>}
-                  <p className={s.nota}>+ implementación {clp(precio.implementacionMonto ?? 0)} (pago único) + IVA</p>
+                  <p className={s.nota}>+ implementación inicial {clp(precio.implementacionMonto ?? 0)} + IVA (pago único)</p>
+                  <ul className={s.lista}>
+                    {p.beneficios?.map((b) => <li key={b}>{b}</li>)}
+                  </ul>
                 </article>
               )
             })}

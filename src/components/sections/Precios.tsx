@@ -4,7 +4,7 @@ import m from './Servicios.module.css'
 /* Piezas de precio de Servicios. Ningún monto está escrito aquí: todo sale de src/lib/precios.ts. */
 
 /** Nota discreta bajo los planes (y dentro del detalle de los demás): el monto no se publica. */
-export const NOTA_IMPL = '+ costo de implementación (pago único)'
+export const NOTA_IMPL = '+ implementación inicial según plan'
 export const NOTA_IMPL_DETALLE = 'El monto exacto se informa en tu cotización, antes de contratar.'
 export const NOTA_PAUTA = 'La inversión publicitaria no está incluida y es pagada directamente por el cliente a la plataforma correspondiente.'
 

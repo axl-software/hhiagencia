@@ -2,6 +2,9 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-11-10 — Welcome cards enter right away (founders' instruction)
+- The three floating cards now start at 0.25 s (staggered 0.15 s, 0.7 s fade) so they are visible as soon as the welcome opens, without waiting for scroll or mouse movement. **SUPERSEDES** the 0.7 s timing of the previous entry.
+
 ## 2026-11-10 — Welcome: soft opening and cards enter with the monitor (founders' instruction)
 - The welcome screen fades in (1 s, opacity only) when the site opens, instead of appearing abruptly. The monitor, its dolly-in and the exit zoom are untouched (identical to commit 6f37534). **SUPERSEDES** the “removed fade” part of the previous entry.
 - The three floating cards (“Nueva reserva · 11:45”, “0 % comisión”, “Prueba 7 días gratis”) now enter 0.9 s earlier (from 0.7 s instead of 1.6 s) so they arrive together with the monitor.

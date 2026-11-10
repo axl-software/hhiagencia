@@ -2,6 +2,10 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-11-09 — Welcome: whole overlay fades in; monitor blur/zoom removed (founders' instruction)
+- **SUPERSEDES** the previous entry: the blur and zoom applied to the monitor were removed (they hid part of the scene's own intro animation). The monitor and its animation are exactly as before.
+- Instead, the whole welcome screen fades in smoothly (1.1 s) when the site opens, so nothing appears abruptly. The fade only affects the opening; the exit animation is unchanged.
+
 ## 2026-11-09 — Welcome monitor fades in instead of popping (founders' instruction)
 - The 3D monitor (and the CSS fallback monitor) now appear blurred and slightly farther away, then focus and come closer over ~1.5 s, instead of showing up abruptly when the scene finished loading. No change for “reducir movimiento” (no animation).
 

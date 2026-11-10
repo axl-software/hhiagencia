@@ -65,7 +65,7 @@
 
 /* ---------- respaldo: monitor en CSS 3D, sin WebGL (equipos sin aceleración gráfica o si la escena no carga a tiempo) ---------- */
 .escenaCss { position: relative; z-index: 2; perspective: 1800px; display: grid; place-items: center; min-height: min(60vh, 560px); }
-.rig { position: relative; width: min(100%, 640px); transform: rotateY(-16deg) rotateX(6deg); animation: flota 7s ease-in-out infinite; }
+.rig { position: relative; width: min(100%, 640px); transform: rotateY(calc(-16deg + var(--ry, 0deg))) rotateX(calc(6deg + var(--rx, 0deg))); transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1); animation: flota 7s ease-in-out infinite; }
 @keyframes flota { 0%, 100% { translate: 0 0; } 50% { translate: 0 -12px; } }
 .mon { position: relative; aspect-ratio: 16 / 10; padding: 12px; background: linear-gradient(160deg, #1b2442, #0c1226); border: 1px solid rgba(248, 250, 252, 0.22); border-radius: 14px; box-shadow: 0 60px 90px -30px rgba(0, 0, 0, 0.8), 0 0 90px -10px rgba(215, 38, 61, 0.35); }
 .screen { position: relative; height: 100%; border-radius: 6px; overflow: hidden; background: #f2f6fc; color: #0b1020; display: grid; grid-template-columns: 22% 1fr; font-family: var(--f-body); }

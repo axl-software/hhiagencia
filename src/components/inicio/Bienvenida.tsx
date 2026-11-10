@@ -18,14 +18,17 @@ import s from './Bienvenida.module.css'
 
 /* Script mínimo (corre al leer la página, antes de React). Es lo que hace la bienvenida imposible de "pegar":
    - si ya se vio en esta visita, no se muestra;
-   - si no, la activa (html.intro-on) y deja listo un cierre que NO depende de React: "Entrar", "Saltar" y Esc funcionan igual;
+   - si no, la activa (html.intro-on) y deja listo un cierre que NO depende de React: "Entrar", "Saltar", Esc y el scroll funcionan igual;
    - si React no arranca en 8 segundos, la cierra sola y el sitio queda usable. */
 const SCRIPT = `(function(){var d=document,h=d.documentElement;try{if(sessionStorage.getItem('hha-intro')){h.setAttribute('data-intro','visto');return}}catch(e){}
 h.classList.add('intro-on');
 function cerrar(){if(!h.classList.contains('intro-on'))return;h.classList.remove('intro-on');h.setAttribute('data-intro','visto');try{sessionStorage.setItem('hha-intro','1')}catch(e){}d.dispatchEvent(new Event('hha-intro-fin'))}
 window.__introCerrar=cerrar;
 d.addEventListener('click',function(e){if(window.__hhaIntroOk)return;var t=e.target;if(t&&t.closest&&t.closest('[data-intro-cerrar]'))cerrar()});
-d.addEventListener('keydown',function(e){if(window.__hhaIntroOk)return;if(e.key==='Escape')cerrar()});
+d.addEventListener('keydown',function(e){if(window.__hhaIntroOk)return;if(e.key==='Escape'||e.key==='ArrowDown'||e.key==='PageDown')cerrar()});
+d.addEventListener('wheel',function(e){if(window.__hhaIntroOk)return;if(e.deltaY>6)cerrar()},{passive:true});
+var y0=0;d.addEventListener('touchstart',function(e){y0=e.touches[0].clientY},{passive:true});
+d.addEventListener('touchmove',function(e){if(window.__hhaIntroOk)return;if(y0-e.touches[0].clientY>40)cerrar()},{passive:true});
 setTimeout(function(){if(!window.__hhaIntroOk)cerrar()},8000)})();`
 
 /* Cada palabra sube desde una máscara, una tras otra (solo CSS) */
@@ -54,6 +57,8 @@ export default function Bienvenida() {
   const canvas = useRef<HTMLCanvasElement>(null)
   const entrar = useRef<HTMLButtonElement>(null)
   const saltar = useRef<HTMLButtonElement>(null)
+  const rigCss = useRef<HTMLDivElement>(null)
+  const salirRef = useRef<() => void>(() => {})
   const escena = useRef<Escena | null>(null)
   const cerrando = useRef(false)
   const [fase, setFase] = useState<Fase>('abierta')
@@ -162,8 +167,8 @@ export default function Bienvenida() {
     if (cerrada) return
     const alTeclear = (e: KeyboardEvent) => {
       if (cerrando.current) return
-      if (e.key === 'Escape') {
-        salir()
+      if (e.key === 'Escape' || e.key === 'ArrowDown' || e.key === 'PageDown') {
+        salirRef.current()
         return
       }
       if (e.key !== 'Tab') return
@@ -173,9 +178,42 @@ export default function Bienvenida() {
       const n = e.shiftKey ? (i <= 0 ? a.length - 1 : i - 1) : (i + 1) % a.length
       a[n].focus()
     }
+    /* el scroll (rueda o dedo hacia arriba) hace lo mismo que "Entrar": la cámara entra en la pantalla */
+    let y0 = 0
+    const alRueda = (e: WheelEvent) => {
+      if (!cerrando.current && e.deltaY > 6) salirRef.current()
+    }
+    const alTocar = (e: TouchEvent) => {
+      y0 = e.touches[0]?.clientY ?? 0
+    }
+    const alDeslizar = (e: TouchEvent) => {
+      if (!cerrando.current && y0 - (e.touches[0]?.clientY ?? y0) > 40) salirRef.current()
+    }
+    /* el monitor de respaldo (CSS) sigue al mouse como el 3D */
+    const alMover = (e: PointerEvent) => {
+      const rig = rigCss.current
+      if (!rig || e.pointerType === 'touch') return
+      rig.style.setProperty('--ry', `${(e.clientX / window.innerWidth - 0.5) * 12}deg`)
+      rig.style.setProperty('--rx', `${-(e.clientY / window.innerHeight - 0.5) * 9}deg`)
+    }
     document.addEventListener('keydown', alTeclear)
-    return () => document.removeEventListener('keydown', alTeclear)
+    document.addEventListener('wheel', alRueda, { passive: true })
+    document.addEventListener('touchstart', alTocar, { passive: true })
+    document.addEventListener('touchmove', alDeslizar, { passive: true })
+    document.addEventListener('pointermove', alMover)
+    return () => {
+      document.removeEventListener('keydown', alTeclear)
+      document.removeEventListener('wheel', alRueda)
+      document.removeEventListener('touchstart', alTocar)
+      document.removeEventListener('touchmove', alDeslizar)
+      document.removeEventListener('pointermove', alMover)
+    }
   }, [cerrada])
+
+  /* el cierre más reciente queda a mano para los controles de teclado, scroll y dedo */
+  useEffect(() => {
+    salirRef.current = salir
+  })
 
   if (cerrada) return null
 
@@ -209,12 +247,12 @@ export default function Bienvenida() {
               <button ref={entrar} type="button" className="btn-vivo" onClick={salir} data-intro-cerrar>
                 Entrar al sitio <ArrowRight size={18} strokeWidth={2.25} aria-hidden="true" />
               </button>
-              <span className={s.pista}>o desliza el mouse sobre el panel</span>
+              <span className={s.pista}>mueve el mouse sobre el panel · o haz scroll para entrar</span>
             </div>
           </div>
           {sinGl ? (
             <div className={s.escenaCss} aria-hidden="true">
-              <div className={s.rig}>
+              <div ref={rigCss} className={s.rig}>
                 <div className={s.mon}>
                   <div className={s.screen}>
                     <div className={s.side}>

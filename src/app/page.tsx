@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import Bienvenida from '@/components/inicio/Bienvenida'
 import HeroNeon from '@/components/inicio/HeroNeon'
+import AgendaScroll from '@/components/inicio/AgendaScroll'
+import WebZoom from '@/components/inicio/WebZoom'
 import Hechos from '@/components/inicio/Hechos'
 import Caminos from '@/components/inicio/Caminos'
 import Calculadora from '@/components/inicio/Calculadora'
@@ -20,7 +22,7 @@ export const metadata: Metadata = {
   alternates: { canonical: '/' },
 }
 
-/* Inicio (fundadores, 2026-11-09): bienvenida 3D (una vez por visita), hero neón HHA que al hacer scroll muestra la información, hechos, cuatro caminos,
+/* Inicio (fundadores, 2026-11-09): bienvenida 3D (una vez por visita), hero neón HHA que al hacer scroll muestra la información, agendAHH (tarjeta que se endereza), páginas web (zoom con parallax), hechos, cuatro caminos,
    agendAHH por rubro, calculadora, planes, por qué HHA, marketing, negocios que trabajan con HHA, cómo trabajamos, equipo,
    nosotros, preguntas y cierre. Los llamados principales: Probar agendAHH gratis, Ver planes y Solicitar cotización. */
 export default function Inicio() {
@@ -28,6 +30,8 @@ export default function Inicio() {
     <>
       <Bienvenida />
       <HeroNeon />
+      <AgendaScroll />
+      <WebZoom />
       <Hechos />
       <Caminos />
       <Sistemas />

@@ -2,6 +2,11 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-11-09 — Numbers animate on entry, visible secondary button, readable “desde” price (founders' instruction)
+- Animated numbers (calculator, “7 días” and prices) now start at 0 and roll up when they scroll into view (before, they only moved when changed, so nobody saw them). Fallback check by scroll position if the browser does not report visibility.
+- **Secondary buttons (`.btn-out`)** are now navy glass with white text (they were light glass with dark text and barely showed). **SUPERSEDES** the light variant from the liquid-glass entry.
+- “Desde $14.990” pill in the Sistemas block: price and texts used the light-theme colors on a dark section (black on dark); now they use the section's own colors.
+
 ## 2026-11-09 — Animated numbers and RUT removed from the footer (founders' instruction)
 - **Footer:** the RUT no longer shows (the legal pages still say the RUT is pending, untouched). **SUPERSEDES** the RUT line added earlier today.
 - **Time numbers** (calculator: appointments, minutes, hours per day and per month) roll digit by digit (`src/components/ui/sliding-number.tsx`, adapted from 21st.dev with framer-motion and CSS).

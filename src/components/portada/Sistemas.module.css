@@ -165,13 +165,13 @@
 }
 
 /* precio de partida de HHA Systems: visible en el inicio */
-.partePrecio { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; align-self: flex-start; margin-top: 4px; padding: 10px 18px; border: 1px solid rgba(235, 75, 95, 0.55); border-radius: 999px; background: rgba(215, 38, 61, 0.14); color: var(--tx); text-decoration: none; transition: background 0.25s ease, transform 0.25s ease; }
+.partePrecio { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; align-self: flex-start; margin-top: 4px; padding: 10px 18px; border: 1px solid rgba(235, 75, 95, 0.55); border-radius: 999px; background: rgba(215, 38, 61, 0.14); color: var(--s-tx); text-decoration: none; transition: background 0.25s ease, transform 0.25s ease; }
 .partePrecio:hover { background: rgba(215, 38, 61, 0.26); transform: translateY(-2px); }
-.partePrecio span { font-size: 14px; color: var(--tx2); }
-.partePrecio strong { font-family: var(--f-precio); font-variant-numeric: tabular-nums; font-size: 26px; line-height: 1; letter-spacing: -0.04em; }
-.partePrecio small { font-size: 13px; color: var(--tx2); }
-.partePrecio svg { align-self: center; color: var(--rojo-txt); }
-.implNota { margin: 0; flex-basis: 100%; font-size: 12.5px; line-height: 1.4; color: var(--tx2); }
+.partePrecio span { font-size: 14px; color: var(--s-tx2); }
+.partePrecio strong { color: var(--s-tx); font-family: var(--f-precio); font-variant-numeric: tabular-nums; font-size: 26px; line-height: 1; letter-spacing: -0.04em; }
+.partePrecio small { font-size: 13px; color: var(--s-tx2); }
+.partePrecio svg { align-self: center; color: var(--s-rojo); }
+.implNota { margin: 0; flex-basis: 100%; font-size: 12.5px; line-height: 1.4; color: var(--s-tx2); }
 .desdeTarjeta { margin: 2px 0 0; font-size: 14px; color: var(--s-tx2, var(--tx2)); }
 .desdeTarjeta strong { font-family: var(--f-precio); font-size: 18px; color: var(--s-tx, var(--tx)); }
 .implTarjeta { margin: 0; font-size: 12.5px; line-height: 1.4; color: var(--s-tx2, var(--tx2)); }

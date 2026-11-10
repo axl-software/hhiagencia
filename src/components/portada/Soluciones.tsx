@@ -5,6 +5,7 @@ import { CONFIG } from '@/lib/config'
 import { PRECIOS, clp } from '@/lib/precios'
 import { Kicker, Title } from '../sections/Heading'
 import s from './Soluciones.module.css'
+import { Animado } from '@/components/ui/precio-animado'
 
 /* "Elige lo que necesitas": las categorías de Servicios (src/lib/config.ts → categorias), cada una con sus
    servicios y un enlace a SU parte de /servicios (marketing va a su propia página). HHA Systems no tiene
@@ -92,7 +93,7 @@ export default function Soluciones() {
                 <Link href={DESTINO[c.id] ?? '/servicios'} className={s.enlace}>{c.nombre}</Link>
               </h3>
               <p className={s.texto}>{CORTO[c.id] ?? c.necesidad}</p>
-              {desde && <p className={s.desde}>{desde}</p>}
+              {desde && <p className={s.desde}><Animado t={desde} /></p>}
               <ul className={s.tags}>
                 {nombres.map((n) => <li key={n}>{n}</li>)}
                 {c.id === 'web' && (

@@ -7,6 +7,7 @@ import { CONFIG } from '@/lib/config'
 import { PRECIOS, clp } from '@/lib/precios'
 import { Escena, VENTANAS, rubroDe, type Ventana } from './sistemasData'
 import s from './Sistemas.module.css'
+import { Animado } from '@/components/ui/precio-animado'
 
 /* =========================================================
    HHA SYSTEMS (docs/HHA_SYSTEMS_PRODUCT.md). Cinco tarjetas siempre visibles, una por rubro: la foto del
@@ -68,10 +69,10 @@ export default function Sistemas() {
           {/* Precio de partida a la vista: no todos entran a Servicios a buscarlo */}
           <Link className={s.partePrecio} href="/servicios#cat-sistemas" data-reveal style={{ '--d': '0.3s' } as CSSProperties}>
             <span>Desde</span>
-            <strong>{SOLO}</strong>
+            <strong><Animado t={SOLO} /></strong>
             <small>/ mes + IVA</small>
             <ArrowRight size={16} strokeWidth={2.5} aria-hidden="true" />
-            <span className={s.implNota}>{NOTA_IMPL}</span>
+            <span className={s.implNota}><Animado t={NOTA_IMPL} /></span>
           </Link>
         </div>
 
@@ -84,8 +85,8 @@ export default function Sistemas() {
                   <h3 className={s.tituloTarjeta}>{v.titulo}</h3>
                   <p>{v.texto}</p>
                   <ul className={s.tags}>{v.tags.map((t) => <li key={t}>{t}</li>)}</ul>
-                  <p className={s.desdeTarjeta}>Desde <strong>{SOLO}</strong>/mes + IVA</p>
-                  <p className={s.implTarjeta}>{NOTA_IMPL}</p>
+                  <p className={s.desdeTarjeta}>Desde <strong><Animado t={SOLO} /></strong>/mes + IVA</p>
+                  <p className={s.implTarjeta}><Animado t={NOTA_IMPL} /></p>
                   <div className={s.acciones}>
                     <button type="button" className={s.incluye} onClick={() => setAbierta(v)}>
                       Ver qué incluye <ArrowRight size={16} strokeWidth={2.25} aria-hidden="true" />
@@ -134,8 +135,8 @@ export default function Sistemas() {
             <div className="kicker" style={{ margin: '8px 0 0' }}>LOS PLANES</div>
             <ul className="incluye">
               <li><Check size={18} strokeWidth={2.25} aria-hidden="true" /><span><strong>agendAHH Solo</strong>, para quien trabaja solo: agenda, clientes y panel, desde {SOLO}/mes + IVA.</span></li>
-              <li><Check size={18} strokeWidth={2.25} aria-hidden="true" /><span><strong>agendAHH Starter</strong>, para negocios con equipo: suma varios profesionales, transferencia y abonos. Desde {STARTER_MES}/mes + IVA.</span></li>
-              <li><Check size={18} strokeWidth={2.25} aria-hidden="true" /><span><strong>agendAHH Business</strong>, para gestionar tu equipo, vender productos y fidelizar clientes. Desde {BUSINESS_MES}/mes + IVA.</span></li>
+              <li><Check size={18} strokeWidth={2.25} aria-hidden="true" /><span><strong>agendAHH Starter</strong>, para negocios con equipo: suma varios profesionales, transferencia y abonos. Desde <Animado t={STARTER_MES} />/mes + IVA.</span></li>
+              <li><Check size={18} strokeWidth={2.25} aria-hidden="true" /><span><strong>agendAHH Business</strong>, para gestionar tu equipo, vender productos y fidelizar clientes. Desde <Animado t={BUSINESS_MES} />/mes + IVA.</span></li>
             </ul>
             <p className="note"><strong>Prueba gratis de {CONFIG.demoPlazo}:</strong> primero lo pruebas y, si te sirve, te quedas. {NOTA_IMPL} HHA cobra 0% de comisión por tus reservas y ventas.</p>
             <div className="modal-acciones">

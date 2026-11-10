@@ -9,7 +9,8 @@
 .hechos li { padding: 28px; border-left: 1px solid rgba(255, 255, 255, 0.14); }
 .hechos li:first-child { border-left: 0; padding-left: 0; }
 .hechos b { display: block; font-family: var(--f-precio); font-size: clamp(24px, 2.6vw, 34px); letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
-.hechos span { font-size: 14px; color: #c8d2e8; }
+.hechos li > span { display: block; font-size: 14px; color: #c8d2e8; }
+.hechos b > span, .hechos b span { font-size: inherit; color: inherit; font-family: inherit; }
 
 /* cuatro caminos */
 .caminos { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin: 0; padding: 0; list-style: none; }

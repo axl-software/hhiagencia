@@ -2,6 +2,11 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-11-09 — Animated numbers on every price and on the panel mock-up (founders' instruction)
+- Every price on the site (home, agendAHH, services, plan cards, “desde” lines, Sistemas, Caminos, Soluciones) now uses the same rolling-number animation (`Pesos` / `Animado` in `src/components/ui/precio-animado.tsx`). Presentation stays $14.990/mes; its annual price is calculated by `anualDe`.
+- The agendAHH panel mock-up (12 reservas, 3 clientes, 78 %, and the appointment times) rolls its digits when it appears.
+- Facts bar: the price and “7 días” were smaller than the other figures because a generic `span` rule shrank them; fixed so all four figures share one size.
+
 ## 2026-11-09 — Numbers animate on entry, visible secondary button, readable “desde” price (founders' instruction)
 - Animated numbers (calculator, “7 días” and prices) now start at 0 and roll up when they scroll into view (before, they only moved when changed, so nobody saw them). Fallback check by scroll position if the browser does not report visibility.
 - **Secondary buttons (`.btn-out`)** are now navy glass with white text (they were light glass with dark text and barely showed). **SUPERSEDES** the light variant from the liquid-glass entry.

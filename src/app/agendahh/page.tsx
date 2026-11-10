@@ -5,6 +5,7 @@ import CtaBanda from '@/components/sections/CtaBanda'
 import { CONFIG } from '@/lib/config'
 import { PRECIOS, clp } from '@/lib/precios'
 import s from './agendahh.module.css'
+import { Pesos } from '@/components/ui/precio-animado'
 
 const URL_PAGINA = 'https://www.hhiagencia.cl/agendahh'
 const PLANES = ['system-agenda-solo', 'system-starter', 'system-business', 'system-pro']
@@ -124,7 +125,7 @@ export default function AgendahhPage() {
               </Link>
               <Link className="btn btn-out" href="#planes">Ver planes</Link>
             </div>
-            <p className={s.prueba}><span className={s.chispa} aria-hidden="true" />Pruébalo gratis {CONFIG.demoPlazo}. Desde {clp(PRECIOS['system-agenda-solo'].monto ?? 0)}/mes + IVA.</p>
+            <p className={s.prueba}><span className={s.chispa} aria-hidden="true" />Pruébalo gratis {CONFIG.demoPlazo}. Desde <Pesos valor={PRECIOS['system-agenda-solo'].monto ?? 0} />/mes + IVA.</p>
           </div>
 
           <div className={s.escena} role="group" aria-label="Vistas de ejemplo de dos barberías con agendAHH">
@@ -217,10 +218,10 @@ export default function AgendahhPage() {
                   <h3>{corto}</h3>
                   <p className={s.planIntro}>{p.desc}</p>
                   <p className={s.precio}>
-                    <strong>{clp(precioMes(p.id))}</strong> <span>/ mes + IVA</span>
+                    <strong><Pesos valor={precioMes(p.id)} /></strong> <span>/ mes + IVA</span>
                   </p>
-                  {precio.regular && <p className={s.planNota}>Precio lanzamiento. Precio regular {clp(precio.regular)}.</p>}
-                  <p className={s.planNota}>+ implementación inicial {clp(precio.implementacionMonto ?? 0)} + IVA (pago único)</p>
+                  {precio.regular && <p className={s.planNota}>Precio lanzamiento. Precio regular <Pesos valor={precio.regular} />.</p>}
+                  <p className={s.planNota}>+ implementación inicial <Pesos valor={precio.implementacionMonto ?? 0} /> + IVA (pago único)</p>
                   <span className={s.incluye}>Funciones incluidas</span>
                   <ul className={s.lista}>
                     {p.beneficios?.map((b) => <li key={b}>{b}</li>)}

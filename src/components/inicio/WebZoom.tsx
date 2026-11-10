@@ -1,9 +1,10 @@
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { CONFIG } from '@/lib/config'
-import { PRECIOS, clp } from '@/lib/precios'
+import { PRECIOS } from '@/lib/precios'
 import { ZoomParallax, type ImagenZoom } from './ZoomParallax'
 import s from './Scroll.module.css'
+import { Pesos } from '@/components/ui/precio-animado'
 
 /* Páginas web: zoom con parallax con las maquetas de ejemplo de nuestros planes web (textos de muestra, no son clientes; mismas que
    Servicios → MuestraWeb). La del centro (Web Business, el plan recomendado) termina llenando la pantalla. Textos y precios de config.ts y precios.ts. */
@@ -29,7 +30,7 @@ export default function WebZoom() {
       <ZoomParallax imagenes={IMAGENES} />
       <div className={s.cierre}>
         <h3>Elige la web que necesita tu negocio.</h3>
-        <p>Presentation, Starter, Business y Pro. Desde {clp(PRECIOS['web-presentation'].lanzamiento ?? 0)}/mes + IVA, con dominio y mantenimiento según el plan.</p>
+        <p>Presentation, Starter, Business y Pro. Desde <Pesos valor={PRECIOS['web-presentation'].lanzamiento ?? 0} />/mes + IVA, con dominio y mantenimiento según el plan.</p>
         <div className={s.botones}>
           <Link className="btn-vivo" href="/servicios#cat-web">
             Ver planes web <ArrowRight size={18} strokeWidth={2.25} aria-hidden="true" />

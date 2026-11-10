@@ -3,6 +3,7 @@ import { CalendarCheck, Megaphone, Monitor, Workflow } from 'lucide-react'
 import GuiaPlan from '../GuiaPlan'
 import { PRECIOS, clp } from '@/lib/precios'
 import s from './Secciones.module.css'
+import { Animado } from '@/components/ui/precio-animado'
 
 /* "Elige por dónde empezar": los cuatro caminos, con su precio "desde" (src/lib/precios.ts) y las líneas que incluyen. */
 const desde = (ids: string[]) => Math.min(...ids.map((id) => PRECIOS[id]).filter(Boolean).map((p) => p.lanzamiento ?? p.monto ?? Infinity))
@@ -46,7 +47,7 @@ export default function Caminos() {
               <h3>{nombre}</h3>
               <p>{texto}</p>
               <ul className={s.tags}>{tags.map((t) => <li key={t}>{t}</li>)}</ul>
-              <span className={s.desde}>Desde<b>{precio}</b></span>
+              <span className={s.desde}>Desde<b><Animado t={precio} /></b></span>
               <span className={s.ir}>{ir}</span>
             </Link>
           </li>

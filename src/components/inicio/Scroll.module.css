@@ -39,8 +39,8 @@
 .pHead small { margin-left: auto; font: 600 0.5em/1 var(--f-mono); letter-spacing: 0.1em; text-transform: uppercase; color: #5c5d64; }
 .pMets { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8em; }
 .pMets div { background: #fff; border: 1px solid rgba(11, 16, 32, 0.12); padding: 0.7em 0.9em; }
-.pMets b { display: block; font-family: var(--f-precio); font-size: 2.1em; letter-spacing: -0.03em; line-height: 1.1; }
-.pMets span { font-size: 0.78em; color: #5c5d64; }
+.pMets b { display: flex; align-items: baseline; font-family: var(--f-precio); font-size: 2.1em; letter-spacing: -0.03em; line-height: 1.1; }
+.pMets div > span { font-size: 0.78em; color: #5c5d64; }
 .pCols { display: grid; grid-template-columns: 1.5fr 1fr; gap: 1em; min-height: 0; }
 .pAgenda { display: grid; gap: 0.55em; align-content: start; }
 .pFila { display: grid; grid-template-columns: auto 1fr auto; gap: 0.8em; align-items: center; padding: 0.55em 0.8em; background: #fff; border: 1px solid rgba(11, 16, 32, 0.12); font-size: 0.95em; }

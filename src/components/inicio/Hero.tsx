@@ -6,6 +6,7 @@ import { ArrowRight, MapPin } from 'lucide-react'
 import { clp, PRECIOS } from '@/lib/precios'
 import { RUBROS } from '../portada/rubros'
 import s from './Hero.module.css'
+import { Animado } from '@/components/ui/precio-animado'
 
 /* =========================================================
    HERO del inicio (tono claro). Titular "Tu ___, digital y en automático." con la palabra del rubro elegido; los botones de
@@ -99,7 +100,7 @@ export default function Hero() {
           </div>
           <ul className={s.notas}>
             <li><b>0 %</b> de comisión por tus reservas y ventas</li>
-            <li>Prueba de <b>7 días</b> sin pagar · desde <b>{SOLO}</b>/mes + IVA</li>
+            <li>Prueba de <b>7 días</b> sin pagar · desde <b><Animado t={SOLO} /></b>/mes + IVA</li>
           </ul>
         </div>
 

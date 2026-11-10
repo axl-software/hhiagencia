@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { clp, PRECIOS } from '@/lib/precios'
 import s from './HeroNeon.module.css'
+import { Animado } from '@/components/ui/precio-animado'
 
 /* =========================================================
    HERO del inicio: "HHA" en neón 3D al centro (neon.ts). Al cargar queda LIMPIO: solo las letras. Al hacer scroll hacia abajo
@@ -120,7 +121,7 @@ export default function HeroNeon() {
           <ul className={s.notas}>
             <li><b>0 %</b> de comisión por tus reservas y ventas</li>
             <li>Prueba de <b>7 días</b> sin pagar</li>
-            <li>Desde <b>{SOLO}</b>/mes + IVA</li>
+            <li>Desde <b><Animado t={SOLO} /></b>/mes + IVA</li>
           </ul>
         </div>
         <p className={s.pista} aria-hidden="true">Desliza <span>↓</span></p>

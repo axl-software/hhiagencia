@@ -1,9 +1,11 @@
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { CONFIG } from '@/lib/config'
-import { PRECIOS, clp } from '@/lib/precios'
+import { PRECIOS } from '@/lib/precios'
 import { ContainerScroll } from './ContainerScroll'
+import { SlidingNumber } from '@/components/ui/sliding-number'
 import s from './Scroll.module.css'
+import { Pesos } from '@/components/ui/precio-animado'
 
 /* agendAHH en primer plano: una tarjeta con el panel (vista de ejemplo) que se endereza al hacer scroll. Textos y precios de
    config.ts y precios.ts; HHA cobra 0 % de comisión (confirmado 2026-11-09). */
@@ -16,6 +18,11 @@ const FILAS = [
 ]
 const BARRAS = [50, 70, 45, 85, 65, 95, 55]
 
+function Hora({ h }: { h: string }) {
+  const [a, b] = h.split(':').map(Number)
+  return <span style={{ display: 'inline-flex' }}><SlidingNumber value={a} padStart />:<SlidingNumber value={b} padStart /></span>
+}
+
 function Panel() {
   return (
     <div className={s.panel}>
@@ -27,14 +34,14 @@ function Panel() {
       <div className={s.pMain}>
         <div className={s.pHead}>Hoy<span>Martes</span><small>agendAHH · panel</small></div>
         <div className={s.pMets}>
-          <div><b>12</b><span>reservas hoy</span></div>
-          <div><b>3</b><span>clientes nuevos</span></div>
-          <div><b>78%</b><span>agenda ocupada</span></div>
+          <div><b><SlidingNumber value={12} /></b><span>reservas hoy</span></div>
+          <div><b><SlidingNumber value={3} /></b><span>clientes nuevos</span></div>
+          <div><b><SlidingNumber value={78} />%</b><span>agenda ocupada</span></div>
         </div>
         <div className={s.pCols}>
           <div className={s.pAgenda}>
             {FILAS.map(([h, serv, quien, est]) => (
-              <div key={h} className={s.pFila}><time>{h}</time><span>{serv} <i>· {quien}</i></span><em>{est}</em></div>
+              <div key={h} className={s.pFila}><time><Hora h={h} /></time><span>{serv} <i>· {quien}</i></span><em>{est}</em></div>
             ))}
           </div>
           <div className={s.pChart}>
@@ -69,7 +76,7 @@ export default function AgendaScroll() {
             <ul className={s.datos}>
               <li><b>0 %</b> de comisión por tus reservas y ventas</li>
               <li>Prueba de <b>{CONFIG.demoPlazo}</b> sin pagar</li>
-              <li>Desde <b>{clp(PRECIOS['system-agenda-solo'].monto ?? 0)}</b>/mes + IVA</li>
+              <li>Desde <b><Pesos valor={PRECIOS['system-agenda-solo'].monto ?? 0} /></b>/mes + IVA</li>
             </ul>
             <div className={s.botones}>
               <Link className="btn-vivo" href="/prueba-gratis">

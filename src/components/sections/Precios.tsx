@@ -1,5 +1,6 @@
 import { PACKS_PRECIO, anualDe, clp, precioDe, textoPrecio } from '@/lib/precios'
 import m from './Servicios.module.css'
+import { Pesos, Animado } from '@/components/ui/precio-animado'
 
 /* Piezas de precio de Servicios. Ningún monto está escrito aquí: todo sale de src/lib/precios.ts. */
 
@@ -34,25 +35,25 @@ export function PrecioPlan({ id, anual }: { id: string; anual: boolean }) {
       <div className={m.precio} aria-live="polite">
         {p.regular && (
           <p className={m.regular}>
-            <s>{clp(p.regular)}{a ? '/mes' : ''}</s> <span>Precio regular</span>
+            <s><Pesos valor={p.regular} />{a ? '/mes' : ''}</s> <span>Precio regular</span>
           </p>
         )}
         {a ? (
           <>
             <p className={m.principal}>
-              <strong>{clp(a.mensual)}</strong>
+              <strong><Pesos valor={a.mensual} /></strong>
               <span className={m.unidad}><span>aprox. / mes</span><Iva /></span>
               <span className={m.nota}>pagando anualmente</span>
             </p>
             <p className={m.total}>
-              {clp(a.total)} <Iva /> facturado anualmente <em>Facturación anual</em>
+              <Pesos valor={a.total} /> <Iva /> facturado anualmente <em>Facturación anual</em>
             </p>
-            <p className={m.ahorro}>Ahorras {clp(a.ahorro)} al año</p>
+            <p className={m.ahorro}>Ahorras <Pesos valor={a.ahorro} /> al año</p>
           </>
         ) : (
           <>
             <p className={m.principal}>
-              <strong>{clp(p.lanzamiento)}</strong>
+              <strong><Pesos valor={p.lanzamiento} /></strong>
               <span className={m.unidad}><span>/ mes</span><Iva /></span>
             </p>
             {p.regular && <p className={m.etiqueta}>Precio lanzamiento</p>}
@@ -73,7 +74,7 @@ export function PrecioSimple({ id }: { id: string }) {
     <div className={m.precio}>
       <p className={m.principal}>
         {p.desde && <small>Desde </small>}
-        <strong>{clp(monto)}</strong>
+        <strong><Pesos valor={monto} /></strong>
         <span className={m.unidad}>{p.unidad !== 'pago único' && <span>/ {p.unidad}</span>}<Iva /></span>
       </p>
     </div>
@@ -85,7 +86,7 @@ export function PrecioLinea({ id }: { id: string }) {
   const p = precioDe(id)
   /* Sin precio publicado (ej. Producción Audiovisual): se cotiza según el proyecto */
   if (!p) return <span className={m.desde}>Cotización según proyecto</span>
-  return <span className={m.desde}>{textoPrecio(p)} <Iva /></span>
+  return <span className={m.desde}><Animado t={textoPrecio(p)} /> <Iva /></span>
 }
 
 /** Precio y ahorro de un pack. El ahorro tiene la mayor visibilidad. */
@@ -100,11 +101,11 @@ export function PrecioPack({ id }: { id: string }) {
     <div className={m.precio}>
       <p className={m.principal}>
         {p.desde && <small>Desde </small>}
-        <strong>{clp(p.precio)}</strong>
+        <strong><Pesos valor={p.precio} /></strong>
         <span className={m.unidad}><span>{unico ? 'pago único' : '/ mes'}</span><Iva /></span>
       </p>
       <p className={m.regular}>
-        <s>{clp(p.separado)}{unico ? '' : '/mes'}</s>{' '}
+        <s><Pesos valor={p.separado} />{unico ? '' : '/mes'}</s>{' '}
         <span>{soloAcompanamiento ? 'Acompañamiento sin pack' : 'Valor por separado'}</span>
       </p>
       <p className={m.ahorro}>

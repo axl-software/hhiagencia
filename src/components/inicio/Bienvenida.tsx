@@ -32,6 +32,13 @@ function Palabras({ texto, desde = 0 }: { texto: string; desde?: number }) {
 
 type Fase = 'abierta' | 'zoom' | 'saliendo'
 
+/* Lo que queda "de fondo" mientras la bienvenida está abierta: encabezado, pie y el resto del contenido. La bienvenida va dentro
+   de <main>, así que NO se puede marcar <main> entero como inerte (la dejaría sin clics ni foco): se marcan sus otros hijos. */
+function fondoDe(raiz: HTMLElement | null) {
+  const hijos = Array.from(document.querySelectorAll<HTMLElement>('main > *')).filter((e) => e !== raiz && !e.contains(raiz) && !raiz?.contains(e))
+  return [...Array.from(document.querySelectorAll<HTMLElement>('header, footer')), ...hijos].filter((e) => !raiz || (!e.contains(raiz) && !raiz.contains(e)))
+}
+
 export default function Bienvenida() {
   const raiz = useRef<HTMLDivElement>(null)
   const canvas = useRef<HTMLCanvasElement>(null)
@@ -48,7 +55,7 @@ export default function Bienvenida() {
     /* ya la vio en esta visita: el CSS la oculta (html[data-intro=visto]) y no se prepara nada */
     if (html.dataset.intro === 'visto') return
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    const resto = Array.from(document.querySelectorAll<HTMLElement>('header, main, footer'))
+    const resto = fondoDe(raiz.current)
     resto.forEach((e) => {
       e.inert = true
     })
@@ -88,7 +95,7 @@ export default function Bienvenida() {
     cerrando.current = true
     const html = document.documentElement
     html.classList.remove('intro-abierta')
-    document.querySelectorAll<HTMLElement>('header, main, footer').forEach((e) => {
+    fondoDe(raiz.current).forEach((e) => {
       e.inert = false
     })
     try {

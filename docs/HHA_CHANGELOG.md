@@ -2,6 +2,11 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-11-09 — Animated numbers and RUT removed from the footer (founders' instruction)
+- **Footer:** the RUT no longer shows (the legal pages still say the RUT is pending, untouched). **SUPERSEDES** the RUT line added earlier today.
+- **Time numbers** (calculator: appointments, minutes, hours per day and per month) roll digit by digit (`src/components/ui/sliding-number.tsx`, adapted from 21st.dev with framer-motion and CSS).
+- **Prices** (plan cards and the “desde” price in the facts bar) animate with NumberFlow (`@number-flow/react`, `src/components/ui/precio-animado.tsx`, format $14.990). There is no client count on the site because no real figure exists; none was invented.
+
 ## 2026-11-09 — Liquid-glass buttons, sharp web zoom, 3D reviews section and cinematic footer (founders' instruction)
 - **Web zoom sharpness:** each piece is now drawn at its FINAL size and scaled down at the start (it used to be small and scaled UP, which stretched an already-rendered image). Text and borders end crisp; the center piece grows to ~78 % of the width because its source image is 1000 px wide.
 - **Liquid-glass buttons** (adapted “Liquid Glass Button”, 21st.dev) for the useful buttons: `.btn-vivo`, `.btn-vivo-sm`, `.btn-red`, `.btn-out`, `.btn-white`, `.btn-plan` and the hero's “Tu página web”: translucent pills with light edges and, in Chrome/Edge, a distortion of the backdrop through the SVG filter `#container-glass` (`LiquidGlassFilter` in layout). **SUPERSEDES** the 3D red button with moving shine for these buttons (chips and toggles are unchanged). Note: pill shape instead of the square corners used elsewhere, as requested.

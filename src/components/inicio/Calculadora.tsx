@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
+import { SlidingNumber } from '@/components/ui/sliding-number'
 import s from './Secciones.module.css'
 
 /* "Haz la cuenta": cuánto tiempo al mes se va en agendar a mano. Es solo una multiplicación con los números de la persona
@@ -12,7 +13,6 @@ export default function Calculadora() {
   const [min, setMin] = useState(3)
   const dia = citas * min
   const mes = Math.round((dia * 26) / 60)
-  const diaTxt = dia >= 60 ? `${Math.floor(dia / 60)} h${dia % 60 ? ` ${dia % 60} min` : ''}` : `${dia} min`
 
   return (
     <section className="alt" aria-labelledby="calc-t">
@@ -28,16 +28,16 @@ export default function Calculadora() {
         </div>
         <div className={s.calcBox} data-reveal style={{ '--d': '0.1s' } as React.CSSProperties}>
           <div className={s.slider}>
-            <label htmlFor="calc-citas">Citas al día <output htmlFor="calc-citas">{citas}</output></label>
+            <label htmlFor="calc-citas">Citas al día <output htmlFor="calc-citas"><SlidingNumber value={citas} /></output></label>
             <input id="calc-citas" type="range" min={1} max={60} value={citas} onChange={(e) => setCitas(+e.target.value)} />
           </div>
           <div className={s.slider}>
-            <label htmlFor="calc-min">Minutos que te toma agendar cada una <output htmlFor="calc-min">{min}</output></label>
+            <label htmlFor="calc-min">Minutos que te toma agendar cada una <output htmlFor="calc-min"><SlidingNumber value={min} /></output></label>
             <input id="calc-min" type="range" min={1} max={15} value={min} onChange={(e) => setMin(+e.target.value)} />
           </div>
           <div className={s.res} aria-live="polite">
-            <div><small>Al día se te van</small><b>{diaTxt}</b></div>
-            <div className={s.grande}><small>Al mes (lunes a sábado)</small><b>{mes} horas</b></div>
+            <div><small>Al día se te van</small><b className={s.num}>{dia >= 60 ? <><SlidingNumber value={Math.floor(dia / 60)} /> h{dia % 60 ? <>&nbsp;<SlidingNumber value={dia % 60} /> min</> : null}</> : <><SlidingNumber value={dia} /> min</>}</b></div>
+            <div className={s.grande}><small>Al mes (lunes a sábado)</small><b className={s.num}><SlidingNumber value={mes} />&nbsp;horas</b></div>
           </div>
         </div>
       </div>

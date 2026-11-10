@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { CONFIG } from '@/lib/config'
+import { Pesos } from '@/components/ui/precio-animado'
 import { PRECIOS, anualDe, clp } from '@/lib/precios'
 import { NOTA_IMPL } from '../sections/Precios'
 import s from './Secciones.module.css'
@@ -64,7 +65,7 @@ export default function Planes() {
                 </div>
                 <span className={s.para}>{grupo.para[n]}</span>
                 <p className={s.d}>{plan.desc}</p>
-                <p className={s.precio}><b>{clp(mensual)}</b><span>/ mes + IVA</span></p>
+                <p className={s.precio}><b><Pesos valor={mensual} /></b><span>/ mes + IVA</span></p>
                 <p className={s.sub}>
                   {a ? 'Pagando anual · 12 meses por adelantado' : p.regular ? `Precio lanzamiento · regular ${clp(p.regular)}` : p.implementacion ? NOTA_IMPL : ''}
                 </p>

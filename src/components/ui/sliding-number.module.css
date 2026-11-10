@@ -1,0 +1,5 @@
+.fila { display: inline-flex; align-items: center; }
+.digito { position: relative; display: inline-block; width: 1ch; overflow-x: visible; overflow-y: clip; line-height: 1; font-variant-numeric: tabular-nums; }
+.medida { visibility: hidden; }
+.cifra { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+.oculto { visibility: hidden; position: absolute; }

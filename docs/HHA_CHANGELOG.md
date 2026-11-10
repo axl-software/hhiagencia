@@ -2,6 +2,10 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-11-10 — agendAHH video moved to the Sistemas block; tilted-card animation restored (founders' instruction)
+- **SUPERSEDES** the previous entry: the animated tilted card with the interface mock-up (`AgendaScroll`) is back on the home page, exactly as before, and is no longer added to `/agendahh`.
+- The explainer video now replaces the rubro cards with interface mock-ups inside the “El sistema de tu negocio, con tu marca” block (`Sistemas`). Those rubros stay on `/agendahh`.
+
 ## 2026-11-10 — agendAHH on the home page is now an explainer video (founders' instruction)
 - The home page shows a video block for agendAHH (`AgendaVideo`, with the launch video, audio and player controls, 0 % commission, free trial and “desde” price) instead of the tilted card with the full interface mock-up. **SUPERSEDES** the “agendAHH tarjeta que se endereza” on the home page.
 - The interface mock-up (`AgendaScroll`) now lives only on the agendAHH page (`/agendahh`), right after the hero.

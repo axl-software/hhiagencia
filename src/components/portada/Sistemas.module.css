@@ -176,3 +176,7 @@
 .desdeTarjeta strong { font-family: var(--f-precio); font-size: 18px; color: var(--s-tx, var(--tx)); }
 .implTarjeta { margin: 0; font-size: 12.5px; line-height: 1.4; color: var(--s-tx2, var(--tx2)); }
 .desdeTarjeta em { font-style: normal; font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.6px; text-transform: uppercase; opacity: 0.8; }
+
+/* video explicativo de agendAHH (reemplaza las tarjetas con interfaces; esas viven en /agendahh) */
+.videoCaja { display: flex; justify-content: center; margin: 8px 0 32px; }
+.videoCaja video { width: min(100%, 340px); aspect-ratio: 9 / 16; object-fit: cover; background: #0b1020; border: 1px solid var(--s-linea); box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.8); }

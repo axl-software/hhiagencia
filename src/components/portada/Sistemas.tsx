@@ -1,11 +1,11 @@
 'use client'
 
-import { useEffect, useRef, useState, type CSSProperties, type PointerEvent } from 'react'
+import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import Link from 'next/link'
 import { ArrowRight, Check, X } from 'lucide-react'
 import { CONFIG } from '@/lib/config'
 import { PRECIOS, clp } from '@/lib/precios'
-import { Escena, VENTANAS, rubroDe, type Ventana } from './sistemasData'
+import { rubroDe, type Ventana } from './sistemasData'
 import s from './Sistemas.module.css'
 import { Animado } from '@/components/ui/precio-animado'
 
@@ -25,19 +25,6 @@ const IMPL_DESDE = clp(Math.min(...['system-agenda-solo', 'system-starter', 'sys
 const STARTER_MES = clp(PRECIOS['system-starter'].lanzamiento ?? 0)
 const BUSINESS_MES = clp(PRECIOS['system-business'].lanzamiento ?? 0)
 const NOTA_IMPL = `Implementación inicial desde ${IMPL_DESDE} + IVA, según plan.`
-
-/* Inclinación 3D según dónde está el cursor (no en pantallas táctiles) */
-const inclinar = (ev: PointerEvent<HTMLDivElement>) => {
-  if (ev.pointerType === 'touch') return
-  const el = ev.currentTarget
-  const r = el.getBoundingClientRect()
-  el.style.setProperty('--ry', `${((ev.clientX - r.left) / r.width - 0.5) * 9}deg`)
-  el.style.setProperty('--rx', `${-((ev.clientY - r.top) / r.height - 0.5) * 9}deg`)
-}
-const soltar = (ev: PointerEvent<HTMLDivElement>) => {
-  ev.currentTarget.style.removeProperty('--ry')
-  ev.currentTarget.style.removeProperty('--rx')
-}
 
 export default function Sistemas() {
   /* Ventana "Ver qué incluye": <dialog> nativo, se cierra con Esc, con la X o tocando fuera */
@@ -76,33 +63,14 @@ export default function Sistemas() {
           </Link>
         </div>
 
-        <div className={s.rejilla}>
-          {VENTANAS.map((v, n) => (
-            <article key={v.id} className={s.tarjeta} data-reveal style={{ '--d': `${(n % 3) * 0.12}s` } as CSSProperties}>
-              <div className={s.cara} onPointerMove={inclinar} onPointerLeave={soltar}>
-                <Escena v={v} retraso={n} />
-                <div className={s.texto}>
-                  <h3 className={s.tituloTarjeta}>{v.titulo}</h3>
-                  <p>{v.texto}</p>
-                  <ul className={s.tags}>{v.tags.map((t) => <li key={t}>{t}</li>)}</ul>
-                  <p className={s.desdeTarjeta}>Desde <strong><Animado t={SOLO} /></strong>/mes + IVA</p>
-                  <p className={s.implTarjeta}><Animado t={NOTA_IMPL} /></p>
-                  <div className={s.acciones}>
-                    <button type="button" className={s.incluye} onClick={() => setAbierta(v)}>
-                      Ver qué incluye <ArrowRight size={16} strokeWidth={2.25} aria-hidden="true" />
-                    </button>
-                    <Link className={s.probar} href={`/prueba-gratis?rubro=${v.id}`}>
-                      Probar agendAHH gratis <ArrowRight size={15} strokeWidth={2.5} aria-hidden="true" />
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </article>
-          ))}
+        <div className={s.videoCaja} data-reveal>
+          <video controls playsInline preload="none" poster="/videos/agendahh/lanzamiento.jpg" aria-label="Video explicativo de agendAHH">
+            <source src="/videos/agendahh/lanzamiento.mp4" type="video/mp4" />
+          </video>
         </div>
 
         <div className={s.pie} data-reveal>
-          <p>Vistas de ejemplo con textos de muestra. Tu sistema se diseña con tu marca, tus fotos y tus servicios. Primero lo pruebas {CONFIG.demoPlazo}; si te sirve, te quedas.</p>
+          <p>Tu sistema se diseña con tu marca, tus fotos y tus servicios. Primero lo pruebas {CONFIG.demoPlazo}; si te sirve, te quedas.</p>
           {/* Lleva a crear la prueba gratis (nombre del negocio, correo y WhatsApp) */}
           <Link className="btn-vivo" href="/prueba-gratis">
             Probar agendAHH gratis <ArrowRight size={18} strokeWidth={2.25} aria-hidden="true" />

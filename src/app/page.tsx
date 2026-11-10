@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Bienvenida from '@/components/inicio/Bienvenida'
 import HeroNeon from '@/components/inicio/HeroNeon'
-import AgendaVideo from '@/components/inicio/AgendaVideo'
+import AgendaScroll from '@/components/inicio/AgendaScroll'
 import WebZoom from '@/components/inicio/WebZoom'
 import Hechos from '@/components/inicio/Hechos'
 import Caminos from '@/components/inicio/Caminos'
@@ -31,7 +31,7 @@ export default function Inicio() {
     <>
       <Bienvenida />
       <HeroNeon />
-      <AgendaVideo />
+      <AgendaScroll />
       <WebZoom />
       <Hechos />
       <Caminos />

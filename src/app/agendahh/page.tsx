@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowRight, Eye, Leaf, PenTool, Scissors, Sparkles } from 'lucide-react'
 import CtaBanda from '@/components/sections/CtaBanda'
-import AgendaScroll from '@/components/inicio/AgendaScroll'
 import { CONFIG } from '@/lib/config'
 import { PRECIOS, clp } from '@/lib/precios'
 import s from './agendahh.module.css'
@@ -154,8 +153,6 @@ export default function AgendahhPage() {
           <div><strong>Se ve como tu marca</strong><span>La experiencia cambia según cada negocio.</span></div>
         </div>
       </div>
-
-      <AgendaScroll />
 
       <section className="wrap sec" aria-labelledby="beneficios-titulo">
         <div className={s.cabeza}>

@@ -94,5 +94,16 @@
 .eg { position: absolute; right: 10px; bottom: 8px; font: 600 clamp(6.5px, 0.75vw, 9px) / 1 var(--f-mono); letter-spacing: 0.1em; text-transform: uppercase; color: #5c5d64; }
 .neck { width: 16%; height: clamp(26px, 4vw, 48px); margin: -2px auto 0; background: linear-gradient(90deg, #0c1226, #1b2442, #0c1226); }
 .pie { width: 38%; height: 12px; margin: 0 auto; border-radius: 4px 4px 18px 18px; background: linear-gradient(180deg, #232c4d, #0c1226); box-shadow: 0 30px 40px -10px rgba(0, 0, 0, 0.8); }
+/* tarjetas flotantes del respaldo (las mismas de la escena 3D) */
+.carta { position: absolute; z-index: 3; font-family: var(--f-body); opacity: 0; animation: cartaIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both; box-shadow: 0 18px 36px -12px rgba(0, 0, 0, 0.6); }
+@keyframes cartaIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.cReserva { left: -6%; bottom: 14%; display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: #f8fafc; color: #0b1020; animation-delay: 0.3s; }
+.cReserva b { display: block; font-size: clamp(9px, 1vw, 12px); }
+.cReserva small { font-size: clamp(7.5px, 0.8vw, 10px); color: #5c5d64; }
+.ok { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; background: #d7263d; color: #fff; font-weight: 800; flex: none; }
+.cCom { right: -4%; top: -6%; padding: 8px 14px; background: #0b1020; color: #fff; animation-delay: 0.45s; }
+.cCom small { display: block; font: 600 8px / 1 var(--f-mono); color: #ff8a99; margin-bottom: 4px; }
+.cCom b { font-size: clamp(20px, 3vw, 34px); }
+.cPrueba { right: -4%; bottom: 8%; padding: 10px 16px; background: #d7263d; color: #fff; font-weight: 700; font-size: clamp(9px, 1.1vw, 13px); animation-delay: 0.6s; }
 @media (max-width: 900px) { .escenaCss { min-height: 0; margin-top: 10px; } .rig { width: min(92%, 520px); transform: rotateY(-8deg) rotateX(4deg); } }
-@media (prefers-reduced-motion: reduce) { .rig, .fila { animation: none; } .fila { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .carta { animation: none; opacity: 1; } .rig, .fila { animation: none; } .fila { opacity: 1; transform: none; } }

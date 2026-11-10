@@ -278,6 +278,9 @@ export default function Bienvenida() {
                   </div>
                 </div>
                 <div className={s.neck} /><div className={s.pie} />
+                <div className={`${s.carta} ${s.cReserva}`}><span className={s.ok}>✓</span><div><b>Nueva reserva · 11:45</b><small>Reservó sola desde su celular</small></div></div>
+                <div className={`${s.carta} ${s.cCom}`}><small>COMISIÓN</small><b>0 %</b></div>
+                <div className={`${s.carta} ${s.cPrueba}`}>Prueba 7 días gratis</div>
               </div>
             </div>
           ) : (

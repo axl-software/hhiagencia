@@ -2,6 +2,9 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-11-10 — Welcome: floating cards also in the CSS fallback monitor (founders' instruction)
+- On PCs where the 3D scene is slow or unavailable, the fallback monitor showed no floating cards. It now shows the same three (“Nueva reserva · 11:45”, “0 % comisión”, “Prueba 7 días gratis”), entering with the monitor.
+
 ## 2026-11-10 — Welcome cards enter right away (founders' instruction)
 - The three floating cards now start at 0.25 s (staggered 0.15 s, 0.7 s fade) so they are visible as soon as the welcome opens, without waiting for scroll or mouse movement. **SUPERSEDES** the 0.7 s timing of the previous entry.
 

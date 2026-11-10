@@ -8,10 +8,10 @@ import s from './Resenas3D.module.css'
    REGLA: aquí solo va lo real. Las reseñas salen de src/lib/config.ts → resenas (textuales y con permiso del cliente). Mientras no
    haya ninguna, las tarjetas muestran los negocios que trabajan con HHA (solo nombre y rubro, sin cifras ni frases inventadas).
    ========================================================= */
-type Tarjeta = { nombre: string; detalle: string; cuerpo: string }
+type Tarjeta = { nombre: string; detalle: string; cuerpo: string; logo?: string }
 
 const NEGOCIOS: Tarjeta[] = [
-  { nombre: 'Tamburrini', detalle: 'Barber Studio', cuerpo: 'Trabaja con HHA Digital Solutions.' },
+  { nombre: 'Tamburrini', detalle: 'Barber Studio', cuerpo: 'Reservas online con agendAHH: sus clientes eligen servicio, barbero y hora desde el celular.', logo: '/clientes/tamburrini.png' },
   { nombre: 'Fanatigol', detalle: 'Tienda deportiva', cuerpo: 'Trabaja con HHA Digital Solutions.' },
   { nombre: 'JAV Ingeniería', detalle: 'Ingeniería', cuerpo: 'Trabaja con HHA Digital Solutions.' },
 ]
@@ -28,7 +28,12 @@ function Columna({ inversa, desfase }: { inversa?: boolean; desfase?: string }) 
           {[...tarjetas, ...tarjetas].map((t, i) => (
             <figure key={i} className={s.tarjeta}>
               <div className={s.cab}>
-                <span className={s.avatar}>{t.nombre[0]}</span>
+                {t.logo ? (
+                  // eslint-disable-next-line @next/next/no-img-element -- logo chico del cliente
+                  <img className={s.logo} src={t.logo} alt="" width={36} height={36} />
+                ) : (
+                  <span className={s.avatar}>{t.nombre[0]}</span>
+                )}
                 <figcaption>
                   <b>{t.nombre}</b>
                   <small>{t.detalle}</small>

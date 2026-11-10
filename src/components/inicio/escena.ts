@@ -774,7 +774,7 @@ export async function crearEscena(canvas: HTMLCanvasElement, { reduce, host, alF
       oy = layout.oy * (1 - e) + -0.02 * e
       rot *= 1 - e
       rx *= 1 - e
-      if (!zoom.hechoMid && k > 0.62) {
+      if (!zoom.hechoMid && k > 0.5) {
         zoom.hechoMid = true
         zoom.mid()
       }

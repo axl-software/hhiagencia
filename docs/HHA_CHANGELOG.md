@@ -2,6 +2,12 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-11-10 — cartAHH in the site's own style, videos with audio, Tamburrini logo, smoother welcome exit (founders' instruction)
+- **SUPERSEDES** the dark/gold look of the first cartAHH entry: `/cartahh` and the home block now use the same light tone, typography, plan cards, square corners and red accent as the rest of the site (`/cartahh` added to the light routes).
+- The three cartAHH videos now keep their audio (player controls let the visitor mute or unmute; they never autoplay).
+- Tamburrini's card in the reviews section now shows its logo and what HHA does for them: online booking with agendAHH (their site is tamburrini.hhiagencia.cl). Fanatigol and JAV stay name-only until there is real info.
+- Welcome → neon HHA transition: the fade now starts halfway through the zoom (0.5 instead of 0.62), lasts 0.95 s, the neon starts animating underneath at that moment, and the overlay is removed only after the fade ends (before, it vanished mid-fade).
+
 ## 2026-11-10 — cartAHH added to the site (founders' instruction)
 - New product **cartAHH** (digital menu with QR): dedicated page `/cartahh` and a block on the home page (after Sistemas), plus a “cartAHH” item in the menu and sitemap.
 - Plans and prices (CLP, **IVA INCLUDED**, unlike the rest of the site which is + IVA): Visual $11.990/mes + $17.500 implementation; DarkKitchen $17.500/mes + $24.500; Experience $29.500/mes + $35.000. Implementation is a single payment, no annual fee. Prices live in `src/lib/precios.ts` (`cart-visual`, `cart-darkkitchen`, `cart-experience`); texts in `src/lib/cartahh.ts`.

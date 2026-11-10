@@ -155,7 +155,14 @@ export default function Bienvenida() {
     /* seguro: aunque la animación se trabe, a los 3,5 s la bienvenida se cierra sí o sí */
     window.setTimeout(terminar, 3500)
     if (escena.current && !reduce) {
-      escena.current.zoom(() => setFase('saliendo'), terminar)
+      escena.current.zoom(
+        () => {
+          /* a mitad del zoom empieza el fundido y el neón ya arranca por debajo: una sola transición continua */
+          setFase('saliendo')
+          document.dispatchEvent(new Event('hha-intro-fin'))
+        },
+        () => window.setTimeout(terminar, 950),
+      )
     } else {
       setFase('saliendo')
       window.setTimeout(terminar, reduce ? 0 : 900)

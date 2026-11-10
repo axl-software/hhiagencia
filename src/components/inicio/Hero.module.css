@@ -1,0 +1,62 @@
+/* Hero del inicio (tono claro): usa los tokens del sitio. Esquinas rectas; solo los celulares van redondeados. */
+.hero { position: relative; overflow: hidden; background: radial-gradient(ellipse 60% 70% at 85% 30%, rgba(255, 255, 255, 0.7), transparent 70%), var(--bg); }
+.hero::after { content: ''; position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(rgba(11, 16, 32, 0.12) 0.8px, transparent 0.8px); background-size: 20px 20px; mask-image: linear-gradient(90deg, transparent 40%, #000 100%); opacity: 0.5; }
+.grid { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr); gap: 40px; align-items: center; padding-block: 56px 84px; }
+.fila { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 26px; }
+.pastilla { display: inline-flex; align-items: center; gap: 10px; min-height: 36px; margin: 0; padding: 0 16px; border: 1px solid var(--line3); border-radius: 999px; font: 600 12px/1 var(--f-mono); letter-spacing: 0.14em; text-transform: uppercase; }
+.pastilla i { width: 7px; height: 7px; border-radius: 50%; background: var(--red); }
+.pastilla b { color: var(--rojo-txt); font-weight: 600; }
+.cobertura { display: inline-flex; align-items: center; gap: 8px; min-height: 36px; margin: 0; padding: 0 14px; border: 1px solid rgba(215, 38, 61, 0.45); border-radius: 999px; background: rgba(215, 38, 61, 0.08); font-size: 13.5px; }
+.cobertura svg { color: var(--red); }
+
+/* variantes apiladas: la altura no cambia al rotar */
+.pila { display: grid; }
+.variante { grid-area: 1 / 1; opacity: 0; transition: opacity 0.5s ease; margin: 0; }
+.variante.on { opacity: 1; }
+.h1 { margin: 0 0 22px; font-family: var(--f-head); font-weight: 800; font-size: clamp(42px, 5.6vw, 76px); line-height: 1; letter-spacing: -0.04em; }
+.h1 em { font-style: normal; color: var(--red); }
+.chipsT { margin: 0 0 10px; font: 600 12px/1 var(--f-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--tx2); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 22px; }
+.lead { margin-bottom: 28px; max-width: 58ch; font-size: 18px; line-height: 1.65; color: var(--tx2); }
+.acciones { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+.acciones :global(.btn-vivo) { padding: 0 24px; font-size: 15px; }
+.acciones :global(.btn-out) { min-height: 56px; padding: 0 20px; }
+.notas { display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 26px 0 0; padding: 0; list-style: none; font-size: 14px; color: var(--tx2); }
+.notas li::before { content: ''; display: inline-block; width: 8px; height: 8px; background: var(--red); margin-right: 9px; }
+.notas b { color: var(--tx); }
+
+/* collage */
+.escena { position: relative; min-height: 540px; }
+.anillos { position: absolute; inset: 10px 0 0 30px; margin: auto; aspect-ratio: 1; border: 1px solid var(--line2); border-radius: 50%; box-shadow: 0 0 0 54px rgba(11, 16, 32, 0.03), 0 0 0 108px rgba(11, 16, 32, 0.02); }
+.navegador { position: absolute; left: 0; top: 70px; width: 72%; overflow: hidden; background: #fff; border: 1px solid var(--line3); box-shadow: 0 30px 60px -30px rgba(11, 16, 32, 0.45); transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
+.barra { display: flex; gap: 6px; padding: 10px 12px; background: #eef2f8; border-bottom: 1px solid var(--line2); }
+.barra i { width: 9px; height: 9px; border-radius: 50%; background: #c3cde0; }
+.navegador img { width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; }
+.celular1 { position: absolute; right: 2%; top: 0; width: min(46%, 250px); padding: 6px; border-radius: 26px; background: #0b1020; box-shadow: 0 34px 60px -26px rgba(11, 16, 32, 0.6); transform: rotate(3deg); transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
+.celular1 img { width: 100%; height: auto; border-radius: 20px; }
+.celular2 { position: absolute; right: 26%; bottom: 0; width: min(36%, 190px); padding: 5px; border-radius: 22px; background: #0b1020; box-shadow: 0 30px 50px -24px rgba(11, 16, 32, 0.55); transform: rotate(-5deg); transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
+.celular2 img { width: 100%; height: auto; border-radius: 17px; aspect-ratio: 1 / 1.6; object-fit: cover; animation: cambia 0.6s ease both; }
+@keyframes cambia { from { opacity: 0; } to { opacity: 1; } }
+.escena:hover .celular1 { transform: rotate(1deg) translateY(-6px); }
+.escena:hover .celular2 { transform: rotate(-3deg) translateY(-4px); }
+.escena:hover .navegador { transform: translateY(-4px); }
+.insignia { position: absolute; left: 4%; bottom: 30px; padding: 12px 16px; background: #fbfdff; border: 1px solid var(--line2); box-shadow: var(--shadow); font-size: 13px; line-height: 1.35; }
+.insignia b { display: block; font-size: 15px; }
+.insignia small { color: var(--tx2); }
+
+@media (max-width: 940px) {
+  .grid { grid-template-columns: 1fr; gap: 36px; padding-block: 40px 56px; }
+  .escena { min-height: 470px; max-width: 560px; width: 100%; margin-inline: auto; }
+}
+@media (max-width: 620px) {
+  .acciones > :global(.btn-vivo), .acciones > :global(.btn-out) { width: 100%; }
+  .escena { min-height: 420px; }
+  .navegador { width: 78%; top: 56px; }
+  .celular1 { width: 44%; }
+  .celular2 { right: 30%; width: 34%; }
+  .insignia { left: 0; bottom: 6px; font-size: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .variante, .navegador, .celular1, .celular2 { transition: none; }
+  .celular2 img { animation: none; }
+}

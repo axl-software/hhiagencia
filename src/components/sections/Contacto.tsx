@@ -122,7 +122,7 @@ export default function Contacto({ as = 'h2' }: { as?: Level }) {
         </div>
         <div className="canal">
           <span className="canal-ico"><MapPin size={18} strokeWidth={2} aria-hidden="true" /></span>
-          <span className="canal-txt"><span className="mono">BASE</span><strong>Trabajamos en todo Chile · Base en Casablanca</strong></span>
+          <span className="canal-txt"><span className="mono">BASE</span><strong>Trabajamos en todo Chile · Oficina en Viña del Mar</strong></span>
         </div>
       </div>
 

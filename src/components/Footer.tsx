@@ -19,7 +19,7 @@ export default function Footer() {
           </Link>
           <span className="pie-lema">
             Web, automatización y marketing
-            <span><strong>Trabajamos en todo Chile</strong> · Base en Casablanca, Región de Valparaíso</span>
+            <span><strong>Trabajamos en todo Chile</strong> · Oficina en Viña del Mar, Región de Valparaíso</span>
           </span>
         </div>
 
@@ -27,7 +27,6 @@ export default function Footer() {
           <span className="pie-titulo">Sitio</span>
           <Link href="/">Inicio</Link>
           {NAV.map((l) => <Link key={l.href} href={l.href}>{l.label}</Link>)}
-          <Link href="/agendahh">agendAHH</Link>
         </nav>
 
         <div className="pie-col">
@@ -38,7 +37,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="wrap pie-base">
-        <span className="mono">© {new Date().getFullYear()} HHA Digital Solutions SpA · Casablanca, Chile</span>
+        <span className="mono">© {new Date().getFullYear()} HHA Digital Solutions SpA · Viña del Mar, Chile</span>
         <nav aria-label="Legal" className="pie-legal">
           {LEGAL.map((l) => <Link key={l.href} href={l.href}>{l.label}</Link>)}
         </nav>

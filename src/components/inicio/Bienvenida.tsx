@@ -1,0 +1,178 @@
+'use client'
+
+import { useEffect, useRef, useState } from 'react'
+import { ArrowRight } from 'lucide-react'
+import type { Escena } from './escena'
+import s from './Bienvenida.module.css'
+
+/* =========================================================
+   BIENVENIDA (hero inicial). Pantalla completa antes del inicio: un monitor 3D en Three.js cuya pantalla va mostrando
+   agenda, página web, flujos y marketing (escena.ts). Al apretar "Entrar al sitio" la cámara entra en la pantalla y
+   se abre el inicio. "Saltar" y Esc hacen lo mismo.
+   - Se muestra una vez por visita (sessionStorage): un script mínimo marca <html data-intro="visto"> antes de pintar,
+     así quien ya la vio no ve ningún parpadeo.
+   - Mientras está abierta, el sitio de atrás no recibe foco ni lectores de pantalla (inert) y la página no se desplaza.
+   - Sin WebGL o con "reducir movimiento" no hay escena 3D: queda el texto y el botón, sobre el fondo azul noche.
+   - No es un <h1>: el título de la página es el del inicio (Hero), para no repetir encabezados principales.
+   ========================================================= */
+
+const SCRIPT = `try{if(sessionStorage.getItem('hha-intro'))document.documentElement.setAttribute('data-intro','visto')}catch(e){}`
+
+/* Cada palabra sube desde una máscara, una tras otra (solo CSS) */
+function Palabras({ texto, desde = 0 }: { texto: string; desde?: number }) {
+  return texto.split(' ').map((w, i) => (
+    <span key={i}>
+      <span className={s.pw}>
+        <span className={s.pwi} style={{ '--i': desde + i } as React.CSSProperties}>{w}</span>
+      </span>
+      {' '}
+    </span>
+  ))
+}
+
+type Fase = 'abierta' | 'zoom' | 'saliendo'
+
+export default function Bienvenida() {
+  const raiz = useRef<HTMLDivElement>(null)
+  const canvas = useRef<HTMLCanvasElement>(null)
+  const entrar = useRef<HTMLButtonElement>(null)
+  const saltar = useRef<HTMLButtonElement>(null)
+  const escena = useRef<Escena | null>(null)
+  const cerrando = useRef(false)
+  const [fase, setFase] = useState<Fase>('abierta')
+  const [conGl, setConGl] = useState(false)
+  const [cerrada, setCerrada] = useState(false)
+
+  useEffect(() => {
+    const html = document.documentElement
+    /* ya la vio en esta visita: el CSS la oculta (html[data-intro=visto]) y no se prepara nada */
+    if (html.dataset.intro === 'visto') return
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const resto = Array.from(document.querySelectorAll<HTMLElement>('header, main, footer'))
+    resto.forEach((e) => {
+      e.inert = true
+    })
+    html.classList.add('intro-abierta')
+    const foco = window.setTimeout(() => entrar.current?.focus({ preventScroll: true }), 60)
+
+    let vivo = true
+    if (canvas.current && raiz.current) {
+      import('./escena')
+        .then((m) => m.crearEscena(canvas.current!, { reduce, host: raiz.current! }))
+        .then((e) => {
+          if (!e) return
+          if (!vivo) {
+            e.parar()
+            return
+          }
+          escena.current = e
+          setConGl(true)
+        })
+        .catch(() => {})
+    }
+
+    return () => {
+      vivo = false
+      window.clearTimeout(foco)
+      escena.current?.parar()
+      escena.current = null
+      html.classList.remove('intro-abierta')
+      resto.forEach((e) => {
+        e.inert = false
+      })
+    }
+  }, [])
+
+  const salir = () => {
+    if (cerrando.current) return
+    cerrando.current = true
+    const html = document.documentElement
+    html.classList.remove('intro-abierta')
+    document.querySelectorAll<HTMLElement>('header, main, footer').forEach((e) => {
+      e.inert = false
+    })
+    try {
+      sessionStorage.setItem('hha-intro', '1')
+    } catch {}
+    window.scrollTo(0, 0)
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const terminar = () => {
+      setCerrada(true)
+      escena.current?.parar()
+      escena.current = null
+      const h = document.getElementById('inicio-titulo')
+      if (h) {
+        h.setAttribute('tabindex', '-1')
+        h.focus({ preventScroll: true })
+      }
+    }
+    setFase('zoom')
+    if (escena.current && !reduce) {
+      escena.current.zoom(() => setFase('saliendo'), terminar)
+    } else {
+      setFase('saliendo')
+      window.setTimeout(terminar, reduce ? 0 : 900)
+    }
+  }
+
+  /* Esc cierra; Tab alterna entre "Saltar" y "Entrar" (el resto de la página está inerte) */
+  useEffect(() => {
+    if (cerrada) return
+    const alTeclear = (e: KeyboardEvent) => {
+      if (cerrando.current) return
+      if (e.key === 'Escape') {
+        salir()
+        return
+      }
+      if (e.key !== 'Tab') return
+      const a = [saltar.current, entrar.current].filter(Boolean) as HTMLElement[]
+      const i = a.indexOf(document.activeElement as HTMLElement)
+      e.preventDefault()
+      const n = e.shiftKey ? (i <= 0 ? a.length - 1 : i - 1) : (i + 1) % a.length
+      a[n].focus()
+    }
+    document.addEventListener('keydown', alTeclear)
+    return () => document.removeEventListener('keydown', alTeclear)
+  }, [cerrada])
+
+  if (cerrada) return null
+
+  const clase = [s.intro, conGl ? s.conGl : '', fase === 'zoom' ? s.zoom : '', fase === 'saliendo' ? `${s.zoom} ${s.saliendo}` : ''].filter(Boolean).join(' ')
+
+  return (
+    <>
+      <script dangerouslySetInnerHTML={{ __html: SCRIPT }} />
+      <div ref={raiz} className={clase} role="dialog" aria-modal="true" aria-labelledby="intro-t" aria-describedby="intro-d">
+        <canvas ref={canvas} className={s.canvas} aria-hidden="true" />
+        <div className={s.top}>
+          <span className={s.marca}>
+            {/* eslint-disable-next-line @next/next/no-img-element -- logo chico; next/image rompe la vista previa en HTML */}
+            <img src="/brand/hh-logo-blanco.png" alt="" width={480} height={299} />
+            <span>HHiAgencia</span>
+          </span>
+          <span className={s.loc}>Viña del Mar · Trabajamos en todo Chile</span>
+          <button ref={saltar} type="button" className={s.saltar} onClick={salir}>Saltar</button>
+        </div>
+        <div className={s.cuerpo}>
+          <div className={s.copy}>
+            <span className={`${s.kicker} ${s.entra}`}>HHA Digital Solutions</span>
+            <p id="intro-t" role="heading" aria-level={2} className={s.titulo}>
+              <Palabras texto="Bienvenido a" />
+              <span className={s.rojo}><Palabras texto="HHA Digital Solutions." desde={2} /></span>
+            </p>
+            <p id="intro-d" className={`${s.texto} ${s.entra}`} style={{ '--d': '0.9s' } as React.CSSProperties}>
+              Web, agenda de reservas y marketing para negocios de todo Chile. Digitaliza. Automatiza. Escala.
+            </p>
+            <div className={`${s.acciones} ${s.entra}`} style={{ '--d': '1.3s' } as React.CSSProperties}>
+              <button ref={entrar} type="button" className="btn-vivo" onClick={salir}>
+                Entrar al sitio <ArrowRight size={18} strokeWidth={2.25} aria-hidden="true" />
+              </button>
+              <span className={s.pista}>o desliza el mouse sobre el panel</span>
+            </div>
+          </div>
+          <div aria-hidden="true" />
+        </div>
+      </div>
+    </>
+  )
+}

@@ -1,0 +1,65 @@
+/* Bienvenida: pantalla completa antes del inicio. Azul noche con brillo rojo (colores fijos de marca, igual en los dos tonos).
+   La escena 3D (escena.ts) va en el <canvas>; el texto y el botón van encima. Con "reducir movimiento" no hay animaciones. */
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  overflow: hidden;
+  color: #f8fafc;
+  background:
+    radial-gradient(70% 60% at 72% 48%, rgba(215, 38, 61, 0.3), transparent 62%),
+    radial-gradient(60% 50% at 20% 10%, rgba(43, 91, 215, 0.2), transparent 60%),
+    linear-gradient(160deg, #0b1020 0%, #05070a 70%);
+  transition: opacity 0.9s ease 0.35s, visibility 0s linear 1.3s;
+}
+:global(html[data-intro='visto']) .intro { display: none; }
+.intro::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(248, 250, 252, 0.14) 0.8px, transparent 0.8px);
+  background-size: 22px 22px;
+  mask-image: radial-gradient(80% 70% at 60% 50%, #000, transparent 85%);
+  opacity: 0.5;
+}
+.canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; display: block; opacity: 0; transition: opacity 0.8s ease; }
+.conGl .canvas { opacity: 1; }
+.saliendo { opacity: 0; visibility: hidden; transition: opacity 0.7s ease, visibility 0s linear 0.7s; }
+.zoom .copy, .zoom .top { transition: opacity 0.5s ease, transform 0.6s ease; opacity: 0; transform: translateY(-20px); pointer-events: none; }
+
+.top { position: relative; z-index: 3; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px clamp(18px, 4vw, 48px); }
+.marca { display: flex; align-items: center; gap: 10px; color: #f8fafc; font-family: var(--f-head); font-weight: 800; font-size: 18px; letter-spacing: -0.02em; }
+.marca img { width: 46px; height: auto; }
+.loc { font-family: var(--f-mono); font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #c8d2e8; }
+.saltar { min-height: 44px; padding: 12px 4px; background: none; border: 0; cursor: pointer; color: #c8d2e8; font: 600 13px/1 var(--f-body); text-decoration: underline; text-decoration-color: var(--red); text-decoration-thickness: 2px; text-underline-offset: 6px; }
+.saltar:hover { color: #fff; }
+.saltar:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+
+.cuerpo { position: relative; z-index: 2; display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(20px, 4vw, 64px); align-items: center; max-width: 1440px; width: 100%; margin-inline: auto; padding: 0 clamp(18px, 5vw, 72px) clamp(24px, 4vw, 56px); }
+.copy { display: grid; gap: 22px; justify-items: start; }
+.kicker { font-family: var(--f-mono); font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; color: #c8d2e8; }
+.kicker::before { content: ''; display: inline-block; width: 20px; height: 2px; background: var(--red); vertical-align: middle; margin-right: 10px; }
+.titulo { margin: 0; font-family: var(--f-head); font-weight: 800; font-size: clamp(38px, 5.2vw, 74px); line-height: 1; letter-spacing: -0.04em; text-wrap: balance; }
+.rojo { color: #ff5a6d; display: block; }
+.texto { margin: 0; max-width: 46ch; color: #c8d2e8; font-size: clamp(16px, 1.4vw, 19px); line-height: 1.6; }
+.acciones { display: flex; flex-wrap: wrap; gap: 18px; align-items: center; margin-top: 6px; }
+.pista { font-family: var(--f-mono); font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #93a0bd; }
+
+/* aparición palabra por palabra, desde una máscara (solo CSS) */
+.pw { display: inline-flex; overflow: hidden; padding-bottom: 0.12em; margin-bottom: -0.12em; vertical-align: bottom; }
+.pwi { display: inline-block; animation: subir 0.95s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: calc(0.3s + var(--i) * 0.07s); }
+@keyframes subir { from { transform: translateY(115%); opacity: 0; } to { transform: none; opacity: 1; } }
+.entra { animation: entra 0.9s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: var(--d, 0s); }
+@keyframes entra { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+
+@media (max-width: 900px) {
+  .cuerpo { grid-template-columns: 1fr; align-content: start; gap: 8px; }
+  .loc, .pista { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pwi, .entra { animation: none; }
+  .intro, .saliendo, .canvas { transition: none; }
+}

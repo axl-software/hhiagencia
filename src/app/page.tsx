@@ -1,6 +1,13 @@
 import type { Metadata } from 'next'
-import Portada from '@/components/portada/Portada'
-import Soluciones from '@/components/portada/Soluciones'
+import Bienvenida from '@/components/inicio/Bienvenida'
+import Hero from '@/components/inicio/Hero'
+import Hechos from '@/components/inicio/Hechos'
+import Caminos from '@/components/inicio/Caminos'
+import Calculadora from '@/components/inicio/Calculadora'
+import Planes from '@/components/inicio/Planes'
+import MarketingBloque from '@/components/inicio/Marketing'
+import Confianza from '@/components/inicio/Confianza'
+import Preguntas from '@/components/inicio/Preguntas'
 import Sistemas from '@/components/portada/Sistemas'
 import Diferencia from '@/components/portada/Diferencia'
 import Acompanamiento from '@/components/portada/Acompanamiento'
@@ -13,18 +20,26 @@ export const metadata: Metadata = {
   alternates: { canonical: '/' },
 }
 
-/* Inicio: portada con video, servicios, HHA Systems, por qué HHA, acompañamiento, equipo, nosotros y CTA.
-   (El método ya no va aquí.) */
+/* Inicio en tono claro (fundadores, 2026-11-09): bienvenida 3D (una vez por visita), hero con rubros, hechos, cuatro caminos,
+   agendAHH por rubro, calculadora, planes, por qué HHA, marketing, negocios que trabajan con HHA, cómo trabajamos, equipo,
+   nosotros, preguntas y cierre. Los llamados principales: Probar agendAHH gratis, Ver planes y Solicitar cotización. */
 export default function Inicio() {
   return (
     <>
-      <Portada />
-      <Soluciones />
+      <Bienvenida />
+      <Hero />
+      <Hechos />
+      <Caminos />
       <Sistemas />
+      <Calculadora />
+      <Planes />
       <Diferencia />
+      <MarketingBloque />
+      <Confianza />
       <Acompanamiento />
       <Equipo />
       <Nosotros />
+      <Preguntas />
       <CtaBanda cierre={CONFIG.hooks.inicio} logo="derecha" />
     </>
   )

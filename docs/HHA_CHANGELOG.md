@@ -2,6 +2,12 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-11-09 — New home in light tone with a 3D welcome screen (branch `inicio-nuevo`, founders' instruction)
+- **Home (`/`) restructured and moved to the light tone** (`/` added to `RUTAS_CLARAS`). New order: welcome → hero with business-type buttons → facts bar → four paths (agendAHH, Páginas web, Marketing, Automatización e IA) → agendAHH per business type (existing HHA Systems section) → “Haz la cuenta” calculator → plans (tabs agendAHH | Páginas web, monthly | annual −20 %, read from `config.ts` and `precios.ts`) → Por qué HHA → Marketing → “Ya trabajan con nosotros” (Tamburrini, Fanatigol, JAV Ingeniería, names only) → “Te acompañamos en cada paso” → team → Nosotros → FAQ → closing band. **SUPERSEDES** the dark home with the keyboard video hero (the Portada, Soluciones and other old components stay in the code, unused).
+- **Welcome screen (hero inicial):** full-screen intro with a Three.js 3D monitor whose screen cycles through agenda, web page, flows and marketing (sample views, labeled “Vista de ejemplo”), spring-damped mouse follow and a wave transition. The button “Entrar al sitio” (also “Saltar” and Esc) zooms the camera into the screen and opens the home. Shown once per visit (`sessionStorage`); without WebGL or with reduced motion it is just text and button. New dependency: `three` (loaded with dynamic import, only on the welcome screen).
+- **Office is Viña del Mar** (founders): visible texts now say “Oficina en Viña del Mar” (footer, contact, FAQ, organization data). The legal pages are untouched and still say “domicilio en Casablanca”.
+- Main calls to action on the home: Probar agendAHH gratis, Ver planes, Solicitar cotización; the 3-question diagnostic stays as a secondary tool.
+
 ## 2026-11-09 — Commercial information update: agendAHH plans, web plans, navigation and CTAs (branch `actualizacion-comercial-planes`, founders' instruction)
 - **Home:** HHA Systems / agendAHH no longer promises products from the entry plan. Tags are “Reservas · Clientes · Panel” and the “desde” price is the cheapest plan (agendAHH Solo): “Desde $14.990/mes + IVA”, with “Implementación inicial desde $24.990 + IVA, según plan.” as secondary text. **SUPERSEDES** the “desde $23.990 pagando anual” (Starter) rule.
 - **“0 % de comisión” is CONFIRMED** by the founders: HHA charges no percentage per booking or sale made with agendAHH. Kept in the red “Por qué HHA” band, on /agendahh and in the FAQ.

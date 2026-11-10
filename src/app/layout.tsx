@@ -40,8 +40,8 @@ const ORGANIZACION = {
   logo: 'https://www.hhiagencia.cl/brand/hh-logo-azul.png',
   slogan: 'Digitaliza. Automatiza. Escala.',
   description:
-    'Ayudamos a marcas, creadores y empresas con contenido, estrategias, automatizaciones y soluciones digitales. Base en Casablanca, Región de Valparaíso; trabajamos en todo Chile.',
-  address: { '@type': 'PostalAddress', addressLocality: 'Casablanca', addressRegion: 'Región de Valparaíso', addressCountry: 'CL' },
+    'Ayudamos a marcas, creadores y empresas con contenido, estrategias, automatizaciones y soluciones digitales. Oficina en Viña del Mar, Región de Valparaíso; trabajamos en todo Chile.',
+  address: { '@type': 'PostalAddress', addressLocality: 'Viña del Mar', addressRegion: 'Región de Valparaíso', addressCountry: 'CL' },
   areaServed: [
     { '@type': 'Country', name: 'Chile' },
     { '@type': 'AdministrativeArea', name: 'Región de Valparaíso' },

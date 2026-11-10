@@ -134,7 +134,7 @@ export const EMPRESA = {
   nombre: 'HHA Digital Solutions SpA',
   marca: 'HHA Digital Solutions',
   /** Base de operación. */
-  base: 'Casablanca, Región de Valparaíso',
+  base: 'Viña del Mar, Región de Valparaíso',
   /** Lo más importante: se trabaja en todo el país, de forma remota. */
   cobertura: 'Trabajamos en todo Chile',
 }
@@ -883,7 +883,7 @@ export const CONFIG: Config = {
     },
     {
       q: '¿Trabajan solo en la Región de Valparaíso?',
-      a: 'No: trabajamos en todo Chile. Nuestra base está en Casablanca, Región de Valparaíso, y atendemos a clientes de todo el país de forma remota.',
+      a: 'No: trabajamos en todo Chile. Nuestra oficina está en Viña del Mar, Región de Valparaíso, y atendemos a clientes de todo el país de forma remota.',
     },
   ],
 

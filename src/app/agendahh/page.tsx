@@ -55,7 +55,7 @@ const PREGUNTAS = [
   },
   {
     q: '¿Trabajan solo en la Región de Valparaíso?',
-    a: 'No. Nuestra base está en Casablanca, Región de Valparaíso, y trabajamos en todo Chile de forma remota.',
+    a: 'No. Nuestra oficina está en Viña del Mar, Región de Valparaíso, y trabajamos en todo Chile de forma remota.',
   },
 ]
 

@@ -1,9 +1,9 @@
 /* Tono de cada página. Ya no hay botón de claro/oscuro: cada página tiene su tono (decisión de los fundadores,
-   2026-10-05). Inicio y Marketing van en oscuro; Servicios, Prueba gratis, Contacto y las
+   2026-10-05). Marketing va en oscuro; Inicio (desde 2026-11-09), Servicios, Prueba gratis, Contacto y las
    páginas legales van en un tono claro azulado. Para cambiar el tono de una página, editar esta lista.
    El script de abajo corre antes de pintar la página (en el <head> de layout.tsx y de preview/index.html),
    para que no se vea un parpadeo del tono equivocado; TemaRuta lo vuelve a aplicar al cambiar de página. */
-export const RUTAS_CLARAS = ['/servicios', '/prueba-gratis', '/pedido', '/contacto', '/privacidad', '/terminos', '/seguridad']
+export const RUTAS_CLARAS = ['/', '/servicios', '/prueba-gratis', '/pedido', '/contacto', '/privacidad', '/terminos', '/seguridad']
 
 export type Tema = 'light' | 'dark'
 

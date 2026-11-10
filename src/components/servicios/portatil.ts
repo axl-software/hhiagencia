@@ -17,8 +17,10 @@ const TRAMO = (1 - T0) / N
 export function crearPortatil(canvas: HTMLCanvasElement, stage: HTMLElement): Portatil | null {
 /* ---------- pantallas dibujadas en un canvas (textura del portátil) ---------- */
 const SW = 1280, SH = 800;
-const pc = document.createElement('canvas'); pc.width = SW; pc.height = SH;
-const g = pc.getContext('2d');
+/* la pantalla se dibuja al doble de resolución (2560×1600) para que se lea nítida en los acercamientos */
+const Q = 2;
+const pc = document.createElement('canvas'); pc.width = SW * Q; pc.height = SH * Q;
+const g = pc.getContext('2d'); g.scale(Q, Q);
 const F = '-apple-system, "Segoe UI", system-ui, sans-serif', M = 'Consolas, monospace';
 const R = (x, y, w, h, c) => { g.fillStyle = c; g.fillRect(x, y, w, h); };
 const T = (s, x, y, f, c, a = 'left') => { g.font = f; g.fillStyle = c; g.textAlign = a; g.textBaseline = 'alphabetic'; g.fillText(s, x, y); };
@@ -46,13 +48,13 @@ const pantallas = [
   () => { R(0,0,SW,SH,'#0B1020'); [['Cliente reserva','formulario',120,0],['Aviso automático','WhatsApp',520,1],['Panel al día','sin planillas',920,0]].forEach((n,i)=>{ R(n[2],320,240,130,n[3]?'#D7263D':'#17203a'); g.strokeStyle='rgba(255,255,255,.2)'; g.lineWidth=2; g.strokeRect(n[2],320,240,130); T(n[0],n[2]+120,375,`700 26px ${F}`,'#fff','center'); T(n[1],n[2]+120,415,`500 22px ${F}`,'#9fb0d6','center'); if(i<2){ const x0=n[2]+250,x1=n[2]+390; const gr=g.createLinearGradient(x0,0,x1,0); gr.addColorStop(0,'#5b8cff'); gr.addColorStop(1,'#ff5a6d'); g.fillStyle=gr; g.fillRect(x0,383,x1-x0-16,4); g.fillStyle='#ff5a6d'; g.beginPath(); g.moveTo(x1-16,372); g.lineTo(x1,385); g.lineTo(x1-16,398); g.fill(); } });
     T('VISTA DE EJEMPLO',1230,776,`600 16px ${M}`,'#9fb0d6','right'); },
 ];
-const screenTex = new THREE.CanvasTexture(pc); screenTex.colorSpace = THREE.SRGBColorSpace; screenTex.anisotropy = 8;
+const screenTex = new THREE.CanvasTexture(pc); screenTex.colorSpace = THREE.SRGBColorSpace; screenTex.anisotropy = 16; screenTex.generateMipmaps = true; screenTex.minFilter = THREE.LinearMipmapLinearFilter;
 let ultimaClave = '';
 /* mezcla simple entre pantallas: se dibuja la siguiente y encima la actual con transparencia */
 function pintarMezcla(i, mezcla) {
   const k = i + ':' + mezcla.toFixed(2); if (k === ultimaClave) return; ultimaClave = k;
   g.globalAlpha = 1; pantallas[Math.min(N - 1, i + (mezcla > 0 ? 1 : 0))]();
-  if (mezcla > 0 && i < N - 1) { const t = document.createElement('canvas'); t.width = SW; t.height = SH; const tg = t.getContext('2d'); const prev = g; pantallas[i](); tg.drawImage(pc, 0, 0); pantallas[i + 1](); g.globalAlpha = 1 - mezcla; g.drawImage(t, 0, 0); g.globalAlpha = 1; }
+  if (mezcla > 0 && i < N - 1) { const t = document.createElement('canvas'); t.width = SW * Q; t.height = SH * Q; const tg = t.getContext('2d'); pantallas[i](); tg.drawImage(pc, 0, 0); pantallas[i + 1](); g.globalAlpha = 1 - mezcla; g.drawImage(t, 0, 0, SW, SH); g.globalAlpha = 1; }
   g.fillStyle = '#05070b'; g.beginPath(); g.roundRect(SW / 2 - 100, -2, 200, 30, [0, 0, 14, 14]); g.fill();
   screenTex.needsUpdate = true;
 }
@@ -128,12 +130,12 @@ sombra.rotation.x = -Math.PI / 2; sombra.position.set(0, -0.015, -0.05); scene.a
 /* ---------- trayectoria de la cámara: una espiral alrededor del portátil que se acerca a la pantalla en cada servicio ---------- */
 const LOOK_P = new THREE.Vector3(0, 1.12, -1.4);  // centro de la pantalla abierta
 const claves = [
-  [0.00, [-6.4, 4.8, 5.4], [0, 0.1, 0]], [0.07, [-2.6, 3.4, 6.8], [0, 0.2, 0]], [0.14, [5.0, 2.8, 5.2], [0, 0.55, -0.4]], [0.20, [0.4, 1.9, 7.0], [0, 1.0, -1.1]],
-  [0.28, [-0.7, 1.35, 4.5], [0, 1.12, -1.4]], [0.36, [3.9, 2.0, 6.4], [0, 1.0, -1.0]],
-  [0.44, [0.8, 1.25, 4.4], [0, 1.12, -1.4]], [0.52, [-4.0, 2.4, 5.8], [0, 1.0, -1.0]],
-  [0.60, [-0.5, 1.2, 4.5], [0, 1.12, -1.4]], [0.68, [4.4, 1.5, 5.2], [0, 1.0, -1.0]],
-  [0.76, [0.7, 1.3, 4.4], [0, 1.12, -1.4]], [0.84, [-4.6, 2.9, 5.0], [0, 1.0, -1.0]],
-  [0.92, [-0.3, 1.25, 4.5], [0, 1.12, -1.4]], [1.00, [0.0, 1.7, 7.8], [0, 0.9, -0.8]],
+  [0.00, [-5.25, 4.80, 4.32], [0, 0.1, 0]], [0.07, [-2.13, 3.40, 5.44], [0, 0.2, 0]], [0.14, [4.10, 2.80, 4.16], [0, 0.55, -0.4]], [0.20, [0.33, 1.90, 5.60], [0, 1.0, -1.1]],
+  [0.28, [-0.70, 1.35, 3.50], [0, 1.12, -1.4]], [0.36, [3.20, 2.00, 5.12], [0, 1.0, -1.0]],
+  [0.44, [0.80, 1.25, 3.40], [0, 1.12, -1.4]], [0.52, [-3.28, 2.40, 4.64], [0, 1.0, -1.0]],
+  [0.60, [-0.50, 1.20, 3.50], [0, 1.12, -1.4]], [0.68, [3.61, 1.50, 4.16], [0, 1.0, -1.0]],
+  [0.76, [0.70, 1.30, 3.40], [0, 1.12, -1.4]], [0.84, [-3.77, 2.90, 4.00], [0, 1.0, -1.0]],
+  [0.92, [-0.30, 1.25, 3.50], [0, 1.12, -1.4]], [1.00, [0.00, 1.70, 6.24], [0, 0.9, -0.8]],
 ].map(([p, c, l]) => ({ p, c: new THREE.Vector3(...c), l: new THREE.Vector3(...l) }));
 const curvaC = new THREE.CatmullRomCurve3(claves.map((k) => k.c), false, 'centripetal');
 const curvaL = new THREE.CatmullRomCurve3(claves.map((k) => k.l), false, 'centripetal');
@@ -149,7 +151,9 @@ function tDe(p) { for (let j = 0; j < claves.length - 1; j++) { const a = claves
     ultimaP = -1
   }
   let ultimaP = -1
+  let pActual = 0
   function pintar(p: number) {
+    pActual = p
     if (p === ultimaP) return
     ultimaP = p
     const theta = smooth(clamp((p - 0.06) / 0.14)) * 1.86
@@ -164,10 +168,14 @@ function tDe(p) { for (let j = 0; j < claves.length - 1; j++) { const a = claves
   }
   ajustar()
   pintar(0)
+  /* si el tamaño de la escena cambia (al activarse el modo con scroll, al girar el celular, etc.) se vuelve a dimensionar y a dibujar nítido */
+  const ro = new ResizeObserver(() => { ajustar(); pintar(pActual) })
+  ro.observe(stage)
   return {
     pintar,
     ajustar,
     destroy: () => {
+      ro.disconnect()
       renderer.dispose()
       scene.traverse((o) => { if (o.geometry) o.geometry.dispose(); const m = o.material; if (m) (Array.isArray(m) ? m : [m]).forEach((x) => { x.map?.dispose?.(); x.dispose() }) })
     },

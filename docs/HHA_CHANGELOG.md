@@ -2,6 +2,11 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-11-10 — Servicios hero: sharp and bigger 3D laptop (founders' instruction)
+- Fixed the blurry, tiny laptop: the 3D canvas was sized before the hero reached its final 100vh height (it stayed ~200 px tall and was stretched). It now re-fits on a size observer and on several timed re-adjustments, and draws at the real screen size and pixel density.
+- The screen texture is drawn at 2560×1600 (double) so text stays sharp in close-ups.
+- The camera is closer: the laptop fills the width in wide shots and the screen fills most of the frame in each service's close-up.
+
 ## 2026-11-10 — New hero on /servicios: 3D laptop with the camera spiralling (founders' instruction)
 - `/servicios` now opens with a hero (`HeroPortatil`): a 3D laptop that opens while scrolling and shows each service on its screen (agendAHH, páginas web, cartAHH, marketing, automatización e IA). The camera spirals around it and moves close to the screen at each step; a card beside it shows number, title, text, price, progress and link. Adapted from the “MacBook Neo” frame-sequence hero (21st.dev), with a model built from shapes instead of image frames (`src/components/servicios/portatil.ts`, Three.js).
 - The page's own section “Elige por dónde empezar” follows unchanged; its title level went from h1 to h2 because the hero now carries the single h1.

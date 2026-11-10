@@ -49,6 +49,7 @@ export default function HeroPortatil() {
     let vivo = true
     let inst: Inst | null = null
     let raf = 0
+    let timers: number[] = []
     let objetivo = 0
     let actual = 0
     const alRaf = () => {
@@ -86,7 +87,9 @@ export default function HeroPortatil() {
         setActivo(true)
         window.addEventListener('scroll', alScroll, { passive: true })
         window.addEventListener('resize', alRedimensionar)
-        requestAnimationFrame(() => { inst?.ajustar(); alScroll(); pintar(objetivo) })
+        /* la escena toma su tamaño final (100vh) cuando React activa el modo con scroll: se reajusta varias veces para que quede nítida */
+        timers = [0, 80, 250, 700, 1500].map((ms) => window.setTimeout(() => { if (vivo) { alRedimensionar(); pintar(objetivo) } }, ms))
+        window.addEventListener('load', alRedimensionar)
       })
       .catch(() => {})
     return () => {
@@ -94,6 +97,8 @@ export default function HeroPortatil() {
       if (raf) cancelAnimationFrame(raf)
       window.removeEventListener('scroll', alScroll)
       window.removeEventListener('resize', alRedimensionar)
+      window.removeEventListener('load', alRedimensionar)
+      timers.forEach((x) => window.clearTimeout(x))
       inst?.destroy()
     }
   }, [])

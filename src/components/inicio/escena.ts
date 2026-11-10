@@ -790,7 +790,7 @@ export async function crearEscena(canvas: HTMLCanvasElement, { reduce, host, alF
     /* las tarjetas se retrasan un poco respecto al monitor (inercia) */
     sats.forEach((s, i) => {
       const u = s.userData
-      const a = reduce ? 1 : ease((t - (1.6 + i * 0.35)) / 0.8)
+      const a = reduce ? 1 : ease((t - (0.7 + i * 0.22)) / 0.8)
       s.material.opacity = a * (zoom ? Math.max(0, 1 - (now - zoom.t0) / 500) : 1)
       s.position.set(u.x + Math.sin(t * 0.7 + u.ph) * 0.05 - rv.y * 0.12 * (i + 1), u.y + Math.sin(t * 0.9 + u.ph) * 0.09 + rv.x * 0.1 * (i + 1), u.z + (1 - a) * -0.4)
       s.rotation.y = -rot * 0.5

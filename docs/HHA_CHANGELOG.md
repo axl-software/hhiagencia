@@ -2,6 +2,10 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-11-10 — Welcome: soft opening and cards enter with the monitor (founders' instruction)
+- The welcome screen fades in (1 s, opacity only) when the site opens, instead of appearing abruptly. The monitor, its dolly-in and the exit zoom are untouched (identical to commit 6f37534). **SUPERSEDES** the “removed fade” part of the previous entry.
+- The three floating cards (“Nueva reserva · 11:45”, “0 % comisión”, “Prueba 7 días gratis”) now enter 0.9 s earlier (from 0.7 s instead of 1.6 s) so they arrive together with the monitor.
+
 ## 2026-11-10 — Welcome screen back to the approved version (founders' instruction)
 - **SUPERSEDES** both welcome-fade entries of 2026-11-09: the fade-in of the whole overlay was removed (it showed the light page underneath for a moment). Bienvenida.tsx, Bienvenida.module.css and escena.ts are identical to the version of commit 6f37534, which the founders approved with a screen recording (“asi estaba excelente”): dark background first, headline words rise, monitor dollies in, “Entrar” zooms into the screen.
 

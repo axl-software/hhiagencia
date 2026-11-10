@@ -15,6 +15,9 @@
   transition: opacity 0.9s ease 0.35s, visibility 0s linear 1.3s;
 }
 :global(html.intro-on) .intro { display: grid; }
+/* al abrir la web, la bienvenida aparece suave (solo opacidad; la escena y sus animaciones no se tocan) */
+:global(html.intro-on) .intro { animation: introIn 1s cubic-bezier(0.16, 1, 0.3, 1) backwards; }
+@keyframes introIn { from { opacity: 0; } to { opacity: 1; } }
 .intro::before {
   content: '';
   position: absolute;
@@ -59,6 +62,7 @@
   .loc, .pista { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
+  :global(html.intro-on) .intro { animation: none; }
   .pwi, .entra { animation: none; }
   .intro, .saliendo { transition: none; }
 }

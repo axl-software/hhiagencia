@@ -2,6 +2,9 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-11-10 — Welcome screen back to the approved version (founders' instruction)
+- **SUPERSEDES** both welcome-fade entries of 2026-11-09: the fade-in of the whole overlay was removed (it showed the light page underneath for a moment). Bienvenida.tsx, Bienvenida.module.css and escena.ts are identical to the version of commit 6f37534, which the founders approved with a screen recording (“asi estaba excelente”): dark background first, headline words rise, monitor dollies in, “Entrar” zooms into the screen.
+
 ## 2026-11-09 — Welcome: whole overlay fades in; monitor blur/zoom removed (founders' instruction)
 - **SUPERSEDES** the previous entry: the blur and zoom applied to the monitor were removed (they hid part of the scene's own intro animation). The monitor and its animation are exactly as before.
 - Instead, the whole welcome screen fades in smoothly (1.1 s) when the site opens, so nothing appears abruptly. The fade only affects the opening; the exit animation is unchanged.

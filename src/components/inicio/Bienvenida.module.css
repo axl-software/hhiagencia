@@ -15,9 +15,6 @@
   transition: opacity 0.9s ease 0.35s, visibility 0s linear 1.3s;
 }
 :global(html.intro-on) .intro { display: grid; }
-/* al abrir la web, toda la bienvenida aparece suave (sin tocar la escena ni sus animaciones) */
-:global(html.intro-on) .intro { animation: introIn 1.1s cubic-bezier(0.16, 1, 0.3, 1) backwards; }
-@keyframes introIn { from { opacity: 0; } to { opacity: 1; } }
 .intro::before {
   content: '';
   position: absolute;
@@ -94,4 +91,4 @@
 .neck { width: 16%; height: clamp(26px, 4vw, 48px); margin: -2px auto 0; background: linear-gradient(90deg, #0c1226, #1b2442, #0c1226); }
 .pie { width: 38%; height: 12px; margin: 0 auto; border-radius: 4px 4px 18px 18px; background: linear-gradient(180deg, #232c4d, #0c1226); box-shadow: 0 30px 40px -10px rgba(0, 0, 0, 0.8); }
 @media (max-width: 900px) { .escenaCss { min-height: 0; margin-top: 10px; } .rig { width: min(92%, 520px); transform: rotateY(-8deg) rotateX(4deg); } }
-@media (prefers-reduced-motion: reduce) { :global(html.intro-on) .intro { animation: none; } .rig, .fila { animation: none; } .fila { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .rig, .fila { animation: none; } .fila { opacity: 1; transform: none; } }

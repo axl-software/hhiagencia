@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Bienvenida from '@/components/inicio/Bienvenida'
-import Hero from '@/components/inicio/Hero'
+import HeroNeon from '@/components/inicio/HeroNeon'
 import Hechos from '@/components/inicio/Hechos'
 import Caminos from '@/components/inicio/Caminos'
 import Calculadora from '@/components/inicio/Calculadora'
@@ -20,14 +20,14 @@ export const metadata: Metadata = {
   alternates: { canonical: '/' },
 }
 
-/* Inicio en tono claro (fundadores, 2026-11-09): bienvenida 3D (una vez por visita), hero con rubros, hechos, cuatro caminos,
+/* Inicio (fundadores, 2026-11-09): bienvenida 3D (una vez por visita), hero neón HHA que al hacer scroll muestra la información, hechos, cuatro caminos,
    agendAHH por rubro, calculadora, planes, por qué HHA, marketing, negocios que trabajan con HHA, cómo trabajamos, equipo,
    nosotros, preguntas y cierre. Los llamados principales: Probar agendAHH gratis, Ver planes y Solicitar cotización. */
 export default function Inicio() {
   return (
     <>
       <Bienvenida />
-      <Hero />
+      <HeroNeon />
       <Hechos />
       <Caminos />
       <Sistemas />

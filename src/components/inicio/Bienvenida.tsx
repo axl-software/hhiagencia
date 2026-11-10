@@ -16,7 +16,17 @@ import s from './Bienvenida.module.css'
    - No es un <h1>: el título de la página es el del inicio (Hero), para no repetir encabezados principales.
    ========================================================= */
 
-const SCRIPT = `try{if(sessionStorage.getItem('hha-intro'))document.documentElement.setAttribute('data-intro','visto')}catch(e){}`
+/* Script mínimo (corre al leer la página, antes de React). Es lo que hace la bienvenida imposible de "pegar":
+   - si ya se vio en esta visita, no se muestra;
+   - si no, la activa (html.intro-on) y deja listo un cierre que NO depende de React: "Entrar", "Saltar" y Esc funcionan igual;
+   - si React no arranca en 8 segundos, la cierra sola y el sitio queda usable. */
+const SCRIPT = `(function(){var d=document,h=d.documentElement;try{if(sessionStorage.getItem('hha-intro')){h.setAttribute('data-intro','visto');return}}catch(e){}
+h.classList.add('intro-on');
+function cerrar(){if(!h.classList.contains('intro-on'))return;h.classList.remove('intro-on');h.setAttribute('data-intro','visto');try{sessionStorage.setItem('hha-intro','1')}catch(e){}d.dispatchEvent(new Event('hha-intro-fin'))}
+window.__introCerrar=cerrar;
+d.addEventListener('click',function(e){if(window.__hhaIntroOk)return;var t=e.target;if(t&&t.closest&&t.closest('[data-intro-cerrar]'))cerrar()});
+d.addEventListener('keydown',function(e){if(window.__hhaIntroOk)return;if(e.key==='Escape')cerrar()});
+setTimeout(function(){if(!window.__hhaIntroOk)cerrar()},8000)})();`
 
 /* Cada palabra sube desde una máscara, una tras otra (solo CSS) */
 function Palabras({ texto, desde = 0 }: { texto: string; desde?: number }) {
@@ -53,14 +63,15 @@ export default function Bienvenida() {
 
   useEffect(() => {
     const html = document.documentElement
-    /* ya la vio en esta visita: el CSS la oculta (html[data-intro=visto]) y no se prepara nada */
-    if (html.dataset.intro === 'visto') return
+    /* React tomó el control: el cierre de respaldo del script mínimo se desactiva */
+    ;(window as unknown as { __hhaIntroOk?: boolean }).__hhaIntroOk = true
+    /* ya la vio en esta visita (o no se activó): no se prepara nada */
+    if (!html.classList.contains('intro-on')) return
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const resto = fondoDe(raiz.current)
     resto.forEach((e) => {
       e.inert = true
     })
-    html.classList.add('intro-abierta')
     const foco = window.setTimeout(() => entrar.current?.focus({ preventScroll: true }), 60)
 
     let vivo = true
@@ -70,7 +81,16 @@ export default function Bienvenida() {
     }, 3500)
     if (canvas.current && raiz.current) {
       import('./escena')
-        .then((m) => m.crearEscena(canvas.current!, { reduce, host: raiz.current! }))
+        .then((m) => m.crearEscena(canvas.current!, {
+            reduce,
+            host: raiz.current!,
+            alFallar: () => {
+              if (vivo) {
+                setConGl(false)
+                setSinGl(true)
+              }
+            },
+          }))
         .then((e) => {
           if (!vivo) {
             e?.parar()
@@ -95,7 +115,6 @@ export default function Bienvenida() {
       window.clearTimeout(plazo)
       escena.current?.parar()
       escena.current = null
-      html.classList.remove('intro-abierta')
       resto.forEach((e) => {
         e.inert = false
       })
@@ -105,8 +124,6 @@ export default function Bienvenida() {
   const salir = () => {
     if (cerrando.current) return
     cerrando.current = true
-    const html = document.documentElement
-    html.classList.remove('intro-abierta')
     fondoDe(raiz.current).forEach((e) => {
       e.inert = false
     })
@@ -115,7 +132,11 @@ export default function Bienvenida() {
     } catch {}
     window.scrollTo(0, 0)
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    let hecho = false
     const terminar = () => {
+      if (hecho) return
+      hecho = true
+      ;(window as unknown as { __introCerrar?: () => void }).__introCerrar?.()
       setCerrada(true)
       escena.current?.parar()
       escena.current = null
@@ -126,6 +147,8 @@ export default function Bienvenida() {
       }
     }
     setFase('zoom')
+    /* seguro: aunque la animación se trabe, a los 3,5 s la bienvenida se cierra sí o sí */
+    window.setTimeout(terminar, 3500)
     if (escena.current && !reduce) {
       escena.current.zoom(() => setFase('saliendo'), terminar)
     } else {
@@ -170,7 +193,7 @@ export default function Bienvenida() {
             <span>HHiAgencia</span>
           </span>
           <span className={s.loc}>Viña del Mar · Trabajamos en todo Chile</span>
-          <button ref={saltar} type="button" className={s.saltar} onClick={salir}>Saltar</button>
+          <button ref={saltar} type="button" className={s.saltar} onClick={salir} data-intro-cerrar>Saltar</button>
         </div>
         <div className={s.cuerpo}>
           <div className={s.copy}>
@@ -183,7 +206,7 @@ export default function Bienvenida() {
               Web, agenda de reservas y marketing para negocios de todo Chile. Digitaliza. Automatiza. Escala.
             </p>
             <div className={`${s.acciones} ${s.entra}`} style={{ '--d': '1.3s' } as React.CSSProperties}>
-              <button ref={entrar} type="button" className="btn-vivo" onClick={salir}>
+              <button ref={entrar} type="button" className="btn-vivo" onClick={salir} data-intro-cerrar>
                 Entrar al sitio <ArrowRight size={18} strokeWidth={2.25} aria-hidden="true" />
               </button>
               <span className={s.pista}>o desliza el mouse sobre el panel</span>

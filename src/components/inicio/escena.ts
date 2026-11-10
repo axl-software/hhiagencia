@@ -14,7 +14,7 @@ export type Escena = {
   parar: () => void
 }
 
-type Opciones = { reduce: boolean; host: HTMLElement }
+type Opciones = { reduce: boolean; host: HTMLElement; alFallar?: () => void }
 
 const INK = '#0B1020'
 const RED = '#D7263D'
@@ -37,7 +37,7 @@ const eb = (x: number) => {
   return 1 + (c + 1) * Math.pow(x - 1, 3) + c * Math.pow(x - 1, 2)
 }
 
-export async function crearEscena(canvas: HTMLCanvasElement, { reduce, host }: Opciones): Promise<Escena | null> {
+export async function crearEscena(canvas: HTMLCanvasElement, { reduce, host, alFallar }: Opciones): Promise<Escena | null> {
   const probe = document.createElement('canvas')
   if (!(probe.getContext('webgl2') || probe.getContext('webgl'))) return null
   const THREE = await import('three')
@@ -750,7 +750,7 @@ export async function crearEscena(canvas: HTMLCanvasElement, { reduce, host }: O
   let zoom: { t0: number; mid: () => void; fin: () => void; hechoMid: boolean; hechoFin: boolean } | null = null
   const ease = eo
 
-  const render = (now: number) => {
+  const renderInner = (now: number) => {
     const t = reduce ? 3.2 : (now - t0) / 1000
     const dt = Math.min(0.05, (now - last) / 1000)
     last = now
@@ -801,6 +801,17 @@ export async function crearEscena(canvas: HTMLCanvasElement, { reduce, host }: O
     drawUI(t)
     renderer.render(scene, camera)
     if (corriendo && !reduce) raf = requestAnimationFrame(render)
+  }
+
+  /* si el dibujo falla en algún equipo, se detiene y se avisa para mostrar el monitor de respaldo */
+  const render = (now: number) => {
+    try {
+      renderInner(now)
+    } catch {
+      corriendo = false
+      cancelAnimationFrame(raf)
+      alFallar?.()
+    }
   }
 
   const alCambiarVisibilidad = () => {

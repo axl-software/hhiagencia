@@ -844,5 +844,5 @@ input[aria-invalid="true"]{border-color:var(--red);box-shadow:0 0 0 1px var(--re
 .fondo-metricas::after{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,color-mix(in srgb,var(--bg) 78%,transparent) 0%,color-mix(in srgb,var(--bg) 42%,transparent) 45%,color-mix(in srgb,var(--bg) 62%,transparent) 100%)}
 .fondo-metricas .metrica{background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(8px)}
 
-/* Bienvenida del inicio abierta: la página de atrás no se desplaza */
-html.intro-abierta,html.intro-abierta body{overflow:hidden}
+/* Bienvenida del inicio abierta (la marca el script mínimo de Bienvenida.tsx): la página de atrás no se desplaza */
+html.intro-on,html.intro-on body{overflow:hidden}

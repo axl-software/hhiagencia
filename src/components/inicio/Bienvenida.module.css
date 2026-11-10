@@ -4,7 +4,7 @@
   position: fixed;
   inset: 0;
   z-index: 200;
-  display: grid;
+  display: none; /* solo se ve si el script mínimo la activó (html.intro-on): si algo falla, el sitio queda a la vista */
   grid-template-rows: auto 1fr;
   overflow: hidden;
   color: #f8fafc;
@@ -14,7 +14,7 @@
     linear-gradient(160deg, #0b1020 0%, #05070a 70%);
   transition: opacity 0.9s ease 0.35s, visibility 0s linear 1.3s;
 }
-:global(html[data-intro='visto']) .intro { display: none; }
+:global(html.intro-on) .intro { display: grid; }
 .intro::before {
   content: '';
   position: absolute;

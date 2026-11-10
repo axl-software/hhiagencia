@@ -1,0 +1,43 @@
+/* Hero neón. Por defecto es ESTÁTICO y muestra todo (letras de respaldo, titular y botones): así nadie se queda sin información si
+   el JavaScript, el 3D o el efecto de scroll fallan. Cuando el neón ya está funcionando, HeroNeon.tsx agrega .activo y el hero
+   pasa al modo scroll: la escena queda fija (sticky) en un tramo de ~2,3 pantallas, parte limpia (solo las letras) y la información
+   sube con --p (0 a 1, según el scroll). Con "reducir movimiento" nunca se activa. */
+.hero { --p: 1; --cab: 80px; position: relative; background: #0b1020; color: #f8fafc; }
+.pin { position: relative; min-height: max(640px, calc(100svh - var(--cab))); overflow: hidden; isolation: isolate; display: grid; grid-template-rows: auto 1fr auto; justify-items: center; text-align: center; }
+.canvas { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; display: block; cursor: grab; touch-action: pan-y; }
+.canvas:active { cursor: grabbing; }
+.velo { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(180deg, rgba(11, 16, 32, 0.55) 0%, rgba(11, 16, 32, 0) 22%, rgba(11, 16, 32, 0) 45%, rgba(11, 16, 32, calc(0.15 + var(--p) * 0.7)) 100%); }
+.lema { position: relative; z-index: 2; grid-row: 1; margin: 0; padding: clamp(18px, 3vw, 32px) 16px 0; font: 600 12px/1 var(--f-mono); letter-spacing: 0.22em; text-transform: uppercase; color: #c8d2e8; }
+.info { position: relative; z-index: 2; grid-row: 3; display: grid; justify-items: center; gap: 16px; width: min(100%, 860px); padding: 0 clamp(16px, 4vw, 40px) clamp(22px, 3.4vw, 44px); pointer-events: none; }
+.info a { pointer-events: auto; }
+.h1 { margin: 0; font-family: var(--f-head); font-weight: 800; font-size: clamp(32px, 4.6vw, 62px); line-height: 1.02; letter-spacing: -0.04em; text-wrap: balance; text-shadow: 0 2px 30px rgba(11, 16, 32, 0.85); }
+.h1 span { color: #ff5a6d; }
+.h1:focus { outline: none; } /* recibe el foco al salir de la bienvenida; no necesita recuadro */
+.lead { margin: 0; max-width: 56ch; font-size: clamp(16px, 1.5vw, 19px); line-height: 1.55; color: #dfe6f6; text-shadow: 0 1px 18px rgba(11, 16, 32, 0.9); }
+.acciones { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; align-items: center; margin-top: 4px; }
+.web { display: inline-flex; align-items: center; justify-content: center; min-height: 56px; padding: 0 26px; border: 1.5px solid rgba(248, 250, 252, 0.6); border-radius: 0; background: rgba(11, 16, 32, 0.4); color: #f8fafc; font-family: var(--f-body); font-size: 15px; font-weight: 700; text-decoration: none; transition: background 0.25s, border-color 0.25s, transform 0.3s; }
+.web:hover { background: rgba(248, 250, 252, 0.14); border-color: #fff; transform: translateY(-3px); }
+.web:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+.notas { display: flex; flex-wrap: wrap; gap: 6px 22px; justify-content: center; margin: 0; padding: 0; list-style: none; font-size: 14px; color: #c8d2e8; }
+.notas li::before { content: ''; display: inline-block; width: 8px; height: 8px; margin-right: 9px; background: var(--red); }
+.notas b { color: #fff; }
+.pista { display: none; position: absolute; z-index: 2; left: 0; right: 0; bottom: clamp(18px, 3vw, 30px); margin: 0; font: 600 12px/1 var(--f-mono); letter-spacing: 0.22em; text-transform: uppercase; color: #93a0bd; pointer-events: none; }
+.pista span { display: inline-block; animation: baja 1.8s ease-in-out infinite; }
+@keyframes baja { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
+
+/* respaldo: letras HHA grandes con brillo (se ven si el 3D no está activo) */
+.respaldo { position: absolute; inset: 0; z-index: 0; display: grid; place-items: center; font-family: Impact, 'Arial Narrow', sans-serif; font-weight: 900; font-size: clamp(160px, 30vw, 420px); color: #bcd2ff; text-shadow: 0 0 30px rgba(91, 140, 255, 0.8), 0 0 90px rgba(215, 38, 61, 0.6); }
+
+/* ---------- modo scroll (solo cuando el neón ya funciona) ---------- */
+.activo { --p: 0; height: 230vh; }
+.activo .pin { position: sticky; top: var(--cab); height: calc(100svh - var(--cab)); min-height: 560px; }
+.activo .respaldo { display: none; }
+.activo .lema { opacity: calc(1 - var(--p) * 1.2); }
+.activo .info { opacity: clamp(0, calc((var(--p) - 0.18) * 3), 1); transform: translateY(calc((1 - clamp(0, calc((var(--p) - 0.18) * 3), 1)) * 36px)); }
+.activo .pista { display: block; opacity: calc(1 - var(--p) * 5); }
+@media (max-width: 620px) {
+  .acciones > a { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pista span { animation: none; }
+}

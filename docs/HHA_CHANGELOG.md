@@ -2,6 +2,9 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-11-10 — Street address removed from the footer (founders' instruction)
+- The footer no longer shows the office street address (13 Norte 853, depto 803); it only says “Trabajamos en todo Chile”. The mentions of the Viña del Mar office elsewhere (facts bar, ribbon) are unchanged.
+
 ## 2026-11-10 — cartAHH in the site's own style, videos with audio, Tamburrini logo, smoother welcome exit (founders' instruction)
 - **SUPERSEDES** the dark/gold look of the first cartAHH entry: `/cartahh` and the home block now use the same light tone, typography, plan cards, square corners and red accent as the rest of the site (`/cartahh` added to the light routes).
 - The three cartAHH videos now keep their audio (player controls let the visitor mute or unmute; they never autoplay).

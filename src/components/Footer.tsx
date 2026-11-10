@@ -117,7 +117,7 @@ export default function Footer() {
         <div className={s.base}>
           <div className={s.datos}>
             <span>© {new Date().getFullYear()} HHA Digital Solutions SpA</span>
-            <span>Oficina: 13 Norte 853, depto 803, Viña del Mar · Trabajamos en todo Chile</span>
+            <span>Trabajamos en todo Chile</span>
           </div>
           <div className={s.contacto}>
             {CONFIG.whatsapp && <a href={telHref()}>{telVisible()}</a>}

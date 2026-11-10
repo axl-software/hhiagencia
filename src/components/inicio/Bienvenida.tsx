@@ -223,7 +223,7 @@ export default function Bienvenida() {
     <>
       <script dangerouslySetInnerHTML={{ __html: SCRIPT }} />
       <div ref={raiz} className={clase} role="dialog" aria-modal="true" aria-labelledby="intro-t" aria-describedby="intro-d">
-        <canvas ref={canvas} className={s.canvas} aria-hidden="true" />
+        <canvas ref={canvas} className={`${s.canvas} ${conGl ? s.canvasListo : ''}`} aria-hidden="true" />
         <div className={s.top}>
           <span className={s.marca}>
             {/* eslint-disable-next-line @next/next/no-img-element -- logo chico; next/image rompe la vista previa en HTML */}

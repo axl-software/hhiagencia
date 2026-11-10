@@ -2,6 +2,9 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-11-09 — Welcome monitor fades in instead of popping (founders' instruction)
+- The 3D monitor (and the CSS fallback monitor) now appear blurred and slightly farther away, then focus and come closer over ~1.5 s, instead of showing up abruptly when the scene finished loading. No change for “reducir movimiento” (no animation).
+
 ## 2026-11-09 — Number animation extended to all pages (founders' instruction)
 - The rolling-number animation now also covers the order page (`/pedido`: prices, savings, subtotal, IVA, total), the free-trial page, the services page (implementation price, savings) and the plan-card notes, not only the home page.
 

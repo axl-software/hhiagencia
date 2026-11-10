@@ -2,6 +2,10 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-11-10 — agendAHH on the home page is now an explainer video (founders' instruction)
+- The home page shows a video block for agendAHH (`AgendaVideo`, with the launch video, audio and player controls, 0 % commission, free trial and “desde” price) instead of the tilted card with the full interface mock-up. **SUPERSEDES** the “agendAHH tarjeta que se endereza” on the home page.
+- The interface mock-up (`AgendaScroll`) now lives only on the agendAHH page (`/agendahh`), right after the hero.
+
 ## 2026-11-10 — Street address removed from the footer (founders' instruction)
 - The footer no longer shows the office street address (13 Norte 853, depto 803); it only says “Trabajamos en todo Chile”. The mentions of the Viña del Mar office elsewhere (facts bar, ribbon) are unchanged.
 

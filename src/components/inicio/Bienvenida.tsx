@@ -48,6 +48,7 @@ export default function Bienvenida() {
   const cerrando = useRef(false)
   const [fase, setFase] = useState<Fase>('abierta')
   const [conGl, setConGl] = useState(false)
+  const [sinGl, setSinGl] = useState(false) // la escena 3D no se pudo crear: se muestra el monitor en CSS
   const [cerrada, setCerrada] = useState(false)
 
   useEffect(() => {
@@ -63,24 +64,35 @@ export default function Bienvenida() {
     const foco = window.setTimeout(() => entrar.current?.focus({ preventScroll: true }), 60)
 
     let vivo = true
+    /* si la escena 3D no está lista en 3,5 s (o falla), aparece el monitor en CSS: siempre hay un monitor a la vista */
+    const plazo = window.setTimeout(() => {
+      if (vivo && !escena.current) setSinGl(true)
+    }, 3500)
     if (canvas.current && raiz.current) {
       import('./escena')
         .then((m) => m.crearEscena(canvas.current!, { reduce, host: raiz.current! }))
         .then((e) => {
-          if (!e) return
           if (!vivo) {
-            e.parar()
+            e?.parar()
+            return
+          }
+          if (!e) {
+            setSinGl(true)
             return
           }
           escena.current = e
+          setSinGl(false)
           setConGl(true)
         })
-        .catch(() => {})
+        .catch(() => {
+          if (vivo) setSinGl(true)
+        })
     }
 
     return () => {
       vivo = false
       window.clearTimeout(foco)
+      window.clearTimeout(plazo)
       escena.current?.parar()
       escena.current = null
       html.classList.remove('intro-abierta')
@@ -177,7 +189,39 @@ export default function Bienvenida() {
               <span className={s.pista}>o desliza el mouse sobre el panel</span>
             </div>
           </div>
-          <div aria-hidden="true" />
+          {sinGl ? (
+            <div className={s.escenaCss} aria-hidden="true">
+              <div className={s.rig}>
+                <div className={s.mon}>
+                  <div className={s.screen}>
+                    <div className={s.side}>
+                      {/* eslint-disable-next-line @next/next/no-img-element -- logo chico */}
+                      <img src="/brand/hh-logo-blanco.png" alt="" width={480} height={299} />
+                      <span className={s.on}>Agenda</span><span>Clientes</span><span>Métricas</span><span>Servicios</span>
+                    </div>
+                    <div className={s.main}>
+                      <div className={s.tt}>Hoy<small>agendAHH · panel</small></div>
+                      <div className={s.mets}>
+                        <div className={s.met}><b>12</b><span>reservas hoy</span></div>
+                        <div className={s.met}><b>3</b><span>clientes nuevos</span></div>
+                        <div className={s.met}><b>78%</b><span>agenda ocupada</span></div>
+                      </div>
+                      <div className={s.agenda}>
+                        <div className={s.fila}><time>10:00</time><span>Corte clásico <i>· Diego</i></span><em>Confirmada</em></div>
+                        <div className={s.fila}><time>10:45</time><span>Corte y barba <i>· Luis</i></span><em>Confirmada</em></div>
+                        <div className={s.fila}><time>11:45</time><span>Limpieza facial <i>· Ana</i></span><em>Nueva</em></div>
+                        <div className={s.fila}><time>12:30</time><span>Masaje relajante <i>· Sofi</i></span><em>Confirmada</em></div>
+                      </div>
+                      <span className={s.eg}>Vista de ejemplo</span>
+                    </div>
+                  </div>
+                </div>
+                <div className={s.neck} /><div className={s.pie} />
+              </div>
+            </div>
+          ) : (
+            <div aria-hidden="true" />
+          )}
         </div>
       </div>
     </>

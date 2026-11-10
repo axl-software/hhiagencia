@@ -25,8 +25,7 @@
   mask-image: radial-gradient(80% 70% at 60% 50%, #000, transparent 85%);
   opacity: 0.5;
 }
-.canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; display: block; opacity: 0; transition: opacity 0.8s ease; }
-.conGl .canvas { opacity: 1; }
+.canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 1; display: block; }
 .saliendo { opacity: 0; visibility: hidden; transition: opacity 0.7s ease, visibility 0s linear 0.7s; }
 .zoom .copy, .zoom .top { transition: opacity 0.5s ease, transform 0.6s ease; opacity: 0; transform: translateY(-20px); pointer-events: none; }
 
@@ -61,5 +60,35 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .pwi, .entra { animation: none; }
-  .intro, .saliendo, .canvas { transition: none; }
+  .intro, .saliendo { transition: none; }
 }
+
+/* ---------- respaldo: monitor en CSS 3D, sin WebGL (equipos sin aceleración gráfica o si la escena no carga a tiempo) ---------- */
+.escenaCss { position: relative; z-index: 2; perspective: 1800px; display: grid; place-items: center; min-height: min(60vh, 560px); }
+.rig { position: relative; width: min(100%, 640px); transform: rotateY(-16deg) rotateX(6deg); animation: flota 7s ease-in-out infinite; }
+@keyframes flota { 0%, 100% { translate: 0 0; } 50% { translate: 0 -12px; } }
+.mon { position: relative; aspect-ratio: 16 / 10; padding: 12px; background: linear-gradient(160deg, #1b2442, #0c1226); border: 1px solid rgba(248, 250, 252, 0.22); border-radius: 14px; box-shadow: 0 60px 90px -30px rgba(0, 0, 0, 0.8), 0 0 90px -10px rgba(215, 38, 61, 0.35); }
+.screen { position: relative; height: 100%; border-radius: 6px; overflow: hidden; background: #f2f6fc; color: #0b1020; display: grid; grid-template-columns: 22% 1fr; font-family: var(--f-body); }
+.side { background: #0b1020; color: #c8d2e8; padding: 12px 10px; display: grid; align-content: start; gap: 8px; font-size: clamp(8px, 1vw, 11px); }
+.side img { width: 70%; margin-bottom: 6px; }
+.side span { padding: 6px 8px; border-radius: 5px; }
+.side span.on { background: rgba(215, 38, 61, 0.9); color: #fff; }
+.main { padding: 12px 14px; display: grid; grid-template-rows: auto auto 1fr; gap: 10px; min-width: 0; }
+.tt { display: flex; justify-content: space-between; align-items: center; font-size: clamp(9px, 1.1vw, 13px); font-weight: 700; }
+.tt small { font: 600 clamp(7px, 0.8vw, 9px) / 1 var(--f-mono); letter-spacing: 0.1em; color: #5c5d64; text-transform: uppercase; }
+.mets { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.met { background: #fff; border: 1px solid rgba(11, 16, 32, 0.1); padding: 7px 9px; }
+.met b { display: block; font-family: var(--f-precio); font-size: clamp(12px, 1.7vw, 20px); letter-spacing: -0.03em; }
+.met span { font-size: clamp(6.5px, 0.8vw, 9px); color: #5c5d64; }
+.agenda { display: grid; gap: 6px; align-content: start; }
+.fila { display: grid; grid-template-columns: auto 1fr auto; gap: 8px; align-items: center; background: #fff; border: 1px solid rgba(11, 16, 32, 0.1); padding: 6px 9px; font-size: clamp(7.5px, 0.95vw, 11px); opacity: 0; transform: translateX(14px); animation: filaIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+.fila:nth-child(1) { animation-delay: 0.9s; } .fila:nth-child(2) { animation-delay: 1.25s; } .fila:nth-child(3) { animation-delay: 1.6s; } .fila:nth-child(4) { animation-delay: 1.95s; }
+@keyframes filaIn { to { opacity: 1; transform: none; } }
+.fila time { font: 700 clamp(7.5px, 0.95vw, 11px) / 1 var(--f-mono); background: #0b1020; color: #fff; padding: 4px 6px; }
+.fila i { font-style: normal; color: #5c5d64; }
+.fila em { font-style: normal; font-weight: 700; color: #b3192f; }
+.eg { position: absolute; right: 10px; bottom: 8px; font: 600 clamp(6.5px, 0.75vw, 9px) / 1 var(--f-mono); letter-spacing: 0.1em; text-transform: uppercase; color: #5c5d64; }
+.neck { width: 16%; height: clamp(26px, 4vw, 48px); margin: -2px auto 0; background: linear-gradient(90deg, #0c1226, #1b2442, #0c1226); }
+.pie { width: 38%; height: 12px; margin: 0 auto; border-radius: 4px 4px 18px 18px; background: linear-gradient(180deg, #232c4d, #0c1226); box-shadow: 0 30px 40px -10px rgba(0, 0, 0, 0.8); }
+@media (max-width: 900px) { .escenaCss { min-height: 0; margin-top: 10px; } .rig { width: min(92%, 520px); transform: rotateY(-8deg) rotateX(4deg); } }
+@media (prefers-reduced-motion: reduce) { .rig, .fila { animation: none; } .fila { opacity: 1; transform: none; } }

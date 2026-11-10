@@ -36,6 +36,10 @@ export type Precio = {
 export const DESCUENTO_ANUAL = 0.2
 
 export const PRECIOS: Record<string, Precio> = {
+  // cartAHH (fundadores, 2026-11-10): valores en CLP con IVA INCLUIDO (a diferencia del resto, que va + IVA). Implementacion de pago unico, sin anualidad.
+  'cart-visual': { monto: 11990, unidad: 'mes', implementacion: true, implementacionMonto: 17500 },
+  'cart-darkkitchen': { monto: 17500, unidad: 'mes', implementacion: true, implementacionMonto: 24500 },
+  'cart-experience': { monto: 29500, unidad: 'mes', implementacion: true, implementacionMonto: 35000 },
   // Web
   // Web Presentation (fundadores, 2026-11-09): $14.990/mes (anual $11.990 aprox.), implementación $29.990. Sin precio regular tachado.
   'web-presentation': { lanzamiento: 14990, unidad: 'mes', anual: true, implementacion: true, implementacionMonto: 29990 },

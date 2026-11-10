@@ -2,6 +2,12 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-11-10 — cartAHH added to the site (founders' instruction)
+- New product **cartAHH** (digital menu with QR): dedicated page `/cartahh` and a block on the home page (after Sistemas), plus a “cartAHH” item in the menu and sitemap.
+- Plans and prices (CLP, **IVA INCLUDED**, unlike the rest of the site which is + IVA): Visual $11.990/mes + $17.500 implementation; DarkKitchen $17.500/mes + $24.500; Experience $29.500/mes + $35.000. Implementation is a single payment, no annual fee. Prices live in `src/lib/precios.ts` (`cart-visual`, `cart-darkkitchen`, `cart-experience`); texts in `src/lib/cartahh.ts`.
+- Commercial details shown: no commission on orders; full setup done by HHA's team; WhatsApp orders are sent by the customer from their own device, cartAHH does not process payments. Demos use fictitious data. La Allegra (laallegra.hhiagencia.cl) is linked as the real DarkKitchen example.
+- The three announcement videos (compressed, ~1 MB each) are in `public/videos/cartahh/`.
+
 ## 2026-11-10 — Welcome: floating cards also in the CSS fallback monitor (founders' instruction)
 - On PCs where the 3D scene is slow or unavailable, the fallback monitor showed no floating cards. It now shows the same three (“Nueva reserva · 11:45”, “0 % comisión”, “Prueba 7 días gratis”), entering with the monitor.
 

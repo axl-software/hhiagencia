@@ -11,6 +11,7 @@ import MarketingBloque from '@/components/inicio/Marketing'
 import Resenas3D from '@/components/inicio/Resenas3D'
 import Preguntas from '@/components/inicio/Preguntas'
 import Sistemas from '@/components/portada/Sistemas'
+import CartAHH from '@/components/inicio/CartAHH'
 import Diferencia from '@/components/portada/Diferencia'
 import Acompanamiento from '@/components/portada/Acompanamiento'
 import Nosotros from '@/components/sections/Nosotros'
@@ -35,6 +36,7 @@ export default function Inicio() {
       <Hechos />
       <Caminos />
       <Sistemas />
+      <CartAHH />
       <Calculadora />
       <Planes />
       <Diferencia />

@@ -18,6 +18,7 @@ import MuestraWeb from './MuestraWeb'
 import { Iva, Periodo, PrecioLinea, PrecioPack, PrecioPlan, PrecioSimple, NOTA_IMPL, NOTA_IMPL_DETALLE, NOTA_PAUTA } from './Precios'
 import { Escena, VENTANAS, rubroDe } from '../portada/sistemasData'
 import m from './Servicios.module.css'
+import { Animado } from '@/components/ui/precio-animado'
 
 const pad = (n: number) => String(n).padStart(2, '0')
 /* Demo gratuita de los planes web; el plazo se edita en src/lib/config.ts → demoWeb */
@@ -585,7 +586,7 @@ function ContenidoDetalle({ detalle, anual, picked, toggle, elegirPlan, elegirPa
               <li>
                 <Wallet size={18} strokeWidth={2} aria-hidden="true" />
                 <span>
-                  <strong>Implementación: {clp(montoImpl)} (pago único)</strong> <Iva />
+                  <strong><Animado t={`Implementación: ${clp(montoImpl)} (pago único)`} /></strong> <Iva />
                   <small className={m.implDetalle}>{s?.id.startsWith('system-') ? 'Incluye configuración inicial, personalización del negocio y puesta en marcha del sistema según el alcance del plan.' : 'Incluye configuración inicial, diseño y puesta en marcha según el alcance del plan.'}</small>
                 </span>
               </li>

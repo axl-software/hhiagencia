@@ -2,6 +2,9 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-11-09 — Number animation extended to all pages (founders' instruction)
+- The rolling-number animation now also covers the order page (`/pedido`: prices, savings, subtotal, IVA, total), the free-trial page, the services page (implementation price, savings) and the plan-card notes, not only the home page.
+
 ## 2026-11-09 — Animated numbers on every price and on the panel mock-up (founders' instruction)
 - Every price on the site (home, agendAHH, services, plan cards, “desde” lines, Sistemas, Caminos, Soluciones) now uses the same rolling-number animation (`Pesos` / `Animado` in `src/components/ui/precio-animado.tsx`). Presentation stays $14.990/mes; its annual price is calculated by `anualDe`.
 - The agendAHH panel mock-up (12 reservas, 3 clientes, 78 %, and the appointment times) rolls its digits when it appears.

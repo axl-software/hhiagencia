@@ -109,9 +109,9 @@ export function PrecioPack({ id }: { id: string }) {
         <span>{soloAcompanamiento ? 'Acompañamiento sin pack' : 'Valor por separado'}</span>
       </p>
       <p className={m.ahorro}>
-        {unico ? `Ahorras ${clp(p.ahorro)}` : soloAcompanamiento ? `Ahorras ${clp(p.ahorro)} al mes en acompañamiento` : `Ahorras ${clp(p.ahorro)} cada mes`}
+        <Animado t={unico ? `Ahorras ${clp(p.ahorro)}` : soloAcompanamiento ? `Ahorras ${clp(p.ahorro)} al mes en acompañamiento` : `Ahorras ${clp(p.ahorro)} cada mes`} />
       </p>
-      {p.ahorroAnual ? <p className={m.ahorroAnual}>{soloAcompanamiento ? `Son ${clp(p.ahorroAnual)} al año` : `Ahorras hasta ${clp(p.ahorroAnual)} al año`}</p> : null}
+      {p.ahorroAnual ? <p className={m.ahorroAnual}><Animado t={soloAcompanamiento ? `Son ${clp(p.ahorroAnual)} al año` : `Ahorras hasta ${clp(p.ahorroAnual)} al año`} /></p> : null}
     </div>
   )
 }

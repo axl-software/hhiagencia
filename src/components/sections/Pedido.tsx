@@ -16,6 +16,7 @@ import AvisoFalta from '../AvisoFalta'
 import RespuestaSolicitud, { type Resultado } from '../RespuestaSolicitud'
 import { CONFIG } from '@/lib/config'
 import m from './Pedido.module.css'
+import { Animado } from '@/components/ui/precio-animado'
 
 const TIPO: Record<Linea['tipo'], string> = { plan: 'Plan', servicio: 'Servicio', pack: 'Pack' }
 
@@ -33,11 +34,11 @@ function ItemPedido({ l, rubro }: { l: Linea; rubro: string }) {
         <button type="button" className={m.quitar} onClick={() => quitar(l.id)} aria-label={`Quitar ${l.nombre} del pedido`}>Quitar</button>
       </div>
 
-      {l.hoy !== null && <p className={m.precio}>{dinero(l.hoy)}<small>{unidad} <Iva /></small></p>}
-      {l.desde && l.montoDesde !== null && <p className={m.precio}><small>Desde </small>{dinero(l.montoDesde)}<small>{l.unidadRecurrente ? ` / ${l.unidadRecurrente}` : ''} <Iva /></small></p>}
+      {l.hoy !== null && <p className={m.precio}><Animado t={dinero(l.hoy)} /><small>{unidad} <Iva /></small></p>}
+      {l.desde && l.montoDesde !== null && <p className={m.precio}><small>Desde </small><Animado t={dinero(l.montoDesde)} /><small>{l.unidadRecurrente ? ` / ${l.unidadRecurrente}` : ''} <Iva /></small></p>}
       {l.esAnual && <p className={m.sub}>Plan anual: 12 meses por adelantado.</p>}
-      {l.ahorroAnual !== null && <p className={m.ahorro}>Ahorras {dinero(l.ahorroAnual)} al año</p>}
-      {l.implementacion !== null && <p className={m.sub}>+ Implementación (pago único): <strong>{dinero(l.implementacion)}</strong> <Iva /></p>}
+      {l.ahorroAnual !== null && <p className={m.ahorro}>Ahorras <Animado t={dinero(l.ahorroAnual)} /> al año</p>}
+      {l.implementacion !== null && <p className={m.sub}>+ Implementación (pago único): <strong><Animado t={dinero(l.implementacion)} /></strong> <Iva /></p>}
       {l.implementacionPorCotizar && <p className={m.sub}>+ Costo de implementación (pago único): se informa en tu cotización.</p>}
       {l.desde && <p className={m.sub}>El valor final se confirma contigo antes de pagar.</p>}
       {l.incluye.length > 0 && <p className={m.sub}><strong>Incluye:</strong> {l.incluye.join(' · ')}</p>}
@@ -191,20 +192,20 @@ export default function Pedido({ as = 'h1' }: { as?: Level }) {
                 <div className={m.total} aria-live="polite">
                   <div className={m.totalFila}>
                     <span>Primer pago{res.hayPorCotizar ? ' (sin lo que se cotiza)' : ''}, con IVA</span>
-                    <strong>{dinero(res.hoyConIva)}</strong>
+                    <strong><Animado t={dinero(res.hoyConIva)} /></strong>
                   </div>
-                  <small>{dinero(res.hoyNeto)} + IVA ({dinero(res.iva)})</small>
-                  {res.cadaMes > 0 && <small>Después, cada mes: {dinero(res.cadaMes)} + IVA.</small>}
+                  <small><Animado t={dinero(res.hoyNeto)} /> + IVA (<Animado t={dinero(res.iva)} />)</small>
+                  {res.cadaMes > 0 && <small>Después, cada mes: <Animado t={dinero(res.cadaMes)} /> + IVA.</small>}
                   {res.hayPorCotizar && <small>Hay servicios con valor &quot;desde&quot; o con implementación por cotizar: su monto final se confirma contigo y no está en este total.</small>}
                   <details>
                     <summary>Ver el detalle</summary>
                     <div className={m.detalle}>
                       {res.lineas.map((l) => (
-                        <div key={l.id}><span>{l.nombre}{l.esAnual ? ' (anual)' : ''}</span><b>{l.hoy !== null ? dinero(l.hoy) : l.montoDesde !== null ? `desde ${dinero(l.montoDesde)}` : 'a cotizar'}</b></div>
+                        <div key={l.id}><span>{l.nombre}{l.esAnual ? ' (anual)' : ''}</span><b>{l.hoy !== null ? dinero(l.hoy) : l.montoDesde !== null ? `desde $<Animado t={dinero(l.montoDesde)} />` : 'a cotizar'}</b></div>
                       ))}
-                      {implTotal > 0 && <div><span>Implementación (pago único)</span><b>{dinero(implTotal)}</b></div>}
-                      <div><span>Subtotal (neto)</span><b>{dinero(res.hoyNeto)}</b></div>
-                      <div><span>IVA ({Math.round(IVA * 100)}%)</span><b>{dinero(res.iva)}</b></div>
+                      {implTotal > 0 && <div><span>Implementación (pago único)</span><b><Animado t={dinero(implTotal)} /></b></div>}
+                      <div><span>Subtotal (neto)</span><b><Animado t={dinero(res.hoyNeto)} /></b></div>
+                      <div><span>IVA ({Math.round(IVA * 100)}%)</span><b><Animado t={dinero(res.iva)} /></b></div>
                       <small>Valores en pesos chilenos (CLP). Si hay pauta publicitaria, se paga aparte en cada plataforma.</small>
                     </div>
                   </details>

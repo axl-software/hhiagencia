@@ -12,6 +12,7 @@ import { Escena, VENTANAS } from '../portada/sistemasData'
 import AvisoFalta from '../AvisoFalta'
 import RespuestaSolicitud, { type Resultado } from '../RespuestaSolicitud'
 import s from './PruebaGratis.module.css'
+import { Animado } from '@/components/ui/precio-animado'
 
 /* =========================================================
    Prueba gratis de HHA Systems. A la izquierda, el formulario: tipo de negocio, nombre del negocio, tu nombre,
@@ -101,7 +102,7 @@ export default function PruebaGratis() {
           {plan && precioPlan?.lanzamiento && (
             <p className={s.plan}>
               <strong>Elegiste {plan.nombre}.</strong>{' '}
-              Desde {clp(precioPlan.lanzamiento)}/mes + IVA{anualPlan ? `, o ${clp(anualPlan.mensual)}/mes + IVA pagando anual` : ''}. Ahora elige tu tipo de negocio y pide tu prueba gratis.
+              <Animado t={`Desde ${clp(precioPlan.lanzamiento)}/mes + IVA${anualPlan ? `, o ${clp(anualPlan.mensual)}/mes + IVA pagando anual` : ''}.`} /> Ahora elige tu tipo de negocio y pide tu prueba gratis.
             </p>
           )}
           <p className={s.lead}>

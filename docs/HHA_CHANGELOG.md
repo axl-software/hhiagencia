@@ -2,6 +2,9 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-11-10 — Allegra Pizzería added to the clients section (founders' instruction)
+- Allegra (pizzería) joins the clients cards with its logo and what it uses from HHA: cartAHH DarkKitchen (digital menu with cart and WhatsApp orders). The cartAHH page now names the real example as “Allegra Pizzería” (laallegra.hhiagencia.cl).
+
 ## 2026-11-10 — agendAHH video moved to the Sistemas block; tilted-card animation restored (founders' instruction)
 - **SUPERSEDES** the previous entry: the animated tilted card with the interface mock-up (`AgendaScroll`) is back on the home page, exactly as before, and is no longer added to `/agendahh`.
 - The explainer video now replaces the rubro cards with interface mock-ups inside the “El sistema de tu negocio, con tu marca” block (`Sistemas`). Those rubros stay on `/agendahh`.

@@ -12,6 +12,7 @@ type Tarjeta = { nombre: string; detalle: string; cuerpo: string; logo?: string 
 
 const NEGOCIOS: Tarjeta[] = [
   { nombre: 'Tamburrini', detalle: 'Barber Studio', cuerpo: 'Reservas online con agendAHH: sus clientes eligen servicio, barbero y hora desde el celular.', logo: '/clientes/tamburrini.png' },
+  { nombre: 'Allegra', detalle: 'Pizzería', cuerpo: 'Carta digital con carrito y pedidos por WhatsApp, con cartAHH DarkKitchen.', logo: '/clientes/allegra.png' },
   { nombre: 'Fanatigol', detalle: 'Tienda deportiva', cuerpo: 'Trabaja con HHA Digital Solutions.' },
   { nombre: 'JAV Ingeniería', detalle: 'Ingeniería', cuerpo: 'Trabaja con HHA Digital Solutions.' },
 ]

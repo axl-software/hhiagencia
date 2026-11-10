@@ -23,4 +23,4 @@ export const CARTAHH_PLANES = [
 export const montoCart = (id: string) => PRECIOS[id].monto ?? 0
 export const implCart = (id: string) => PRECIOS[id].implementacionMonto ?? 0
 
-export const CARTAHH_EJEMPLO = { nombre: 'La Allegra', url: 'https://laallegra.hhiagencia.cl' }
+export const CARTAHH_EJEMPLO = { nombre: 'Allegra Pizzería', url: 'https://laallegra.hhiagencia.cl' }

@@ -2,6 +2,9 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-11-09 — Web price correction: Presentation and Starter (founders' instruction)
+- The prices given earlier as “Starter” ($14.990/mes, annual $11.990, implementation $29.990) belong to **Web Presentation**. **Web Presentation is now $14.990/mes** (annual ≈ $11.990/mes) **with implementation $29.990**, no struck-through regular price. **SUPERSEDES** Presentation at $9.990 (regular $14.990). **Web Starter returns to its previous prices**: $29.990/mes (regular $39.990), implementation $129.990. This corrects the earlier entry “Web Starter price (founders, same day)”.
+
 ## 2026-11-09 — Scroll sections after the neon hero; scroll = “Entrar” in the welcome screen (founders' instruction)
 - **Welcome screen:** scrolling (mouse wheel, swipe up, Arrow Down / Page Down) now does the same as “Entrar al sitio” and “Saltar”: the camera enters the screen and the home opens. Works even if React fails (the minimal script handles it). The CSS fallback monitor also follows the mouse like the 3D one.
 - **After the neon “HHA” hero, two scroll sections (framer-motion):** (1) **agendAHH** in first place: a card with the panel (sample view) that straightens as you scroll (adapted “Container Scroll Animation”), with price, 0 % commission, 7-day trial and the CTA Probar agendAHH gratis; (2) **Páginas web**: a zoom with parallax (adapted “Zoom Parallax”) over the plan examples drawn as web pages (same sample texts as Servicios → MuestraWeb), ending with Ver planes web / Pedir mi demo gratis. With “reducir movimiento” both are static. New dependency: `framer-motion`.

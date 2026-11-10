@@ -37,9 +37,10 @@ export const DESCUENTO_ANUAL = 0.2
 
 export const PRECIOS: Record<string, Precio> = {
   // Web
-  'web-presentation': { regular: 14990, lanzamiento: 9990, unidad: 'mes', anual: true, implementacion: true, implementacionMonto: 29990 },
-  // Web Starter (fundadores, 2026-11-09): $14.990/mes (anual $11.990 aprox.), implementación $29.990. Sin precio regular tachado.
-  'web-starter': { lanzamiento: 14990, unidad: 'mes', anual: true, implementacion: true, implementacionMonto: 29990 },
+  // Web Presentation (fundadores, 2026-11-09): $14.990/mes (anual $11.990 aprox.), implementación $29.990. Sin precio regular tachado.
+  'web-presentation': { lanzamiento: 14990, unidad: 'mes', anual: true, implementacion: true, implementacionMonto: 29990 },
+  // Web Starter: se mantienen sus precios de siempre (el 2026-11-09 se confundieron con los de Presentation y se revirtió)
+  'web-starter': { regular: 39990, lanzamiento: 29990, unidad: 'mes', anual: true, implementacion: true, implementacionMonto: 129990 },
   'web-business': { regular: 64990, lanzamiento: 49990, unidad: 'mes', anual: true, implementacion: true, implementacionMonto: 390000 },
   'web-pro': { regular: 89990, lanzamiento: 69990, unidad: 'mes', anual: true, implementacion: true, implementacionMonto: 590000 },
   // HHA Systems · agendAHH (agendAHH Solo: $14.990/mes, instalación $24.990, sin precio lanzamiento ni opción anual)

@@ -4,7 +4,8 @@
 
 .hero { position: relative; }
 .stage { position: relative; display: block; min-height: 0; padding: clamp(56px, 8vw, 100px) clamp(16px, 4vw, 48px) 0; }
-.lienzo, .cards, .progreso { display: none; }
+.cards, .progreso { display: none; }
+.lienzo { display: none; }
 .copy { text-align: center; padding: 0 20px; }
 .titulo { margin: 0; font-family: var(--f-head); font-weight: 800; font-size: clamp(40px, 7.4vw, 108px); line-height: 0.98; letter-spacing: -0.05em; color: var(--tx); transition: opacity 0.3s ease; }
 .arco { background: linear-gradient(90deg, #2b5bd7, #8f7bff, #d7263d, #ff9a3a, #2b5bd7); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: brillo 6s linear infinite; }
@@ -23,7 +24,8 @@
 /* ---------- con el 3D activo ---------- */
 .activo { height: 700vh; }
 .activo .stage { position: sticky; top: 0; height: 100vh; padding: 0; overflow: hidden; background: radial-gradient(60% 55% at 50% 55%, #f6f9ff 0%, var(--bg) 62%, var(--bg2) 100%); }
-.activo .lienzo { display: block; position: absolute; inset: 0; width: 100%; height: 100%; }
+.activo .lienzo { display: block; position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transform: translateY(26px) scale(0.97); transition: opacity 1s ease, transform 1.4s cubic-bezier(0.16, 1, 0.3, 1); }
+.listo .lienzo { opacity: 1; transform: none; }
 .activo .copy { position: absolute; z-index: 10; left: 0; right: 0; top: clamp(84px, 13vh, 140px); pointer-events: none; }
 .activo .sub { display: block; }
 .activo .lista { display: none; }
@@ -57,6 +59,6 @@
   .texto { font-size: 13.5px; margin-bottom: 8px; line-height: 1.45; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .card { transition: none; }
+  .card, .activo .lienzo { transition: none; }
   .arco { animation: none; }
 }

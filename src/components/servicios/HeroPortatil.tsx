@@ -34,7 +34,9 @@ export default function HeroPortatil() {
   const escena = useRef<HTMLDivElement>(null)
   const lienzo = useRef<HTMLCanvasElement>(null)
   const barra = useRef<HTMLSpanElement>(null)
-  const [activo, setActivo] = useState(false) // el 3D funciona: se usa la secuencia con scroll
+  /* Desde el primer instante se muestra el hero final (sin saltos). Solo si el 3D no es posible se pasa a la lista corta. */
+  const [lista, setLista] = useState(false)
+  const [listo, setListo] = useState(false) // ya se dibujó el primer cuadro del 3D: el portátil entra con movimiento
   const [idx, setIdx] = useState(-1)
   const [local, setLocal] = useState(0)
   const [subOculto, setSubOculto] = useState(false)
@@ -45,7 +47,10 @@ export default function HeroPortatil() {
     const marco = escena.current
     const canvas = lienzo.current
     if (!el || !marco || !canvas) return
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const x = window.setTimeout(() => setLista(true), 0)
+      return () => window.clearTimeout(x)
+    }
     let vivo = true
     let inst: Inst | null = null
     let raf = 0
@@ -82,16 +87,19 @@ export default function HeroPortatil() {
       .then((m) => {
         if (!vivo) return
         const i = m.crearPortatil(canvas, marco)
-        if (!i) return
+        if (!i) {
+          setLista(true)
+          return
+        }
         inst = i
-        setActivo(true)
         window.addEventListener('scroll', alScroll, { passive: true })
         window.addEventListener('resize', alRedimensionar)
         /* la escena toma su tamaño final (100vh) cuando React activa el modo con scroll: se reajusta varias veces para que quede nítida */
         timers = [0, 80, 250, 700, 1500].map((ms) => window.setTimeout(() => { if (vivo) { alRedimensionar(); pintar(objetivo) } }, ms))
         window.addEventListener('load', alRedimensionar)
+        timers.push(window.setTimeout(() => { if (vivo) setListo(true) }, 160))
       })
-      .catch(() => {})
+      .catch(() => setLista(true))
     return () => {
       vivo = false
       if (raf) cancelAnimationFrame(raf)
@@ -104,11 +112,11 @@ export default function HeroPortatil() {
   }, [])
 
   return (
-    <section ref={raiz} className={`${s.hero} ${activo ? s.activo : ''}`} aria-labelledby="serv-hero-t">
+    <section ref={raiz} className={`hero-portatil ${s.hero} ${lista ? '' : s.activo} ${listo ? s.listo : ''}`} aria-labelledby="serv-hero-t">
       <div ref={escena} className={s.stage}>
         <canvas ref={lienzo} className={s.lienzo} aria-hidden="true" />
         <div className={s.copy}>
-          <h1 id="serv-hero-t" className={s.titulo} style={{ opacity: activo && titOculto ? 0 : 1 }}>Servicios <span className={s.arco}>HHA</span></h1>
+          <h1 id="serv-hero-t" className={s.titulo} style={{ opacity: !lista && titOculto ? 0 : 1 }}>Servicios <span className={s.arco}>HHA</span></h1>
           <p className={s.sub} style={{ opacity: subOculto ? 0 : 1 }} aria-hidden={subOculto}>Desliza para explorar</p>
         </div>
 
@@ -133,6 +141,9 @@ export default function HeroPortatil() {
         <div className={s.progreso} aria-hidden="true"><span ref={barra} /></div>
       </div>
 
+      <noscript>
+        <style>{'.hero-portatil{height:auto!important}.hero-portatil>div{position:relative!important;height:auto!important;padding:56px 16px 0!important}.hero-portatil canvas,.hero-portatil [aria-hidden=true]{display:none!important}.hero-portatil ul{display:grid!important}'}</style>
+      </noscript>
       {/* sin 3D (sin WebGL, sin JavaScript o "reducir movimiento"): los mismos servicios en una lista */}
       <ul className={s.lista}>
         {PASOS.map((p) => (

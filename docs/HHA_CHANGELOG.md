@@ -2,6 +2,10 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-11-10 — Servicios hero: no layout jump on entry, laptop fades in (founders' instruction)
+- Bug: on opening /servicios the page first showed the short list of services and only after the 3D loaded jumped to the full hero. Now the final hero (title, sticky stage, same height) is rendered from the first instant; the 3D laptop rises and fades in (about 1 s) as soon as it is ready. **SUPERSEDES** the “short list first” behaviour.
+- The short list now appears only if the 3D cannot run (no WebGL, error) or with “reducir movimiento”; without JavaScript a `noscript` style shows the list.
+
 ## 2026-11-10 — Servicios hero: sharp and bigger 3D laptop (founders' instruction)
 - Fixed the blurry, tiny laptop: the 3D canvas was sized before the hero reached its final 100vh height (it stayed ~200 px tall and was stretched). It now re-fits on a size observer and on several timed re-adjustments, and draws at the real screen size and pixel density.
 - The screen texture is drawn at 2560×1600 (double) so text stays sharp in close-ups.

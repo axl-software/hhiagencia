@@ -2,6 +2,12 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-11-10 — New hero on /servicios: 3D laptop with the camera spiralling (founders' instruction)
+- `/servicios` now opens with a hero (`HeroPortatil`): a 3D laptop that opens while scrolling and shows each service on its screen (agendAHH, páginas web, cartAHH, marketing, automatización e IA). The camera spirals around it and moves close to the screen at each step; a card beside it shows number, title, text, price, progress and link. Adapted from the “MacBook Neo” frame-sequence hero (21st.dev), with a model built from shapes instead of image frames (`src/components/servicios/portatil.ts`, Three.js).
+- The page's own section “Elige por dónde empezar” follows unchanged; its title level went from h1 to h2 because the hero now carries the single h1.
+- Progressive enhancement: without WebGL, without JavaScript or with “reducir movimiento”, the hero is a short list of the same five services. Prices come from `precios.ts` (agendAHH Solo and Web Presentation + IVA; cartAHH IVA included); marketing and automation say “cotización según tu caso”.
+- The shimmering “HHA” in the title comes from the pasted component and was approved by the founders on the prototype.
+
 ## 2026-11-10 — Allegra Pizzería added to the clients section (founders' instruction)
 - Allegra (pizzería) joins the clients cards with its logo and what it uses from HHA: cartAHH DarkKitchen (digital menu with cart and WhatsApp orders). The cartAHH page now names the real example as “Allegra Pizzería” (laallegra.hhiagencia.cl).
 

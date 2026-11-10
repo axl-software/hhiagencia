@@ -17,7 +17,7 @@ export default function MarketingBloque() {
             <li>Email marketing y seguimiento de resultados</li>
           </ul>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 14 }}>
-            <Link className={s.btnPlan} href="/contacto?servicios=marketing">Solicitar cotización <ArrowRight size={16} strokeWidth={2.25} aria-hidden="true" /></Link>
+            <Link className="btn-plan" href="/contacto?servicios=marketing">Solicitar cotización <ArrowRight size={16} strokeWidth={2.25} aria-hidden="true" /></Link>
             <Link className="btn btn-out" href="/marketing">Ver marketing</Link>
           </div>
         </div>

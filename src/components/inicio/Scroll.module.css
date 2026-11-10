@@ -66,23 +66,28 @@
 .baja { margin: 10px 0 0; font: 600 12px/1 var(--f-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--tx2); }
 .zoom { position: relative; height: 300vh; background: #0b1020; }
 .zoomPin { position: sticky; top: 0; height: 100vh; overflow: hidden; }
-.capa { position: absolute; top: 0; display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; will-change: transform; }
-.pic { position: relative; height: 25vh; width: 25vw; container-type: inline-size; }
+/* Nitidez: antes cada pieza era chica y se AGRANDABA con scale (el navegador estiraba una imagen ya dibujada y se veía borrosa).
+   Ahora la capa mide k veces el tamaño de la pantalla y todo se dibuja en su tamaño final; el scroll la lleva de 1/k a 1. Así el
+   texto y los bordes terminan en tamaño real, sin estirarse. --k lo pone ZoomParallax.tsx; --w, --h, --t y --l son tamaño y posición
+   de cada pieza (en vw y vh) cuando termina el zoom dividido por k, es decir, los valores del diseño original. */
+.capa { --k: 4; position: absolute; top: 50%; left: 50%; width: calc(100% * var(--k)); height: calc(100% * var(--k)); translate: -50% -50%; display: flex; align-items: center; justify-content: center; pointer-events: none; }
+.pic { position: relative; width: calc(var(--w, 25vw) * var(--k)); height: calc(var(--h, 25vh) * var(--k)); top: calc(var(--t, 0vh) * var(--k)); left: calc(var(--l, 0vw) * var(--k)); container-type: inline-size; }
 .pic img { display: block; width: 100%; height: 100%; object-fit: cover; box-shadow: 0 20px 60px -20px rgba(0, 0, 0, 0.7); }
-.p1 .pic { top: -30vh; left: 5vw; height: 30vh; width: 35vw; }
-.p2 .pic { top: -10vh; left: -25vw; height: 45vh; width: 20vw; }
-.p3 .pic { left: 27.5vw; height: 25vh; width: 25vw; }
-.p4 .pic { top: 27.5vh; left: 5vw; height: 25vh; width: 20vw; }
-.p5 .pic { top: 27.5vh; left: -22.5vw; height: 25vh; width: 30vw; }
-.p6 .pic { top: 22.5vh; left: 25vw; height: 15vh; width: 15vw; }
+.p0 { --w: 25vw; --h: 25vh; }
+.p1 { --w: 35vw; --h: 30vh; --t: -30vh; --l: 5vw; }
+.p2 { --w: 20vw; --h: 45vh; --t: -10vh; --l: -25vw; }
+.p3 { --w: 25vw; --h: 25vh; --l: 27.5vw; }
+.p4 { --w: 20vw; --h: 25vh; --t: 27.5vh; --l: 5vw; }
+.p5 { --w: 30vw; --h: 25vh; --t: 27.5vh; --l: -22.5vw; }
+.p6 { --w: 15vw; --h: 15vh; --t: 22.5vh; --l: 25vw; }
 @media (max-width: 700px) {
-  .pic { height: 28vh; width: 52vw; }
-  .p1 .pic { top: -27vh; left: 4vw; height: 22vh; width: 42vw; }
-  .p2 .pic { top: -8vh; left: -30vw; height: 30vh; width: 30vw; }
-  .p3 .pic { left: 24vw; height: 20vh; width: 34vw; }
-  .p4 .pic { top: 26vh; left: 4vw; height: 20vh; width: 30vw; }
-  .p5 .pic { top: 26vh; left: -26vw; height: 20vh; width: 36vw; }
-  .p6 .pic { top: 21vh; left: 22vw; height: 14vh; width: 24vw; }
+  .p0 { --w: 52vw; --h: 28vh; }
+  .p1 { --w: 42vw; --h: 22vh; --t: -27vh; --l: 4vw; }
+  .p2 { --w: 30vw; --h: 30vh; --t: -8vh; --l: -30vw; }
+  .p3 { --w: 34vw; --h: 20vh; --l: 24vw; }
+  .p4 { --w: 30vw; --h: 20vh; --t: 26vh; --l: 4vw; }
+  .p5 { --w: 36vw; --h: 20vh; --t: 26vh; --l: -26vw; }
+  .p6 { --w: 24vw; --h: 14vh; --t: 21vh; --l: 22vw; }
 }
 .cierre { background: var(--bg); text-align: center; padding: clamp(56px, 8vw, 110px) 16px clamp(72px, 10vw, 140px); display: grid; gap: 18px; justify-items: center; }
 .cierre h3 { margin: 0; font-family: var(--f-head); font-weight: 800; font-size: clamp(28px, 4vw, 48px); line-height: 1.05; letter-spacing: -0.035em; max-width: 20ch; }

@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef } from 'react'
-import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
+import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from 'framer-motion'
 import s from './Scroll.module.css'
 
 /* Zoom con parallax al hacer scroll (adaptado de "Zoom Parallax", 21st.dev): hasta 7 imágenes, cada una crece a su ritmo mientras la
@@ -27,17 +27,26 @@ function Pieza({ img }: { img: ImagenZoom }) {
   )
 }
 
+/* Cuánto crece cada pieza en total (k). La del centro llega a ~78 % del ancho: la imagen de origen mide 1000 px, y estirarla más la
+   volvería a ver borrosa. Las de los bordes crecen más porque salen de la pantalla. */
+const K = [3.1, 4, 4.6, 4, 4.6, 5.6, 6.4]
+
+function Capa({ img, i, progreso }: { img: ImagenZoom; i: number; progreso: MotionValue<number> }) {
+  const k = K[i % K.length]
+  const escala = useTransform(progreso, [0, 1], [1 / k, 1])
+  return (
+    <motion.div style={{ scale: escala, ['--k' as string]: k }} className={`${s.capa} ${s[`p${i}`] ?? ''}`}>
+      <div className={s.pic}>
+        <Pieza img={img} />
+      </div>
+    </motion.div>
+  )
+}
+
 export function ZoomParallax({ imagenes }: { imagenes: ImagenZoom[] }) {
   const contenedor = useRef<HTMLDivElement>(null)
   const reduce = useReducedMotion()
   const { scrollYProgress } = useScroll({ target: contenedor, offset: ['start start', 'end end'] })
-
-  const e4 = useTransform(scrollYProgress, [0, 1], [1, 4])
-  const e5 = useTransform(scrollYProgress, [0, 1], [1, 5])
-  const e6 = useTransform(scrollYProgress, [0, 1], [1, 6])
-  const e8 = useTransform(scrollYProgress, [0, 1], [1, 8])
-  const e9 = useTransform(scrollYProgress, [0, 1], [1, 9])
-  const escalas = [e4, e5, e6, e5, e6, e8, e9]
 
   if (reduce) {
     return (
@@ -53,11 +62,7 @@ export function ZoomParallax({ imagenes }: { imagenes: ImagenZoom[] }) {
     <div ref={contenedor} className={s.zoom}>
       <div className={s.zoomPin}>
         {imagenes.slice(0, 7).map((img, i) => (
-          <motion.div key={i} style={{ scale: escalas[i % escalas.length] }} className={`${s.capa} ${s[`p${i}`] ?? ''}`}>
-            <div className={s.pic}>
-              <Pieza img={img} />
-            </div>
-          </motion.div>
+          <Capa key={i} img={img} i={i} progreso={scrollYProgress} />
         ))}
       </div>
     </div>

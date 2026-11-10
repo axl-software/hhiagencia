@@ -53,7 +53,7 @@ export default function Planes() {
           const enDefinicion = id === 'system-pro'
           const href = vista === 'sistemas' ? (enDefinicion ? '/contacto?servicios=hha-systems' : `/prueba-gratis?plan=${id}`) : `/contacto?servicios=${id}`
           const etiqueta = vista === 'sistemas' ? (enDefinicion ? 'Consultar plan Pro' : `Probar ${corto} gratis`) : 'Pedir mi demo gratis'
-          const Boton = plan.destacado ? 'btn-vivo' : s.btnPlan
+          const Boton = plan.destacado ? 'btn-vivo' : 'btn-plan'
           return (
             <li key={id} data-reveal style={{ '--d': `${n * 0.08}s` } as React.CSSProperties}>
               <article className={`${s.plan} ${plan.destacado ? s.rec : ''} ${enDefinicion ? s.soon : ''}`}>

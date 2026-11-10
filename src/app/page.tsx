@@ -8,7 +8,7 @@ import Caminos from '@/components/inicio/Caminos'
 import Calculadora from '@/components/inicio/Calculadora'
 import Planes from '@/components/inicio/Planes'
 import MarketingBloque from '@/components/inicio/Marketing'
-import Confianza from '@/components/inicio/Confianza'
+import Resenas3D from '@/components/inicio/Resenas3D'
 import Preguntas from '@/components/inicio/Preguntas'
 import Sistemas from '@/components/portada/Sistemas'
 import Diferencia from '@/components/portada/Diferencia'
@@ -39,7 +39,7 @@ export default function Inicio() {
       <Planes />
       <Diferencia />
       <MarketingBloque />
-      <Confianza />
+      <Resenas3D />
       <Acompanamiento />
       <Equipo />
       <Nosotros />

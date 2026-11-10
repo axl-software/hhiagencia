@@ -846,3 +846,62 @@ input[aria-invalid="true"]{border-color:var(--red);box-shadow:0 0 0 1px var(--re
 
 /* Bienvenida del inicio abierta (la marca el script mínimo de Bienvenida.tsx): la página de atrás no se desplaza */
 html.intro-on,html.intro-on body{overflow:hidden}
+
+/* =========================================================
+   BOTONES DE VIDRIO LÍQUIDO (fundadores, 2026-11-09). Adaptado de "Liquid Glass Button" (21st.dev): fondo translúcido, bordes de luz
+   con sombras internas y, en navegadores que lo soportan (Chrome, Edge), una distorsión del fondo con el filtro SVG #container-glass
+   (LiquidGlassFilter en layout.tsx). Sin ese soporte se ve igual, con el desenfoque simple. Va al FINAL del archivo a propósito:
+   reemplaza el estilo anterior de estos botones (rojo 3D con brillo). Aplica a los botones útiles: .btn-vivo, .btn-vivo-sm, .btn-red,
+   .btn-out, .btn-white y .btn-plan; los chips y selectores no cambian.
+   ========================================================= */
+.btn-vivo,.btn-vivo-sm,.btn-red,.btn-out,.btn-white,.btn-plan{
+  position:relative;isolation:isolate;overflow:hidden;border:0;border-radius:999px;animation:none;
+  -webkit-backdrop-filter:blur(8px) saturate(1.4);backdrop-filter:blur(8px) saturate(1.4);
+  backdrop-filter:url(#container-glass) blur(1px);
+  transition:transform .35s cubic-bezier(.34,1.56,.64,1),filter .25s ease,box-shadow .3s ease,background-color .25s ease,color .25s ease
+}
+.btn-vivo::before,.btn-vivo-sm::before{content:none;animation:none}
+/* rojo: vidrio rojo con luz arriba a la izquierda */
+.btn-vivo,.btn-vivo-sm,.btn-red{
+  color:#fff;text-shadow:0 1px 1px rgba(0,0,0,.28);
+  background:linear-gradient(180deg,rgba(243,92,110,.86) 0%,rgba(208,34,58,.9) 55%,rgba(160,22,42,.93) 100%);
+  box-shadow:0 0 6px rgba(0,0,0,.03),0 2px 6px rgba(0,0,0,.1),inset 3px 3px .5px -3px rgba(255,255,255,.95),inset -3px -3px .5px -3px rgba(0,0,0,.5),inset 1px 1px 1px -.5px rgba(255,255,255,.7),inset -1px -1px 1px -.5px rgba(0,0,0,.4),inset 0 0 6px 6px rgba(255,255,255,.12),inset 0 0 2px 2px rgba(255,255,255,.08),0 14px 30px -12px rgba(215,38,61,.7)
+}
+.btn-vivo:hover,.btn-vivo-sm:hover,.btn-red:hover{
+  transform:translateY(-3px) scale(1.05);filter:brightness(1.08) saturate(1.1);color:#fff;
+  background:linear-gradient(180deg,rgba(243,92,110,.86) 0%,rgba(208,34,58,.9) 55%,rgba(160,22,42,.93) 100%);
+  box-shadow:0 0 8px rgba(0,0,0,.04),0 4px 10px rgba(0,0,0,.12),inset 3px 3px .5px -3px rgba(255,255,255,.95),inset -3px -3px .5px -3px rgba(0,0,0,.5),inset 1px 1px 1px -.5px rgba(255,255,255,.75),inset -1px -1px 1px -.5px rgba(0,0,0,.4),inset 0 0 6px 6px rgba(255,255,255,.16),inset 0 0 2px 2px rgba(255,255,255,.1),0 20px 38px -12px rgba(215,38,61,.8)
+}
+.btn-vivo:active,.btn-vivo-sm:active,.btn-red:active{transform:translateY(1px) scale(.98);filter:brightness(.96);transition-duration:.1s}
+/* contorno: vidrio claro con bordes de sombra (variante clara del original) */
+.btn-out{
+  color:var(--tx);background:rgba(255,255,255,.34);
+  box-shadow:0 0 6px rgba(0,0,0,.03),0 2px 6px rgba(0,0,0,.08),inset 3px 3px .5px -3px rgba(0,0,0,.5),inset -3px -3px .5px -3px rgba(0,0,0,.45),inset 1px 1px 1px -.5px rgba(0,0,0,.35),inset -1px -1px 1px -.5px rgba(0,0,0,.35),inset 0 0 6px 6px rgba(255,255,255,.4),inset 0 0 2px 2px rgba(255,255,255,.3),0 0 12px rgba(255,255,255,.15)
+}
+.btn-out:hover{transform:translateY(-3px) scale(1.05);background:rgba(255,255,255,.58);color:var(--tx);border-color:transparent}
+.btn-out:active{transform:translateY(1px) scale(.98);transition-duration:.1s}
+/* blanco: sobre la banda roja y los fondos oscuros */
+.btn-white{
+  color:#05070A;background:rgba(248,250,252,.9);
+  box-shadow:0 0 6px rgba(0,0,0,.03),0 2px 6px rgba(0,0,0,.1),inset 3px 3px .5px -3px rgba(0,0,0,.35),inset -3px -3px .5px -3px rgba(0,0,0,.3),inset 1px 1px 1px -.5px rgba(0,0,0,.25),inset -1px -1px 1px -.5px rgba(0,0,0,.25),inset 0 0 6px 6px rgba(255,255,255,.5),inset 0 0 2px 2px rgba(255,255,255,.4),0 12px 28px -12px rgba(0,0,0,.45)
+}
+.btn-white:hover{transform:translateY(-3px) scale(1.05);color:var(--red);background:rgba(255,255,255,.97)}
+.btn-white:active{transform:translateY(1px) scale(.98);transition-duration:.1s}
+/* oscuro: el botón de los planes; al pasar el mouse se vuelve vidrio rojo */
+.btn-plan{
+  color:#f8fafc;background:linear-gradient(180deg,rgba(40,52,88,.9) 0%,rgba(11,16,32,.94) 100%);
+  box-shadow:0 0 6px rgba(0,0,0,.03),0 2px 6px rgba(0,0,0,.12),inset 3px 3px .5px -3px rgba(255,255,255,.6),inset -3px -3px .5px -3px rgba(255,255,255,.35),inset 1px 1px 1px -.5px rgba(255,255,255,.4),inset -1px -1px 1px -.5px rgba(255,255,255,.3),inset 0 0 6px 6px rgba(255,255,255,.08),inset 0 0 2px 2px rgba(255,255,255,.05),0 10px 24px -12px rgba(11,16,32,.7)
+}
+.btn-plan:hover{
+  transform:translateY(-3px) scale(1.05);color:#fff;
+  background:linear-gradient(180deg,rgba(243,92,110,.86) 0%,rgba(208,34,58,.9) 55%,rgba(160,22,42,.93) 100%);
+  box-shadow:0 0 8px rgba(0,0,0,.04),0 4px 10px rgba(0,0,0,.12),inset 3px 3px .5px -3px rgba(255,255,255,.95),inset -3px -3px .5px -3px rgba(0,0,0,.5),inset 1px 1px 1px -.5px rgba(255,255,255,.75),inset -1px -1px 1px -.5px rgba(0,0,0,.4),inset 0 0 6px 6px rgba(255,255,255,.16),inset 0 0 2px 2px rgba(255,255,255,.1),0 18px 34px -12px rgba(215,38,61,.75)
+}
+.btn-plan:active{transform:translateY(1px) scale(.98);transition-duration:.1s}
+.btn-vivo:focus-visible,.btn-vivo-sm:focus-visible,.btn-red:focus-visible,.btn-out:focus-visible,.btn-white:focus-visible,.btn-plan:focus-visible{outline:2px solid var(--tx);outline-offset:4px}
+@media (prefers-reduced-motion:reduce){
+  .btn-vivo,.btn-vivo-sm,.btn-red,.btn-out,.btn-white,.btn-plan{transition:none}
+  .btn-vivo:hover,.btn-vivo-sm:hover,.btn-red:hover,.btn-out:hover,.btn-white:hover,.btn-plan:hover{transform:none}
+}
+
+.btn-plan{min-height:52px;justify-content:center;text-decoration:none}

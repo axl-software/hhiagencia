@@ -1,0 +1,57 @@
+/* Pie cinematográfico. Azul noche con brillo rojo y azul (colores de marca, iguales en los dos tonos). Efecto cortina: el pie es fijo y
+   queda tapado por la página; la .cortina recorta (clip-path) para que solo se vea dentro de su caja. --p (0 a 1) lo pone Footer.tsx. */
+.cortina { --p: 1; position: relative; width: 100%; height: 100svh; clip-path: polygon(0% 0, 100% 0%, 100% 100%, 0 100%); }
+.pie { position: fixed; bottom: 0; left: 0; width: 100%; height: 100svh; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; background: #0b1020; color: #f8fafc; isolation: isolate; }
+
+.aurora { position: absolute; z-index: 0; left: 50%; top: 50%; width: 80vw; height: 60vh; translate: -50% -50%; border-radius: 50%; filter: blur(80px); pointer-events: none; background: radial-gradient(circle at 50% 50%, rgba(215, 38, 61, 0.28) 0%, rgba(43, 91, 215, 0.2) 40%, transparent 70%); animation: respira 8s ease-in-out infinite alternate; }
+@keyframes respira { 0% { transform: scale(1); opacity: 0.6; } 100% { transform: scale(1.1); opacity: 1; } }
+.rejilla { position: absolute; inset: 0; z-index: 0; pointer-events: none; background-size: 60px 60px; background-image: linear-gradient(to right, rgba(248, 250, 252, 0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(248, 250, 252, 0.04) 1px, transparent 1px); mask-image: linear-gradient(to bottom, transparent, #000 30%, #000 70%, transparent); -webkit-mask-image: linear-gradient(to bottom, transparent, #000 30%, #000 70%, transparent); }
+.gigante { position: absolute; z-index: 0; left: 50%; bottom: -5vh; translate: -50% 0; white-space: nowrap; user-select: none; pointer-events: none; font-family: var(--f-head); font-size: 30vw; font-weight: 900; line-height: 0.75; letter-spacing: -0.05em; color: rgba(248, 250, 252, 0.03); -webkit-text-stroke: 1px rgba(248, 250, 252, 0.1); }
+
+.cinta { position: absolute; z-index: 1; top: 3rem; left: 0; width: 100%; overflow: hidden; border-block: 1px solid rgba(248, 250, 252, 0.12); background: rgba(11, 16, 32, 0.6); backdrop-filter: blur(10px); padding: 14px 0; transform: rotate(-2deg) scale(1.1); box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.6); }
+.cintaPista { display: flex; width: max-content; animation: cinta 40s linear infinite; font: 700 12px/1 var(--f-body); letter-spacing: 0.3em; text-transform: uppercase; color: #aeb8cb; }
+.cintaBloque { display: flex; align-items: center; flex: none; }
+.cintaBloque span { display: inline-flex; align-items: center; padding-left: 28px; white-space: nowrap; }
+.cintaBloque i { margin-left: 28px; font-style: normal; color: #ff5a6d; }
+@keyframes cinta { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+.centro { position: relative; z-index: 2; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: clamp(16px, 2.4vh, 28px); width: 100%; max-width: 64rem; margin: 5rem auto 0; padding: 0 24px; text-align: center; }
+.titulo { margin: 0; font-family: var(--f-head); font-weight: 900; font-size: clamp(40px, 7.2vw, 104px); line-height: 1; letter-spacing: -0.045em; color: #f8fafc; text-shadow: 0 0 30px rgba(248, 250, 252, 0.18); }
+.sub { margin: 12px auto 0; max-width: 52ch; color: #c8d2e8; font-size: clamp(15px, 1.4vw, 18px); line-height: 1.55; }
+.ctas, .links { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; perspective: 800px; }
+.links { gap: 10px; }
+.mag { display: inline-block; will-change: transform; }
+.pill { display: inline-flex; align-items: center; justify-content: center; min-height: 56px; padding: 0 28px; border-radius: 999px; color: #f8fafc; font: 700 15px/1 var(--f-body); text-decoration: none; background: linear-gradient(145deg, rgba(248, 250, 252, 0.1) 0%, rgba(248, 250, 252, 0.03) 100%); border: 1px solid rgba(248, 250, 252, 0.16); box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(248, 250, 252, 0.18), inset 0 -1px 2px rgba(0, 0, 0, 0.4); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); transition: background 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s, box-shadow 0.4s; }
+.pill:hover { background: linear-gradient(145deg, rgba(248, 250, 252, 0.2) 0%, rgba(248, 250, 252, 0.06) 100%); border-color: rgba(248, 250, 252, 0.4); box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(248, 250, 252, 0.3); }
+.pill:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+.chico { min-height: 44px; padding: 0 20px; font-size: 13px; font-weight: 600; color: #c8d2e8; }
+
+.base { position: relative; z-index: 3; display: grid; grid-template-columns: 1.3fr 1fr auto; align-items: center; gap: 18px 32px; padding: 0 clamp(18px, 4vw, 48px) 26px; font-size: 12.5px; color: #93a0bd; }
+.datos { display: grid; gap: 4px; }
+.contacto { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 18px; }
+.contacto a { color: #dfe6f6; text-decoration: none; }
+.contacto a:hover { text-decoration: underline; }
+.legal { display: flex; align-items: center; gap: 14px; justify-content: flex-end; }
+.legal nav { display: flex; flex-wrap: wrap; gap: 6px 14px; }
+.legal a { color: #93a0bd; text-decoration: none; }
+.legal a:hover { color: #fff; text-decoration: underline; }
+.subir { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; color: #f8fafc; cursor: pointer; background: linear-gradient(145deg, rgba(248, 250, 252, 0.1), rgba(248, 250, 252, 0.03)); border: 1px solid rgba(248, 250, 252, 0.16); transition: transform 0.3s; }
+.subir:hover { transform: translateY(-4px); }
+.subir:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+
+/* con JavaScript: el gigante sube y el contenido aparece a medida que la cortina se abre */
+.anima .gigante { opacity: calc(var(--p) * 1.4); transform: translateY(calc((1 - var(--p)) * 10vh)) scale(calc(0.8 + var(--p) * 0.2)); transform-origin: 50% 100%; }
+.anima .reveal { opacity: clamp(0, calc((var(--p) - 0.4) * 2.4), 1); transform: translateY(calc((1 - clamp(0, calc((var(--p) - 0.4) * 2.4), 1)) * 40px)); }
+
+/* pantallas bajas o angostas: pie normal, sin cortina, para que nada quede cortado */
+@media (max-width: 900px), (max-height: 760px) {
+  .cortina { height: auto; clip-path: none; }
+  .pie { position: relative; height: auto; min-height: 0; padding-top: 6.5rem; }
+  .centro { margin-top: 2rem; padding-block: 24px; }
+  .base { grid-template-columns: 1fr; padding-top: 24px; }
+  .legal { justify-content: flex-start; }
+  .gigante { font-size: 42vw; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .aurora, .cintaPista { animation: none; }
+}

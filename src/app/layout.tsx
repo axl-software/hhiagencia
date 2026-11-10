@@ -4,6 +4,7 @@ import Footer from '@/components/Footer'
 import { CONFIG } from '@/lib/config'
 import TemaScript from '@/components/TemaScript'
 import Revelar from '@/components/Revelar'
+import LiquidGlassFilter from '@/components/LiquidGlassFilter'
 import TemaRuta from '@/components/TemaRuta'
 import { Analytics } from '@vercel/analytics/next'
 import GoogleAnalytics from '@/components/GoogleAnalytics'
@@ -74,6 +75,7 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
         <TemaScript />
       </head>
       <body>
+        <LiquidGlassFilter />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(ORGANIZACION).replace(/</g, '\\u003c') }}

@@ -2,6 +2,12 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-11-09 — Liquid-glass buttons, sharp web zoom, 3D reviews section and cinematic footer (founders' instruction)
+- **Web zoom sharpness:** each piece is now drawn at its FINAL size and scaled down at the start (it used to be small and scaled UP, which stretched an already-rendered image). Text and borders end crisp; the center piece grows to ~78 % of the width because its source image is 1000 px wide.
+- **Liquid-glass buttons** (adapted “Liquid Glass Button”, 21st.dev) for the useful buttons: `.btn-vivo`, `.btn-vivo-sm`, `.btn-red`, `.btn-out`, `.btn-white`, `.btn-plan` and the hero's “Tu página web”: translucent pills with light edges and, in Chrome/Edge, a distortion of the backdrop through the SVG filter `#container-glass` (`LiquidGlassFilter` in layout). **SUPERSEDES** the 3D red button with moving shine for these buttons (chips and toggles are unchanged). Note: pill shape instead of the square corners used elsewhere, as requested.
+- **Reviews section in 3D** (adapted “3D Testimonials”, 21st.dev): vertical columns on a tilted plane. It reads from `CONFIG.resenas`; while there are no real reviews it shows the businesses that work with HHA (name and trade only, no invented quotes). **SUPERSEDES** the “Ya trabajan con nosotros” chips.
+- **Cinematic footer** (adapted “Motion Footer”, 21st.dev) on every page: curtain reveal, diagonal ribbon, “¿Listo para empezar?” with Probar agendAHH gratis / Tu página web / Solicitar cotización, site links, contact data, legal links, back to top. No GSAP; short or narrow screens get a normal footer. **SUPERSEDES** the previous footer.
+
 ## 2026-11-09 — Web price correction: Presentation and Starter (founders' instruction)
 - The prices given earlier as “Starter” ($14.990/mes, annual $11.990, implementation $29.990) belong to **Web Presentation**. **Web Presentation is now $14.990/mes** (annual ≈ $11.990/mes) **with implementation $29.990**, no struck-through regular price. **SUPERSEDES** Presentation at $9.990 (regular $14.990). **Web Starter returns to its previous prices**: $29.990/mes (regular $39.990), implementation $129.990. This corrects the earlier entry “Web Starter price (founders, same day)”.
 

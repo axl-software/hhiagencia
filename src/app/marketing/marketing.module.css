@@ -1,0 +1,12 @@
+/* Planes de Marketing: tarjetas con los tokens del sitio (tono oscuro, igual que el hero). */
+.planes { padding-top: clamp(64px, 9vw, 120px); padding-bottom: clamp(72px, 10vw, 130px); }
+.cabeza { max-width: 760px; margin-bottom: 40px; display: grid; gap: 6px; scroll-margin-top: 84px; }
+.h2 { margin: 0 0 12px; outline: none; scroll-margin-top: 84px; }
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; max-width: 920px; margin: 0; padding: 0; list-style: none; }
+.plan { display: flex; flex-direction: column; gap: 12px; height: 100%; padding: 28px 26px 26px; background: var(--bg2); border: 1px solid var(--line2); box-shadow: var(--shadow); }
+.para { font: 600 11px/1.3 var(--f-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--tx2); }
+.nombre { margin: 0; font-family: var(--f-head); font-weight: 700; font-size: clamp(26px, 2.6vw, 34px); line-height: 1.1; letter-spacing: -0.03em; }
+.precio { margin: 6px 0 0; font-family: var(--f-precio); font-weight: 700; font-size: 22px; letter-spacing: -0.02em; color: var(--tx); }
+.detalle { margin: 0 0 14px; color: var(--tx2); font-size: 15px; }
+.plan :global(.btn-plan) { margin-top: auto; align-self: flex-start; }
+@media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }

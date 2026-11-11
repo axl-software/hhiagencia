@@ -2,6 +2,13 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-11-10 — /marketing rebuilt from scratch: glass hero “Haz visible tu marca” + Visibility plans (founders' instruction)
+- **SUPERSEDES** the whole previous Marketing page (service plans, method, closing band): it was deleted. `/marketing` now has only the glass-headline hero (`GlassHeadlineHero`, 21st.dev, WebGL2; solid type over a gradient without WebGL2) with the title “Haz visible tu marca”, and the plans section below.
+- Colors (founders' request): several blues with white and a reddish brown, blended (`#0A1630`, `#A3492F`, `#9CC3FF`, `#1F4FD8`, `#FFFFFF`).
+- Both hero buttons, “Hazme visible” and “Ver planes”, go to the same place, the plans section, with a smooth scroll (instant if “reducir movimiento”) and focus on arrival.
+- Plans: **Visibility Starter** and **Visibility Business**, both Marketing + Web. Price and details are PENDING (“Precio por definir”, “Información en definición”); nothing was invented. Their button goes to /contacto.
+- The Marketing service plans (Marketing Starter/Business/Pro, etc.) still exist in `config.ts`/`precios.ts` and in the Servicios page; they were not touched.
+
 ## 2026-11-10 — Servicios hero: no layout jump on entry, laptop fades in (founders' instruction)
 - Bug: on opening /servicios the page first showed the short list of services and only after the 3D loaded jumped to the full hero. Now the final hero (title, sticky stage, same height) is rendered from the first instant; the 3D laptop rises and fades in (about 1 s) as soon as it is ready. **SUPERSEDES** the “short list first” behaviour.
 - The short list now appears only if the 3D cannot run (no WebGL, error) or with “reducir movimiento”; without JavaScript a `noscript` style shows the list.

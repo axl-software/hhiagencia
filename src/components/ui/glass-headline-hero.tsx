@@ -1,4 +1,5 @@
 /* eslint-disable */
+/* Ajuste HHA: el degradé deja ver más blanco (c2 y c4 pesan más y el pie se oscurece menos), a pedido de los fundadores. */
 "use client"
 
 import * as React from "react"
@@ -166,9 +167,9 @@ void main() {
   // set wider, the field is mostly ground and the glass has nothing to bend.
   vec3 col = u_c0;
   col = mix(col, u_c3, smoothstep(0.25, 0.72, q.x) * 0.9);
-  col = mix(col, u_c1, smoothstep(0.34, 0.74, f));
-  col = mix(col, u_c2, smoothstep(0.42, 0.8, r.y) * 0.8);
-  col = mix(col, u_c4, smoothstep(0.55, 0.9, f * r.x * 1.8) * 0.7);
+  col = mix(col, u_c1, smoothstep(0.3, 0.7, f) * 1.0);
+  col = mix(col, u_c2, smoothstep(0.34, 0.74, r.y) * 0.95);
+  col = mix(col, u_c4, smoothstep(0.4, 0.8, f * r.x * 2.0) * 0.8);
 
   float bands = 0.5 + 0.5 * sin((f * 7.0 + r.x * 3.0) * 3.14159);
   col *= mix(0.86, 1.1, smoothstep(0.2, 0.8, bands));
@@ -180,7 +181,7 @@ void main() {
 
   // Quieter toward the foot, and a soft scrim where the description and
   // buttons sit, so body copy never lands on a busy patch.
-  col *= mix(0.42, 1.0, smoothstep(0.02, 0.62, vUv.y));
+  col *= mix(0.62, 1.0, smoothstep(0.02, 0.62, vUv.y));
   vec2 s = (vUv - vec2(0.5, 0.33)) / vec2(0.32, 0.13);
   col *= 1.0 - 0.4 * exp(-dot(s, s));
   o = vec4(col, 1.0);

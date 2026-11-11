@@ -6,7 +6,7 @@ import GlassHeadlineHero from '@/components/ui/glass-headline-hero'
 /* Hero de /marketing (fundadores, 2026-11-10): "Haz visible tu marca" con el titular de vidrio. Los dos botones, "Hazme visible" y
    "Ver planes", llevan al mismo lugar: la sección de planes de más abajo, con un desplazamiento suave (sin movimiento si la persona
    pidió "reducir movimiento"). Colores (pedido de los fundadores): distintos azules con blanco y un rojizo café, bien mezclados. */
-const COLORES = ['#0A1630', '#A3492F', '#9CC3FF', '#1F4FD8', '#FFFFFF']
+const COLORES = ['#0F2354', '#B5543A', '#E3EEFF', '#2A62E0', '#FFFFFF']
 
 function irAPlanes(e: MouseEvent<HTMLElement>) {
   const destino = document.getElementById('planes')

@@ -2,6 +2,9 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-11-10 — Marketing hero: more white (founders' instruction)
+- The /marketing hero gradient shows more white: lighter ground blue and ice-blue/white accents (`#0F2354`, `#B5543A`, `#E3EEFF`, `#2A62E0`, `#FFFFFF`), and the glass component's shader gives the light colors more weight and darkens the foot less (adjustment noted in `glass-headline-hero.tsx`). **SUPERSEDES** the palette of the previous Marketing entry.
+
 ## 2026-11-10 — /marketing rebuilt from scratch: glass hero “Haz visible tu marca” + Visibility plans (founders' instruction)
 - **SUPERSEDES** the whole previous Marketing page (service plans, method, closing band): it was deleted. `/marketing` now has only the glass-headline hero (`GlassHeadlineHero`, 21st.dev, WebGL2; solid type over a gradient without WebGL2) with the title “Haz visible tu marca”, and the plans section below.
 - Colors (founders' request): several blues with white and a reddish brown, blended (`#0A1630`, `#A3492F`, `#9CC3FF`, `#1F4FD8`, `#FFFFFF`).

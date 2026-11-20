@@ -33,6 +33,25 @@
   --font-mono: "JetBrains Mono", monospace;
 }
 
+/* Nombres de color que usan los componentes de 21st.dev de wAHHllet (tarjetas colgantes y planes). Salen de los tokens del sitio. */
+@theme inline {
+  --color-background: var(--bg);
+  --color-foreground: var(--tx);
+  --color-card: #FBFDFF;
+  --color-card-foreground: var(--tx);
+  --color-muted: var(--bg2);
+  --color-muted-foreground: var(--tx2);
+  --color-border: var(--line2);
+  --color-ring: #D7263D;
+  --color-primary: #D7263D;
+  --color-chart-1: #D7263D;
+  --color-chart-2: #2B5BD7;
+  --color-chart-3: #1F95E8;
+  --color-chart-4: #8F5BFF;
+  --color-chart-5: #E8742A;
+}
+:root { --primary: #D7263D; }
+
 /* Variables del sitio. Oscuro por defecto; el claro se activa con data-theme="light",
    que pone el script de layout.tsx según el dispositivo o la elección del visitante.
    Las líneas son el gris de marca con transparencia, no colores nuevos.

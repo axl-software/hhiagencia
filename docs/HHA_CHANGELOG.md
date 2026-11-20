@@ -2,6 +2,14 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-11-19 — wAHHllet page (HHA Wallet Loyalty) with hanging cards and plans (founders' instruction)
+- New product page `/wahhllet` (menu item “wAHHllet”, sitemap, light tone). **wAHHllet** is the commercial name of **HHA Wallet Loyalty** by HHA Digital Solutions.
+- Hero: the name centered and, below it, a rail of hanging cards (`TeamLanyardRail`, 21st.dev, adapted from people to Wallet cards): four business examples labelled “Ejemplo” and, in the center, the real **HHA Partner's Club** pass with the QR covered (“QR privado”) and the customer name replaced by “HHA Admin” (`public/wahhllet/hha-partners-club.jpg`). Below the rail, the central button “Mira wAHHllet aquí” opens https://wallet.hhiagencia.cl/.
+- Prices before the footer (`PricingPlanTilt`, 21st.dev, adapted): Starter $19.990 (500 active customers, 1 branch, no stamps or rewards), Business $29.990 (1.500 customers, 2 branches, stamps and rewards), Pro desde $59.990 (5.000 customers, 3 or more branches, stamps and rewards). Monthly + IVA. Annual option = 20 % off, **paid in advance** (computed by `anualDe`: $191.900 / $287.900 / $575.900 + IVA per year). Amounts live in `src/lib/precios.ts` (`wallet-starter`, `wallet-business`, `wallet-pro`).
+- “Recomendado” is shown on Business only as a presentation choice (it is the first plan with stamps); not an approved commercial claim: change it if the founders prefer otherwise.
+- The card examples are not real clients and use plain initial avatars. Nothing about Apple/Google Wallet support or legal texts is promised on the page.
+- Technical: Tailwind color names used by the 21st.dev components were mapped to the site tokens in `globals.css` (`@theme inline`).
+
 ## 2026-11-10 — Marketing hero: more white (founders' instruction)
 - The /marketing hero gradient shows more white: lighter ground blue and ice-blue/white accents (`#0F2354`, `#B5543A`, `#E3EEFF`, `#2A62E0`, `#FFFFFF`), and the glass component's shader gives the light colors more weight and darkens the foot less (adjustment noted in `glass-headline-hero.tsx`). **SUPERSEDES** the palette of the previous Marketing entry.
 

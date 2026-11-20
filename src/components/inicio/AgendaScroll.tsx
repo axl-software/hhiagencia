@@ -63,7 +63,7 @@ export default function AgendaScroll() {
       <ContainerScroll
         titulo={
           <>
-            <p className="kicker" style={{ margin: 0 }}>AGENDAHH · HHA SYSTEMS</p>
+            <p className="kicker" style={{ margin: 0 }}><span className="ahh">agendAHH</span> · HHA SYSTEMS</p>
             <h2 id="agenda-t" className="display h2">
               Tus clientes reservan solos.
               <span className={s.grande}>Tú ves tu día.</span>

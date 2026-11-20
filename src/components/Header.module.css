@@ -50,8 +50,9 @@
   transform-origin: left;
   transition: transform 0.3s ease;
 }
-/* agendAHH se escribe siempre así (termina en AHH): no se pasa a mayúsculas */
+/* los nombres de producto (agendAHH, cartAHH, wAHHllet, Tu pAHHgina Web) se escriben siempre así: no se pasan a mayúsculas */
 .marca { text-transform: none; letter-spacing: 0.02em; }
+.link { white-space: nowrap; }
 .link:hover { color: var(--tx); }
 .link:hover::after, .link[aria-current='page']::after { transform: scaleX(1); }
 .mute { color: var(--mut); }
@@ -139,7 +140,7 @@
   .left { gap: 24px; }
   .nav { gap: 18px; }
 }
-@media (max-width: 1180px) {
+@media (max-width: 1420px) {
   .nav, .mute, .ctaDesk { display: none; }
   .burger { display: inline-flex; }
   .bar { padding: 0 20px; }

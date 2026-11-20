@@ -73,7 +73,7 @@ export default function Planes() {
                 <ul className={s.lista}>{plan.beneficios?.map((b) => <li key={b}>{b}</li>)}</ul>
                 <div className={s.acc}>
                   <Link className={Boton} href={href}>{etiqueta} <ArrowRight size={16} strokeWidth={2.25} aria-hidden="true" /></Link>
-                  <Link className={s.mas} href={vista === 'sistemas' ? '/agendahh#planes' : '/servicios#cat-web'}>Ver todo lo incluido</Link>
+                  <Link className={s.mas} href={vista === 'sistemas' ? '/agendahh#planes' : '/tu-pahhgina-web'}>Ver todo lo incluido</Link>
                 </div>
               </article>
             </li>

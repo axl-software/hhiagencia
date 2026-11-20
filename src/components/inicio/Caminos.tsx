@@ -15,7 +15,7 @@ const CAMINOS = [
     tags: ['Solo', 'Starter', 'Business', 'Pro'], precio: `${clp(desde(['system-agenda-solo']))} / mes + IVA`,
   },
   {
-    id: 'web', Icono: Monitor, nombre: 'Páginas web', href: '/servicios#cat-web', ir: 'Ver planes web →',
+    id: 'web', Icono: Monitor, nombre: 'Tu pAHHgina Web', href: '/tu-pahhgina-web', ir: 'Ver planes web →',
     texto: 'Una web profesional para presentar tu negocio, captar clientes y, si quieres, vender.',
     tags: ['Presentation', 'Starter', 'Business', 'Pro'], precio: `${clp(desde(['web-presentation']))} / mes + IVA`,
   },

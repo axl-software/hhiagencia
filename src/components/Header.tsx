@@ -77,7 +77,7 @@ export default function Header() {
             <ul className={s.nav}>
               {NAV.map((l) => (
                 <li key={l.href}>
-                  <Link className={`${s.link}${l.label === 'agendAHH' ? ` ${s.marca}` : ''}`} href={l.href} aria-current={current(l.href)}>{l.label}</Link>
+                  <Link className={`${s.link}${l.label.includes('AHH') ? ` ${s.marca}` : ''}`} href={l.href} aria-current={current(l.href)}>{l.label}</Link>
                 </li>
               ))}
             </ul>

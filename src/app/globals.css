@@ -135,6 +135,7 @@ footer .pie-lema span{font-family:var(--f-mono);font-size:12px;letter-spacing:.5
 .h1{font-size:clamp(40px,6vw,80px);line-height:1}
 .h2{font-size:clamp(32px,4.2vw,56px)}
 .mono{font-family:var(--f-mono)}
+.ahh{text-transform:none!important}
 .kicker{font-family:var(--f-mono);font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--redtx);margin-bottom:18px}
 .kicker::before{content:"";display:inline-block;width:20px;height:2px;background:var(--red);vertical-align:middle;margin-right:10px}
 .dot{width:10px;height:10px;border-radius:50%;background:var(--dot);display:inline-block;flex:none}

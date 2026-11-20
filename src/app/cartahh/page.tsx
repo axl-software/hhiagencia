@@ -15,7 +15,7 @@ export default function CartAHH() {
   return (
     <>
       <section className={`wrap ${s.hero}`} aria-labelledby="cart-t">
-        <p className="kicker">CARTAHH · CARTA DIGITAL CON QR</p>
+        <p className="kicker"><span className="ahh">cartAHH</span> · CARTA DIGITAL CON QR</p>
         <h1 id="cart-t" className={s.titulo}>¿Tu carta muestra <em>lo mejor de tu negocio?</em></h1>
         <p className={`lead ${s.lead}`}>Tus clientes escanean un código QR y abren una carta digital con fotografías, precios y descripciones. Se abre en el navegador, sin instalar aplicaciones. Nuestro equipo hace toda la configuración por ti.</p>
         <div className={s.botones}>

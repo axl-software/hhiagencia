@@ -2,6 +2,12 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-11-19 — Product names always written lowercase with AHH uppercase; new page “Tu pAHHgina Web” (founders' instruction)
+- **RULE (approved):** product/service names are always written lowercase with AHH in uppercase: agendAHH, cartAHH, wAHHllet, Tu pAHHgina Web. They are never forced to uppercase. A global class `.ahh` (`text-transform: none`) protects them inside uppercase labels; the menu, the footer ribbon and button, the small headings (kickers) and the Servicios hero card were fixed. Names in running text and in the footer ribbon now include cartAHH, wAHHllet and Tu pAHHgina Web.
+- **New page `/tu-pahhgina-web`** (“Tu pAHHgina Web”): only web development. Hero + the four web plans (Presentation, Starter, Business, Pro) with the tilt plan cards: monthly price is the launch price (regular shown when it exists), “+ costo de implementación (pago único)”, annual = −20 % paid in advance. Texts from `config.ts`, amounts from `precios.ts`. Added to the menu, sitemap and the light-tone list.
+- Links that used `/servicios#cat-web` (home hero, home paths, home plans, web zoom, footer button, services laptop hero, solutions) now go to `/tu-pahhgina-web`. The web section inside /servicios was left as it was.
+- Menu: with 8 items the full menu now shows from 1421 px up (before 1181 px); below that the hamburger menu is used. Links never wrap.
+
 ## 2026-11-19 — wAHHllet page aligned with the live Wallet site (founders' instruction)
 - **SUPERSEDES** the plans and texts of the previous wAHHllet entry. The page now matches https://wallet.hhiagencia.cl: **two plans** only — “Starter wAHHllet” ($19.990 + IVA/mes; 500 active customers, 1 branch, “Vives en la wallet de tus clientes y socios”, no stamps or rewards) and “Business Loyalty wAHHllet” ($29.990 + IVA/mes; 1.500 customers, 2 branches, “Sellos y premios para tus clientes”, geomarketing). **Pro is hidden for now** (as on the Wallet site) and its price entry was removed from `precios.ts`. The note “Las funciones de cada plan se activan según lo contratado. Los límites los controla la plataforma.” was added and the plan button reads “Quiero fidelizar”.
 - The “Recomendado” tag on Business was removed (the Wallet site does not use it).

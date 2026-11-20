@@ -32,7 +32,7 @@ export default function WebZoom() {
         <h3>Elige la web que necesita tu negocio.</h3>
         <p>Presentation, Starter, Business y Pro. Desde <Pesos valor={PRECIOS['web-presentation'].lanzamiento ?? 0} />/mes + IVA, con dominio y mantenimiento según el plan.</p>
         <div className={s.botones}>
-          <Link className="btn-vivo" href="/servicios#cat-web">
+          <Link className="btn-vivo" href="/tu-pahhgina-web">
             Ver planes web <ArrowRight size={18} strokeWidth={2.25} aria-hidden="true" />
           </Link>
           <Link className="btn btn-out" href="/contacto?servicios=web-business">Pedir mi demo gratis</Link>

@@ -114,7 +114,7 @@ export default function AgendahhPage() {
       <section className={s.hero} aria-labelledby="agendahh-titulo">
         <div className={`wrap ${s.heroGrid}`}>
           <div>
-            <p className="kicker" style={{ margin: 0 }}>HHA SYSTEMS · AGENDAHH</p>
+            <p className="kicker" style={{ margin: 0 }}>HHA SYSTEMS · <span className="ahh">agendAHH</span></p>
             <h1 id="agendahh-titulo">Tus reservas en orden. <em>Tu marca al frente.</em></h1>
             <p className={s.lead}>
               agendAHH es una agenda online con la identidad de tu negocio y un panel para organizar citas, clientes y métricas. Pensada para servicios que se atienden con hora. HHA cobra 0% de comisión por tus reservas y ventas.
@@ -203,7 +203,7 @@ export default function AgendahhPage() {
       <section className="alt" id="planes" aria-labelledby="planes-titulo">
         <div className="wrap sec">
           <div className={s.cabeza}>
-            <p className="kicker">PLANES AGENDAHH</p>
+            <p className="kicker">PLANES <span className="ahh">agendAHH</span></p>
             <h2 id="planes-titulo">Elige el plan que le corresponde a tu negocio.</h2>
             <p>Solo es para quien trabaja solo. Starter, para negocios con equipo. Business, para gestionar tu equipo, vender productos y fidelizar clientes. Cada plan suma funciones sobre el anterior.</p>
           </div>

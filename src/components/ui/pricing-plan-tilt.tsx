@@ -24,6 +24,8 @@ export interface Plan {
   yearlyTotal: number
   /** El monto es "desde". */
   from?: boolean
+  /** Línea extra bajo el precio (precio regular, implementación...). */
+  extra?: string
   features: PlanFeature[]
   popular?: boolean
   cta?: string
@@ -103,6 +105,7 @@ function PlanCard({ plan, billing, dir, currency, selected, dim, onPick }: { pla
             <span className="text-4xl font-bold tracking-tight"><Roll value={price} dir={dir} /></span>
             <span className="ml-1 text-xs text-muted-foreground">+ IVA / mes</span>
           </p>
+          {plan.extra && <p className="mt-1 text-[11px] leading-snug text-muted-foreground">{plan.extra}</p>}
           <p className="mt-1 min-h-8 text-[11px] leading-snug text-muted-foreground">
             {billing === "yearly" ? `Pagas ${currency}${clp(plan.yearlyTotal)} + IVA por adelantado, una sola vez al año (−20 %)` : "Pago mensual"}
           </p>
@@ -149,7 +152,7 @@ export function PricingPlanTilt({ plans, currency = "$", title = "Elige tu plan"
   const picked = plans.find((p) => p.id === sel) ?? null
 
   return (
-    <section aria-label={title} className={cx("relative w-full", plans.length > 2 ? "max-w-5xl" : "max-w-3xl", className)}>
+    <section aria-label={title} className={cx("relative w-full", plans.length > 3 ? "max-w-6xl" : plans.length > 2 ? "max-w-5xl" : "max-w-3xl", className)}>
       <div className="relative text-center">
         <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">{title}</h2>
         {subtitle && <p className="mt-1 text-sm text-muted-foreground">{subtitle}</p>}
@@ -168,7 +171,7 @@ export function PricingPlanTilt({ plans, currency = "$", title = "Elige tu plan"
             className="rounded-full px-3 py-1 text-xs font-semibold text-white" style={{ background: GRADIENT }}>−20 % pagando el año por adelantado</motion.span>
         </div>
       </div>
-      <ul className={cx("relative mt-9 grid items-stretch gap-4 p-0", plans.length > 2 ? "sm:grid-cols-3" : "sm:grid-cols-2")}>
+      <ul className={cx("relative mt-9 grid items-stretch gap-4 p-0", plans.length > 3 ? "sm:grid-cols-2 lg:grid-cols-4" : plans.length > 2 ? "sm:grid-cols-3" : "sm:grid-cols-2")}>
         {plans.map((p) => <PlanCard key={p.id} plan={p} billing={billing} dir={dir} currency={currency} selected={sel === p.id} dim={!!sel && sel !== p.id} onPick={() => setSel(p.id)} />)}
       </ul>
       {note && <p className="mt-5 text-center text-xs text-muted-foreground">{note}</p>}

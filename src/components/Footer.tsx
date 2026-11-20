@@ -11,7 +11,7 @@ import s from './Footer.module.css'
 /* =========================================================
    PIE DE PÁGINA CINEMATOGRÁFICO (adaptado de "Motion Footer", 21st.dev). Efecto cortina: el pie queda fijo al fondo de la pantalla y
    el contenido de la página, al terminar, se corre como una cortina y lo deja ver. Adentro: una cinta diagonal con lo que somos, el
-   cierre "¿Listo para empezar?" con los tres llamados principales (Probar agendAHH gratis, Tu página web y Solicitar cotización),
+   cierre "¿Listo para empezar?" con los tres llamados principales (Probar agendAHH gratis, Tu pAHHgina Web y Solicitar cotización),
    los enlaces del sitio, los datos de contacto y los enlaces legales. Botones magnéticos que siguen un poco al mouse.
    Cambios para HHA: sin GSAP (el efecto de scroll es una variable CSS), sin Tailwind, y datos reales de src/lib/config.ts.
    En pantallas bajas o angostas el pie es normal (sin cortina) para que nada quede cortado. Sin JavaScript o con "reducir
@@ -43,11 +43,11 @@ function Magnetico({ children }: { children: ReactNode }) {
   )
 }
 
-const CINTA = ['Digitaliza', 'Automatiza', 'Escala', '0 % de comisión', 'Trabajamos en todo Chile', 'Oficina en Viña del Mar', 'agendAHH', 'Páginas web', 'Marketing']
+const CINTA = ['Digitaliza', 'Automatiza', 'Escala', '0 % de comisión', 'Trabajamos en todo Chile', 'Oficina en Viña del Mar', 'agendAHH', 'cartAHH', 'wAHHllet', 'Tu pAHHgina Web', 'Marketing']
 const BloqueCinta = () => (
   <div className={s.cintaBloque}>
     {CINTA.map((t) => (
-      <span key={t}>{t}<i aria-hidden="true">✦</i></span>
+      <span key={t} className={t.includes('AHH') ? 'ahh' : undefined}>{t}<i aria-hidden="true">✦</i></span>
     ))}
   </div>
 )
@@ -104,7 +104,7 @@ export default function Footer() {
                 Probar agendAHH gratis <ArrowRight size={18} strokeWidth={2.25} aria-hidden="true" />
               </Link>
             </Magnetico>
-            <Magnetico><Link className={s.pill} href="/servicios#cat-web">Tu página web</Link></Magnetico>
+            <Magnetico><Link className={s.pill + ' ahh'} href="/tu-pahhgina-web">Tu pAHHgina Web</Link></Magnetico>
             <Magnetico><Link className={s.pill} href="/contacto">Solicitar cotización</Link></Magnetico>
           </div>
           <nav aria-label="Enlaces del sitio" className={`${s.links} ${s.reveal}`}>

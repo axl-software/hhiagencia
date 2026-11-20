@@ -2,6 +2,7 @@
 export const NAV = [
   { label: 'Servicios', href: '/servicios' },
   { label: 'agendAHH', href: '/agendahh' },
+  { label: 'Tu pAHHgina Web', href: '/tu-pahhgina-web' },
   { label: 'cartAHH', href: '/cartahh' },
   { label: 'wAHHllet', href: '/wahhllet' },
   { label: 'Marketing', href: '/marketing' },

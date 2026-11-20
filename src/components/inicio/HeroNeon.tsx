@@ -10,7 +10,7 @@ import { Animado } from '@/components/ui/precio-animado'
 /* =========================================================
    HERO del inicio: "HHA" en neón 3D al centro (neon.ts). Al cargar queda LIMPIO: solo las letras. Al hacer scroll hacia abajo
    el anillo se achica y sube, y aparece la información importante: titular, frase y los dos llamados principales
-   (Probar agendAHH gratis y Tu página web). El neón no gasta recursos mientras la bienvenida está abierta.
+   (Probar agendAHH gratis y Tu pAHHgina Web). El neón no gasta recursos mientras la bienvenida está abierta.
    Por defecto el hero es estático y muestra todo; el efecto de scroll (clase .activo) solo se activa cuando el neón ya
    funciona. Sin WebGL2, sin JavaScript o con "reducir movimiento" todo se ve de entrada.
    ========================================================= */
@@ -116,7 +116,7 @@ export default function HeroNeon() {
             <Link className="btn-vivo" href="/prueba-gratis">
               Probar agendAHH gratis <ArrowRight size={18} strokeWidth={2.25} aria-hidden="true" />
             </Link>
-            <Link className={s.web} href="/servicios#cat-web">Tu página web</Link>
+            <Link className={`${s.web} ahh`} href="/tu-pahhgina-web">Tu pAHHgina Web</Link>
           </div>
           <ul className={s.notas}>
             <li><b>0 %</b> de comisión por tus reservas y ventas</li>

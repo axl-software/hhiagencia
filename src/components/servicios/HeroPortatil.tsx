@@ -16,7 +16,7 @@ import s from './HeroPortatil.module.css'
    ========================================================= */
 const PASOS = [
   { color: '#D7263D', icono: '▦', etiqueta: 'agendAHH', titulo: 'Tus clientes reservan solos.', texto: 'Agenda online con tu marca, tus clientes y tus métricas en un panel propio. Prueba gratis 7 días.', precio: `Desde ${clp(PRECIOS['system-agenda-solo'].monto ?? 0)}/mes + IVA`, href: '/agendahh', link: 'Ver agendAHH' },
-  { color: '#2b5bd7', icono: '◫', etiqueta: 'Páginas web', titulo: 'Una web que presenta tu negocio.', texto: 'Presentation, Starter, Business y Pro, con dominio y mantenimiento según el plan.', precio: `Desde ${clp(PRECIOS['web-presentation'].lanzamiento ?? 0)}/mes + IVA`, href: '#cat-web', link: 'Ver planes web' },
+  { color: '#2b5bd7', icono: '◫', etiqueta: 'Tu pAHHgina Web', titulo: 'Una web que presenta tu negocio.', texto: 'Presentation, Starter, Business y Pro, con dominio y mantenimiento según el plan.', precio: `Desde ${clp(PRECIOS['web-presentation'].lanzamiento ?? 0)}/mes + IVA`, href: '/tu-pahhgina-web', link: 'Ver Tu pAHHgina Web' },
   { color: '#1f95e8', icono: '❖', etiqueta: 'cartAHH', titulo: 'Tu carta, vista como merece.', texto: 'Carta digital con QR: fotografías, precios y categorías. Con carrito y pedidos por WhatsApp si lo necesitas.', precio: `Desde ${clp(PRECIOS['cart-visual'].monto ?? 0)}/mes, IVA incluido`, href: '/cartahh', link: 'Conocer cartAHH' },
   { color: '#8f5bff', icono: '↗', etiqueta: 'Marketing', titulo: 'Más gente que te conoce.', texto: 'Contenido, captación y redes sociales para que tu negocio llegue a más clientes.', precio: 'Cotización según tu caso', href: '/marketing', link: 'Ver marketing' },
   { color: '#e8742a', icono: '⌁', etiqueta: 'Automatización e IA', titulo: 'Menos trabajo repetido.', texto: 'Integraciones y flujos que avisan, ordenan y conectan tus herramientas.', precio: 'Cotización según tu caso', href: '#cat-automatizacion', link: 'Ver automatización' },
@@ -133,7 +133,7 @@ export default function HeroPortatil() {
                 <div className={s.ticks} aria-hidden="true">
                   {PASOS.map((_, j) => <i key={j}><span style={{ transform: `scaleX(${j < idx ? 1 : j === idx ? local : 0})` }} /></i>)}
                 </div>
-                <div className={s.pie}><span className={s.etiqueta}>{p.etiqueta}</span><Link href={p.href} tabIndex={i === idx ? 0 : -1}>{p.link}</Link></div>
+                <div className={s.pie}><span className={`${s.etiqueta} ${p.etiqueta.includes('AHH') ? 'ahh' : ''}`}>{p.etiqueta}</span><Link href={p.href} tabIndex={i === idx ? 0 : -1}>{p.link}</Link></div>
               </div>
             </article>
           ))}
@@ -148,7 +148,7 @@ export default function HeroPortatil() {
       <ul className={s.lista}>
         {PASOS.map((p) => (
           <li key={p.etiqueta} style={{ '--c': p.color } as CSSProperties}>
-            <span className={s.etiqueta}>{p.etiqueta}</span>
+            <span className={`${s.etiqueta} ${p.etiqueta.includes('AHH') ? 'ahh' : ''}`}>{p.etiqueta}</span>
             <b>{p.titulo}</b>
             <span>{p.texto}</span>
             <em><Animado t={p.precio} /></em>

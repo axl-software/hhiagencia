@@ -41,7 +41,7 @@ const desdeDe = (cat: string) => {
 
 /* A dónde lleva cada tarjeta: su categoría en /servicios, o la página propia de Marketing */
 const DESTINO: Record<string, string> = {
-  web: '/servicios#cat-web',
+  web: '/tu-pahhgina-web',
   marketing: '/marketing',
   automatizacion: '/servicios#cat-automatizacion',
   ia: '/servicios#cat-ia',

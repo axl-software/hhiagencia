@@ -36,10 +36,9 @@ export type Precio = {
 export const DESCUENTO_ANUAL = 0.2
 
 export const PRECIOS: Record<string, Precio> = {
-  // wAHHllet = HHA Wallet Loyalty (fundadores, 2026-11-19): precios mensuales + IVA. Pro es "desde". La opción anual es -20% pagada por adelantado (anualDe).
+  // wAHHllet = HHA Wallet Loyalty (fundadores, 2026-11-19): precios mensuales + IVA. Pro ($59.990 desde) está oculto por ahora, igual que en wallet.hhiagencia.cl. La opción anual es -20% pagada por adelantado (anualDe).
   'wallet-starter': { lanzamiento: 19990, monto: 19990, unidad: 'mes', anual: true },
   'wallet-business': { lanzamiento: 29990, monto: 29990, unidad: 'mes', anual: true },
-  'wallet-pro': { lanzamiento: 59990, monto: 59990, unidad: 'mes', desde: true, anual: true },
   // cartAHH (fundadores, 2026-11-10): valores en CLP con IVA INCLUIDO (a diferencia del resto, que va + IVA). Implementacion de pago unico, sin anualidad.
   'cart-visual': { monto: 11990, unidad: 'mes', implementacion: true, implementacionMonto: 17500 },
   'cart-darkkitchen': { monto: 17500, unidad: 'mes', implementacion: true, implementacionMonto: 24500 },

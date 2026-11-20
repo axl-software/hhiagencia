@@ -4,7 +4,7 @@ import { ArrowRight } from 'lucide-react'
 import TeamLanyardRail, { type LanyardMember } from '@/components/ui/team-lanyard-rail'
 
 /* Hero de /wahhllet: el nombre al centro y, abajo, un riel con tarjetas colgantes. Cuatro son ejemplos de negocios (rotulados como
-   ejemplo) y en el centro va la tarjeta real "HHA Partner's Club", con el QR tapado y el nombre cambiado por "HHA Admin".
+   ejemplo) y en el centro va la tarjeta "HHA Partner's Club" (en la web de Wallet figura como Próximamente), con el QR tapado y el nombre cambiado por "HHA Admin".
    El botón lleva a la plataforma: https://wallet.hhiagencia.cl/ */
 const URL_WALLET = 'https://wallet.hhiagencia.cl/'
 
@@ -14,30 +14,30 @@ const avatar = (letra: string, fondo: string) =>
 
 const TARJETAS: LanyardMember[] = [
   {
-    id: 'barberia', name: 'Barbería Ejemplo', role: 'Tarjeta de sellos', team: 'wAHHllet · Ejemplo', tone: 2,
+    id: 'barberia', name: 'Barbería Ejemplo', role: 'Club de sellos', team: 'wAHHllet · Ejemplo', tone: 2,
     image: avatar('B', '#0B1020'), tags: ['4/10 sellos', 'Ejemplo'],
-    bio: 'Cada visita suma un sello. Al completar los 10, el cliente canjea su recompensa.',
+    bio: 'Ejemplo ilustrativo. Cada compra suma un sello; al completar la meta se crea la recompensa, con su vencimiento.',
   },
   {
-    id: 'cafe', name: 'Café Ejemplo', role: 'Tarjeta de sellos', team: 'wAHHllet · Ejemplo', tone: 5,
-    image: avatar('C', '#B5543A'), tags: ['7/10 sellos', 'Ejemplo'],
-    bio: 'El cliente guarda su tarjeta en el teléfono y el local suma el sello al escanearla.',
+    id: 'cafe', name: 'Café Ejemplo', role: 'Club de sellos', team: 'wAHHllet · Ejemplo', tone: 5,
+    image: avatar('C', '#B5543A'), tags: ['8/10 sellos', 'Café gratis'],
+    bio: 'Ejemplo ilustrativo. El cliente guarda su tarjeta en Apple Wallet y tu equipo suma el sello al escanearla.',
   },
   {
     id: 'hha', name: 'HHA Partner´s Club', role: 'HHA Admin', team: 'wAHHllet', tone: 1, drop: 10,
     image: '/brand/hh-logo-blanco.png', faceImage: '/wahhllet/hha-partners-club.jpg', hideQr: true,
-    tags: ['4/10 sellos', 'Tarjeta real'],
-    bio: 'Tarjeta real del programa de HHA. Recompensa: Partner´s Cash Reward.',
+    tags: ['4/10 sellos', 'Próximamente'],
+    bio: 'HHA Partners Club Wallet: próximamente. Vista conceptual; sus condiciones se confirmarán al lanzarlo.',
   },
   {
-    id: 'estetica', name: 'Estética Ejemplo', role: 'Tarjeta de sellos', team: 'wAHHllet · Ejemplo', tone: 4,
+    id: 'estetica', name: 'Estética Ejemplo', role: 'Club de sellos', team: 'wAHHllet · Ejemplo', tone: 4,
     image: avatar('E', '#8F5BFF'), tags: ['2/10 sellos', 'Ejemplo'],
-    bio: 'Sellos y recompensas para que tus clientas vuelvan, sin tarjetas de cartón.',
+    bio: 'Ejemplo ilustrativo. Menos cartón perdido y un motivo más para volver.',
   },
   {
-    id: 'pizzeria', name: 'Pizzería Ejemplo', role: 'Tarjeta de sellos', team: 'wAHHllet · Ejemplo', tone: 3,
+    id: 'pizzeria', name: 'Pizzería Ejemplo', role: 'Club de sellos', team: 'wAHHllet · Ejemplo', tone: 3,
     image: avatar('P', '#D7263D'), tags: ['9/10 sellos', 'Ejemplo'],
-    bio: 'La recompensa se activa al completar los sellos y el local la canjea con un toque.',
+    bio: 'Ejemplo ilustrativo. Tu equipo escanea desde el celular y confirma la compra pagada.',
   },
 ]
 
@@ -54,8 +54,8 @@ export default function HeroTarjetas() {
       <h1 id="wahhllet-t" className="display" style={{ fontSize: 'clamp(54px, 11vw, 150px)', lineHeight: 0.95, letterSpacing: '-0.045em', fontWeight: 800, margin: '4px 0 0' }}>
         w<span style={{ color: 'var(--red)' }}>AHH</span>llet
       </h1>
-      <p className="lead" style={{ margin: '18px auto 0', maxWidth: '44ch' }}>
-        La tarjeta de sellos y recompensas que tus clientes guardan en el teléfono.
+      <p className="lead" style={{ margin: '18px auto 0', maxWidth: '46ch' }}>
+        La tarjeta de sellos que tus clientes ya llevan en el teléfono. wAHHllet pone tu programa de fidelización en Apple Wallet.
       </p>
 
       <TeamLanyardRail

@@ -2,6 +2,13 @@
 
 Newest entries first. Never rewrite past entries: add a new dated entry that states what changed and what it replaces.
 
+## 2026-11-19 — wAHHllet page aligned with the live Wallet site (founders' instruction)
+- **SUPERSEDES** the plans and texts of the previous wAHHllet entry. The page now matches https://wallet.hhiagencia.cl: **two plans** only — “Starter wAHHllet” ($19.990 + IVA/mes; 500 active customers, 1 branch, “Vives en la wallet de tus clientes y socios”, no stamps or rewards) and “Business Loyalty wAHHllet” ($29.990 + IVA/mes; 1.500 customers, 2 branches, “Sellos y premios para tus clientes”, geomarketing). **Pro is hidden for now** (as on the Wallet site) and its price entry was removed from `precios.ts`. The note “Las funciones de cada plan se activan según lo contratado. Los límites los controla la plataforma.” was added and the plan button reads “Quiero fidelizar”.
+- The “Recomendado” tag on Business was removed (the Wallet site does not use it).
+- Texts: “La tarjeta de sellos que tus clientes ya llevan en el teléfono… tu programa de fidelización en Apple Wallet” (Apple Wallet is what exists today). Examples are labelled “Ejemplo ilustrativo” and use the Wallet site's wording (“Club de sellos”, Café Ejemplo 8/10, “Café gratis”).
+- The HHA Partner's Club card stays in the center as requested, but it is labelled “Próximamente” / “Vista conceptual”, as on the Wallet site, not “real”.
+- The annual option (−20 %, paid in advance) was kept because the founders asked for it; the Wallet landing does not show it yet.
+
 ## 2026-11-19 — wAHHllet page (HHA Wallet Loyalty) with hanging cards and plans (founders' instruction)
 - New product page `/wahhllet` (menu item “wAHHllet”, sitemap, light tone). **wAHHllet** is the commercial name of **HHA Wallet Loyalty** by HHA Digital Solutions.
 - Hero: the name centered and, below it, a rail of hanging cards (`TeamLanyardRail`, 21st.dev, adapted from people to Wallet cards): four business examples labelled “Ejemplo” and, in the center, the real **HHA Partner's Club** pass with the QR covered (“QR privado”) and the customer name replaced by “HHA Admin” (`public/wahhllet/hha-partners-club.jpg`). Below the rail, the central button “Mira wAHHllet aquí” opens https://wallet.hhiagencia.cl/.

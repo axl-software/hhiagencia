@@ -10,7 +10,8 @@ export default function PlanesWallet({ plans }: { plans: Plan[] }) {
       plans={plans}
       title="Planes de wAHHllet"
       subtitle="Precios mensuales, más IVA. El plan anual tiene 20 % de descuento y se paga por adelantado."
-      actionLabel={(p) => `Solicitar wAHHllet ${p.name}`}
+      note="Las funciones de cada plan se activan según lo contratado. Los límites los controla la plataforma."
+      actionLabel={() => 'Quiero fidelizar'}
       actionHref="/contacto"
     />
   )

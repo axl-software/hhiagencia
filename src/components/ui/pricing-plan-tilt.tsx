@@ -34,6 +34,8 @@ export interface PricingPlanTiltProps {
   currency?: string
   title?: string
   subtitle?: string
+  /** Nota al pie de los planes. */
+  note?: string
   defaultPlanId?: string
   /** Texto del botón principal que aparece al elegir un plan. */
   actionLabel?: (plan: Plan) => string
@@ -135,7 +137,7 @@ function PlanCard({ plan, billing, dir, currency, selected, dim, onPick }: { pla
   )
 }
 
-export function PricingPlanTilt({ plans, currency = "$", title = "Elige tu plan", subtitle, defaultPlanId, actionLabel, actionHref = "/contacto", className }: PricingPlanTiltProps) {
+export function PricingPlanTilt({ plans, currency = "$", title = "Elige tu plan", subtitle, note, defaultPlanId, actionLabel, actionHref = "/contacto", className }: PricingPlanTiltProps) {
   const reduce = useReducedMotion()
   const uid = React.useId()
   const [billing, setBilling] = React.useState<"monthly" | "yearly">("monthly")
@@ -147,7 +149,7 @@ export function PricingPlanTilt({ plans, currency = "$", title = "Elige tu plan"
   const picked = plans.find((p) => p.id === sel) ?? null
 
   return (
-    <section aria-label={title} className={cx("relative w-full max-w-5xl", className)}>
+    <section aria-label={title} className={cx("relative w-full", plans.length > 2 ? "max-w-5xl" : "max-w-3xl", className)}>
       <div className="relative text-center">
         <h2 className="text-3xl font-semibold tracking-tight md:text-4xl">{title}</h2>
         {subtitle && <p className="mt-1 text-sm text-muted-foreground">{subtitle}</p>}
@@ -166,9 +168,10 @@ export function PricingPlanTilt({ plans, currency = "$", title = "Elige tu plan"
             className="rounded-full px-3 py-1 text-xs font-semibold text-white" style={{ background: GRADIENT }}>−20 % pagando el año por adelantado</motion.span>
         </div>
       </div>
-      <ul className="relative mt-9 grid items-stretch gap-4 p-0 sm:grid-cols-3">
+      <ul className={cx("relative mt-9 grid items-stretch gap-4 p-0", plans.length > 2 ? "sm:grid-cols-3" : "sm:grid-cols-2")}>
         {plans.map((p) => <PlanCard key={p.id} plan={p} billing={billing} dir={dir} currency={currency} selected={sel === p.id} dim={!!sel && sel !== p.id} onPick={() => setSel(p.id)} />)}
       </ul>
+      {note && <p className="mt-5 text-center text-xs text-muted-foreground">{note}</p>}
       <div className="mt-8 flex min-h-12 justify-center">
         <AnimatePresence mode="wait" initial={false}>
           {picked && (

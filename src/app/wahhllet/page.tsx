@@ -5,18 +5,23 @@ import type { Plan } from '@/components/ui/pricing-plan-tilt'
 import { PRECIOS, anualDe } from '@/lib/precios'
 
 export const metadata: Metadata = {
-  title: 'wAHHllet | Tarjeta de sellos y recompensas en el teléfono',
+  title: 'wAHHllet | Tarjeta de sellos en Apple Wallet',
   alternates: { canonical: '/wahhllet' },
-  description: 'wAHHllet (HHA Wallet Loyalty): la tarjeta de sellos y recompensas que tus clientes guardan en el teléfono. Planes desde $19.990 al mes + IVA.',
+  description: 'wAHHllet (HHA Wallet Loyalty): tu programa de fidelización en Apple Wallet. Tus clientes se registran con un QR y tu equipo suma sellos desde el celular. Planes desde $19.990 al mes + IVA.',
 }
 
-/* wAHHllet (fundadores, 2026-11-19): nombre comercial de HHA Wallet Loyalty. Planes y datos: Starter (500 clientes activos, 1 sucursal, sin sellos ni
-   recompensas), Business (1.500 clientes, 2 sucursales, con sellos y recompensas) y Pro (desde, 5.000 clientes, 3 o más sucursales, con sellos y
-   recompensas). Montos en src/lib/precios.ts. El anual es 20 % de descuento, pagado por adelantado. */
+/* wAHHllet (fundadores, 2026-11-19): nombre comercial de HHA Wallet Loyalty. Los textos y planes son los de https://wallet.hhiagencia.cl: solo dos planes
+   (Starter wAHHllet y Business Loyalty wAHHllet; Pro está oculto por ahora). Montos en src/lib/precios.ts. El anual es 20 % de descuento, pagado por
+   adelantado (a pedido de los fundadores; la landing de Wallet aún no lo muestra). */
 const DATOS = [
-  { id: 'wallet-starter', name: 'Starter', tagline: 'Para empezar a fidelizar', popular: false, features: [{ text: 'Hasta 500 clientes activos' }, { text: '1 sucursal' }, { text: 'Sin sellos ni recompensas', included: false }] },
-  { id: 'wallet-business', name: 'Business', tagline: 'Con sellos y recompensas', popular: true, features: [{ text: 'Hasta 1.500 clientes activos' }, { text: '2 sucursales' }, { text: 'Sellos y recompensas' }] },
-  { id: 'wallet-pro', name: 'Pro', tagline: 'Para varias sucursales', popular: false, features: [{ text: 'Hasta 5.000 clientes activos' }, { text: '3 o más sucursales' }, { text: 'Sellos y recompensas' }] },
+  {
+    id: 'wallet-starter', name: 'Starter wAHHllet', tagline: 'Para que tus clientes y socios te conozcan.', popular: false,
+    features: [{ text: 'Hasta 500 clientes activos' }, { text: '1 sucursal' }, { text: 'Vives en la wallet de tus clientes y socios' }, { text: 'Sin sellos ni recompensas', included: false }],
+  },
+  {
+    id: 'wallet-business', name: 'Business Loyalty wAHHllet', tagline: 'Fideliza a tus clientes y dales una razón para volver.', popular: false,
+    features: [{ text: 'Hasta 1.500 clientes activos' }, { text: '2 sucursales' }, { text: 'Sellos y premios para tus clientes' }, { text: 'Geomarketing: tu tarjeta aparece en su celular cuando están cerca de tu local' }],
+  },
 ]
 
 export default function WahhlletPage() {
